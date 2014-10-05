@@ -22,7 +22,7 @@ Indien er tijd zit tussen de afronding van het projectplan en de start van het p
 %\\*Wat is de huidige situatie?
 
 \noindent
-The background of this project is to be found in the search for a way to improve Javascript education, whereby distance education is the dominant form. This form should be kept in mind, for it changes the set of educational instruments, being held against a traditional form like classroom education. For example, the amount of interaction between teacher and student and students among each other is no major aspect of distance education. This complicates the possibility to provide accurate feedback. It may be argued this problem transcends distance education, as being a problem of mass education in general. This might be true, and only strengthens the importance of this project, accounting that receiving feedback is a crucial aspect of aquiring certain skills and knowledge. 
+The background of this project is to be found in the search for a way to improve Javascript education, whereby distance education is the dominant form. This form should be kept in mind, for it changes the set of educational instruments, being held against a traditional form like classroom education. For example, the amount of interaction between teacher and student and students among each other is no major aspect of distance education. This complicates the possibility to provide accurate feedback. It may be argued this problem transcends distance education, as being a general problem of mass education in general. This might be true, and only strengthens the importance of this project, accounting that receiving feedback is a crucial aspect of aquiring certain skills and knowledge. 
 \newline
 Learning a programming language like Javascript is not a straightforward process. Programming in general has many facets, there are many different styles and ways to perform this art. Provided with some basic techniques, a few syntax rules and a method for running a written program, it's quite easy for a student to get some feedback, even on the particular written elaborations of exercises: the written code executes (with (un)expected result), or it produces some kind of error. Is this feedback useful? 
 
@@ -31,7 +31,7 @@ Learning a programming language like Javascript is not a straightforward process
 %\\*Hoe ziet de omgeving eruit? Beschrijf deze vanuit het oogpunt van de opdrachtgever.
 
 \noindent
-The course 'Webapplications: The Client Side'<voetnoot> (developed and distributed by the Open University <Voetnoot>) is a good example of how Javascript is being educated at the Open Univerity. A student is provided with some theoretical material, and a set of exercises and corresponing 'proper' solutions. In the current situation, students elaborate a given exercise. To check whether the result is adequate, they can validate it with the provided answer, and/or submit it for review by the professor. Both options have some shortcomings: in programming there are often multiple good solutions for a problem, so it’s not unlikely the elaborated answer is fundamentally different from the provided one. In these cases the provided answer has no value in terms of giving feedback. Submitting the answer for review overcomes this problem, but leads to a time and labor-intensive task for the professor. In order to keep it manageable, the professor scans the submitted answers to select common errors and difficulties, and then provide some feedback on this selection. This requires students to translate this generalization back to their own answer, just like what happens in comparison an specific answer with the provided answer.
+The course 'Webapplications: The Client Side'<voetnoot> (developed and distributed by the Open University <Voetnoot>) is a good example of how Javascript is being educated at the Open Univerity. A student is being provided with some theoretical material, and a set of exercises and corresponing 'proper' solutions. In the current situation, students elaborate a given exercise. To check whether the result is adequate, they can validate it with the provided answer, and/or submit it for review by the professor. Both options have some shortcomings: in programming there are often multiple good solutions for a problem, so it’s not unlikely the elaborated answer is fundamentally different from the provided one. In these cases the provided answer has no value in terms of giving feedback. Submitting the answer for review overcomes this problem, but leads to a time and labor-intensive task for the professor. In order to keep it manageable, the professor scans the submitted answers to select common errors and difficulties, and then provide some feedback on this selection. This requires students to translate this generalization back to their own answer, just like what happens in comparison an specific answer with the provided answer.
 \newline
 Returning to the question whether the feedback gained by executing code is valuable. The description of the current situation does not explicitly answers the question, though the alternative methods to generate feedback suggests that the execution of code is not sufficient. Solving a problem by writing a javascriptprogram is a creative process, with often a multitude of more or less correct solutions. Because of this variation in solutions, running the code does not suffice to ensure a student has written a proper solution. The currently used alternative techniques (provide a proper (one of the often many) solution or manual reviewing by a professor) both have some serious flaws. 
 \newline
@@ -45,8 +45,7 @@ Another subject should be taken in mind as well. The Open University has adopted
 %\\*Welke activiteiten moeten er nog verricht worden om deze documentatie te complementeren?
 
 \noindent
--PHD initiator(Harry Passiers’ PhD might be of good guidance as well (specifically Chapter 1,2 until page 36, figure 2.2(conditions of possibility to provide feedback) ,Epiloque (classification), Page 139 vs Javascript), Research Group ‘Vakdidactiek Informatica (Passier, Stuurman, Pootjes)), especially to get a model for exploring the semantic characteristics of producing solutions in Javascript. )
-\newline-Webapplications: the Client Side course material
+Harry Passier, intiator and primary stakeholder of this project, provided us with some guidance in the form of literature, academic papers and working groups. These might be of use during this project. A significant part of the first parts of the next phase will be used to explore the contents of these artefacts:\newline -Parts of PHD initiator, namely: Chapter 1,2 until page 36, figure 2.2(conditions of possibility to provide feedback) ,Epiloque (classification), Page 139).\newline -Research Group ‘Vakdidactiek Informatica (Passier, Stuurman, Pootjes)), especially to get a model for exploring the semantic characteristics of producing solutions in Javascript. ) \newline -Webapplications: the Client Side course material
 
 \textbf{Hoofdstuk 3: Projectresultaat}
 \\* Ronald
@@ -97,7 +96,9 @@ Another subject should be taken in mind as well. The Open University has adopted
 %\\*Dit hoofdstuk biedt een antwoord op de vragen:
 %\\*Op welke manier wordt het projectresultaat gerealiseerd?
 %\\*In welke fasen wordt het projectresultaat gerealiseerd?
-For realizing this project we will start off with the individual domain research to find out in what direction it would be best to proceed with the project. We will then be able to expand this project plan in more detail. The next phase will be the development of the required software divided in multiple milestones. Alongside the development another research will take place in the form of a consult with a researcher from an area on which we might contribute to one another.
+For realizing this project we will start
+%@Boris: volgens mij is het 'start' of 'kick off'
+ off with the individual domain research to find out in what direction it would be best to proceed with the project. We will then be able to expand this project plan in more detail. The next phase will be the development of the required software divided in multiple milestones. Alongside the development another research will take place in the form of a consult with a researcher from an area on which we might contribute to one another.
 \newline
 
 \noindent
@@ -127,6 +128,7 @@ Find out ways this can be done. What are the possibilities within the javascript
 Checking javascript semantically\\
 What are the fundamental semantical entities that can exist within javascript code? When we have such a set, can we programatically determine of what semantic entities a given piece of javascript code consists. How do we define a correct semantic solution, and compare a given solution with it?\\
 Making use of existing code\\
+%@Boris: Wellicht niet enkel om tijd en moeite te sparen, maar vooral om de focus te kunnen leggen op deelgebieden (bijv semantiek) waarvoor nog geen methode/tool bestaat.
 Find out what tools, libraries and software already exist in this area and in what ways they could be used for this project in order to save time and effort.\\
 
 \noindent
@@ -204,43 +206,75 @@ The domain research is an important first part of this project. It gives us insi
 \textbf{Paragraaf 5.7 Procedures en richtlijnen}
 \\*Welke procedures en richtlijnen binnen en buiten het project zijn nodig om het project te laten slagen?
 \newline
-\newline
 
-Hoofdstuk 6 Projectplanning
-\\*
-\\*Dit hoofdstuk geeft antwoord op de vragen:
-\\*Wanneer wordt het eindresultaat opgeleverd?
-\\*Wanneer worden de tussenresultaten opgeleverd?
-\\*Welke mensen en middelen zijn wanneer nodig?
-\\*Wat zijn de financiële consequenties?
+\textbf{6. Projectplanning}
 \newline
-
-\noindent
-\textbf{Paragraaf 6.1 Normen en aannames}
-\\*Welke normen, bijvoorbeeld wat betreft het ziektepercentage, worden gehanteerd bij de planning?
-\newline
+%\\*
+%\\*Dit hoofdstuk geeft antwoord op de vragen:
+%\\*Wanneer wordt het eindresultaat opgeleverd?
+%\\*Wanneer worden de tussenresultaten opgeleverd?
+%\\*Welke mensen en middelen zijn wanneer nodig?
+%\\*Wat zijn de financiële consequenties?
+Our planning is based on the predescribed workload for the project (400 hours for each projectmember: 1200 hours total), and a weekly investment of 15 hours a week by each person. To make a realistic planning, at first we will try to adhere to the given workload for each phase.  Though, in order to maintain a pragmatic approach, there are some predefined moments for reconsidering the planning, in case the project requires us to make alternations in the planning. The next phases, Domain Research and the Consult, will clarify the specific activities for the remainder of the project. Therefore, these phases are planned in a specific manner, while the subsequent phases (Development and Finishing essay) are more loosely defined until the contents have become clear. Thus, as with many aspects of this project, the planning develops iteratively (a Rational Unified Process approach). Still, the deadlines of the milestone-products are fixed, to ensure completion within the scheduled time.
 
 \noindent
-\textbf{Paragraaf 6.2 Activiteitenplanning}
-\\*Hoeveel tijd kost het om de activiteiten, zoals ze beschreven staan bij de projectfasering, uit te voeren?
-\\*Wat zijn de afhankelijkheden tussen de activiteiten?
+\textbf{6.1 Norms and Assumptions}
+%\\*Welke normen, bijvoorbeeld wat betreft het ziektepercentage, worden gehanteerd bij de planning?
 \newline
+As recommended, we will initially assume an effectiveness of 80\%. This means there is a 20\% margin for fall outs like sickness, personal circumstances etc. . Week 52 of 2014 and the first week of 2015 are not scheduled (holidays). 
+
 
 \noindent
-\textbf{Paragraaf 6.3 Capaciteitsplanning}
-\\*Welk verband is er tussen de tijd en de doorlooptijd van de activiteiten?
-\\*Wie gaat welke activiteiten uitvoeren?
-\\*Welke personen zijn er vanaf welke datum nodig binnen het project en wanneer kunnen zij uitstromen?
-\\*Welke materialen en welk materieel zijn wanneer nodig?
+\textbf{6.2 Activities}
 \newline
-
-\noindent
-\textbf{Paragraaf 6.4 Mijlpalenplanning}
-\\*Op welke data worden de mijlpalen bereikt?
+%\\*Hoeveel tijd kost het om de activiteiten, zoals ze beschreven staan bij de projectfasering, uit te voeren?
+%\\*Wat zijn de afhankelijkheden tussen de activiteiten?
+\begin{tabular}{| p{3cm} | c | p{3.5 cm} | p{3.5 cm} | r | }
+  \hline
+  Phases: & Scheduled: & Activities: & Milestone document: & Deadline \\ \hline
+  Domain \& Techniques & sept - oct & 1. General Research \newline 2. Individual Research \newline 3. Writing papers \newline 4. Discuss results  & Individual Paper & 03-11-2014  \\ \hline
+  Research context & oct - dec & 1. Research \newline 2. Consult plan \newline 3. Consult \newline 4. Write paper & Paper &  15-12-2014 \\ \hline
+  Design \& Implementation & nov-mar & Rational Unified Process artefacts & Working Beta for each iteration &  01-04-2015\\ \hline
+  Documentation & nov-mar & 1. Developing Thesis \newline 2. Documentation not covered by RUP & Documentation up to date at deadline of each iteration &  01-04-2015\\ \hline
+  Finishing Thesis \& Presentation & apr & 1. Examination thesis \newline 2. Presentation artefacts \newline 3. Presentation & Final Thesis & 01-05-2015 \\ \hline
+  \hline
+ \end{tabular}
 \newline
+\newline
+\textbf{6.3 Iterative approach}
+\newline
+The parallel phases 'Design \& Implementation' and 'Documentation' will be completed iteratively, according to the Design and Implementation phases of the Rational Unified Process (and, depending on the result (prototype or product) testing and deployment as well). The preliminary schedule for each iteration is as follows (the specific activities will depend on decissions to made during the next phase, i.e. building a prototype or product):
 
+\begin{tabular}{ c | c || c  }
+  \hline			
+  Iteration & Period & Deadline \\ \hline \hline
+  1 & nov-dec & 15-12-2014 \\ \hline
+  2 & dec-jan & 26-01-2014 \\ \hline
+  3 & jan-feb & 26-02-2014 \\ \hline
+  4 & feb-mar & 26-03-2014 \\ \hline
+  \hline  
+\end{tabular}
 \noindent
-\textbf{Paragraaf 6.5 Financiële planning}
-\\*Wat zijn de kosten van het project?
+\newline
+\newline
+At the end of each iteration there should be a functioning beta version, whereby each iteration results in added functionality/features.
+\newline
+\newline
+\textbf{6.4 Evaluate project planning }
+\newline
+In order to keep the progress manageable, the following planning activities are scheduled, to ensure enduring focus and facilitate possible alterations to the planning. Missing specifics can be added as well during these activities. These activities will be added to the agenda of the regular meetings:
+
+\begin{tabular}{ l | p{3 cm} }
+  \hline			
+  Activity & Scheduled \\ \hline \hline
+  Specify iteration activities (see 6.3) & 03-11-2014 \\ \hline
+  Scheduling contact moments stakeholders &  27-10-2014 \newline 17-11-2014 \newline 15-12-2014 \newline 26-01-2015 \\ \hline
+  Evaluate progress towards final product & 01-12-2014 \newline 12-01-2015 \\ \hline
+  Evaluate meeting schedule for the remainder of the project &  19-01-2015 \\ \hline
+  \hline  
+\end{tabular}
+
+
+
 \end{document}
 
