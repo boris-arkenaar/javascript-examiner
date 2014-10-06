@@ -18,14 +18,8 @@
 %\\*Wanneer denkt men te starten met de uitvoering van het project?
 %\\*Indien er tijd zit tussen de afronding van het projectplan en de start van het project, wat wordt er in de tussentijd gedaan?
 
-In chapter 2 we explain that background of this project is to be found in the search for a way to improve Javascript education. We see a good example of how Javascript is being educated at the OU.
-
-3 states that the objective of the project is to create a Program to automatically check programcode constructed of Javascript and HTML.
-Where the ultimate goal is to provide automatic feedback to Javascript code that uses an User Interface
-
-In 4 we explain that for realizing this project we will start off with the individual domain research to find out in what direction it would be best to proceed with the project.
-
-Chapter 5 explains the structure of the project and the stakeholders.
+In chapter 2 we explain the background of this project is to be found in the search for a way to improve Javascript education. We see a good example of how Javascript is being educated at the OU.Chapter 3 states that the objective of the project is to create a Program to automatically check programcode constructed of Javascript and HTML.
+Where the ultimate goal is to provide automatic feedback to Javascript code that uses an User Interface. In Chapter 4 we explain that for realizing this project we will start off with the individual domain research to find out in what direction it would be best to proceed with the project. Chapter 5 explains the structure of the project and the stakeholders.
 
 \section{Initial Situation}
 %\\*Bram
@@ -35,7 +29,7 @@ Chapter 5 explains the structure of the project and the stakeholders.
 
 The background of this project is to be found in the search for a way to improve Javascript education, whereby distance education is the dominant form. This form should be kept in mind, for it changes the set of educational instruments, being held against a traditional form like classroom education. For example, the amount of interaction between teacher and student and students among each other is no major aspect of distance education. This complicates the possibility to provide accurate feedback. It may be argued this problem transcends distance education, as being a general problem of mass education in general. This might be true, and only strengthens the importance of this project, accounting that receiving feedback is a crucial aspect of aquiring certain skills and knowledge. 
 
-Learning a programming language like Javascript is not a straightforward process. Programming in general has many facets, there are many different styles and ways to perform this art. Provided with some basic techniques, a few syntax rules and a method for running a written program, it's quite easy for a student to get some feedback, even on the particular written elaborations of exercises: the written code executes (with (un)expected result), or it produces some kind of error. Is this feedback useful? 
+Learning a programming language like Javascript is not a straightforward process. Programming in general has many facets, there are many different styles and ways to perform this art. Provided with some basic techniques, a few syntax rules and a method for running a written program, it's quite easy for a student to get some feedback, even on the particular written elaborations of exercises: the written code executes (with (un)expected result), or it produces some kind of error. Is this kind feedback useful? Is it sufficient? 
 
 \subsection{Feedback in the current situation}
 %\\*Welke problemen en oorzaken zijn de aanleiding geweest tot de wens om te veranderen?
@@ -43,9 +37,9 @@ Learning a programming language like Javascript is not a straightforward process
 
 The course 'Webapplications: The Client Side'\footnote{http://www.ou.nl/studieaanbod/T58221} (developed and distributed by the Open University <Voetnoot>) is a good example of how Javascript is being educated at the Open Univerity. A student is being provided with some theoretical material, and a set of exercises and corresponing 'proper' solutions. In the current situation, students elaborate a given exercise. To check whether the result is adequate, they can validate it with the provided answer, and/or submit it for review by the professor. Both options have some shortcomings: in programming there are often multiple good solutions for a problem, so it’s not unlikely the elaborated answer is fundamentally different from the provided one. In these cases the provided answer has no value in terms of giving feedback. Submitting the answer for review overcomes this problem, but leads to a time and labor-intensive task for the professor. In order to keep it manageable, the professor scans the submitted answers to select common errors and difficulties, and then provide some feedback on this selection. This requires students to translate this generalization back to their own answer, just like what happens in comparison an specific answer with the provided answer.
 
-Returning to the question whether the feedback gained by executing code is valuable. The description of the current situation does not explicitly answers the question, though the alternative methods to generate feedback suggests that the execution of code is not sufficient. Solving a problem by writing a javascriptprogram is a creative process, with often a multitude of more or less correct solutions. Because of this variation in solutions, running the code does not suffice to ensure a student has written a proper solution. The currently used alternative techniques (provide a proper (one of the often many) solution or manual reviewing by a professor) both have some serious flaws. 
+Returning to the question whether the feedback gained by executing code is valuable. The description of the current situation does not explicitly answers the question, though the alternative methods to generate feedback suggests that the execution of code is not sufficient. Solving a problem by writing a Javascript program is a creative process, with often a multitude of more or less correct solutions. Because of this variation in solutions, just succesfully terminating the code does not suffice to ensure a student has written a proper solution. The currently used alternative techniques (provide a proper (one of the often many) solution or manual reviewing by a professor) both have some serious flaws. 
 
-Another subject should be taken in mind as well. The Open University has adopted an educational model that goes by the name of Activation Education. An important aspect in this model is learning by doing, where the student is encouraged to take the freedom of using the own creativity and decisiveness in order to solve a problem. This stresses the use of 'proper' solutions, in the sense working towards that specific solution will not contribute to the intended education style. Reviewing solutions for problems that encourages creativity and decisiveness are likely harder to interpret and compare in a search for common errors, resulting in an even bigger workload for the professor. 
+Another subject should be taken in mind as well. The Open University has adopted an educational model that goes by the name of Activation Education. An important aspect in this model is learning by doing, where the student is encouraged to take the freedom of using the own creativity and decisiveness in order to solve a problem. This stresses the use of 'proper' solutions, in the sense working towards that specific solution will not contribute to the intended education style. Reviewing solutions for problems that encourages creativity and decisiveness are likely harder to interpret and compare in a search for common errors, resulting in an even bigger workload for the professor. This should be kept in mind when developing. Even if its a bridge too far to realize support for these kind of problems within this project, it might be useful to create a foundation that's able to serve for this purpose in a later stage.
 
 \subsection{Initial Documentation}
 %\\*Welke documentatie ligt ten grondslag aan het project?
@@ -69,18 +63,22 @@ Harry Passier, intiator and primary stakeholder of this project, provided us wit
 %\\*Wat is het achterliggende doel van de opdrachtgever?
 %\\*Wat is de koppeling tussen bedrijfsprocessen en de omgeving, gezien door de bril van de opdrachtgever?
 
-The objective of the project is to create a Program to automatically check programcode constructed of Javascript and HTML. This to reduce the amount of time spent by the Professors to correct the solutions to exercises and giving useful and constructive feedback to enhance value to the student. 
-This will result in the Professor having more time to teach. 
+The objective of the project is to create a Program to automatically check programcode constructed of Javascript and HTML. This to reduce the amount of time spent by the Professors to correct the solutions to exercises and giving useful and constructive feedback to enhance didactical value in general, and Javascript knowlegde and skills in particular, to the student. The program should be developed in such a way it's can be easily extended, modified and reused. 
 
 \subsection{Result}
 %\\*Wat is aan het einde van het project het concrete resultaat?
 
-The ultimate goal is to provide automatic feedback to Javascript code that uses an User Interface, but the first step is to give automatic feedback to stand-alone Javascript.
+The goal is to provide a functioning program that is able to examine and generate feedback on Javascript code. The examination will be based on:
+
+\begin{itemize}
+  \item Input from the Professor, namely an information set containing all required information of a specific problem/excersise
+  \item Input from the Student, namely the solution for the specific problem/excersise
+\end{itemize}
 
 \subsection{Quality}
 %\\*Wat zijn de kwaliteitseisen die gesteld worden aan het eindresultaat?
 
-The quality requirements of the result are of the least priority. There should be at least a possibility to upload solutions to the questions, and there should be given a feedback to the student. The most important thing is that there is a working program. If there is time, the user input and given feedback can be extended and enhanced.
+The specific quality requirements are to be specified at the start of the development, based on the developmental and architectual decisions. In general, the primary aim is to create a well designed and properly functioning program, even if this leads to a limited set of features and functions. Quality over quantity is a important motto for the project.
 
 \subsection{Assignment}
 %\\*Wat is de projectopdracht in precieze bewoordingen?
@@ -99,8 +97,6 @@ The included tasks are :
   \item Implementing a Program
   \item Literature study
 \end{itemize}
-
-There is a time constraint. The amount of time that can be spent on the project is 8 months by 3 students, where each students spends about 400 hours.
 
 The projectowner is Dr. ir. Harrie Passier\\
 He will contribute by giving feedback, asking constructive questions, make go/no-go decissions and checking the work allready done.
@@ -134,7 +130,7 @@ There are several risks that can be:
 \subsection{Successfactors}
 %\\*Wat zijn de succesfactoren die de opdrachtgever onderkend heeft?
 
-The project will be a success if there is a working Program on wich other students can expand, without having it to build it from scratch again.
+The project will be a success if there is a properly working, well designed and extendible Program, that can be used to support the education of Javascript. Additionally, and supposedly an even greater part of the success is to be found in the way this project contributes to the research of providing feedback, education or other related (scientific) projects.
 
 \section{Project phases}
 
@@ -143,7 +139,7 @@ The project will be a success if there is a working Program on wich other studen
 %\\*Op welke manier wordt het projectresultaat gerealiseerd?
 %\\*In welke fasen wordt het projectresultaat gerealiseerd?
 
-For realizing this project we will start with the individual domain research to find out in what direction it would be best to proceed with the project. We will then be able to expand this project plan in more detail. The next phase will be the development of the required software divided in multiple milestones. Alongside the development another research will take place in the form of a consult with a researcher from an area on which we might contribute to one another.
+For realizing this project we will start with the individual domain research to find out in what direction it would be best to proceed with the project. We will then be able to expand this project plan in more detail. The next phase will be the development of the required software divided in multiple milestones. Alongside the initiation of the development phase another research form will take place, namely a consult with a researcher from an area on which we might contribute to one another.
 
 \subsection{Introduction}
 
@@ -163,6 +159,8 @@ Phases:
   \item Domain research
   \item Consult researcher from an active research
   \item Development
+  \item Documentation
+  \item Thesis and Presentation
 \end{itemize}
 
 %Hoe ziet de resultatenmatrix eruit?\\
@@ -261,7 +259,7 @@ To achieve the project goal the formal communication on the milestones and a con
 \subsection{Facilities and support}
 %\\*Welke faciliteiten en hulpmiddelen zijn er nodig om het project te realiseren?
 
-Subversion or GIT server.
+GIT server.
 
 \subsection{Procedures en guidelines}
 Welke procedures en richtlijnen binnen en buiten het project zijn nodig om het project te laten slagen?
