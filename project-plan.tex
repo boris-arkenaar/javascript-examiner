@@ -20,7 +20,7 @@
 
 In chapter 2 we explain that background of this project is to be found in the search for a way to improve Javascript education. We see a good example of how Javascript is being educated at the OU.
 
-3 states that the objective of the project is to create a prototype to automatically check programcode constructed of Javascript and HTML.
+3 states that the objective of the project is to create a Program to automatically check programcode constructed of Javascript and HTML.
 Where the ultimate goal is to provide automatic feedback to Javascript code that uses an User Interface
 
 In 4 we explain that for realizing this project we will start off with the individual domain research to find out in what direction it would be best to proceed with the project.
@@ -41,7 +41,7 @@ Learning a programming language like Javascript is not a straightforward process
 %\\*Welke problemen en oorzaken zijn de aanleiding geweest tot de wens om te veranderen?
 %\\*Hoe ziet de omgeving eruit? Beschrijf deze vanuit het oogpunt van de opdrachtgever.
 
-The course 'Webapplications: The Client Side'<voetnoot> (developed and distributed by the Open University <Voetnoot>) is a good example of how Javascript is being educated at the Open Univerity. A student is being provided with some theoretical material, and a set of exercises and corresponing 'proper' solutions. In the current situation, students elaborate a given exercise. To check whether the result is adequate, they can validate it with the provided answer, and/or submit it for review by the professor. Both options have some shortcomings: in programming there are often multiple good solutions for a problem, so it’s not unlikely the elaborated answer is fundamentally different from the provided one. In these cases the provided answer has no value in terms of giving feedback. Submitting the answer for review overcomes this problem, but leads to a time and labor-intensive task for the professor. In order to keep it manageable, the professor scans the submitted answers to select common errors and difficulties, and then provide some feedback on this selection. This requires students to translate this generalization back to their own answer, just like what happens in comparison an specific answer with the provided answer.
+The course 'Webapplications: The Client Side'\footnote{http://www.ou.nl/studieaanbod/T58221} (developed and distributed by the Open University <Voetnoot>) is a good example of how Javascript is being educated at the Open Univerity. A student is being provided with some theoretical material, and a set of exercises and corresponing 'proper' solutions. In the current situation, students elaborate a given exercise. To check whether the result is adequate, they can validate it with the provided answer, and/or submit it for review by the professor. Both options have some shortcomings: in programming there are often multiple good solutions for a problem, so it’s not unlikely the elaborated answer is fundamentally different from the provided one. In these cases the provided answer has no value in terms of giving feedback. Submitting the answer for review overcomes this problem, but leads to a time and labor-intensive task for the professor. In order to keep it manageable, the professor scans the submitted answers to select common errors and difficulties, and then provide some feedback on this selection. This requires students to translate this generalization back to their own answer, just like what happens in comparison an specific answer with the provided answer.
 
 Returning to the question whether the feedback gained by executing code is valuable. The description of the current situation does not explicitly answers the question, though the alternative methods to generate feedback suggests that the execution of code is not sufficient. Solving a problem by writing a javascriptprogram is a creative process, with often a multitude of more or less correct solutions. Because of this variation in solutions, running the code does not suffice to ensure a student has written a proper solution. The currently used alternative techniques (provide a proper (one of the often many) solution or manual reviewing by a professor) both have some serious flaws. 
 
@@ -69,7 +69,7 @@ Harry Passier, intiator and primary stakeholder of this project, provided us wit
 %\\*Wat is het achterliggende doel van de opdrachtgever?
 %\\*Wat is de koppeling tussen bedrijfsprocessen en de omgeving, gezien door de bril van de opdrachtgever?
 
-The objective of the project is to create a prototype to automatically check programcode constructed of Javascript and HTML. This to reduce the amount of time spent by the Professors to correct the solutions to exercises and giving useful and constructive feedback to enhance value to the student. 
+The objective of the project is to create a Program to automatically check programcode constructed of Javascript and HTML. This to reduce the amount of time spent by the Professors to correct the solutions to exercises and giving useful and constructive feedback to enhance value to the student. 
 This will result in the Professor having more time to teach. 
 
 \subsection{Result}
@@ -88,15 +88,15 @@ The quality requirements of the result are of the least priority. There should b
 %\\*Wat zijn de eisen en beperkingen die de opdrachtgever stelt aan tijd, geld, mensen of middelen?
 %\\*Wie is de opdrachtgever en wat zal hij bijdragen aan het realiseren van de opdracht?
 
-The projectassignment : "Realiseer een prototype voor het automatisch nakijken van Javascript en HTML."
+The projectassignment : "Realiseer een Program voor het automatisch nakijken van Javascript en HTML."
 
 The included tasks are :
 \begin{itemize}
   \item Analyse a usercontext
   \item Architecture of a (technical) solution
-  \item Designing a prototype
-  \item Building a prototype
-  \item Implementing a prototype
+  \item Designing a Program
+  \item Building a Program
+  \item Implementing a Program
   \item Literature study
 \end{itemize}
 
@@ -114,18 +114,16 @@ There are several risks that can be:
 \begin{itemize}
   \item A student quits
   \item There is no literature
-  \item There is no computer to build a prototype
-  \item There is no platform to implement the prototype
-  \item There is not enough time to build a prototype
+  \item There is no platform to implement the Program
+  \item There is not enough time to build a Program
   \item There is no feedback from the project owner
   \item There are several versions of documentation
   \item There is no communication between students
 \end{itemize}
 
-To handle these risks:
+\noindent To handle these risks:
 \begin{itemize}
   \item Expand the domain
-  \item Borrow one, use a friends one, ask the projectowner
   \item Let the projectowner supply a platform
   \item Start early with  a very small version and expand this along the way
   \item Alert the mentor
@@ -136,7 +134,7 @@ To handle these risks:
 \subsection{Successfactors}
 %\\*Wat zijn de succesfactoren die de opdrachtgever onderkend heeft?
 
-The project will be a success if there is a working prototype on wich other students can expand, without having it to build it from scratch again.
+The project will be a success if there is a working Program on wich other students can expand, without having it to build it from scratch again.
 
 \section{Project phases}
 
@@ -173,18 +171,17 @@ Phases:
 %\\*Welke activiteiten in welke fasen zijn hier nodig?
 %\\*Wat zijn de tussenresultaten die deze activiteiten opleveren?
 
-\subsubsection{Checking javascript syntactically and functionally}
-Find out ways this can be done. What are the possibilities within the javascript syntax? How can we check if a given piece of code adheres to that syntax?
+\subsubsection{Feedback and didactical aspects}
+To get insight in possible ways to create a program that produces useful feedback and adds value to the didactical aspects of Javascript education, a study will be performed from an pedagogical aspect. Several educational platforms with a aim to programming in general or Javascript in particular will be studied. These approaches will be held against relevant studies about feedback and didactics (the PhD of the initiator might be a good use here).
 \subsubsection{Checking javascript semantically}
-What are the fundamental semantical entities that can exist within javascript code? When we have such a set, can we programatically determine of what semantic entities a given piece of javascript code consists. How do we define a correct semantic solution, and compare a given solution with it?
-\subsubsection{Making use of existing code}
-%@Boris: Wellicht niet enkel om tijd en moeite te sparen, maar vooral om de focus te kunnen leggen op deelgebieden (bijv semantiek) waarvoor nog geen methode/tool bestaat.
-Find out what tools, libraries and software already exist in this area and in what ways they could be used for this project in order to make good progress with the project and be able to focus on aspects like semantics checking.
+What are the fundamental semantical entities that can exist within javascript code? When we have such a set, can we programatically determine of what semantic entities a given piece of Javascript code consists. How do we define a correct semantic solution, and compare a given solution with it? And in a more broad sense, are there scientific models available to review programming language from a semantical point of view.
+\subsubsection{Technical aspects of similar tools and possibilites for reuse}
+Find out what related tools, libraries and software already exist in this area and in what ways they could be re-used for this project. Starting with a general overview of the aspects (programming language source code, licencing, interfaces etc.) of these software units, the most interesting ones can be selected and more closely evaluated to determine whether it's possible to use, combine and or distribute them. The results from this study provides information in which programming language(s) and architecture should be used for the realization of the program.
 
 \subsection{Consult researcher from an active research}
 %\\*Welke activiteiten in welke fase zijn hier nodig?
 %\\*Wat zijn de tussenresultaten die deze activiteiten opleveren?
-We will have to determine which researcher we want to consult with and on what kind of research. After we have done the domain research and have expanded the planning further we can also think about the details of this consult. Then we can specify on what focus areas this consult has some influence.\\
+We will have to determine which researcher we want to consult with and on what kind of research. After we have done the domain research and have expanded the planning further we can also think about the details of this consult. Then we can specify on what focus areas this consult has some influence. For example, if the technical domain (for this particular kind of program) raises important questions, it might be useful to consult someone with knowlegde in this particular area, like the 'IDEAS vakgroep'.\footnote{http://ideas.cs.uu.nl/}\\
 
 \subsection{Development}
 %\\*Welke activiteiten in welke fase zijn hier nodig?
@@ -201,7 +198,6 @@ We will include libraries into our software where the domain research has pointe
 Further into the development process we will build an interface into which a teacher has the ability to define assignments.
 \subsubsection{Building a front-end for submitting code}
 After the first working version we will also develop a front-end at which a student can submit an exercise and receive feedback from the software about the javascript code.
-
 \subsection{Dependencies}
 %\\*Zijn er tussen de verschillende activiteiten relevante afhankelijkheden en zo ja, welke?
 The domain research is an important first part of this project. It gives us insight into the further direction of this project and is therefore mandatory for a successful completion of the other activities.
@@ -230,12 +226,21 @@ If there is a good foundation, which will be built in this project, the possibil
 
 Responsibilities:
 \begin{itemize}
-  \item Bram - 
-  \item Boris - 
-  \item Ronald - 
+  \item Bram: 
+	\begin{itemize}
+	\item Domain research: Feedback and didactical aspects of currently available Javascript examination tools. (chapter 4.2.1)
+	\end{itemize}
+  \item Boris:
+	\begin{itemize}
+	\item Domain research: Semantics and Javascript: oppertunities and bounderies for automatic semantical examination and feedback (chapter 4.2.2)
+	\end{itemize}
+  \item Ronald:
+	\begin{itemize}
+	\item Domain research: Technical aspects and reuse options of currently available Javascript check tools and api's. (chapter 4.2.3)
+	\end{itemize}
 \end{itemize}
 
-We do not have a special project manager, but are alternating the tasks.
+We do not have a project manager or specific roles within the project, but rotate tasks in an adhoc and pragmatic way.
 
 \subsection{Conditions to project owner}
 %\\*Wat zijn de voorwaarden die de opdrachtgever dient te realiseren?
@@ -289,7 +294,7 @@ As recommended, we will initially assume an effectiveness of 80\%. This means th
  \end{tabular}
 
 \subsection{Iterative approach}
-The parallel phases 'Design \& Implementation' and 'Documentation' will be completed iteratively, according to the Design and Implementation phases of the Rational Unified Process (and, depending on the result (prototype or product) testing and deployment as well). The preliminary schedule for each iteration is as follows (the specific activities will depend on decissions to made during the next phase, i.e. building a prototype or product):
+The parallel phases 'Design \& Implementation' and 'Documentation' will be completed iteratively, according to the Design and Implementation phases of the Rational Unified Process (and, depending on the result (Program or product) testing and deployment as well). The preliminary schedule for each iteration is as follows (the specific activities will depend on decissions to made during the next phase, i.e. building a Program or product):
 
 \begin{tabular}{ c | c || c  }
   \hline			
