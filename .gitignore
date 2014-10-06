@@ -3,5 +3,5 @@
 *.aux
 *.fls
 *.fdb_latexmk
-*.synctex.gz
+*.synctex.gz*
 *.el
