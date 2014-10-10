@@ -52,7 +52,7 @@ Harry Passier, initiator and primary stakeholder of this project, provided us wi
 \begin{itemize}
   \item Parts of PHD initiator, namely: Chapter 1,2 until page 36, figure 2.2(conditions of possibility to provide feedback) ,Epiloque (classification), Page 139).
   \item Research Group {\em Vakdidactiek Informatica} (Passier, Stuurman, Pootjes), especially to get a model for exploring the semantic characteristics of producing solutions in Javascript.
-  \item {\em Ideas} (Bastiaan Heeren, Alex Gerdes).
+  \item {\em Ideas}\footnote{http://ideas.cs.uu.nl/} (Bastiaan Heeren, Alex Gerdes).
   \item {\em Web applications: the Client Side}, course material of the course of the {\em Open University}.
 \end{itemize}
 
@@ -90,9 +90,8 @@ The specific quality requirements are to be specified at the start of the develo
 %\\*Wat zijn de eisen en beperkingen die de opdrachtgever stelt aan tijd, geld, mensen of middelen?
 %\\*Wie is de opdrachtgever en wat zal hij bijdragen aan het realiseren van de opdracht?
 
-The project assignment: "Realiseer een Program voor het automatisch nakijken van Javascript en HTML."
+The project assignment: "Realiseer een programma voor het automatisch nakijken van Javascript en HTML." The included tasks are (in no particular order):
 
-The included tasks are (in no particular order):
 \begin{itemize}
   \item Analyze a user context
   \item Architecture of a (technical) solution
@@ -102,39 +101,24 @@ The included tasks are (in no particular order):
   \item Literature study
 \end{itemize}
 
-The projectowner is Dr. ir. Harrie Passier. He will contribute by giving feedback, asking constructive questions, make go/no-go decissions and checking the work allready done. There is a time constraint. The amount of time that can be spent on the project is 8 months by 3 students, where each students spends about 400 hours. 
+The project owner is Dr. ir. Harrie Passier. He will contribute by giving feedback, asking constructive questions, make go/no-go decissions and checking the work allready done. There is a time constraint. The amount of time that can be spent on the project is 8 months by 3 students, where each students spends about 400 hours. 
 
 \subsection{Risk factors}
 %\\*Welke risico's zijn er bij het behalen van het gewenste resultaat?
 %\\*Welke zijn het belangrijkste en hebben de hoogste prioriteit, en welke een lagere?
 %\\*Welke maatregelen worden er genomen?
 
-There are several risks that can be:
-\begin{itemize}
-  \item A student quits.
-    \begin{itemize}
-      \item Modify the project planning and milestones to reduce functionality that will be included in the Javascript examiner. This way the remaining students can keep on working and deliver a working product, albeit with less functionality.
-    \end{itemize}
-  \item There is not enough time to create a working version of the Javascript examiner.
-    \begin{itemize}
-      \item We will have to reduce the functionality planed for the Javascript examiner in order to be able to deliver a working version within the time we have.
-    \end{itemize}
-  \item There is no feedback from the project owner.
-    \begin{itemize}
-      \item We will contact the project owner and our mentor in order to work out a solution to this problem.
-    \end{itemize}
-  % What does this point mean?
-  \item There are several versions of documentation.
-  \item There is no communication between students.
-    \begin{itemize}
-      \item We will have to try and find a solution to keep in contact.
-      \item One of the students can contact our mentor to try and find a solution to the problem.
-    \end{itemize}
-  \item No platform is available to run the Javascript examiner.
-    \begin{itemize}
-      \item Run the Javascript examiner on a local laptop of one of the students and make an appointment with the project owner on location to show him the current version of the Javascript examiner.
-    \end{itemize}
-\end{itemize}
+There are several risks that could jeopardize a successful result of this project. The most important risks, and how they can be handled best, are listed below.
+
+\begin{description}
+  \item[A student quits] Modify the project planning and milestones to reduce functionality that will be included in the Javascript examiner. This way the remaining students can keep on working and deliver a working product, albeit with less functionality.
+  \item[There is not enough time to create a working version] We will have to reduce the functionality planed for the Javascript examiner in order to be able to deliver a working version within the time we have.
+  \item[There is no feedback from the project owner] We will contact the project owner and our mentor in order to work out a solution to this problem.
+  % TODO: What does this point mean?
+  \item[There are several versions of documentation]
+  \item[There is no communication between students] We will have to try and find a solution to keep in contact. One of the students can contact our mentor to try and find a solution to the problem.
+  \item[No platform is available to run the Javascript examiner] Run the Javascript examiner on a local laptop of one of the students and make an appointment with the project owner on location to show him the current version of the Javascript examiner.
+\end{description}
 
 \subsection{Success factors}
 %\\*Wat zijn de succesfactoren die de opdrachtgever onderkend heeft?
@@ -156,16 +140,18 @@ For realizing this project we will start with the individual domain research to 
 
 %Welke aandachtsgebieden en welke fasen worden gebruikt?\\
 
-Focus areas:
-\begin{itemize}
-  \item Checking Javascript syntactically and functionally. This means is the Javascript code correct Javascript (syntax)? And does executing the Javascript code result in the correct output (functionality)?
-  \item Checking Javascript semantically. This has a broader meaning, trying to determine the quality of Javascript code (that is syntactically and functionally correct).
-  \item Making use of existing software and libraries. Are there libraries we can use in our project? And maybe there are already complete software systems we can use as a basis for our project?
-  \item Building a system for managing assignments. An administration layer for the professor to create assignments for the students.
-  \item Building a front-end for submitting code. A layer for students to be able to submit their Javascript code for an assignment and retrieve feedback.
-\end{itemize}
+The project will be divided into areas of focus and phases of execution. In each phase one or more areas of focus will get attention. An area of focus can get attention in more than one phase and the amount of attention can vary from one phase to the next. The areas of focus are listed below.
 
-Project phases:
+\begin{description}
+  \item[Checking Javascript syntactically and functionally] This means is the Javascript code correct Javascript (syntax)? And does executing the Javascript code result in the correct output (functionality)?
+  \item[Checking Javascript semantically] This has a broader meaning, trying to determine the quality of Javascript code (that is syntactically and functionally correct).
+  \item[Making use of existing software and libraries] Are there libraries we can use in our project? And maybe there are already complete software systems we can use as a basis for our project?
+  \item[Building a system for managing assignments] An administration layer for the professor to create assignments for the students.
+  \item[Building a front-end for submitting code] A layer for students to be able to submit their Javascript code for an assignment and retrieve feedback.
+\end{description}
+
+The phases into which the execution of the project will be divided are listed below.
+
 \begin{itemize}
   \item Domain research
   \item Consult researcher from an active research
@@ -193,7 +179,7 @@ The results from this study provides information in which programming language(s
 \subsection{Consult researcher from an active research}
 %\\*Welke activiteiten in welke fase zijn hier nodig?
 %\\*Wat zijn de tussenresultaten die deze activiteiten opleveren?
-We will have to determine which researcher we want to consult with and on what kind of research. After we have done the domain research and have expanded the planning further we can also think about the details of this consult. Then we can specify on what focus areas this consult has some influence. For example, if the technical domain (for this particular kind of program) raises important questions, it might be useful to consult someone with knowledge in this particular area, like the 'IDEAS vakgroep'.\footnote{http://ideas.cs.uu.nl/}\\
+We will have to determine which researcher we want to consult with and on what kind of research. After we have done the domain research and have expanded the planning further we can also think about the details of this consult. Then we can specify on what focus areas this consult has some influence. For example, if the technical domain (for this particular kind of program) raises important questions, it might be useful to consult someone with knowledge in this particular area, like the {\em Ideas}\footnote{http://ideas.cs.uu.nl/} group.
 
 \subsection{Development}
 %\\*Welke activiteiten in welke fase zijn hier nodig?
@@ -230,15 +216,15 @@ If there is a good foundation, which will be built in this project, the possibil
 %\\*Wat zijn de profielschetsen?
 %\\*Wat is het organogram en/of het verantwoordelijkheidsschema?
 
+Everyone with input in this project is listed below, along with their function.
 \begin{itemize}
-  \item dr.ir. H.J.M. (Harrie) Passier - projectowner
-  \item Bram Nieuwenhuize - projectmember
-  \item Boris Arkenaar - projectmember
-  \item Ronald Kluft - projectmember
+  \item dr.ir. H.J.M. (Harrie) Passier - project owner
+  \item Bram Nieuwenhuize - project member
+  \item Boris Arkenaar - project member
+  \item Ronald Kluft - project member
   \item drs. A.M.I. (Annemiek) Herrewijn-van de Zande - mentor
 \end{itemize}
-
-Responsibilities:
+The responsibilities of each team member is explained in further detail
 \begin{itemize}
   \item Bram: 
     \begin{itemize}
@@ -282,7 +268,7 @@ GIT server.
 The following procedures are being followed:
 \begin{description}
   \item[RUP] we are using the Rational Unified Process as our means of development. For us this is the most flexible way to achieve our goals, in a structured way. We have chosen it in favor of XP and Scrum, because XP generates almost no documentation, but documentation is important for feedback to the project owner and mentor. And the downside of Scrum is that there is too much communication (time), which we can use more effectively.
-  \item[Communication] to gain the most result, there is a weekly contact, one week face-to-face and the other via Skype.If there is a need for contact in between, we send each other an email.\\
+  \item[Communication] to gain the most result, there is a weekly contact, one week face-to-face and the other via Skype. If there is a need for contact in between, we send each other an email.\\
 Communication with the project owner and the mentor is email or Skype whichever is the most appropriate.
   \item[LaTeX] All the official documents we produce are being written in LaTex. This is widely used in the academic community, and produces structured and accessible documents.
   \item[GIT] While sending documents forth and back leads to versioning errors, we use GIT (specifically GitHub) as a versioning system.
