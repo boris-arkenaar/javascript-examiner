@@ -229,48 +229,68 @@ education or other related (scientific) projects.
 % Boris 
 % Dit hoofdstuk biedt een antwoord op de vragen: 
 % Op welke manier wordt het projectresultaat gerealiseerd?
-% In welke fasen wordt het projectresultaat gerealiseerd? 
-
-For realizing this project we will start with the individual domain research to 
-find out in what direction it would be best to proceed with the project. We will 
-then be able to expand this project plan in more detail. The next phase will be 
-the development of the required software divided in multiple milestones. 
-Alongside the initiation of the development phase another research form will 
-take place, namely a consult with a researcher from an area on which we might 
-contribute to one another. 
-
-\subsection{Introduction} 
-
-%Welke aandachtsgebieden en welke fasen worden gebruikt?\\ 
-
-The project will be divided into areas of focus and phases of execution. In each 
-phase one or more areas of focus will get attention. An area of focus can get 
-attention in more than one phase and the amount of attention can vary from one 
-phase to the next. The areas of focus are listed below. 
-
-\begin{description}\item[Basic feedback on Javascript code] 
-Is the Javascript code correct Javascript (syntax)? And does executing the 
-Javascript code result in the correct output (functionality)? 
-%@Boris: TODO: begrip verhelderen en toevoegen aan dictionary 
-\item[Checking Javascript 
-semantically] This has a broader meaning, trying to determine the quality of 
-Javascript code (that is syntactically and functionally correct). \item[Making 
-use of existing software and libraries] Are there libraries we can use in our 
-project? And maybe there are already complete software systems we can use as a 
-basis for our project? \item[Building a system for managing assignments] An 
-administration layer for the professor to create assignments for the students. 
-\item[Building a front-end for submitting code] A layer for students to be 
-able to submit their Javascript code for an assignment and retrieve feedback. 
-\end{description} 
-
-The phases into which the execution of the project will be divided are listed 
-below. 
-
-\begin{itemize} \item Domain research \item Consult researcher from an active 
-research \item Development \item Documentation \item Thesis and presentation 
-\end{itemize} 
-
 %Hoe ziet de resultatenmatrix eruit?\\ 
+% In welke fasen wordt het projectresultaat gerealiseerd?
+
+For realizing this project we will start with the individual domain research to
+find out in what direction it would be best to proceed with the project. We
+will then be able to expand this project plan in more detail. The next phase
+will be the development of the required software divided in multiple
+milestones. Alongside the initiation of the development phase another research
+form will take place, namely a consult with a researcher from an area on which
+we might contribute to one another.
+
+\subsection{Introduction}
+
+%Welke aandachtsgebieden en welke fasen worden gebruikt?\\
+
+The project will be divided into areas of focus and phases of execution. In
+each phase one or more areas of focus will get attention. An area of focus can
+get attention in more than one phase and the amount of attention can vary from
+one phase to the next. The areas of focus are listed below.
+
+When verifying Javascript code the first step will be checking if it is valid
+Javascript. This will be a syntactical check. When the Javascript code seems to
+be syntactically correct we can check for functionality with the use of unit
+tests. This second step checks if the Javascript code produces the correct
+output with a given input. After the Javascript has been proven to be
+syntactically and functionally correct we can perform the third step of looking
+at the semantics of the Javascript code. We will look at the meaning of the
+code constructs used, whether they are efficient for the problem at hand and
+combined in a logical manner.
+
+In case of syntactically correct Javascript code which does not pass the unit
+tests, we can also try and determine what the student tried to do, which
+constructs used are good and which could be better, and hint to other code
+constructs which might be useful in the assignment.
+
+\begin{description}
+  \item[Basic feedback on Javascript code] Is the Javascript code 
+    correct Javascript (syntax)? And does executing the Javascript code result 
+    in the correct output (functionality)? 
+  \item[Checking Javascript semantically] This has a broader meaning, trying to
+    determine the quality of Javascript code (which has proven to be
+    syntactically and functionally correct).
+  \item[Making use of existing software and libraries] Are there libraries we
+    can use in our project? And maybe there are already complete software
+    systems we can use as a basis for our project?
+  \item[Building a system for managing assignments] An administration layer for
+    the professor to create assignments for the students.
+  \item[Building a front-end for submitting code] A layer for students to be
+    able to submit their Javascript code for an assignment and retrieve
+    feedback.
+\end{description}
+
+The phases into which the execution of the project will be divided are listed
+below.
+
+\begin{itemize}
+  \item Domain research
+  \item Consult researcher from an active research
+  \item Development
+  \item Documentation
+  \item Thesis and presentation
+\end{itemize}
 
 \subsection{Domain research}
 % Welke activiteiten in welke fasen zijn hier nodig? 
@@ -291,39 +311,40 @@ conclusion of this research, there should be an indication how to provide
 feedback (forms and aspects) to succesfully improve the learning process of the 
 student. 
 
-%@Boris TODO: zie andere puntje Semantiek 
-\subsubsection{Checking Javascript 
-semantically} What are the fundamental semantical entities that can exist within 
-Javascript code? When we have such a set, can we programmatically determine of 
-what semantic entities a given piece of Javascript code consists. How do we 
-define a correct semantic solution, and compare a given solution with it? And in 
-a more broad sense, are there scientific models available to review a 
-programming language from a semantical point of view. \subsubsection{Making use 
-of existing software and libraries} Find out what related tools, libraries and 
-software already exist in this area and in what ways they could be re-used for 
-this project. Starting with a general overview of the aspects (programming 
-language source code, licensing, interfaces etc.) of these software units, the 
-most interesting ones can be selected and more closely evaluated to determine 
-whether it's possible to use, combine and or distribute them. 
+\subsubsection{Checking Javascript semantically}
+What are the fundamental semantical entities that can exist within Javascript
+code? When we have such a set, can we programmatically determine of what
+semantic entities a given piece of Javascript code consists. How do we define a
+correct semantic solution, and compare a given solution with it? Also: what
+constructs used convey good code quality for the given assignment, and more
+specific: what combination of code constructs are better than others. In a
+more broad sense we can look for scientific models available to review a
+programming language from a semantical point of view. 
 
-The results from this study provides information in which programming 
-language(s) and architecture should be used for the realization of the program. 
-On top of that insight will be available on which existing libraries and 
-software systems are available and might be useful in this project, along with 
-the pros and cons of using them. 
+\subsubsection{Making use of existing software and libraries}
+Find out what related tools, libraries and software already exist in this area
+and in what ways they could be re-used for this project. Starting with a
+general overview of the aspects (programming language source code, licensing,
+interfaces etc.) of these software units, the most interesting ones can be
+selected and more closely evaluated to determine whether it's possible to use,
+combine and or distribute them.
 
-\subsection{Consult researcher from an active research} 
-% Welke activiteiten in welke fase zijn hier nodig? 
-% Wat zijn de tussenresultaten die deze activiteiten opleveren? 
+The results from this study provides information in which programming
+language(s) and architecture should be used for the realization of the
+program. On top of that insight will be available on which existing libraries
+and software systems are available and might be useful in this project, along
+with the pros and cons of using them.
 
-We will have to determine which researcher we want to consult with 
-and on what kind of research. After we have done the domain research and have 
-expanded the planning further we can also think about the details of this 
-consult. Then we can specify on what focus areas this consult has some 
-influence. For example, if the technical domain (for this particular kind of 
-program) raises important questions, it might be useful to consult someone with 
-knowledge in this particular area, like the {\em 
-Ideas}\footnote{http://ideas.cs.uu.nl/} group. 
+\subsection{Consult researcher from an active research}
+% Welke activiteiten in welke fase zijn hier nodig?
+% Wat zijn de tussenresultaten die deze activiteiten opleveren?
+We will have to determine which researcher we want to consult with and on what
+kind of research. After we have done the domain research and have expanded the
+planning further we can also think about the details of this consult. Then we
+can specify on what focus areas this consult has some influence. For example,
+if the technical domain (for this particular kind of program) raises important
+questions, it might be useful to consult someone with knowledge in this
+particular area, like the {\em Ideas}\footnote{http://ideas.cs.uu.nl/} group.
 
 \subsection{Development} 
 % Welke activiteiten in welke fase zijn hier nodig? 
