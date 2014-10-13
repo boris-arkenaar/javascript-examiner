@@ -1,1 +1,1 @@
-Javascript Examinor
+Javascript Examiner
