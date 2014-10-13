@@ -272,15 +272,29 @@ each phase one or more areas of focus will get attention. An area of focus can
 get attention in more than one phase and the amount of attention can vary from
 one phase to the next. The areas of focus are listed below.
 
+When verifying Javascript code the first step will be checking if it is valid
+Javascript. This will be a syntactical check. When the Javascript code seems to
+be syntactically correct we can check for functionality with the use of unit
+tests. This second step checks if the Javascript code produces the correct
+output with a given input. After the Javascript has been proven to be
+syntactically and functionally correct we can perform the third step of looking
+at the semantics of the Javascript code. We will look at the meaning of the
+code constructs used, whether they are efficient for the problem at hand and
+combined in a logical manner.
+
+In case of syntactically correct Javascript code which does not pass the unit
+tests, we can also try and determine what the student tried to do, which
+constructs used are good and which could be better, and hint to other code
+constructs which might be useful in the assignment.
+
 \begin{description}
 %@Bram: TODO aanpassen titels
   \item[Checking Javascript syntactically and functionally] This means is the
     Javascript code correct Javascript (syntax)? And does executing the
     Javascript code result in the correct output (functionality)?
-%@Boris: TODO: begrip verhelderen en toevoegen aan dictionary
   \item[Checking Javascript semantically] This has a broader meaning, trying to
-    determine the quality of Javascript code (that is syntactically and
-    functionally correct).
+    determine the quality of Javascript code (which has proven to be
+    syntactically and functionally correct).
   \item[Making use of existing software and libraries] Are there libraries we
     can use in our project? And maybe there are already complete software
     systems we can use as a basis for our project?
@@ -314,20 +328,22 @@ with respect to this subject, there should be some general study on feedback; in
 feedback on education of (Javascript) programming. Next, this general overview can be
 confined by applying the findings on existing educational platforms that offer Javascript/programming. After determing which kind, and on which aspects, these platforms provide 
 feedback, it might be useful to compare these aspects with commonly made mistakes as 
-recognized by experts (i.e. tutors \{em: Webapplicaties: the Client Side}). For example, it could be interesting to
+recognized by experts (i.e. tutors {\em: Webapplicaties: the Client Side}). For example, it could be interesting to
 check if there is a correlation between the extend of providing feedback on common mistakes
 and the success/reception of the platform. At the conclusion of this research, there
 should be an indication how to provide feedback (forms and aspects) to 
 succesfully improve the learning process of the student.
 
-%@Boris TODO: zie andere puntje Semantiek
 \subsubsection{Checking Javascript semantically}
 What are the fundamental semantical entities that can exist within Javascript
 code? When we have such a set, can we programmatically determine of what
 semantic entities a given piece of Javascript code consists. How do we define a
-correct semantic solution, and compare a given solution with it? And in a more
-broad sense, are there scientific models available to review a programming
-language from a semantical point of view.
+correct semantic solution, and compare a given solution with it? Also: what
+constructs used convey good code quality for the given assignment, and more
+specific: what combination of code constructs are better than others. In a
+more broad sense we can look for scientific models available to review a
+programming language from a semantical point of view.
+
 \subsubsection{Making use of existing software and libraries}
 Find out what related tools, libraries and software already exist in this area
 and in what ways they could be re-used for this project. Starting with a
