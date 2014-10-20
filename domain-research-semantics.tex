@@ -1,0 +1,41 @@
+\documentclass{article} 
+
+\usepackage{hyperref}
+
+\begin{document} 
+
+\title{Domain research --- Semantics}
+\author{Boris Arkenaar}
+\date{\today}
+\maketitle 
+
+\section{Introduction} 
+
+Before we get tho this phase, the Javascript code has passed the tests for
+syntax and the unit tests for functionality. So we know the code runs and it
+gives the correct output for a certain input.
+
+Semantics can be divided into two areas.
+
+\subsection{Code quality}
+
+The layout of the code. Well indented, always using semicolons and curly
+braces. This can be checked with a tool like
+JSHint\footnote{\url{http://www.jshint.com/}}.
+
+\subsection{Code efficiency}
+
+The quality can be determined by looking at the code structures that have been
+used, and by looking at the manner in which the code structures have been
+combined.
+
+An interesting way to look at a new programming language can also help us here
+to look at Javascript code, of what structures it is composed and how they are
+combined. These words from Abelson and Sussman\footnote{Abelson, H., Sussman,
+G.J. 1984 {\em Structure and Interpretation of Computer Programs}. MIT Press,
+[\url{https://mitpress.mit.edu/sicp/}]}: ``What are the primitives, what are
+their means of combination, and what are their means of abstraction?''
+
+To follow these wise words we would first have to look at the primitives of Javascript. Then we can determine in what ways these primitives can be combined. Finally we look at the means of abstraction Javascript offers us.
+
+\end{document}
