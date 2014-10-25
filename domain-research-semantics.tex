@@ -50,7 +50,7 @@ assignment and start working, and for the software to be able to determine if a
 piece of Javascript code is functionally correct. We can also check the quality
 of the Javascript code which is independent of the assignment.
 
-\section{Simple algorithm}
+\section{Weighing each primitive}
 
 For determining the efficiency of the code we can compare the specified
 Javascript code with the correct solution of the teacher. A relatively simple
@@ -64,6 +64,24 @@ not say anything about readability however. One piece of code code be
 marginally more efficient than another, but at the same time be far less
 readable, for instance. One would prefer the slightly less efficient one for
 its readability. The software would, in this case however, choose the less
-readable one.}
+readable one.} For this to work you would also need to figure out how many
+times a loop is iterated over. The more times a loop is executed, the more time
+it would take.
+
+\section{Using metrics}
+
+Gordana Rakić, Zoran Budimac[1] list the following metrics used in tools for analyzing code:
+
+\begin{itemize}
+  \item Cyclomatic complexity
+  \item Halstead metrics
+  \item Lines of code
+  \item Object oriented metrics
+\end{itemize}
+
+[1] Rakić, G., Budimac, Z. 2011 Problems in Systematic Application of Software
+Metrics and Possible Solution {\em Department of Mathematics and Informatics,
+Faculty of Sciences, University of Novi Sad, Trg Dositeja Obradovića 4, 21000
+Novi Sad, Serbia}
 
 \end{document}
