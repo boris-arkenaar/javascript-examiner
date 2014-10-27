@@ -1,0 +1,318 @@
+
+\documentclass{article} 
+\usepackage{hyperref}
+\begin{document} 
+
+\title{Basic feedback on JavaScript code} \author{Bram Nieuwenhuize (851514132)} 
+\date{\today} \maketitle 
+
+\section{Introduction} This article contains the outcome of a limited study 
+towards 
+some aspects of providing feedback on JavaScript code. The foundation of this 
+research is a project which goal is the development of a software tool called 
+JavaScript-examiner
+\footnote{\url{https://github.com/Slotkenov/javascript-examiner/}}.
+The aim of this tool is to help students to learn 
+JavaScript in an academic distance learning environment, in particular
+while studying the course Webapplications: The Clientside 
+\footnote{\url{http://tinyurl.com/lph6k5s}}. This research is one of 
+the artefacts to realize some contex and generate content, to extract 
+requirements and recommendations for the remainder of the main project. \newline 
+From more or less general feedback as starting point, quite soon the scope is 
+narrowed to the specific field of interest: Providing automatic feedback on 
+JavaScript code. At first, a theoretical foundation is outlined, to create an 
+overview. Some thoughts are given to Distance Learning, E-learning and 
+learning a (program) language.
+This overview is used to penetrate the rich field of (freely 
+available) existing online platforms to learn JavaScript, in enquiring the
+presence of didactics as proposed in academic writings and discovering some 
+characteristic features. In addition, a tutor with experience in examining
+the mentioned course is 
+interviewed to get more insight in difficulties and commonly made mistakes while 
+programming in JavaScript. The results of these two field explorations are 
+comprehended, to determine success factors of such a platform as is on the one 
+hand and, more importantly, elucidate requirements and features for the 
+JavaScript-examiner, that will contribute to mastering the art of programming in 
+JavaScript. 
+
+\section{Feedback in learning a programming language}
+When developing software it is often quite important to get familiar with the 
+environment where the software will be used. In this case, developing for
+students like ourselves (even within the same discipline), it might be argued
+this knowledge is already present. To some extend this is true, like our
+experience in learning programming language and even learning them aided by 
+software designed for this purpose. At the same time, there is a lack of
+knowledge and expertise in teaching, providing feedback and 
+motivation techniques. In assuming these aspects are important for the success
+of the project, as supported in the conclusion of this article
+\footnote{Investigating online learning 
+environments in a web-based math course in Jordan,
+Akram M. Alomari, Yarmouk University, Jordan, International Journal of Education
+and Development using Information and Communication Technology
+(IJEDICT), 2009, Vol. 5, Issue 3, pp. 19-36}
+ , some related articles are consulted.
+
+\subsection{Distance Education \& E-learning}
+
+Next to the support of students, another goal of the project is to reduce the 
+amount of time spent by the tutor to correct the (in JavaScript written) 
+solutions to exercises. According to Guri-Rosenblit
+\footnote{‘Distance education’ and 
+‘e-learning’: Not the same thing
+SARAH GURI-ROSENBLIT
+Department of Education and Psychology, The Open University of Israel, P.O. Box
+39328, Ramat-Aviv, 61392, Israel} it is hard to achieve this goal by using 
+e-learning. This study focuses on the E-learning and distance education, 
+showing
+examples where e-learning is not helpful in this aspect, and even 
+increases the workload. This is something to keep in mind, as the bias of 
+ICT automatically leading to a decrease of labour-intensity is often quite strong.
+Later on, some potential preventive measures to this concern
+are presented. \newline Another interesting article 
+\footnote{G.S. Ypsilandis (2002) Feedback in Distance Education, Computer
+Assisted Language Learning, 15:2, 167-181, DOI: 
+\{url{10.1076/call.15.2.167.8191}} about feedback and distance education 
+outlines some interesting observations. A shift from teaching towards learning
+is recognized in contemporary education. Feedback is more and more 
+recognized as important assistance mechanism. This feedback should not only
+take place from tutor to student, but also among students themselves and even
+the student providing feedback to the self. According to (
+mentioned in the article) Ross(2000), there are 
+three characteristics of feedback quality: timely, helpful, developmental. It
+should be provided at the right time within the learning process, have some 
+instrumental aspects to really help the student to reach a next level and it 
+should contribute in motivating to continue studying. Besides these general 
+key issues, the field study points out two specific requirements. It should be
+possible to provide feedback on the exercises and the platform, in a way the
+student experiences some kind of dialogue. The other
+recommendation is to provide feedback in a print friendly format, as a lot of 
+students still prefer reading from paper when studying, and store
+the feedback with the other
+in hard copy provided materials. This last point is connected to the conclusion 
+of Shepherd
+\footnote{Graduate student preference for instructor feedback in MBA
+distance education,
+Morgan Shepherd,
+University of Colorado at Colorado Spring}, namely the demand of well written
+(full sentences) 
+feedback instead of just some key points or audiovisual indicators.
+
+\subsection{Similar Projects}
+Now. with some general context about the field of use and feedback in general,
+it's time to move on and
+start to narrow the scope. To start a project like the JavaScript-examiner can
+be hard, if there is no guidance. Luckily there have been similar approaches. 
+One of these approaches is a project with a similar goal, with the significant
+difference being the programming language, that is Java instead of JavaScript. 
+This project \footnote{Java Tutor: 
+Bootstrapping with Python to Learn Java,
+Casey O’Brien, Max Goldman, Robert C. Miller,
+MIT CSAIL,
+Cambridge, MA 02138 USA
+cmobrien, maxg, rcm, @mit.edu} has an interesting approach, for using a 
+supposedly known language (Python) to support the learning process of the 
+language to be learned (Java). %Argumenten waarom dit een goede methode is...
+Besides the didactic aspects of this method, it's a way to reduce the,
+earlier mentioned, labor intensity for the tutor. Creating exercises by 
+putting the solution more or less down in another well known programming 
+language is likely
+to be far less challenging and time saving, compared to creating a
+a set of delimited solution requirements and problem description
+in well written natural language. The goal to reduce time of the tutor is even
+stretched further in this project. Students are supposed to write test cases 
+themselves. The Tutor only writes a very basic test suite. Students are 
+challenged to 
+add test cases to this suite. It's even demanded to enable the feedback
+tool itself. This seems to be a little too much, as it undermines the primary
+goal, and the skill of writing such test cases requires knowledge of the
+language in the first place. Still, the idea of rewarding the student for an
+contribution like adding a test case is something to keep in mind. To avoid a 
+lot of similar test cases, a Code Coverage Library is used. Thus in short, 
+the tool in the mentioned project needs a problem statement written in a known
+program language, a template for the language to learn, a (at first basic) 
+test suite. \newline
+Another project 
+\footnote{Learning Programming Languages
+through Corrective Feedback and Concept Visualisation,
+Christopher Watson1, Frederick W.B. Li1, and Rynson W.H. Lau2,
+1 School of Engineering and Computing Sciences, University of Durham, 
+United Kingdom
+2 Department of Computer Science, City University of Hong Kong, Hong Kong
+christopher.watson,frederick.li,@durham.ac.uk,
+rynson@cs.cityu.edu.hk} 
+focusses on the form of the offered exercises. Their concern is the 
+drawback of little and  thoroughly delineated assignments. From a
+maintainability and developmental perspective these might be in favour 
+to complex and realistic quests. According to their research, there is a demand
+for interesting and realistic problems to solve. This challenges the student to
+really grasp the fundamental skills of programming, and motivates the student as
+they experience there is really something to gain, in solving such a puzzle.
+In order to motivate students, their goal is creating a model to enable 
+development of adaptive e-learning systems to provide individualized guidance 
+and feedback. From a presupposed link between learning and playing, the model
+is inspired by the concept of Serious Games: games with educative purpose. 
+According to them, games are appropriate because of their nature in developing
+skills through repetition and extending knowledge step by step. But, 
+compared to most serious games, more comprehensive feedback is 
+required, due to the complexity of learning a programming language. The proposed
+model is quite comprehensive. In creating learning scenes (like levels in games)
+, provided with a set of learning concepts, pre-required scenes (to create 
+gradual complexity), a test suite and code similarity analyse (functional 
+solution) and
+required fragments and constraints (semantic solution). In comparison with the 
+project above, the amount and complexity of artefacts needed for an example is
+much greater. But in creating more complex exercises, the amount of exercises 
+needed to cover the material might be reduced to some extend. The model includes 
+an approach for step by step feedback as well. This feature might be interesting 
+for later stages or probably even subsequent projects to extend the 
+JavaScript-examine. In relation to this last point, this article
+\footnote{It’s Alive! 
+Continuous Feedback in UI Programming,
+Sebastian Burckhardt Manuel F¨ahndrich,
+Peli de Halleux Sean McDirmid,
+Michal Moskal Nikolai Tillmann,
+Microsoft Research,
+fsburckha,maf,jhalleux,smcdirm,micmo,nikolaitg@microsoft.com,
+Jun Kato
+University of Tokyo,
+i@junkato.jp}
+might be interesting as well.
+
+\section{Existing Online Javascript education platforms} 
+Possessed with the background information, now it is possible to
+review some current platforms that offer learning programming languages like 
+JavaScript. Though, before jumping in, it is important to have some plan to
+review the platforms. As determined in last chapter, the following 
+characteristics and features will be reviewed:
+\begin{itemize}
+  \item Platform (web-based, command shell, client, user interface)
+  \item Exercises
+    \begin{itemize}
+      \item Form(i.e. natural language, programming language, game)
+	  \item Extend
+	  \item Structure(i.e. gradual difficulty)
+	  \item Challenging?
+    \end{itemize}
+  \item Input format (i.e. template, empty text area, command-line)
+  \item Feedback
+    \begin{itemize}
+	  \item General characteristics
+	    \begin{itemize}
+          \item Timely
+	      \item Helpful
+	      \item Developmental
+        \end{itemize}
+	  \item Form (i.e. Well written, bullet points, model solution, print friendly)
+	  \item Extend (i.e on syntax, on functionality, on semantics)
+	  \item Contributors (i.e. Creators of platform, users)
+	\end{itemize}
+  \item Possibilities to send feedback to the platform and exercises
+\end{itemize}
+
+Of course, any not yet distinct, but possible interesting features, 
+will be examined as well. As the goal is to get an overview of the aspects and
+facets rather then the specifics of each platform, the review is ordered by 
+the distinct facets. Subsequently, the specific platforms are only
+explicitly mentioned if
+a present feature is considered useful to examine more closely later on.
+
+\subsection{Platform}
+%Web-based, command shell, client, user interface
+All platforms are web based, except Nodeschool.IO
+\footnote{\url{http://nodeschool.io/}}
+, which uses the Node.JS 
+Command Line and NPM. One platform is visually presented as a game
+\footnote{\url{http://codecombat.com/play}}. Most platforms offer learning
+modules for several languages. Some platforms use cookies, 
+others require registration and login to keep track of progress. Login is 
+sometimes required to start learning. Some of the platforms enable logging in 
+with Google or Facebook credentials. \newline
+In general, the user interface consists of a big area to write and / or show 
+code, a quite small area with instructions, an area to show output and some 
+indication of location and direction (the place of the current exercise within 
+the course). On top of this, KhanAcademy
+\footnote{
+\url{https://www.khanacademy.org/computing/computer-programming/programming/}} 
+show responses and related discussions about the current exercise as well. Most
+platforms require a mouse click to submit the solution, and some clicks again to
+move on to the next exercise. In codeschool
+\footnote{\url{http://javascript-roadtrip.codeschool.com/}} 
+it's possible to navigate through exercises by using keyboard short-cuts or 
+keywords.
+
+\subsection{Exercises}
+%Form, Extend, Structure, Challenging
+All platforms have the exercises divided in several sections. The introduction
+starts often with a classical challenge: print 'Hello World' to the console. 
+KhanAcademy, Code Combat and Make Games With Us
+\footnote{\url{http://www.makegameswith.us/build-flappy-bird-in-your-browser/}}
+have chosen a different introduction, in providing some functions that should be
+called to generate a visual action on the screen. For example, in Code Combat 
+you have to collect Gems by moving the Hero through calling moveRight() on 
+the this keyword. \newline
+In some cases, there is a clear learning curve, and it's required to complete a
+section to move on to the next one. Others, like Nodeschool.IO, just present 
+different sections where distinct features within a section are linked to an
+exercise. While examining the platform, I felt more attracted to the platforms
+with a learning curve. But Nodeschool.IO enables the user to quickly learn 
+something about a specific topic, without the need to complete any other
+sections. A solution that have both benefits might be the possibility to 
+complete a section at any time, but mention the pre-required knowlegde for each
+section. \newline
+The extend of covered programming aspects depends slightly, but the greatest 
+part is still about core programming within a single module. Advanced software
+engineering practices like modularity, design patterns, code elegance or 
+performance indicators (i.e. use of memory, running time) are hardly covered. 
+Exceptions are KhanAcademy (sections Object Oriented Design, Documentation, 
+Readable code), and Nodeschool.IO (requiring for example recursive functions, 
+restrictions on using specific constructions or functions). \newline
+The exercises itself range from one liners like print something to console, to
+(pseudo) realistic application like building or playing a little game. 
+The scale of the latter is still quite small and is written within one module.
+Often, a section starts with the smallest exercises, and finishes with a big 
+one where all aspects of the section come together. These big exercises often 
+are more challenging and really demands the user to make use of the newly 
+acquired skills. Sometimes it is hard to remember required facets from earlier
+sections, when demanded in a different one. Here, it would have been useful to 
+make use of an (optional) refresh. Almost all platforms with a explicit
+learning curve have divided the 
+material in the following sections: Introduction, Strings, Logic / Loops, 
+Arrays, Functions, Objects. 
+
+\subsection{Input}
+%Template, text area, command line
+As already mentioned, NodeSchool.IO is somewhat different to the other platforms
+, and this goes along for the Input as well. It's the only platform where any
+text editor can be used. To provide some guidance, all exercises come with a 
+template that can be copied to the newly created text file. All other platforms
+use a rich text area, often already provided with a template consisting of 
+declarations, methods and commented instructions. The text areas are rich in the
+sense it's possible to undo or redo actions, cut, copy, select (multiple lines 
+as well). Udacity
+\footnote{\url{https://www.udacity.com/}} has also some simple input textfields
+for the purpose of submitting answers in natural language. KhanAcademy has a
+nice feature, where some information about the exercise is provided dynamically
+in the same textarea where the user can create the solution. This works quite
+nice, as there is no explicit switch from passive to active learning.
+
+\subsection{Feedback on solutions}
+%General: Timely, Helpful, Developmental
+%Form
+%Extend
+%Contributors
+
+\subsection{Feedback on platform and exercises}
+KhanAcademy has a nice functionality in this aspect as well. All exercises are 
+linked to a topic that is shown under the exercise. Within this topic, users are 
+helping each other to solve the problems. Some other platforms have some kind
+of forum or q \& a as well, accessible through a link that opens a new window. 
+This shift of view is quite disorientating so the barrier to make use 
+of this feature is quite high. The possibilities to provide feedback towards the 
+platform itself is invariably limited, only a general contact function is 
+provided. 
+
+\section{General difficulties in learning JavaScript} 
+
+\section{Conclusion} 
+
+\end{document} 
