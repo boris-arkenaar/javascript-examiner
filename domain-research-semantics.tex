@@ -2,6 +2,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
+\usepackage[round]{natbib}
 
 \begin{document} 
 
@@ -88,10 +89,13 @@ file. You would need serious knowledge of the programming language in question.
 Only looking at the lines of code is not very useful. We can compare the LOC of
 the student with the solution of the teacher, but that will give you only a
 rough idea about whether the student used far to much code or extraordinarily
-few. Next up is cyclomatic complexity.
+few. Next up is cyclomatic complexity. This basically tells you in how many
+unique paths your code could be executed\citep{website:js-complexity}. When the
+cyclomatic complexity increases, so does the complexity of your code. The more
+possible execution paths, the more difficult it is to reason about your code.
 
-Gordana Rakić and Zoran Budimac\cite{rakic2013problems} list the following
-metrics used in tools for analyzing code:
+\citet{rakic2013problems} list the following metrics used in tools for
+analyzing code:
 
 \begin{itemize}
   \item Cyclomatic complexity
@@ -114,7 +118,7 @@ of the Javascript code which is independent of the assignment.
 
 \section{Conclusion}
 
-\bibliographystyle{acm}
+\bibliographystyle{plainnat}
 \bibliography{bibliography}
 
 \end{document}
