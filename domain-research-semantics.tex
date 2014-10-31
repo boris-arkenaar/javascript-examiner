@@ -10,6 +10,14 @@
 \date{\today}
 \maketitle 
 
+Introduction
+Code layout
+Code quality
+  Relative execution time
+  Metrics
+Comparing code
+Conclusion
+
 \section{Introduction} 
 
 Before we get tho this phase, the Javascript code has passed the tests for
@@ -18,13 +26,13 @@ gives the correct output for a certain input.
 
 Semantics can be divided into two areas.
 
-\section{Code quality}
+\section{Code layout}
 
 The layout of the code. Well indented, always using semicolons and curly
 braces. This can be checked with a tool like
 JSHint\footnote{\url{http://www.jshint.com/}}.
 
-\section{Code efficiency}
+\section{Code quality}
 
 The quality can be determined by looking at the code structures that have been
 used, and by looking at the manner in which the code structures have been
@@ -41,17 +49,7 @@ To follow these words we would first have to look at the primitives of
 Javascript. Then we can determine in what ways these primitives can be
 combined. Finally we look at the means of abstraction Javascript offers us.
 
-\section{Definition of an assignment}
-
-The teacher has to start by defining an assignment. He formulates a description
-of the assignment and creates some unit tests. He also creates a solution
-appropriate for the assignment that should also pass the tests he created. At
-this point we have the data needed for the student to be able to read the
-assignment and start working, and for the software to be able to determine if a
-piece of Javascript code is functionally correct. We can also check the quality
-of the Javascript code which is independent of the assignment.
-
-\section{Weighing each primitive}
+\subsection{Relative execution time}
 
 For determining the efficiency of the code we can compare the specified
 Javascript code with the correct solution of the teacher. A relatively simple
@@ -69,7 +67,28 @@ readable one.} For this to work you would also need to figure out how many
 times a loop is iterated over. The more times a loop is executed, the more time
 it would take.
 
-\section{Using metrics}
+\subsection{Maintainability}
+
+Various metrics can be used to give an idea about the maintainability of a
+piece of code. We are not looking for measuring maintainability specifically,
+but an indication of it can help us determine the quality of the code, for
+maintainability is an aspect of good quality code.
+
+First off you can look at the amount of code in terms of lines of code
+(LOC). The more lines of code, the more complex it gets. There are different
+ways to determine the LOC though. You can simply count all the lines in the
+source files, which we will call lines of code (LOC). But you could also skip
+the lines which contain comments and empty lines, which we will call source
+lines of code (SLOC). Going one step further you can count the actual
+statements in the source code in stead of the physical lines. That will give
+you the logical lines of code (LLOC). A disadvantage of LLOC is that it is more
+difficult to calculate. In stead of simply counting the lines of a text
+file. You would need serious knowledge of the programming language in question.
+
+Only looking at the lines of code is not very useful. We can compare the LOC of
+the student with the solution of the teacher, but that will give you only a
+rough idea about whether the student used far to much code or extraordinarily
+few. Next up is cyclomatic complexity.
 
 Gordana Rakić and Zoran Budimac\cite{rakic2013problems} list the following
 metrics used in tools for analyzing code:
@@ -80,6 +99,20 @@ metrics used in tools for analyzing code:
   \item Lines of code
   \item Object oriented metrics
 \end{itemize}
+
+\section{Comparing code}
+
+\subsection{Definition of an assignment}
+
+The teacher has to start by defining an assignment. He formulates a description
+of the assignment and creates some unit tests. He also creates a solution
+appropriate for the assignment that should also pass the tests he created. At
+this point we have the data needed for the student to be able to read the
+assignment and start working, and for the software to be able to determine if a
+piece of Javascript code is functionally correct. We can also check the quality
+of the Javascript code which is independent of the assignment.
+
+\section{Conclusion}
 
 \bibliographystyle{acm}
 \bibliography{bibliography}
