@@ -1,6 +1,8 @@
 \documentclass{article} 
 
+\usepackage[utf8]{inputenc}
 \usepackage{hyperref}
+\usepackage[square, numbers]{natbib}
 
 \begin{document} 
 
@@ -11,55 +13,45 @@
 
 \section{Introduction} 
 
-Before we get tho this phase, the Javascript code has passed the tests for
+Before we get tho this phase, the JavaScript code has passed the tests for
 syntax and the unit tests for functionality. So we know the code runs and it
 gives the correct output for a certain input.
 
 Semantics can be divided into two areas.
 
-\section{Code quality}
+\section{Code layout}
 
 The layout of the code. Well indented, always using semicolons and curly
 braces. This can be checked with a tool like
 JSHint\footnote{\url{http://www.jshint.com/}}.
 
-\section{Code efficiency}
+\section{Code quality}
 
 The quality can be determined by looking at the code structures that have been
 used, and by looking at the manner in which the code structures have been
 combined.
 
 An interesting way to look at a new programming language can also help us here
-to look at Javascript code, of what structures it is composed and how they are
+to look at JavaScript code, of what structures it is composed and how they are
 combined. These words from Abelson and Sussman\footnote{Abelson, H., Sussman,
 G.J. 1984 {\em Structure and Interpretation of Computer Programs}. MIT Press,
 [\url{https://mitpress.mit.edu/sicp/}]}: ``What are the primitives, what are
 their means of combination, and what are their means of abstraction?''
 
 To follow these words we would first have to look at the primitives of
-Javascript. Then we can determine in what ways these primitives can be
-combined. Finally we look at the means of abstraction Javascript offers us.
+JavaScript. Then we can determine in what ways these primitives can be
+combined. Finally we look at the means of abstraction JavaScript offers us.
 
-\section{Definition of an assignment}
-
-The teacher has to start by defining an assignment. He formulates a description
-of the assignment and creates some unit tests. He also creates a solution
-appropriate for the assignment that should also pass the tests he created. At
-this point we have the data needed for the student to be able to read the
-assignment and start working, and for the software to be able to determine if a
-piece of Javascript code is functionally correct. We can also check the quality
-of the Javascript code which is independent of the assignment.
-
-\section{Weighing each primitive}
+\subsection{Relative execution time}
 
 For determining the efficiency of the code we can compare the specified
-Javascript code with the correct solution of the teacher. A relatively simple
+JavaScript code with the correct solution of the teacher. A relatively simple
 way could be breaking up the both pieces of code into primitives and determine
 the total weight of the code by summing up the weight of each primitives used
 in the code. The higher the number the heavier the code, and thus less
 efficient. For this method we would have to define beforehand the weight of
-each primitive available in Javascript, according to the relative time it would
-take a Javascript interpreter to interpret that primitive.\footnote{This does
+each primitive available in JavaScript, according to the relative time it would
+take a JavaScript interpreter to interpret that primitive.\footnote{This does
 not say anything about readability however. One piece of code code be
 marginally more efficient than another, but at the same time be far less
 readable, for instance. One would prefer the slightly less efficient one for
@@ -68,26 +60,80 @@ readable one.} For this to work you would also need to figure out how many
 times a loop is iterated over. The more times a loop is executed, the more time
 it would take.
 
-\section{Using metrics}
+\subsection{Maintainability}
 
-Gordana Rakić and Zoran Budimac\cite{rakic11} list the following metrics used
-in tools for analyzing code:
-
+Various metrics can be used to give an idea about the maintainability of a
+piece of code. We are not looking for measuring maintainability specifically,
+but an indication of it can help us determine the quality of the code, for
+maintainability is an aspect of good quality code. \citet{rakic2013problems}
+list the following metrics used in tools for analyzing code:
 \begin{itemize}
-  \item Cyclomatic complexity
-  \item Halstead metrics
-  \item Lines of code
-  \item Object oriented metrics
+  \item Lines of code;
+  \item Cyclomatic complexity;
+  \item Halstead complexity;
+  \item Object oriented metrics.
 \end{itemize}
+We will look at the first three metrics mentioned. The last one --- Object
+oriented metrics --- is not too applicable in our case, for JavaScript is not
+as object oriented as, for instance, Java is.
 
-\begin{thebibliography}{9}
-  \bibitem{rakic11}
-    Rakić, G., Budimac, Z. 2011
-    Problems in Systematic Application of Software Metrics and Possible
-    Solution
-    {\em Department of Mathematics and Informatics, Faculty of Sciences,
-      University of Novi Sad, Trg Dositeja Obradovića 4, 21000 Novi Sad,
-      Serbia}
-\end{thebibliography}
+First off you can look at the amount of code in terms of lines of code
+(LOC). The more lines of code, the more complex it gets. There are different
+ways to determine the LOC though. You can simply count all the lines in the
+source files, which we will call lines of code (LOC). But you could also skip
+the lines which contain comments and empty lines, which we will call source
+lines of code (SLOC). Going one step further you can count the actual
+statements in the source code in stead of the physical lines. That will give
+you the logical lines of code (LLOC). A disadvantage of LLOC is that it is more
+difficult to calculate. In stead of simply counting the lines of a text
+file. You would need serious knowledge of the programming language in question.
+
+Only looking at the lines of code is not very useful. We can compare the LOC of
+the student with the solution of the teacher, but that will give you only a
+rough idea about whether the student used far to much code or extraordinarily
+few. Next up is cyclomatic complexity. This basically tells you in how many
+unique paths your code could be executed \citep{website:js-complexity}. When
+the cyclomatic complexity increases, so does the complexity of your code. The
+more possible execution paths, the more difficult it is to reason about your
+code. The cyclomatic complexity increases when the code base
+increases. Therefore it is more useful to express the cyclomatic complexity
+relative to the lines of code. This gives us the cyclomatic complexity density
+\citep{gill1991cyclomatic}.
+
+The Halstead complexity looks at operators and its operands. It determines the
+amount of operators and operands in a piece of code. Besides that it counts the
+amount of distinct operators and operands. With that some calculations are
+performed to determine the complexity of the code. While a full understanding
+of the programming language is not needed, the Halstead method has some
+shortcomings as explained by \citet{yu2010survey}. Where the cyclomatic
+complexity looks at the control flow of the code, the Halstead methed only
+looks at the operations performed, but ignores the control flow completely.
+
+\section{Comparing code}
+
+The great thing is: we do not need to determine the quality of a piece of code
+on its own. We can compare it to well defined base piece of code that is
+assumed to be correct and efficient (i.e. an acceptable solution). That means
+that we do not need to decide how many lines of code would be too much, or what
+cyclomatic complexity would make the code too complex. We can just compare the
+lines of code, and the halstead complexity of the student's code with the
+solution of the teacher. We do have to determine however, how bad is the code
+if it is not as good as the solution of the teacher. There should probably be
+some margin of acceptance.
+
+\subsection{Definition of an assignment}
+
+The teacher has to start by defining an assignment. He formulates a description
+of the assignment and creates some unit tests. He also creates a solution
+appropriate for the assignment that should also pass the tests he created. At
+this point we have the data needed for the student to be able to read the
+assignment and start working, and for the software to be able to determine if a
+piece of JavaScript code is functionally correct. We can also check the quality
+of the JavaScript code which is independent of the assignment.
+
+\section{Conclusion}
+
+\bibliographystyle{abbrvnat}
+\bibliography{bibliography}
 
 \end{document}
