@@ -159,6 +159,42 @@ it would take.
 
 \subsection{Code structures}
 
+When looking at the meaning of the code you can distinguish different code
+structures. When you look at an assignment, it might be the case that a good
+solution should contain one or two specific code structures. That means that we
+can look for those structures in a student's code. If they are not there, or if
+there are to much of them, the student can be given feedback mentioning this
+fact. In order to be able to give the student a more profound explanation of
+why his code is not optimal we would need input form the teacher. Because our
+goal is to relieve the teacher from to much work we could try and implement
+this feature in a similar way \citet[Section 3.2]{watson2011learning} proposed
+in their article. They describe a way to provide feedback on how to correct a
+piece of code that generates an error. The first time the system encounters a
+specific error it has to request the teacher for feedback. The system saves
+that feedback into a database along with the error. On any subsequent
+occurrence of that same error in any of the students' code the system retrieves
+the teacher's feedback from the database. It does not need to bother the
+teacher while the student receives valuable feedback.
+
+We would need to determine first what code structures are important. When a
+student uses a for loop where the teacher does not, that would be an
+interesting case. But when a student uses one more simple assignment statement
+than the teacher, that will probably not be very important for instance. We can
+determine the set of primitives used in the code, by type and by quantity. And
+compare that with the solution of the teacher. This gives us a set of
+primitives the student did not use while the teacher did, and of the other way
+around. After filtering these two sets of primitives for important ones we have
+something to give feedback on. Now we can use the same mechanics as
+\citet{watson2011learning} described. We look in the database for the feedback
+on a particular primitive that was used --- or not used --- and give that to
+the student. In case no feedback was found in the database, the teacher is
+requested for input.
+
+Research would be needed to see if this would work the way I describe it
+here. Would it be feasible to determine how to rate the primitives of the
+JavaScript language? And would the system find all the problem cases or will it
+miss some, or find cases that are of no importance? Besides that this functionality would have to be created from the ground up because it is quite specific and I have not found something like it for JavaScript.
+
 \section{Comparing code}
 
 The great thing is: we do not need to determine the quality of a piece of code
@@ -180,6 +216,12 @@ this point we have the data needed for the student to be able to read the
 assignment and start working, and for the software to be able to determine if a
 piece of JavaScript code is functionally correct. We can also check the quality
 of the JavaScript code which is independent of the assignment.
+
+When we start looking at maintainability and execution time, we need to compare
+the results of those aspects with the solution of the teacher. Therefore we
+need the teacher to give a possible solution to the system in order for it to
+be able to determine some base level in these quality aspects which are
+acceptable. For looking at code structure we might need to go further and ask the teacher to specify which primitives used in his solution are important. And maybe he could also specify some primitives the students might be tempted to use in stead of the primitives the teacher used.
 
 \section{Conclusion}
 
