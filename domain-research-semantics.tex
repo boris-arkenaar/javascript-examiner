@@ -17,29 +17,30 @@
 \section{Introduction} 
 
 Our goal is to make life easier for a programming language teacher. In our
-bachelor project we will develop a JavaScript examiner which will relieve the
-teacher from checking all students' assignments and giving them appropriate
-feedback in an online course. On the other hand the JavaScript examiner will be
-for the benefit of the students as well. The teacher simply doesn't have time
-to check the assignments of all the students. And therefore the teacher cannot
-give individual feedback to each student. The teacher will pick the greatest
-and most common pitfalls he sees in the assignments he picks at random. Then he
-will give the students general feedback on those pitfalls in the next online
-group session.
+bachelor project we will develop a
+JavaScript-examiner\footnote{\url{https://github.com/Slotkenov/javascript-examiner/}}
+which will relieve the teacher from checking all students' assignments and
+giving them appropriate feedback in an online course. On the other hand the
+JavaScript-examiner will be for the benefit of the students as well. The
+teacher simply doesn't have time to check the assignments of all the
+students. And therefore the teacher cannot give individual feedback to each
+student. The teacher will pick the greatest and most common pitfalls he sees in
+the assignments he picks at random. Then he will give the students general
+feedback on those pitfalls in the next online group session.
 
-The reason why the JavaScript examiner will benefit students --- besides
+The reason why the JavaScript-examiner will benefit students --- besides
 relieving the teacher of to much of a workload --- is threefold. First off the
-JavaScript examiner is able to check all the assignments of all students
-without any problem. Secondly the JavaScript examiner can give the students
+JavaScript-examiner is able to check all the assignments of all students
+without any problem. Secondly the JavaScript-examiner can give the students
 immediate feedback on their assignment --- in stead of them having to wait for
 the next online group session with the teacher. And finally the JavaScript
 examiner gives the students individual feedback. In stead of some general
 explanation about common pitfalls the student might not even have had trouble
-with, the JavaScript examiner gives each student feedback on the specific
+with, the JavaScript-examiner gives each student feedback on the specific
 problems encountered in his assignment.
 
 This article will be an analysis of the quality aspects of JavaScript code on
-which the JavaScript examiner can focus. I will look for existing quality
+which the JavaScript-examiner can focus. I will look for existing quality
 aspects of code and ways of examining those aspects. Those could be aspects for
 programming languages in general, or for a specific programming language. I
 will determine how they would apply to JavaScript. And maybe there are quality
@@ -49,7 +50,7 @@ The quality aspects will be compared on various points. I will determine how
 good they will apply to JavaScript code, and to code from students' assignments
 in particular. They will be compared based on how precise they are in their
 feedback. And I will base my comparison on how realistic it would be to
-implement inspection of those quality aspects in our project. At the end of this article I will formulate a conclusion based on these comparisons, in the form of an advice on which quality aspects to let the JavaScript examiner examine.
+implement inspection of those quality aspects in our project. At the end of this article I will formulate a conclusion based on these comparisons, in the form of an advice on which quality aspects to let the JavaScript-examiner examine.
 
 \section{Code quality}
 
@@ -64,7 +65,7 @@ does the code execute? Does it use efficient code structures? In this section we
 
 For readability it is important to structure your code in a way that conveys clearly the intention of the code. There are many different ways you could layout your code and there is not one layout that is better than all the others. Most important is consistency.
 
-The easiest way to check for a consistent layout would be if one particular layout would be required form the students. Then the JavaScript examiner can simply check for that layout. Otherwise it would have to determine the layout of a particular assignment on various aspects and see if that layout is used consistently throughout the entire assignment.
+The easiest way to check for a consistent layout would be if one particular layout would be required form the students. Then the JavaScript-examiner can simply check for that layout. Otherwise it would have to determine the layout of a particular assignment on various aspects and see if that layout is used consistently throughout the entire assignment.
 
 Besides being consistent in using one layout there are still layout aspects
 that would be considered bad practice and should be avoided at all times. There
