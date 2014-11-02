@@ -1,6 +1,8 @@
 
 \documentclass{article} 
 \usepackage{hyperref}
+\usepackage[square]{natbib}
+
 \begin{document} 
 
 \title{Basic feedback on JavaScript code} \author{Bram Nieuwenhuize (851514132)} 
@@ -44,40 +46,31 @@ experience in learning programming language and even learning them aided by
 software designed for this purpose. At the same time, there is a lack of
 knowledge and expertise in teaching, providing feedback and 
 motivation techniques. In assuming these aspects are important for the success
-of the project, as supported in the conclusion of this article
-\footnote{Investigating online learning 
-environments in a web-based math course in Jordan,
-Akram M. Alomari, Yarmouk University, Jordan, International Journal of Education
-and Development using Information and Communication Technology
-(IJEDICT), 2009, Vol. 5, Issue 3, pp. 19-36}
+of the project, as supported in the conclusion in
+\citep{al2009investigating}
  , some related articles are consulted.
 
 \subsection{Distance Education \& E-learning}
 
 Next to the support of students, another goal of the project is to reduce the 
 amount of time spent by the tutor to correct the (in JavaScript written) 
-solutions to exercises. According to Guri-Rosenblit
-\footnote{‘Distance education’ and 
-‘e-learning’: Not the same thing
-SARAH GURI-ROSENBLIT
-Department of Education and Psychology, The Open University of Israel, P.O. Box
-39328, Ramat-Aviv, 61392, Israel} it is hard to achieve this goal by using 
+solutions to exercises. According to
+\citep{guri2005distance}
+it is hard to achieve this goal by using 
 e-learning. This study focuses on the E-learning and distance education, 
 showing
 examples where e-learning is not helpful in this aspect, and even 
 increases the workload. This is something to keep in mind, as the bias of 
 ICT automatically leading to a decrease of labour-intensity is often quite strong.
 Later on, some potential preventive measures to this concern
-are presented. \newline Another interesting article 
-\footnote{G.S. Ypsilandis (2002) Feedback in Distance Education, Computer
-Assisted Language Learning, 15:2, 167-181, DOI: 
-\{url{10.1076/call.15.2.167.8191}} about feedback and distance education 
+are presented. \newline Another interesting article, 
+\citep{ypsilandis2002feedback}
+, about feedback and distance education 
 outlines some interesting observations. A shift from teaching towards learning
 is recognized in contemporary education. Feedback is more and more 
 recognized as important assistance mechanism. This feedback should not only
 take place from tutor to student, but also among students themselves and even
-% TODO: to the self?
-the student providing feedback to the self. According to (mentioned in the
+the student reflecting on the own work. According to (mentioned in the
 article) Ross(2000), there are three characteristics of feedback quality:
 timely, helpful, developmental. It
 should be provided at the right time within the learning process, have some 
@@ -90,11 +83,7 @@ recommendation is to provide feedback in a print friendly format, as a lot of
 students still prefer reading from paper when studying, and store
 the feedback with the other
 in hard copy provided materials. This last point is connected to the conclusion 
-of Shepherd
-\footnote{Graduate student preference for instructor feedback in MBA
-distance education,
-Morgan Shepherd,
-University of Colorado at Colorado Spring}, namely the demand of well written
+of \citep{shepherdgraduate}, namely the demand of well written
 (full sentences) 
 feedback instead of just some key points or audiovisual indicators.
 
@@ -105,12 +94,7 @@ start to narrow the scope. To start a project like the JavaScript-examiner can
 be hard, if there is no guidance. Luckily there have been similar approaches. 
 One of these approaches is a project with a similar goal, with the significant
 difference being the programming language, that is Java instead of JavaScript. 
-This project \footnote{Java Tutor: 
-Bootstrapping with Python to Learn Java,
-Casey O’Brien, Max Goldman, Robert C. Miller,
-MIT CSAIL,
-Cambridge, MA 02138 USA
-cmobrien, maxg, rcm, @mit.edu} has an interesting approach, for using a 
+This project  \citep{o2014java} has an interesting approach, for using a 
 supposedly known language (Python) to support the learning process of the 
 language to be learned (Java). %Argumenten waarom dit een goede methode is...
 Besides the didactic aspects of this method, it's a way to reduce the,
@@ -132,15 +116,8 @@ lot of similar test cases, a Code Coverage Library is used. Thus in short,
 the tool in the mentioned project needs a problem statement written in a known
 program language, a template for the language to learn, a (at first basic) 
 test suite. \newline
-Another project 
-\footnote{Learning Programming Languages
-through Corrective Feedback and Concept Visualisation,
-Christopher Watson1, Frederick W.B. Li1, and Rynson W.H. Lau2,
-1 School of Engineering and Computing Sciences, University of Durham, 
-United Kingdom
-2 Department of Computer Science, City University of Hong Kong, Hong Kong
-christopher.watson,frederick.li,@durham.ac.uk,
-rynson@cs.cityu.edu.hk} 
+Another project by 
+\citep{watson2011learning}
 focusses on the form of the offered exercises. Their concern is the 
 drawback of little and  thoroughly delineated assignments. From a
 maintainability and developmental perspective these might be in favour 
@@ -157,30 +134,22 @@ skills through repetition and extending knowledge step by step. But,
 compared to most serious games, more comprehensive feedback is 
 required, due to the complexity of learning a programming language. The proposed
 model is quite comprehensive.
-% TODO: Wat probeer je hier te zeggen? De zin is erg complex en lijkt een clou
-% te missen
-In creating learning scenes (like levels in
+In order to meet the requirements for such a platform, exercises are 
+represented by learning scenes (like levels in
 games), provided with a set of learning concepts, pre-required scenes (to
 create
 gradual complexity), a test suite and code similarity analyse (functional 
-solution) and
-required fragments and constraints (semantic solution). In comparison with the 
-project above, the amount and complexity of artefacts needed for an example is
+solution),
+required fragments and constraints (to be able checking
+semantic aspects as well). In comparison with the 
+project mentioned before, the amount and complexity of artefacts needed
+for an exercise is
 much greater. But in creating more complex exercises, the amount of exercises 
 needed to cover the material might be reduced to some extend. The model includes 
 an approach for step by step feedback as well. This feature might be interesting 
 for later stages or probably even subsequent projects to extend the 
-JavaScript-examiner. In relation to this last point, this article
-\footnote{It’s Alive! 
-Continuous Feedback in UI Programming,
-Sebastian Burckhardt Manuel F¨ahndrich,
-Peli de Halleux Sean McDirmid,
-Michal Moskal Nikolai Tillmann,
-Microsoft Research,
-fsburckha,maf,jhalleux,smcdirm,micmo,nikolaitg@microsoft.com,
-Jun Kato
-University of Tokyo,
-i@junkato.jp}
+JavaScript-examiner. In relation to this last point, 
+\citep{burckhardt2013s}
 might be interesting as well.
 
 \section{Existing Online Javascript education platforms} 
@@ -190,9 +159,7 @@ JavaScript. Though, before jumping in, it is important to have some plan to
 review the platforms. As determined in last chapter, the following 
 characteristics and features will be reviewed:
 \begin{itemize}
-  % TODO: user interface? Alle platformen hebben een form van een user
-  % interface. Bedoel je desktop applicatie?
-  \item Platform (web-based, command shell, client, user interface)
+  \item Platformcharacteristics (web-based, command shell, client, user interface)
   \item Exercises
     \begin{itemize}
       \item Form (i.e. natural language, programming language, game)
@@ -323,5 +290,10 @@ provided.
 \section{General difficulties in learning JavaScript} 
 
 \section{Conclusion} 
+
+\newpage
+\bibliographystyle{apalike}
+\bibliography{bibliography}
+
 
 \end{document} 
