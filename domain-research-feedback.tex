@@ -276,6 +276,34 @@ nice, as there is no explicit switch from passive to active learning.
 %Form
 %Extend
 %Contributors
+While exploring the several platforms, an interesting fact came to
+surface. As long the user satisfies the assignments by providing correct answers
+, the feedback is quite nice. The points you receive, the next level that
+unlocks or an information box with 'Well Done' brings satisfaction and motivates
+to go on. The correctness of the answers is in almost all cases determined by
+the outcome of the executed code; passing the test suite is sufficient.
+Codecombat provides bonus points in case the code doesn't exceed a specified 
+number of lines, but if you just enter all code on one line, it's easy to 
+collect the bonus with any code that passes. Make Games With us has I nice
+visualization of the just created solution. Everytime a user succesfully solves
+an exercise, it's possible to use the functionality in the litte game you are
+building. \newline
+Of course, the cases where the answer doesn't suffice is more interesting when
+looking at feedback. This is the moment a platform can transcend from being a
+mere JavaScript interpreter to an active education tool. Submitting code that 
+couldn't be interpreted results in the kind of feedback you'll expect from a 
+regular interpreter. Working hard on a solution that results in feedback like 
+{\em Unexpected token ILLEGAL} is not very stimulating. Unfortunately, no tool 
+seem to passively check the submitted code, in order to detect possible
+problems, before automatically interpreting that results in some kind of error
+that can't be easily interpreted by the user, being a beginner in JavaScript. 
+\newline When starting to submit code that perfectly well executes, there is
+some variation in the feedback. Some platforms seem to perform feedback based 
+on the actual test case whereon the solution failed. This is an interesting 
+method to determine more closely what goes wrong. NodeSchool.IO has another 
+interesting feature, by checking for certain restraints. If the assignment 
+states not to use a for-loop or a specific method, it really checks whether 
+it's used or not in the solution, and provides accurate feedback in this matter.
 
 \subsection{Feedback on platform and exercises}
 KhanAcademy has a nice functionality in this aspect as well. All exercises are 
@@ -288,10 +316,87 @@ platform itself is invariably limited, only a general contact function is
 provided. 
 
 \section{General difficulties in learning JavaScript} 
+The main topic of this article, how to develop a JavaScript Examiner, should be 
+examined with help of a true JavaScript examiner. Luckily, M.S. Stuurman was
+willing to share her expertise. As author of the
+course material and primary attendant of the mentioned course, she has a lot of
+experience with tutoring JavaScript.  In a short interview she outlined the
+general goals of the course, the common difficulties for students, possible 
+benefits gained with the tool for both students and tutors and some specific 
+subjects that deserve special attention.\newline
+{\em Webapplications: the Client Side} is a course that really aims on elegant 
+client side programming in JavaScript. Instead of offering a encyclopaedia
+consisting all possible constructs, it's based on the principle of active
+learning, whereby the student is supposed to learn by doing. \newline
+Examining the final exams often show ugly code, but mostly code that does meet 
+the functional requirements. Until now, these answers sufficed to pass the test,
+as it is hard to adequately prepare students with focus on elegance as well. It
+would be a great improvement when the tool supports this emission. Another 
+reoccurring flaw in the answers is redundancy. This makes the code hard
+to interpret and ever harder to maintain. Declaration of variables seem to be
+difficult as well. Often the variables and constants are declared here and 
+there, instead of
+declaration at the top of the document. On top of this, the {\em var} keyword 
+is not properly used, which leads to undesired global instances. The common
+{\em constructor} convention, declaring the method starting with an upper case
+character and not returning a value is something to pay attention on. \newline
+The assignments in the course material are representative for the ones to use 
+in the tool. Specifically the chapters 4,5 and 6 contain many good questions. 
+Eventually, chapter 7 about {\em Object Oriented Programming in JavaScript} may
+be appropriate as well. 
+The tutors of the course are willing to add the exercises to the tool, and it 
+would be nice to be able to make alterations and additions after uploading the 
+exercise. In this way, adjustments can be made to provide students with more
+effective support. Features to monitor the need of such modifications to the 
+exercises, are desired as well. At the same time, the anonymity of the student
+should be guaranteed. This to avoid reluctance for a student using the tool, 
+being anxious this may reflect negatively on their final result. The tool should
+explicitly state and effectively enforce this anonymity. The monitoring
+functions could for example contain data about commonly made mistakes,
+exercises that are time-consuming and the satisfaction rate in using the tool
+and specific exercises. The method as proposed in chapter 2, where students are
+challenged to write test cases themselves, may be interesting as well. Writing
+test cases is seen as an important skill to acquire. 
 
 \section{Conclusion} 
+When analysing the results, it's possible to extract some recommendations for 
+the JavaScript-examiner, especially in relation with the feedback features. The
+need to really grasp the domain and context has been pointed out and the call to
+establish a critical attitude towards the desire and possible solutions
+to reduce the labour intensity came across. The possibilities to encourage 
+feedback among students themselves is tempting, and something to consider.
+\newline While zooming in and discovering things more closely related to our 
+project, suggestions for print friendly, timely, elegant and well written 
+feedback cameup. The idea of students that can write test cases themselves to 
+gain skills and at the same time improve the tool is very appealing, especially 
+with the goal of reducing time in mind. In this way we may be enabled to create 
+a tool that is capable of facilitating -the desirable- more realistic and 
+interesting assignments. The review of several platforms mainly showed the 
+limitedness of learning programming languages with help of a tool, when 
+considering the feedback capabilities. Still, it can be very useful, now we have 
+more insight in very specific pro's and con's in usability and usefulness of such 
+tools. Basal consideration like the need to login, possible extensions like a 
+discussion forum, ways of input and submitting both assignments and solutions, 
+rewards to encourage to continue, forcing a sequence or let the student choose 
+the order of completing the assignment and examples of nice ways to visually 
+present the tool. 
+Experiencing feedback that makes no sense, has been productive for the 
+research as well. Now, we know it makes little sense to present feedback that 
+is just an thrown runtime error. This part of the research also showed the 
+relevance of the main project: there is much to win. \newline
+Conquer ugly code, that is a noble cause. A much needed one, according to the
+interview. Redundancy, variable declaration and writing proper constructors are
+other focal points. The desire for more or less dynamically maintainability came
+up, preferably with the possibility to monitor usage in order to improve the 
+assignments and meet the needs of the student. In relation to this aspect, the 
+importance of the user anonymity was touched. \newline
+Of course, it's not likely the tool will meet all recommendations and 
+conditions that came across.
+Still, when considering all these features in this stadium, we supposedly have 
+more leads to properly design the infrastructure, that enables further 
+project-groups to expand the JavaScript-examiner, in order to reach and maybe
+even transcends some of these quite appealing features. 
 
-\newpage
 \bibliographystyle{apalike}
 \bibliography{bibliography}
 
