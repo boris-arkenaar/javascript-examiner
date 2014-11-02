@@ -6,3 +6,5 @@
 *.synctex.gz*
 *.el
 *.out
+*.bbl
+*.blg
