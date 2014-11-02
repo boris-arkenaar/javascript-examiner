@@ -11,80 +11,71 @@ This domain research is a first orientation on the use of existing frameworks th
 project to construct the JavaScript-examiner\footnote{\url{https://github.com/Slotkenov/javascript-examiner/}}.
 Because of the limited time, I have started with the frameworks that are mentioned in 
 'Web applications: The Client Side'\footnote{\url{http://www.ou.nl/studieaanbod/T58221}}.
-The application we are developping will be open-source, so the frameworks should also be available
+The application under development will be open-source, so the frameworks should also be available
 under an open-source license.
 
 \subsection{Mocha}
 "Mocha is a feature-rich JavaScript test framework running on node.js and the 
 browser, making asynchronous testing simple and fun."\footnote{\url{http://www.mochajs.org}}.
-It can be installed with npm (Node Packaged Modules)\footnote{\url{https://www.npmjs.org}}.
+It can be installed with NPM (Node Packaged Modules)\footnote{\url{https://www.npmjs.org}}.
 The options can be given at the command line, or in a special options file.
-It states that it can use any assertion library, the only thing it needs to work together is that the libary can throw an error.
+It states that it can use any assertion library, the only thing it needs to work together is that the library can throw an error.
 The Mocha framework can be of great use when the code under test will become more complex and can be submitted to unit tests.
 
 \subsection{Chai}
-"Chai is a BDD/TDD assertion library for node and the browser that can be delightfully paired with any javascript testing framework"\footnote{http://chaijs.com}.
-% Wat bedoel je met onderstaande zin?
-n expectation framework. It can be installed with npm.
-It is well documented and there are ways to extend it with your own assertions.
+"Chai is a BDD/TDD assertion library for node and the browser that can be delightfully paired with any JavaScript testing framework"\footnote{http://chaijs.com}.
+Chai can be installed with NPM.
+It is well documented and there are ways to extend it with your own assertions by making plugins,
+but you can do this after you have a solid knowledge of Chai.
 It requires knowledge of BDD and/or TDD assertion style language.
 Therefore it may be used later in the project, but it can also be a subject of a new research.
-
 
 \subsection{JSLint}
 The JavaScript Code Quality Tool\footnote{http://www.jslint.com}\\
 It is a static code analysis tool.
-Npm can be used to install JSLint.
+NPM can be used to install JSLint.
 JSLint can operate on JavaScript source or JSON (JavaScript Object Notation)\footnote {http://www.json.org} text.
-JSLint defines a professional subset of JavaScript, a stricter language than that defined by Third Edition of the ECMAScript Programming Language Standard.
+JSLint defines a professional subset of JavaScript, a stricter language than that 
+defined by Third Edition of the ECMAScript Programming Language Standard.
 The subset is related to recommendations found in Code Conventions for the JavaScript Programming Language.
 The default settings are too strict for our purpose.
 
 \subsection{JSHint}
 "JSHint is a community-driven tool to detect errors and potential problems in JavaScript code and to enforce your team's coding conventions. It is very flexible so you can easily adjust it to your particular coding guidelines and the environment you expect your code to execute in."\footnote{http://www.jslhint.com/about}
-It can be installed with npm.
+It can be installed with NPM.
 JSHint comes with a default set of warnings but it was designed to be very configurable.
 Because JSHint is not as strict as JSLint, it is a better option for the JavaScript-examiner.
 
 \subsection{HJS}
-% Alles tussen $-tekens wordt als wiskundige notatie geïnterpreteerd. Dan werkt
-% het groter-dan-teken en toont hij ook een mooi is-teken.
 "A Javascript parser and interpreter. Works as per ECMA-262 plus some parts of JS $>=$1.5.
 HJS is a JavaScript parser written in Haskell. Available from HackageDB."\footnote{https://hackage.haskell.org/package/hjs}
-Because Haskell is also a subject of an Open University course\footnote{http://www.ou.nl/studieaanbod/T12331}, I have looked at a tool for Haskell.
-% TODO: geef meer uitleg over voor en nadelen van deze tool.
+Because Haskell is also a subject of an Open University course\footnote{http://www.ou.nl/studieaanbod/T12331}, I have searched for a tool for Haskell.
+It seems that because Haskell is a functional language which can evaluate functions at high speed, it is a good candidate for a parser.
+But my knowledge of Haskell is not sufficient to give a thorough opinion on this.
 
 \subsection{Escomplex}
 "Software complexity analysis of JavaScript-family abstract syntax trees. The back-end for complexity-report"\footnote{\url{https://github.com/philbooth/escomplex}}.
-Can be installed with npm.
+NPM can be used to install Escomplex.
 
 \subsection{Esprima}
 "Esprima is a high performance, standard-compliant ECMAScript parser written in ECMAScrip."\footnote{\url{http://esprima.org}}\\
 Esprima can be installed on Rhino, Nashorn, and Node.js.
-It can return a syntax tree that conforms to the format defined in Mozilla's Parser API, which can be the input for escomplex.
+It can return a syntax tree that conforms to the format defined in Mozilla's Parser API, which can be the input for Escomplex.
+Esprima's purpose is only to check for syntax errors.
 
 \subsection{Acorn}
 "Acorn is a tiny, fast JavaScript parser written in JavaScript."\footnote{\url{http://marijnhaverbeke.nl/acorn/}}\\
 Acorn returns an abstract syntax tree as specified by Mozilla parser API, which can be used as input for escomplex.
 With a second optional argument the parser process can be further configured.
-% TODO: Esprima en Acorn lijken het zelfde uit de omschrijving die je
-% geeft. Vergelijk ze wat betreft voor- en nadelen.
+The advantage of Acorn is that it is tiny. About half as big as Esprima, in lines of code.
 
 \subsection {Firebug Lite}
 Light version of Firebug (an add-on for Firefox), completely written in JavaScript.
-Firebug Lite can be installed using three different ways: Bookmarklet, Live Link or Local Link.
-% TODO: hier gaat iets niet goed, de zin loopt niet lekker en wordt niet af
-% gemaakt.
-It has options you can use to get benefit of a certain thing
-Extensions can be developed for Firebug Lite, but this in the first version of the 
+I think the usability for our project is minimal, because you use it as a web-app, or a plug-in.
 
 \section{Platform}
-To give a meaningful explanation of tools, it must be understand what the environments can be.\\
-% TODO: 'this is etc.'? Hier mist iets denk ik?
-A numerous amount of the tools run on node.js \footnote{http://www.nodejs.org}. This is etc.
-There is a version for Unix, Linux, Windows and Mac.\\
-Tools that can be installed on node are fairly easy to install. The command install package -g does the trick.\\
-Node.js, Rhino, Nashorn.
+To understand the use of the tools, we should look into the platform that can be used.\\
+I have looked at Node.js, Rhino and Nashorn.
 
 \subsection{Rhino}
 "Rhino is a JavaScript interpreter written in Java and designed to make it easy to write JavaScript programs 
@@ -97,7 +88,10 @@ https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
 Unix APIs for working with processes, files, network sockets, etc., and also to 
 HTTP client and server APIs."\footnote{\url{http://nodejs.org}}
 Node.js can be used to build and run JavaScript applications, without the need of a browser.
+A numerous amount of the tools run on Node.js \footnote{http://www.nodejs.org}. This is well know platform.
 Node.js runtime is available for different operating systems.
+There is a version for Unix, Linux, Windows and Mac.\\
+Tools that can be installed on Node are fairly easy to install. The command install package -g does the trick.\\
 
 \subsection{Nashorn}
 "Nashorn's goal is to implement a lightweight high-performance JavaScript runtime in Java with a native JVM.
@@ -110,12 +104,16 @@ The use of a command-line tool to develop JavaScript applications is not our goa
 With workshopper on Nodeschool.IO\footnote{\url{http://nodeschool.io/}} it is possible to create your own menu-driven learning environment. 
 Workshopper can be installed with node.js.
 It is also covered in the paper of Bram Nieuwenhuize\footnote{Basic feedback on Javascript code.pdf}
-Because of the simple menu structure you can generate with workshopper, it is a good option to use in the beginning of the development of the JavaScript-examiner.
+Because of the simple menu structure you can generate with workshopper, it is a good option to use in 
+the beginning of the development of the JavaScript-examiner.
 
 \section{Conclusion}
 Because the first version of the JavaScript examiner can not contain all the enhanced 
-functionality of modules, the best option to start with are modules which can run on node.js.
+functionality of modules, the best option to start with are modules which can run on Node.js.
+This can that we can write our code in JavavScript.
 As the software matures, more complex modules can probably be used, but that will be subject of future projects.
+The use of a functional language seems also a useful but requires the knowledge of an other language.
+Maybe ClojureScript is capable of doing the same, but I haven't had time to look into this.  
 
 \section{References}
 
