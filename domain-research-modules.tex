@@ -6,6 +6,8 @@
 \date{\today}
 \maketitle
 
+%TODO: Is het relevant om steeds te vermelden hoe het wordt geinstalleerd?
+
 \section{Introduction}
 This domain research is a first orientation on the use of existing frameworks that can be used in the 
 project to construct the JavaScript-examiner\footnote{\url{https://github.com/Slotkenov/javascript-examiner/}}.
@@ -19,7 +21,9 @@ under an open-source license.
 browser, making asynchronous testing simple and fun."\footnote{\url{http://www.mochajs.org}}.
 It can be installed with NPM (Node Packaged Modules)\footnote{\url{https://www.npmjs.org}}.
 The options can be given at the command line, or in a special options file.
+%TODO: wat bedoel je met de onderstaande zin? Hoe werkt het precies en wat is er voor nodig?
 It states that it can use any assertion library, the only thing it needs to work together is that the library can throw an error.
+%TODO: Waarom is het niet nuttig voor de kleinere opgaven in het begin?
 The Mocha framework can be of great use when the code under test will become more complex and can be submitted to unit tests.
 
 \subsection{Chai}
@@ -27,6 +31,7 @@ The Mocha framework can be of great use when the code under test will become mor
 Chai can be installed with NPM.
 It is well documented and there are ways to extend it with your own assertions by making plugins,
 but you can do this after you have a solid knowledge of Chai.
+%TODO: Wat is BDD en TDD precies? Waarom is deze kennis nodig?
 It requires knowledge of BDD and/or TDD assertion style language.
 Therefore it may be used later in the project, but it can also be a subject of a new research.
 
@@ -38,21 +43,24 @@ JSLint can operate on JavaScript source or JSON (JavaScript Object Notation)\foo
 JSLint defines a professional subset of JavaScript, a stricter language than that 
 defined by Third Edition of the ECMAScript Programming Language Standard.
 The subset is related to recommendations found in Code Conventions for the JavaScript Programming Language.
+%TODO: Waarom te strikt? Wellicht een voorbeeld geven oid.
 The default settings are too strict for our purpose.
 
 \subsection{JSHint}
 "JSHint is a community-driven tool to detect errors and potential problems in JavaScript code and to enforce your team's coding conventions. It is very flexible so you can easily adjust it to your particular coding guidelines and the environment you expect your code to execute in."\footnote{http://www.jslhint.com/about}
 It can be installed with NPM.
+%TODO: wat bedoel je met onderstaande zin precies? Is het nog steeds goed te configureren, of nu juist niet meer?
 JSHint comes with a default set of warnings but it was designed to be very configurable.
 Because JSHint is not as strict as JSLint, it is a better option for the JavaScript-examiner.
 
 \subsection{HJS}
 "A Javascript parser and interpreter. Works as per ECMA-262 plus some parts of JS $>=$1.5.
 HJS is a JavaScript parser written in Haskell. Available from HackageDB."\footnote{https://hackage.haskell.org/package/hjs}
-Because Haskell is also a subject of an Open University course\footnote{http://www.ou.nl/studieaanbod/T12331}, I have searched for a tool for Haskell.
+Because Haskell is also a subject of an Open University course\footnote{http://www.ou.nl/studieaanbod/T12331}, I have searched for a tool in Haskell.
 It seems that because Haskell is a functional language which can evaluate functions at high speed, it is a good candidate for a parser.
 But my knowledge of Haskell is not sufficient to give a thorough opinion on this.
 
+%TODO: het is mij nog steeds niet duidelijk wat een Abstract Syntax tree precies is en hoe dit werkt, wellicht iets meer uitleg hier, ter instroductie van de onderstaande tools.
 \subsection{Escomplex}
 "Software complexity analysis of JavaScript-family abstract syntax trees. The back-end for complexity-report"\footnote{\url{https://github.com/philbooth/escomplex}}.
 NPM can be used to install Escomplex.
@@ -103,16 +111,21 @@ The use of a command-line tool to develop JavaScript applications is not our goa
 \subsection{Workshopper}
 With workshopper on Nodeschool.IO\footnote{\url{http://nodeschool.io/}} it is possible to create your own menu-driven learning environment. 
 Workshopper can be installed with node.js.
-It is also covered in the paper of Bram Nieuwenhuize\footnote{Basic feedback on Javascript code.pdf}
+It is also covered in the paper of Bram Nieuwenhuize\footnote{domain-research-feedback.pdf}
 Because of the simple menu structure you can generate with workshopper, it is a good option to use in 
+%TODO: Alleen in het begin? Wat kunnen we precies gebruiken en hoe?
 the beginning of the development of the JavaScript-examiner.
 
 \section{Conclusion}
 Because the first version of the JavaScript examiner can not contain all the enhanced 
 functionality of modules, the best option to start with are modules which can run on Node.js.
 This can that we can write our code in JavavScript.
+% TODO: Moeten we dit niet min of meer van te voren vaststellen, zodat de architectuur geschikt is? Of bijvoorbeeld
+%verantwoorden waarom het prima gaat om dit later te bepalen (hoge compatability van onderlinge tools oid). 
+%Daar zou dan een aparte paragraaf voor kunnen komen.
 As the software matures, more complex modules can probably be used, but that will be subject of future projects.
 The use of a functional language seems also a useful but requires the knowledge of an other language.
+%TODO: Waar komt ClojureScript opeens vandaan?
 Maybe ClojureScript is capable of doing the same, but I haven't had time to look into this.  
 
 \section{References}
