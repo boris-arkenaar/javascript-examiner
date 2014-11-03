@@ -1,11 +1,3 @@
-
-
--In plaats van Workshopper zouden we mogelijk ook gebruik kunnen maken van Adventure. Wat het exacte verschil is weet ik overigens ook niet precies.
-
-Verder ziet het er goed uit, wellicht moet er nog iets meer een argumentatiestructuur in komen waar we de uiteindelijke keuze in de conclusie verantwoorden.
-
-In aanvulling op het laatste bericht: de inleiding zou nog info kunnen geven over de (niet) functionele requirements.
-
 \documentclass{article}
 \usepackage{hyperref}
 \begin{document}
@@ -14,25 +6,26 @@ In aanvulling op het laatste bericht: de inleiding zou nog info kunnen geven ove
 \date{\today}
 \maketitle
 
-%TODO: Is het relevant om steeds te vermelden hoe het wordt geinstalleerd?
-
 \section{Introduction}
 This domain research is a first orientation on the use of existing frameworks that can be used in the 
 project to construct the JavaScript-examiner\footnote{\url{https://github.com/Slotkenov/javascript-examiner/}}.
 Because of the limited time, I have started with the frameworks that are mentioned in 
 'Web applications: The Client Side'\footnote{\url{http://www.ou.nl/studieaanbod/T58221}}.
+In this course, there is use of the documentation and site of Marijn Haverbeke.
+He is the of Acorn, a tiny and fast JavaScript parser. He also mentioned the tool Esprima, which I also looked at.
+Both of these generate an AST (abstract syntax tree), through which I came to the tool Escomplex, which can use an AST as input.
 The application under development will be open-source, so the frameworks should also be available
 under an open-source license.
+
+\section{Tools}
 
 \subsection{Mocha}
 "Mocha is a feature-rich JavaScript test framework running on node.js and the 
 browser, making asynchronous testing simple and fun."\footnote{\url{http://www.mochajs.org}}.
 It can be installed with NPM (Node Packaged Modules)\footnote{\url{https://www.npmjs.org}}.
 The options can be given at the command line, or in a special options file.
-%TODO: wat bedoel je met de onderstaande zin? Hoe werkt het precies en wat is er voor nodig?
 It states that it can use any assertion library (like should.js, Chai etc.), 
 the only thing it needs to work together is that the library can throw an error.
-%TODO: Waarom is het niet nuttig voor de kleinere opgaven in het begin?
 The Mocha framework can be of great use when the code under test will become more complex and can be submitted to unit tests.
 This because the number of lines of code will be small in comparison with the effort of making a test.
 Mocha states that the use of the command-line van run into some problems, if you want to load specific files. 
@@ -43,7 +36,7 @@ But it doesn't explain what these problems might be.
 Chai can be installed with NPM.
 It is well documented and there are ways to extend it with your own assertions by making plugins,
 but you can do this after you have a solid knowledge of Chai.
-It requires knowledge of he Assert style, the BDD style (Behaviour-driven development, based on TDD. BDD comes in two flavors, expect and should. With this you can write a test that lookes like natural language) and/or the TDD style (Test Driven Development, writing tests that initially fail, and then produce a minimal amount of code that passes the test) assertion style language, because these are the three assertion styles that may be used in the testing environment.
+It requires knowledge of he Assert style, the BDD style (Behaviour-driven development, based on TDD. BDD comes in two flavors, expect and should. With this you can write a test that looks like natural language) and/or the TDD style (Test Driven Development, writing tests that initially fail, and then produce a minimal amount of code that passes the test) assertion style language, because these are the three assertion styles that may be used in the testing environment.
 Therefore it may be used later in the project, but it can also be a subject of a new research.
 
 \subsection{JSLint}
@@ -65,7 +58,7 @@ The first, when set to true, produces more warnings. Whereas the latter produces
 Because JSHint is not as strict as JSLint, it is a more suitable option for the JavaScript-examiner.
 
 \subsection{HJS}
-"A Javascript parser and interpreter. Works as per ECMA-262 plus some parts of JS $>=$1.5.
+"A JavaScript parser and interpreter. Works as per ECMA-262 plus some parts of JS $>=$1.5.
 HJS is a JavaScript parser written in Haskell. Available from HackageDB."\footnote{https://hackage.haskell.org/package/hjs}
 Because Haskell is also a subject of an Open University course\footnote{http://www.ou.nl/studieaanbod/T12331}, I have searched for a tool in Haskell.
 It seems that because Haskell is a functional language which can evaluate functions at high speed, it is a good candidate for a parser.
@@ -123,27 +116,21 @@ The use of a command-line tool to develop JavaScript applications is not our goa
 
 \section{Environment}
 \subsection{Workshopper}
-With workshopper on Nodeschool.IO\footnote{\url{http://nodeschool.io/}} it is possible to create your own menu-driven learning environment. 
-Workshopper can be installed with node.js.
+With Workshopper on Nodeschool.IO\footnote{\url{http://nodeschool.io/}} it is possible to create your own menu-driven learning environment. 
+Workshopper can be installed with Node.js.
 It is also covered in the paper of Bram Nieuwenhuize\footnote{domain-research-feedback.pdf}
-You can generate a simple menu structure interface with workshopper.
-, it is a good option to use in 
-%TODO: Alleen in het begin? Wat kunnen we precies gebruiken en hoe?
-the beginning of the development of the JavaScript-examiner.
-
--De Workshopper module is gericht op lokaal gebruik. Op het moment dat we bijvoorbeeld bepaalde statistieken willen gaan loggen (om inzicht te creëren van veel gemaakte fouten voor de docent bijvoorbeeld) en we de Workshopper willen gebruiken, zullen we dus aanpassingen moeten maken. We hoeven nu nog niet te weten welke aanpassingen precies maar het is wellicht aardig om er bij stil te staan. Het opensource karakter is wat dat aangaat interessant. 
+The Workshopper module is focused on local usage. There can be a way to adapt it to our needs.
+You can generate a simple menu structure interface with Workshopper.
+Maybe it can be useful when we want to log statistics, to get insight into often made errors.
+Workshopper is open-source. 
 
 \section{Conclusion}
 Because the first version of the JavaScript examiner can not contain all the enhanced 
 functionality of modules, the best option to start with are modules which can run on Node.js.
 This can that we can write our code in JavavScript.
-% TODO: Moeten we dit niet min of meer van te voren vaststellen, zodat de architectuur geschikt is? Of bijvoorbeeld
-%verantwoorden waarom het prima gaat om dit later te bepalen (hoge compatability van onderlinge tools oid). 
-%Daar zou dan een aparte paragraaf voor kunnen komen.
-As the software matures, more complex modules can probably be used, but that will be subject of future projects.
-The use of a functional language seems also a useful but requires the knowledge of an other language.
-%TODO: Waar komt ClojureScript opeens vandaan?
-Maybe ClojureScript is capable of doing the same, but I haven't had time to look into this.  
+Because of the speed, Acorn is a good option. Because this generates an AST the use of Escomplex will be logical.
+All these can be installed on Node.js, which is why this would be the first choice. 
+The way we want to present it to the student can be through a menu interface which can be built with Workshopper.
 
 \section{References}
 
