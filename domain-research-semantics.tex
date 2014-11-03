@@ -29,17 +29,15 @@ the assignments he picks at random. Then he will give the students general
 feedback on those pitfalls in the next online group session.
 
 The reason why the JavaScript-examiner will benefit students --- besides
-relieving the teacher of to much of a workload --- is threefold. 
-%TODO: welke problemen bedoel je? Of gewoon algemeen zonder problemen? Dan zou ik het weglaten:
-%First off the JavaScript-examiner is able to check all the assignments of every student.
-First off the JavaScript-examiner is able to check all the assignments of all students
-without any problem. Secondly, the JavaScript-examiner can give the students
-immediate feedback on their assignment --- in stead of them having to wait for
-the next online group session with the teacher. And finally the JavaScript
-examiner gives the students individual feedback. In stead of some general
-explanation about common pitfalls the student might not even have had trouble
-with, the JavaScript-examiner gives each student feedback on the specific
-problems encountered in his assignment.
+relieving the teacher of too much of a workload --- is threefold.  First off
+the JavaScript-examiner is able to check all the assignments of all
+students. Secondly, the JavaScript-examiner can give the students immediate
+feedback on their assignment --- in stead of them having to wait for the next
+online group session with the teacher. And finally the JavaScript examiner
+gives the students individual feedback. In stead of some general explanation
+about common pitfalls the student might not even have had trouble with, the
+JavaScript-examiner gives each student feedback on the specific problems
+encountered in his assignment.
 
 This article will be an analysis of the quality aspects of JavaScript code on
 which the JavaScript-examiner can focus. I will look for existing quality
@@ -106,7 +104,7 @@ file. You would need serious knowledge of the programming language in question.
 
 Only looking at the lines of code is not very useful. We can compare the LOC of
 the student with the solution of the teacher, but that will give you only a
-rough idea about whether the student used far to much code or extraordinarily
+rough idea about whether the student used far too much code or extraordinarily
 few. Next up is cyclomatic complexity. This basically tells you in how many
 unique paths your code could be executed \citep{website:js-complexity}. When
 the cyclomatic complexity increases, so does the complexity of your code. The
@@ -117,15 +115,15 @@ relative to the lines of code. This gives us the cyclomatic complexity density
 \citep{gill1991cyclomatic}.
 
 The Halstead complexity looks at operators and its operands. It determines the
-amount of operators and operands in a piece of code. 
-%TODO: onderstaande zin lijkt niet helemaal lekker te lopen, is onduidelijk.
-Besides that it counts the
-amount of distinct operators and operands. With that some calculations are
-performed to determine the complexity of the code. While fully understanding
-the programming language is not needed, the Halstead method has some
-shortcomings as explained by \citet{yu2010survey}. Where the cyclomatic
-complexity looks at the control flow of the code, the Halstead methed only
-looks at the operations performed, but ignores the control flow completely.
+amount of operators and operands in a piece of code. It also determines the
+amount of distinct operators and operands.  Besides that it counts the amount
+of distinct operators and operands. With that date some calculations are
+performed to determine the complexity of the code. While it is not necessary to
+fully understand the programming language for performing this metric, the
+Halstead method has some shortcomings as explained by
+\citet{yu2010survey}. Where the cyclomatic complexity looks at the control flow
+of the code, the Halstead methed only looks at the operations performed, but
+ignores the control flow completely.
 
 \section{Execution quality}
 
@@ -133,12 +131,14 @@ The quality can be determined by looking at the code structures that have been
 used, and by looking at the manner in which the code structures have been
 combined.
 
-An interesting way to look at a new programming language can also help us here
-to look at JavaScript code, of what structures it is composed and how they are
-combined. These words from Abelson and Sussman\footnote{Abelson, H., Sussman,
-G.J. 1984 {\em Structure and Interpretation of Computer Programs}. MIT Press,
-[\url{https://mitpress.mit.edu/sicp/}]}: ``What are the primitives, what are
-their means of combination, and what are their means of abstraction?''
+There is an interesting way to look at a new programming language which can
+also help us here to look at JavaScript code, of what structures it is composed
+and how they are combined. These words from Abelson and
+Sussman\footnote{Abelson, H., Sussman, G.J. 1984 {\em Structure and
+Interpretation of Computer Programs}. MIT Press,
+[\url{https://mitpress.mit.edu/sicp/}]} give us that way of thinking: ``What
+are the primitives, what are their means of combination, and what are their
+means of abstraction?''
 
 To follow these words we would first have to look at the primitives of
 JavaScript. Then we can determine in what ways these primitives can be
@@ -146,21 +146,36 @@ combined. Finally we look at the means of abstraction JavaScript offers us.
 
 \subsection{Relative execution time}
 
-For determining the efficiency of the code we can compare the specified
-JavaScript code with the correct solution of the teacher. A relatively simple
-way could be breaking up the both pieces of code into primitives and determine
-the total weight of the code by summing up the weight of each primitives used
-in the code. The higher the number the heavier the code, and thus less
-efficient. For this method we would have to define beforehand the weight of
-each primitive available in JavaScript, according to the relative time it would
-take a JavaScript interpreter to interpret that primitive.\footnote{This does
-not say anything about readability however. One piece of code code be
-marginally more efficient than another, but at the same time be far less
-readable, for instance. One would prefer the slightly less efficient one for
-its readability. The software would, in this case however, choose the less
-readable one.} For this to work you would also need to figure out how many
-times a loop is iterated over. The more times a loop is executed, the more time
-it would take.
+The relative execution time of a piece of code can be measured
+mathematically. As explained by \citet[Chapter 4]{goodrich2008data} the
+relative execution time can be expressed using seven functions (constant,
+logarithm, linear, n-log~n, etc.). To determine with which function the
+relative execution time of a piece of code can be expressed one has to look at
+the primitives used in that code. For each primitive the relative execution
+time has to be determined. Then you can calculate the relative execution time
+of a combination of those functions (i.e. the combination of the primitives
+that make op the code).
+
+This method would be a good way to see if the student has used an algorithm
+that is to complex for the given assignment. If, for example, the solution of
+the teacher executes in n-log~n time while the code of the student executes in
+quadratic time, feedback could be given to the student that he can use a more
+efficient algorithm for that assignment. The question would be: how to give the
+student more concrete feedback? Instead of just telling him he can do better it
+would be constructive to point him in the right direction. However, this would
+require more knowledge of the particular assignment and the difference between
+the solution of the teacher and the solution of the student.
+
+An implementation of this method would require more than determining the
+primitives used in a piece of code and how they are combined. When a loop is
+used, for instance, you would need information about run time variables to
+determine how many times the loop would be iterated over. In other words:
+looking at the primitives is not enough, you would need a good understanding of
+the algorithm used and the problem that is being solved. This problem might be
+solved by requiring the teacher to specify algorithm information when creating
+an assignment in the JavaScript-examiner. However further study will be
+required to figure out how this would be best implemented, and what information
+would be required exactly from the teacher.
 
 \subsection{Code structures}
 
@@ -168,10 +183,10 @@ When looking at the meaning of the code you can distinguish different code
 structures. When you look at an assignment, it might be the case that a good
 solution should contain one or two specific code structures. That means that we
 can look for those structures in a student's code. If they are not there, or if
-there are to much of them, the student can be given feedback mentioning this
+there are too much of them, the student can be given feedback mentioning this
 fact. In order to be able to give the student a more profound explanation of
 why his code is not optimal we would need input form the teacher. Because our
-goal is to relieve the teacher from to much work we could try and implement
+goal is to relieve the teacher from too much work we could try and implement
 this feature in a similar way \citet[Section 3.2]{watson2011learning} proposed
 in their article. They describe a way to provide feedback on how to correct a
 piece of code that generates an error. The first time the system encounters a
@@ -203,31 +218,42 @@ miss some, or find cases that are of no importance? Besides that this functional
 \section{Comparing code}
 
 The great thing is: we do not need to determine the quality of a piece of code
-on its own. We can compare it to well defined base piece of code that is
+on its own. We can compare it to a well defined base piece of code that is
 assumed to be correct and efficient (i.e. an acceptable solution). That means
 that we do not need to decide how many lines of code would be too much, or what
 cyclomatic complexity would make the code too complex. We can just compare the
 lines of code, and the halstead complexity of the student's code with the
-solution of the teacher. We do have to determine however, how bad is the code
-if it is not as good as the solution of the teacher. There should probably be
+solution of the teacher. We do have to determine however: how bad is the code
+if it is not as good as the solution of the teacher? There should probably be
 some margin of acceptance.
 
-\subsection{Definition of an assignment}
-%TODO: Is dit bepaald, of zou het ook nog anders kunnen en is het meer een mogelijke
-%invulling?
-The teacher has to start by defining an assignment. He formulates a description
-of the assignment and creates some unit tests. He also creates a solution
-appropriate for the assignment that should also pass the tests he created. At
-this point we have the data needed for the student to be able to read the
-assignment and start working, and for the software to be able to determine if a
-piece of JavaScript code is functionally correct. We can also check the quality
-of the JavaScript code which is independent of the assignment.
+The code layout is an absolute check to see if the student's code adheres to a
+well defined set of rules of best practices in coding. The code either fails on
+some points or it is completely laid out according to the layout definitions
+used. How you go about giving feedback when some rules are broken is another
+question. The JavaScript-examiner could say the code is incorrect or more
+gently tell the student that it could be better. It could clearly point out
+where the shortcomings are or simply tell the student to do better. The point
+is that the rules of code layout can be well defined, how strict you hold the
+student to it is a matter of feedback.
 
-When we start looking at maintainability and execution time, we need to compare
-the results of those aspects with the solution of the teacher. Therefore we
-need the teacher to give a possible solution to the system in order for it to
-be able to determine some base level in these quality aspects which are
-acceptable. For looking at code structure we might need to go further and ask the teacher to specify which primitives used in his solution are important. And maybe he could also specify some primitives the students might be tempted to use in stead of the primitives the teacher used.
+A different matter are the other metrics for code and execution quality. They
+do not simply give you an answer whether the code is good or not. It is more of
+a gray area and you would need to determine when code is good, when it is
+acceptable and when it would need improvement. These acceptability margins will
+be different for each assignment (e.g. a more complex assignment should allow a
+higher cyclomatic complexity). The teacher could be asked to specify these
+margins when creating an assignment, but the teacher might struggle to
+determine good margins for the assignment at hand. Another way might be to ask
+the teacher to write a solution to the exercise himself. The
+JavaScript-examiner could then determine a baseline for the different metrics
+by calculating the metrics for the teacher's solution. That would give the
+system a good base for which it can say: when I get these results (or better
+results) for the metrics a on a piece of code, the code is good, otherwise the
+code could be better. Preferably you would still want some form of margin,
+where the results of the metrics slightly below those of the teacher's are as
+acceptable as the teacher's. Determining how those margins can best be
+calculated is subject to further research.
 
 \section{Conclusion}
 
