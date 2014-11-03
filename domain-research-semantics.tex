@@ -257,6 +257,38 @@ calculated is subject to further research.
 
 \section{Conclusion}
 
+While no one metric is perfect it would be best to combine several metrics to
+determine the quality of the code and of its execution. Looking at code layout
+is a good starting point and will be easy to implement because many libraries
+exist for performing these checks for JavaScript code. The other metrics will
+require a baseline which can be obtained by analyzing the teacher's
+solution. This won't be o problem to implement as well but would require
+further research and development for determining the right margins of
+acceptance of these metrics.
+
+The maintainability metrics are well defined and have been implemented in
+different libraries. Therefore these are also a good candidate to implement in
+the JavaScript-examiner. Some extra research might be necessary though to find
+the right implementation, use and combination of these metrics for best
+representing the quality of the students' code.
+
+Looking at execution quality of the code would be an interesting area to look
+into, but will take more time and effort to implement. To calculate the
+relative execution time good understanding of the code and the algorithm are
+needed. Also, because of its complexity, no ready to be used libraries exist
+for executing this specific metric. Serious research and development will be
+needed to be able to implement it.
+
+Building up a database with specific usages of primitives for an assignment
+along with helpful feedback for a student seems an interesting solution. The
+JavaScript-examiner will be able to generate valuable feedback, simply and
+effectively by asking the teacher. At the same time the teacher will be
+relieved from too much work because the system would save that feedback into a
+database. Further research is needed to determine the best way of extracting
+the important primitives from code. Development is needed to implement this
+functionality and make sure the feedback from the database will be supplied at
+the right times.
+
 \bibliographystyle{abbrvnat}
 \bibliography{bibliography}
 
