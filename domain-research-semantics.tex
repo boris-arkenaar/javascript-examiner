@@ -20,18 +20,20 @@ Our goal is to make life easier for a programming language teacher. In our
 bachelor project we will develop a
 JavaScript-examiner\footnote{\url{https://github.com/Slotkenov/javascript-examiner/}}
 which will relieve the teacher from checking all students' assignments and
-giving them appropriate feedback in an online course. On the other hand the
+giving them appropriate feedback in an online course. At he same time, the
 JavaScript-examiner will be for the benefit of the students as well. The
 teacher simply doesn't have time to check the assignments of all the
 students. And therefore the teacher cannot give individual feedback to each
-student. The teacher will pick the greatest and most common pitfalls he sees in
+student. The teacher will pick the biggest and most common pitfalls he sees in
 the assignments he picks at random. Then he will give the students general
 feedback on those pitfalls in the next online group session.
 
 The reason why the JavaScript-examiner will benefit students --- besides
-relieving the teacher of to much of a workload --- is threefold. First off the
-JavaScript-examiner is able to check all the assignments of all students
-without any problem. Secondly the JavaScript-examiner can give the students
+relieving the teacher of to much of a workload --- is threefold. 
+%TODO: welke problemen bedoel je? Of gewoon algemeen zonder problemen? Dan zou ik het weglaten:
+%First off the JavaScript-examiner is able to check all the assignments of every student.
+First off the JavaScript-examiner is able to check all the assignments of all students
+without any problem. Secondly, the JavaScript-examiner can give the students
 immediate feedback on their assignment --- in stead of them having to wait for
 the next online group session with the teacher. And finally the JavaScript
 examiner gives the students individual feedback. In stead of some general
@@ -115,10 +117,12 @@ relative to the lines of code. This gives us the cyclomatic complexity density
 \citep{gill1991cyclomatic}.
 
 The Halstead complexity looks at operators and its operands. It determines the
-amount of operators and operands in a piece of code. Besides that it counts the
+amount of operators and operands in a piece of code. 
+%TODO: onderstaande zin lijkt niet helemaal lekker te lopen, is onduidelijk.
+Besides that it counts the
 amount of distinct operators and operands. With that some calculations are
-performed to determine the complexity of the code. While a full understanding
-of the programming language is not needed, the Halstead method has some
+performed to determine the complexity of the code. While fully understanding
+the programming language is not needed, the Halstead method has some
 shortcomings as explained by \citet{yu2010survey}. Where the cyclomatic
 complexity looks at the control flow of the code, the Halstead methed only
 looks at the operations performed, but ignores the control flow completely.
@@ -209,7 +213,8 @@ if it is not as good as the solution of the teacher. There should probably be
 some margin of acceptance.
 
 \subsection{Definition of an assignment}
-
+%TODO: Is dit bepaald, of zou het ook nog anders kunnen en is het meer een mogelijke
+%invulling?
 The teacher has to start by defining an assignment. He formulates a description
 of the assignment and creates some unit tests. He also creates a solution
 appropriate for the assignment that should also pass the tests he created. At
