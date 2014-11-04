@@ -9,11 +9,13 @@
 \section{Introduction}
 This domain research is a first orientation on the use of existing frameworks that can be used in the 
 project to construct the JavaScript-examiner\footnote{\url{https://github.com/Slotkenov/javascript-examiner/}}.
-Because of the limited time, I have started with the frameworks that are mentioned in 
-'Web applications: The Client Side'\footnote{\url{http://www.ou.nl/studieaanbod/T58221}}.
-In this course, there is use of the documentation and site of Marijn Haverbeke \url{http://marijnhaverbeke.nl/acorn/}.
-He is the of Acorn, a tiny and fast JavaScript parser. He also mentioned the tool Esprima, which I also looked at.
-Both of these generate an AST (abstract syntax tree), through which I came to the tool Escomplex, which can use an AST as input.
+Because of the limited time for this research, I have started with the frameworks that are mentioned in 
+'Web applications: The Client Side'\footnote{\url{http://www.ou.nl/studieaanbod/T58221}} (Mocha/Chai and JsLint).
+The course also uses Eloquent JavaScript. This was written by Marijn Haverbeke \footnote{\url{http://eloquentjavascript.net}}.
+He is also the author of Acorn\footnote{\url{http://marijnhaverbeke.nl/acorn/}}, a tiny and fast JavaScript parser.
+On this site there is a mentioning of Esprima. 
+Esprima runs in the browser, as well as other platforms such as Rhino, Nashorn and Node.js.
+Both Acorn and Esprima generate an AST (abstract syntax tree), which can be used as input for Escomplex.
 The application under development will be open-source, so the frameworks should also be available
 under an open-source license.
 
@@ -69,18 +71,21 @@ But my knowledge of Haskell is not sufficient to give a thorough opinion on this
 NPM can be used to install Escomplex.
 An AST (abstract syntax tree), represents the code as a tree, with the variables as leafs and keywords, assignments, equations etc. as nodes.
 This can be useful to see what construct is used at a given point in the code.
+The license Escomplex is released under is MIT.
 
 \subsection{Esprima}
 "Esprima is a high performance, standard-compliant ECMAScript parser written in ECMAScrip."\footnote{\url{http://esprima.org}}\\
 Esprima can be installed on Rhino, Nashorn, and Node.js.
 It can return a syntax tree that conforms to the format defined in Mozilla's Parser API, which can be the input for Escomplex.
 Esprima's purpose is only to check for syntax errors.
+It is distributed under the BSD license.
 
 \subsection{Acorn}
 "Acorn is a tiny, fast JavaScript parser written in JavaScript."\footnote{\url{http://marijnhaverbeke.nl/acorn/}}\\
 Acorn returns an abstract syntax tree as specified by Mozilla parser API, which can be used as input for escomplex.
 With a second optional argument the parser process can be further configured.
 The advantage of Acorn is that it is tiny. About half as big as Esprima, in lines of code.
+Acorn is released under an MIT license.
 
 \section{Platform}
 To understand the use of the tools, we should look into the platform that can be used.\\
@@ -103,28 +108,31 @@ There is a version for Unix, Linux, Windows and Mac.\\
 Tools that can be installed on Node are fairly easy to install. The command install package -g does the trick.\\
 Node.js can be a useful tool because it can run locally on a development computer, and also can be installed on a webserver.
 This way the JavaScript-examiner can be exposed via the browser.
+Node.js is released under the MIT license.
 
 \subsection{Nashorn}
 "Nashorn's goal is to implement a lightweight high-performance JavaScript runtime in Java with a native JVM.
 This Project intends to enable Java developers embedding of JavaScript in Java applications via JSR-223 and to develop 
 free standing JavaScript applications using the jrunscript command-line tool."\footnote{\url{http://openjdk.java.net/projects/nashorn/}}
 The use of a command-line tool to develop JavaScript applications is not our goal.
+Nashorn is a project on OpenJDK, which is published under GPL v2.
 
 \section{Environment}
 \subsection{Workshopper}
-With Workshopper on Nodeschool.IO\footnote{\url{http://nodeschool.io/}} it is possible to create your own menu-driven learning environment. 
+With Workshopper\footnote{\url{https://github.com/rvagg/workshopper}} you can create open source lesson modules.
 Workshopper can be installed with Node.js.
 It is also covered in the paper of Bram Nieuwenhuize\footnote{domain-research-feedback.pdf}
-The Workshopper module is focused on local usage. There can be a way to adapt it to our needs.
-You can generate a simple menu structure interface with Workshopper.
-Maybe it can be useful when we want to log statistics, to get insight into often made errors.
-Workshopper is open-source. 
+The Workshopper module is focused on local usage. It can be adapted to specific needs through configuration files.
+It can be used to generate an interface with a simple menu structure.
+Maybe it can be useful when we want to log statistics, to get insight into the errors that are often by students.
+Workshopper is open-source, under MIT license.
 
 \section{Conclusion}
-Because the first version of the JavaScript examiner can not contain all the enhanced 
-functionality of modules, the best option to start with are modules which can run on Node.js.
-Because of the speed, Acorn is a good option. Because this generates an AST the use of Escomplex will be logical.
-All these can be installed on Node.js. 
+For the checking of the code JsHint can be a helpful tool.
+To parse the code, we can use Acorn, which also have the advantage that it generates an AST. 
+With this AST, we can perform checks between the code that the student submits, and the desired code, as proposed by the tutor.
+For this we can use Escomplex can than be used to do tasks with this.
+All the tools can be installed on Node.js.
 The way we want to present it to the student can be through a menu interface which can be built with Workshopper.
 
 \section{References}
