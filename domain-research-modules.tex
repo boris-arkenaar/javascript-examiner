@@ -38,9 +38,7 @@ But it doesn't explain what these problems might be.
 Chai can be installed with NPM.
 It is well documented and there are ways to extend it with your own assertions by making plugins,
 but you can do this after you have a solid knowledge of Chai.
-% Vanaf 'BDD comes in two flavors' tot het einde van de paragraaf loopt het
-% niet echt lekker; ik kan je niet goed volgen
-It requires knowledge of he Assert style, the BDD style (Behaviour-driven development, based on TDD. BDD comes in two flavors, expect and should. With this you can write a test that looks like natural language) and/or the TDD style (Test Driven Development, writing tests that initially fail, and then produce a minimal amount of code that passes the test) assertion style language, because these are the three assertion styles that may be used in the testing environment.
+It requires knowledge of he Assert style, the BDD style (Behaviour-driven development, based on TDD. BDD comes in two flavors, 'expect' and 'should'. With these flavors, you can write a test that looks like natural language) and/or the TDD style (Test Driven Development, writing tests that initially fail, and then produce a minimal amount of code that passes the test) assertion style language, because these are the three assertion styles that may be used in the testing environment.
 Therefore it may be used later in the project, but it can also be a subject of a new research.
 
 \subsection{JSLint}
@@ -133,9 +131,8 @@ Workshopper is open-source, under MIT license.
 For the checking of the code JsHint can be a helpful tool.
 To parse the code, we can use Acorn, which also have the advantage that it generates an AST. 
 With this AST, we can perform checks between the code that the student submits, and the desired code, as proposed by the tutor.
-% Onderstaande zin loopt niet lekker, twee keer 'can'
-For this we can use Escomplex can than be used to do tasks with this.
-All the tools can be installed on Node.js.
+To analyse this AST, we can use Escomplex and take the output of this to give a basic feedback to the student.
+All the tools aforementioned can be installed on Node.js, so this would be the appropriate choice. 
 The way we want to present it to the student can be through a menu interface which can be built with Workshopper.
 
 \section{References}
