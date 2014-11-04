@@ -19,7 +19,7 @@ JavaScript in an academic distance learning environment, in particular
 while studying the course {\em Webapplications: The Client Side}
 \footnote{\url{http://tinyurl.com/lph6k5s}}. This research is one of 
 the artefacts to realize some context and generate content, to extract 
-requirements and recommendations for the remainder of the main project. \newline 
+requirements and recommendations for the remainder of the main project.  
 From more or less general feedback as starting point, quite soon the scope is 
 narrowed to the specific field of interest: Providing automatic feedback on 
 JavaScript code. At first, a theoretical foundation is outlined, to create an 
@@ -62,7 +62,10 @@ examples where e-learning is not helpful in this aspect, and even
 increases the workload. This is something to keep in mind, as the bias of 
 ICT automatically leading to a decrease of labour-intensity is often quite 
 strong. Later on, some potential preventive measures to this concern
-are presented. \newline Another interesting article, 
+are presented.
+
+
+Another interesting article, 
 \citep{ypsilandis2002feedback}
 , about feedback and distance education 
 outlines some interesting observations. A shift from teaching towards learning
@@ -114,7 +117,9 @@ contribution like adding a test case is something to keep in mind. To avoid a
 lot of similar test cases, a Code Coverage Library is used. In general, 
 the tool in the mentioned project needs a problem statement written in a known
 program language and a template for the language to learn, a (at first basic) 
-test suite. \newline
+test suite.
+
+
 Another project by 
 \citep{watson2011learning}
 focusses on the form of the offered exercises. Their concern is the 
@@ -199,7 +204,9 @@ Command Line and NPM. One platform is visually presented as a game
 modules for several languages. Some platforms use cookies, 
 others require registration and login to keep track of progress. Login is 
 sometimes required to start learning. Some of the platforms enable logging in 
-with Google or Facebook credentials. \newline
+with Google or Facebook credentials.
+
+
 In general, the user interface consists of a big area to write and / or show 
 code, a quite small area with instructions, an area to show output and some 
 indication of location and direction (the place of the current exercise within 
@@ -223,7 +230,9 @@ KhanAcademy, Code Combat and Make Games With Us
 have chosen a different introduction, in providing some functions that should be
 called to generate a visual action on the screen. For example, in Code Combat 
 you have to collect Gems by moving the Hero through calling {\em moveRight()} on 
-the { \em this} keyword. \newline
+the { \em this} keyword.
+
+
 In some cases, there is a clear learning curve, and it's required to complete a
 section to move on to the next one. Others, like Nodeschool.IO, just present 
 different sections where distinct features within a section are linked to an
@@ -232,14 +241,18 @@ with a learning curve. But Nodeschool.IO enables the user to quickly learn
 something about a specific topic, without the need to complete any other
 sections. A solution that have both benefits, might be the possibility to 
 enter a section any time, but mention the pre-required knowlegde for each
-section anyway. \newline
+section anyway. 
+
+
 The extent of covered programming aspects depends slightly, but the greatest 
 part is still about core programming within a single module. Advanced software
 engineering practices like modularity, design patterns, code elegance or 
 performance indicators (i.e. use of memory, running time) are hardly covered. 
 Exceptions are KhanAcademy (sections Object Oriented Design, Documentation, 
 Readable code), and Nodeschool.IO (requiring for example recursive functions, 
-restrictions on using specific constructions or functions). \newline
+restrictions on using specific constructions or functions).
+
+
 The exercises itself range from one liners like print something to console, to
 (pseudo) realistic application like building or playing a little game. 
 The scale of the latter is still quite small and still written within one module.
@@ -287,7 +300,9 @@ collect the bonus with any code that passes the test suite.
 {\em Make Games With us} has I nice
 visualization of the just created solution. Every time a user successfully solves
 an exercise, it's possible to use the functionality in the little game you are
-building. \newline
+building.
+
+
 Of course, the cases where the answer doesn't suffice is more interesting when
 looking at feedback. This is the moment a platform can transcend from being a
 mere JavaScript interpreter to an active education tool. Submitting code that 
@@ -297,7 +312,9 @@ regular interpreter. Working hard on a solution that results in feedback like
 seem to passively check the submitted code, in order to detect possible
 problems, before automatically interpreting that results in some kind of error
 that can't be easily interpreted by a JavaScript rookie. 
-\newline When starting to submit code that perfectly well executes but doesn't
+
+
+When starting to submit code that perfectly well executes but doesn't
 pass, there is
 some variation in the feedback. Some platforms seem to perform feedback based 
 on the actual test case whereon the solution failed. This is an interesting 
@@ -324,11 +341,15 @@ material and primary attendant of the mentioned course, she has a lot of
 experience with tutoring JavaScript.  In a short interview she outlined the
 general goals of the course, the common difficulties for students, possible 
 benefits gained with the tool for both students and tutors and some specific 
-subjects that deserve special attention.\newline
+subjects that deserve special attention.
+
+
 {\em Webapplications: the Client Side} is a course that really aims on elegant 
 client side programming in JavaScript. Instead of offering a encyclopaedia
 consisting all possible constructs, it's based on the principle of active
-learning, whereby the student is supposed to learn by doing. \newline
+learning, whereby the student is supposed to learn by doing.
+
+
 Examining the final exams often show ugly code, but code that does meet 
 the functional requirements. Until now, these answers sufficed to pass the test,
 as it is hard to adequately prepare students with focus on elegance as well. It
@@ -340,7 +361,9 @@ there, instead of
 declaration at the top of the document. On top of this, the {\em var} keyword 
 is not properly used, which leads to undesired global instances. The common
 {\em constructor} convention, declaring the method starting with an upper case
-character and not returning a value is also something to pay attention to. \newline
+character and not returning a value is also something to pay attention to.
+
+
 The assignments in the course material are representative for the ones to use 
 in the tool. Specifically the chapters 4,5 and 6 contain many good questions. 
 Eventually, chapter 7 about {\em Object Oriented Programming in JavaScript} may
@@ -366,7 +389,9 @@ need to really grasp the domain and context has been pointed out and the call to
 establish a critical attitude towards the desire and possible solutions
 to reduce the labour intensity came across. The possibilities to encourage 
 feedback among students themselves is tempting, and really something to consider.
-\newline While zooming in and discovering things more closely related to our 
+
+
+While zooming in and discovering things more closely related to our 
 project, suggestions for print friendly, timely, elegant and well written 
 feedback came up. The idea of students that can write test cases themselves to 
 gain skills and at the same time improve the tool is very appealing, especially 
@@ -385,13 +410,17 @@ present the tool.
 The experience of getting feedback that makes no sense, has been productive for the 
 research as well. Now, we know it makes little sense to present feedback that 
 is just a thrown runtime error. In general, this part of the research also showed the 
-relevance of the main project: there is much to win. \newline
+relevance of the main project: there is much to win.
+
+
 Conquer ugly code, that is a noble cause. A much needed one, according to the
 interview. Redundancy, variable declaration and writing proper constructors are
 focal points. The desire for more or less dynamically maintainability came
 up, preferably with the possibility to monitor usage in order to improve the 
 assignments and meet the needs of the student. In relation to this aspect, the 
-importance of the user anonymity was touched. \newline
+importance of the user anonymity was touched.
+
+
 Of course, it's not likely the tool will meet all recommendations and 
 conditions that came across.
 Still, when considering all these features in this stadium, we supposedly have 
