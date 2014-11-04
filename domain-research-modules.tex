@@ -10,12 +10,12 @@
 This domain research is a first orientation on the use of existing frameworks that can be used in the 
 project to construct the JavaScript-examiner\footnote{\url{https://github.com/Slotkenov/javascript-examiner/}}.
 Because of the limited time for this research, I have started with the frameworks that are mentioned in 
-'Web applications: The Client Side'\footnote{\url{http://www.ou.nl/studieaanbod/T58221}} (Mocha/Chai and JsLint).
+{\em'Web applications: The Client Side'}\footnote{\url{http://www.ou.nl/studieaanbod/T58221}} (Mocha/Chai and JsLint).
 The course also uses Eloquent JavaScript. This was written by Marijn Haverbeke \footnote{\url{http://eloquentjavascript.net}}.
-He is also the author of Acorn\footnote{\url{http://marijnhaverbeke.nl/acorn/}}, a tiny and fast JavaScript parser.
-On this site there is a mentioning of Esprima. 
-Esprima runs in the browser, as well as other platforms such as Rhino, Nashorn and Node.js.
-Both Acorn and Esprima generate an AST (abstract syntax tree), which can be used as input for Escomplex.
+He is also the author of {\em Acorn}\footnote{\url{http://marijnhaverbeke.nl/acorn/}}, a tiny and fast JavaScript parser.
+On this site there is a mentioning of {\em Esprima}. 
+Esprima runs in the browser, as well as on other platforms such as {\em Rhino}, {\em Nashorn} and {\em Node.js}.
+Both Acorn and Esprima generate an {\em AST} (abstract syntax tree), which can be used as input for {\em Escomplex }.
 The application under development will be open-source, so the frameworks should also be available
 under an open-source license.
 
@@ -133,8 +133,6 @@ To parse the code, we can use Acorn, which also have the advantage that it gener
 With this AST, we can perform checks between the code that the student submits, and the desired code, as proposed by the tutor.
 To analyse this AST, we can use Escomplex and take the output of this to give a basic feedback to the student.
 All the tools aforementioned can be installed on Node.js, so this would be the appropriate choice. 
-The way we want to present it to the student can be through a menu interface which can be built with Workshopper.
-
-\section{References}
+The way we can present the JavaScript-examiner in a first version can be through a menu interface which can be built with Workshopper.
 
 \end{document}
