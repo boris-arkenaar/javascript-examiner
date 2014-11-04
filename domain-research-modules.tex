@@ -30,7 +30,7 @@ It states that it can use any assertion library (like should.js, Chai etc.),
 the only thing it needs to work together is that the library can throw an error.
 The Mocha framework can be of great use when the code under test will become more complex and can be submitted to unit tests.
 This because the number of lines of code will be small in comparison with the effort of making a test.
-Mocha states that the use of the command-line van run into some problems, if you want to load specific files. 
+Mocha states that the use of the command-line can run into some problems, if you want to load specific files. 
 But it doesn't explain what these problems might be.
 
 \subsection{Chai}
@@ -38,6 +38,8 @@ But it doesn't explain what these problems might be.
 Chai can be installed with NPM.
 It is well documented and there are ways to extend it with your own assertions by making plugins,
 but you can do this after you have a solid knowledge of Chai.
+% Vanaf 'BDD comes in two flavors' tot het einde van de paragraaf loopt het
+% niet echt lekker; ik kan je niet goed volgen
 It requires knowledge of he Assert style, the BDD style (Behaviour-driven development, based on TDD. BDD comes in two flavors, expect and should. With this you can write a test that looks like natural language) and/or the TDD style (Test Driven Development, writing tests that initially fail, and then produce a minimal amount of code that passes the test) assertion style language, because these are the three assertion styles that may be used in the testing environment.
 Therefore it may be used later in the project, but it can also be a subject of a new research.
 
@@ -74,7 +76,7 @@ This can be useful to see what construct is used at a given point in the code.
 The license Escomplex is released under is MIT.
 
 \subsection{Esprima}
-"Esprima is a high performance, standard-compliant ECMAScript parser written in ECMAScrip."\footnote{\url{http://esprima.org}}\\
+"Esprima is a high performance, standard-compliant ECMAScript parser written in ECMAScript."\footnote{\url{http://esprima.org}}\\
 Esprima can be installed on Rhino, Nashorn, and Node.js.
 It can return a syntax tree that conforms to the format defined in Mozilla's Parser API, which can be the input for Escomplex.
 Esprima's purpose is only to check for syntax errors.
@@ -131,6 +133,7 @@ Workshopper is open-source, under MIT license.
 For the checking of the code JsHint can be a helpful tool.
 To parse the code, we can use Acorn, which also have the advantage that it generates an AST. 
 With this AST, we can perform checks between the code that the student submits, and the desired code, as proposed by the tutor.
+% Onderstaande zin loopt niet lekker, twee keer 'can'
 For this we can use Escomplex can than be used to do tasks with this.
 All the tools can be installed on Node.js.
 The way we want to present it to the student can be through a menu interface which can be built with Workshopper.
