@@ -1,0 +1,47 @@
+\documentclass{article}
+
+\begin{document}
+
+\title{Requirements}
+\author{Ronald Kluft \and Bram Nieuwenhuize \and Boris Arkenaar}
+\date{\today\\v1.0}
+\maketitle
+
+\section{Requirements for current development}
+
+\subsection{Interaction}
+\begin{description}
+  \item[Exercise creation] The tutor should be able to create an exercise
+    consisting of a description, a solution and one or more unit tests.
+  \item[Code submission] The student should be able to submit a code he
+    created as a solution to an exercise.
+  \item[Submission response] The student should be able to receive a response
+    to a submitted solution. Telling him if the solution works and how the
+    solution might be improved.
+\end{description}
+
+\subsection{System}
+\begin{description}
+  \item[Unit testing] The system should be able to execute unit tests for a
+    given code.
+  \item[Code layout check] The system shoul be able to check if a given code
+    adheres to a defined code layout.
+  \item[Maintainability metrics calculation] The system should be able to
+    calculate the cyclomatic complexity, Halstead complexity and the logial
+    lines of code (LLOC) from a given code.
+  \item[Results comparison] The system should be able to compare the results
+    from the calculations of a student's code with the results of the tutor's
+    code. The system should conclude the comparison with some advice to the
+    student.
+\end{description}
+
+\section{Requirements for future development}
+\begin{description}
+  \item[Relative execution time calculation] The system should be able to
+    calculate the relative execution time for a given code.
+  \item[Language constructs detection] The system should be able to detect, and
+    point out to the student, when an important language construct is missing
+    that is adviced to use in the exercise in question.
+\end{description}
+
+\end{document}
