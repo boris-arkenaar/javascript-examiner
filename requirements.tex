@@ -49,11 +49,11 @@
 \begin{description}
   \item[Useful] The JavaScript-examiner should provide feedback in a way
     the student is supported to improve his skills.
-  \item{Motivational} The JavaScript-examiner should provide feedback in such a
+  \item[Motivational] The JavaScript-examiner should provide feedback in such a
     manner that it motivates the student to continue.
-  \item[Elegance] The JavaScript-examiner should return well useful and written 
+  \item[Elegance] The JavaScript-examiner should return useful and well written 
     feedback, or at least encourage the tutor to write well written feedback.
-  \item{Format} The format of the returned feedback should be easily printable.
+  \item[Format] The format of the returned feedback should be easily printable.
 \end{description}
 
 \subsection{Non-functional Requirements}
@@ -61,8 +61,6 @@
   \item[Anonymity] The student should be anonymous while using the
     JavaScript-examiner: the submitted JavaScript code may not be traced back
     to a student.
-  \item[Plagiarism detection] The JavaScript-examiner should be able to detect
-    plagiarism.
   \item[Feedback on platform and exercises] Students should be able to provide
     feedback on JavaScript-examiner in general and exercises in particular.
   \item[Security in executing submitted code] Sufficient measures should be
@@ -71,21 +69,23 @@
   \item[Extensible exercises] The JavaScript-examiner should be designed in a
     way it's possible to extend the scope of exersises and even add support for
     other programming languages in the future. 
-  \item[Store progress] The JavaScript-examiner should help the student keep
-    track on progress.
+  \item[Store progress] The JavaScript-examiner should help the students to
+    keep track of their progress.
 \end{description}
 
 
 \section{Requirements for future development}
 \subsection{Functional Requirements}
 \begin{description}
+  \item[Plagiarism detection] The JavaScript-examiner should be able to detect
+    plagiarism.
   \item[Relative execution time calculation] The JavaScript-examiner should be 
-    able to calculate the relative execution time for a given code.
+    able to calculate the relative execution time for given JavaScript code.
   \item[Language constructs detection] The JavaScript-examiner should be able 
     to detect, and point out to the student, when an important language 
-    construct is missing that is adviced to use in the exercise in question.
+    construct is missing that is adviced to be used in the exercise in question.
   \item[Feedback among students] The JavaScript-examiner should enable feedback
-    among each other to help each other with the exercises. 
+    among the students so they can help each other with the exercises. 
   \item[Student test case submission] The students should be able to write and
     submit test cases for exercises, which the JavaScript-examiner can examine
     and add to the test suite of the particular exercise.
