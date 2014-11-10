@@ -28,11 +28,15 @@
 \begin{description}
   \item[Unit testing] The JavaScript-examiner should be able to execute unit 
     tests for given JavaScript code.
+  \item[Code layout definition] The JavaScript-examiner should have a
+    definition of a code layout to be used in code checks.
   \item[Code layout check] The JavaScript-examiner should be able to check if 
     the submitted JavaScript code adheres to a defined code layout.
-  \item[Programming guidelines] The JavaScript-examiner should be able to check
-    if the submitted JavaScript code conforms to a defined set of programming
-    guidelines.
+  \item[Programming guidelines definition] The JavaScript-examiner should have
+    a definition of a set of programming guidelines to be used in code checks.
+  \item[Programming guidelines check] The JavaScript-examiner should be able to
+    check if the submitted JavaScript code conforms to a defined set of
+    programming guidelines.
   \item[Maintainability metrics calculation] The JavaScript-examiner should be 
     able to calculate the cyclomatic complexity, Halstead complexity and the 
     logical lines of code (LLOC) from the submitted JavaScript code.
@@ -85,15 +89,18 @@
   \item[Language constructs detection] The JavaScript-examiner should be able 
     to detect, and point out to the student, when an important language 
     construct is missing that is adviced to be used in the exercise in question.
-  \item[Feedback among students] The JavaScript-examiner should enable feedback
-    among the students so they can help each other with the exercises. 
   \item[Student test case submission] The students should be able to write and
     submit test cases for exercises, which the JavaScript-examiner can examine
     and add to the test suite of the particular exercise.
+  \item[Dynamic configuration] All aspects of the JavaScript-examiner should be
+    dynamically and easily configurable (e.g.\ code layout definitions,
+    programming guidelines, metrics comparison margins).
 \end{description}
 
 \subsection{Non-functional Requirements}
 \begin{description}
+  \item[Feedback among students] The JavaScript-examiner should enable feedback
+    among the students so they can help each other with the exercises. 
   \item[Store progress] The JavaScript-examiner should help the students to
     keep track of their progress.
   \item[Statistics] The tutor should be able to retrieve statistics about the
