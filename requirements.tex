@@ -11,10 +11,11 @@
 \subsection{Functional Requirements}
 \subsubsection{Interaction}
 \begin{description}
-  \item[Exercise creation] The tutor should be able to create an exercise
-    consisting of a description, a solution and one or more unit tests.
-  \item[Exercise modification] The tutor should be able to modify or delete an
-    exercise.
+  \item[Exercise management] The tutor should be able to create an exercise
+    consisting of a description, a solution and one or more unit tests. The
+    tutor should also be able to modify and delete existing exercises.
+  \item[Overview of exercises] The student should be able to retrieve an
+    overview of the available exercises.
   \item[Exercise description retrieval] The student should be able to retrieve
     the description of an exercise.
   \item[Code submission] The student should be able to submit the JavaScript 
@@ -28,32 +29,24 @@
   \item[Unit testing] The JavaScript-examiner should be able to execute unit 
     tests for given JavaScript code.
   \item[Code layout check] The JavaScript-examiner should be able to check if 
-    the submitted JavaScript code adheres to a defined code layout and style.
+    the submitted JavaScript code adheres to a defined code layout.
+  \item[Programming guidelines] The JavaScript-examiner should be able to check
+    if the submitted JavaScript code conforms to a defined set of programming
+    guidelines.
   \item[Maintainability metrics calculation] The JavaScript-examiner should be 
     able to calculate the cyclomatic complexity, Halstead complexity and the 
     logical lines of code (LLOC) from the submitted JavaScript code.
-  \item[Results comparison] The JavaScript-examiner should be able to compare
-    the results from the calculations of the student's submitted JavaScript
-    code with the results of the tutor's Javascript code. The
-    JavaScript-examiner should conclude the comparison with some advice to the
-    student.
-  \item[Redundancy] The Javascript-examiner should be able to check for
-    redundancy.
-  \item[Constructors] The JavaScript-examiner should be able to check for
-    proper constructors.
-  \item[Variable declaration] The JavaScript-examiner should be able to check
-    for proper declaration of variables.
-\end{description}
-
-\subsubsection{Feedback}
-\begin{description}
-  \item[Useful] The JavaScript-examiner should provide feedback in a way
-    the student is supported to improve his skills.
-  \item[Motivational] The JavaScript-examiner should provide feedback in such a
-    manner that it motivates the student to continue.
-  \item[Elegance] The JavaScript-examiner should return useful and well written 
-    feedback, or at least encourage the tutor to write well written feedback.
-  \item[Format] The format of the returned feedback should be easily printable.
+  \item[Metric results comparison] The JavaScript-examiner should be able to
+    compare the results from the maintainability metrics of the student's
+    submitted JavaScript code with the results of the tutor's solution.
+  \item[Feedback generation] The JavaScript-examiner should generate feedback
+    according to the results from the various checks and metrics calculations
+    performed, and show these to the student.
+  \item[Code saving] The JavaScript-examiner should save the JavaScript code
+    from the students, for future examination.
+  \item[Results logging] The JavaScript-examiner should log the results from
+    the various checks and metrics calculations performed, for future
+    generation of statistics for the tutor.
 \end{description}
 
 \subsection{Non-functional Requirements}
@@ -69,10 +62,18 @@
   \item[Extensible exercises] The JavaScript-examiner should be designed in a
     way it's possible to extend the scope of exersises and even add support for
     other programming languages in the future. 
-  \item[Store progress] The JavaScript-examiner should help the students to
-    keep track of their progress.
 \end{description}
 
+\subsubsection{Feedback}
+\begin{description}
+  \item[Useful] The JavaScript-examiner should provide feedback in a way
+    the student is supported to improve his skills.
+  \item[Motivational] The JavaScript-examiner should provide feedback in such a
+    manner that it motivates the student to continue.
+  \item[Elegance] The JavaScript-examiner should return useful and well written 
+    feedback, or at least encourage the tutor to write well written feedback.
+  \item[Format] The format of the returned feedback should be easily printable.
+\end{description}
 
 \section{Requirements for future development}
 \subsection{Functional Requirements}
@@ -90,6 +91,14 @@
     submit test cases for exercises, which the JavaScript-examiner can examine
     and add to the test suite of the particular exercise.
 \end{description}
+
 \subsection{Non-functional Requirements}
+\begin{description}
+  \item[Store progress] The JavaScript-examiner should help the students to
+    keep track of their progress.
+  \item[Statistics] The tutor should be able to retrieve statistics about the
+    results of the various metrics and checks performed in the past on the
+    JavaScript code of the students.
+\end{description}
 
 \end{document}
