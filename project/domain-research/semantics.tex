@@ -1,17 +1,20 @@
 \section{Introduction} 
 
 Our goal is to make life easier for a tutor
-of the JavaScript programming language.
-In our bachelor project we will develop a
-JavaScript-examiner\footnote{\url{https://github.com/Slotkenov/javascript-examiner/}}
-which will relieve the tutor from checking all students' solutions to exercises
-and give them appropriate feedback in an online course. At the same time, the
-JavaScript-examiner will benefit the students as well. The tutor simply doesn't
-have time to check the solutions of all the students. And therefore the tutor
-cannot give individual feedback to each student. The tutor will pick the
-biggest and most common pitfalls he sees in the solutions he picks. Then he
-will give the students general feedback on those pitfalls in the next online
-group session.
+of the \gls{js} programming language.
+In our bachelor project we will develop a \gls{examiner}
+which will relieve the \gls{tutor} from checking
+all \glspl{student}' \glspl{solution} to \glspl{exercise}
+and give them appropriate feedback in an online course.
+At the same time, the \gls{examiner} will benefit the \glspl{student} as well.
+The \gls{tutor} simply doesn't have time
+to check the \glspl{solution} of all the \glspl{student}.
+And therefore the \gls{tutor} cannot give individual feedback
+to each \gls{student}.
+The \gls{tutor} will pick the biggest and most common pitfalls he sees
+in the \glspl{solution} he picks.
+Then he will give the \glspl{student} general feedback on those pitfalls
+in the next online group session.
 
 The reason why the JavaScript-examiner will benefit students --- besides
 relieving the tutor of too much of a workload --- is threefold.  First off
@@ -64,6 +67,17 @@ code. First we will see how we can determine the quality of the code by looking
 at its layout. Secondly we examine metrics for expressing the maintainability
 of a given code and how we can use that to give feedback to students.
 
+\subsection{Natural Language}
+
+Allthough a programming language is an artificial language,
+natural language is also used often in code in the form of
+names (of variables, routines, etc.),
+headers (documentation blocks above routines, classes, etc.)
+and comments (explenation of the code between lines).
+These are three important aspects for giving feedback
+as explained by \citet{stegeman2014empirically}.
+
+
 \subsection{Code layout}
 
 For readability it is important to structure your code in a way that conveys clearly the intention of the code. There are many different ways you could layout your code and there is not one layout that is better than all the others. Most important is consistency.
@@ -76,6 +90,53 @@ are many tools for examining code to make sure none of these bad practices are
 used in code. Even specific for JavaScript code such tools already
 exist.\footnote{For instance JSLint (\url{http://www.jslint.com/}) and the less
 strict variant JSHint (\url{http://www.jshint.com/})}
+
+\subsubsection{Stegeman}
+
+\paragraph{Names}
+Natural language
+Maybe spell checking
+
+\paragraph{Headers}
+Natural language
+JSDoc
+Spell checking
+
+\paragraph{Comments}
+Natural language
+Spell checking
+Only where strictly needed
+
+\paragraph{Layout}
+Not applicable to small exercises
+Unreachable code detection
+Detection of commented-out code
+
+\paragraph{Formatting}
+Highlight intended structure using
+indentation, blank lines, spacing and brackets.
+Highlighting similarities and differences between code
+by using consistent formatting.
+Line length
+
+\paragraph{Flow}
+Choosing appropriate language constructs
+Not too deep nesting
+One task per line
+Not too much code in the body of a conditional statement.
+
+\paragraph{Expressions}
+Simple expressions
+Duplication of (partial) expressions
+Unnamed constants
+
+\paragraph{Decomposition}
+Limited set of tasks per routine
+Limited set of shared variables
+Not reuse variables for multiple purposes
+
+\paragraph{Modularization}
+Not applicable to small exercises
 
 \subsection{Maintainability}
 
