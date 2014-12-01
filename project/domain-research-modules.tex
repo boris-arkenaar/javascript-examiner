@@ -1,0 +1,170 @@
+\documentclass{article}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[square, numbers]{natbib}
+
+\begin{document}
+\title{Modules and Tools}
+\author{Ronald Kluft}
+\date{\today\\v1.0}
+\maketitle
+
+\section{Introduction}
+
+This domain research is a first orientation on the use of existing frameworks that can be used in the 
+project to construct the JavaScript-examiner\footnote{\url{https://github.com/Slotkenov/javascript-examiner/}}.
+Because of the limited time for this research, I have started with the frameworks that are mentioned in 
+{\em'Web applications: The Client Side'}\footnote{\url{http://www.ou.nl/studieaanbod/T58221}} (Mocha/Chai and JsLint).
+
+The course also uses Eloquent JavaScript. This was written by Marijn Haverbeke \footnote{\url{http://eloquentjavascript.net}}.
+He is also the author of {\em Acorn}\footnote{\url{http://marijnhaverbeke.nl/acorn/}}, a tiny and fast JavaScript parser.
+On this site there is a mentioning of {\em Esprima}.
+
+Esprima runs in the browser, as well as on other platforms such as {\em Rhino}, {\em Nashorn} and {\em Node.js}.
+Both Acorn and Esprima generate an {\em AST} (abstract syntax tree), which can be used as input for {\em Escomplex }.
+The application under development will be open-source, so the frameworks should also be available
+under an open-source license.
+
+\section{Tools}
+
+\subsection{Mocha}
+
+"Mocha is a feature-rich JavaScript test framework running on node.js and the 
+browser, making asynchronous testing simple and fun."\footnote{\url{http://www.mochajs.org}}.
+It can be installed with NPM (Node Packaged Modules)\footnote{\url{https://www.npmjs.org}}.
+The options can be given at the command line, or in a special options file.
+It states that it can use any assertion library (like should.js, Chai etc.), 
+the only thing it needs to work together is that the library can throw an error.
+The Mocha framework can be of great use when the code under test will become more complex and can be submitted to unit tests.
+This because the number of lines of code will be small in comparison with the effort of making a test.
+Mocha states that the use of the command-line can run into some problems, if you want to load specific files. 
+But it doesn't explain what these problems might be.
+
+\subsection{Chai}
+
+"Chai is a BDD/TDD assertion library for node and the browser that can be delightfully paired with any JavaScript testing framework"\footnote{http://chaijs.com}.
+Chai can be installed with NPM.
+It is well documented and there are ways to extend it with your own assertions by making plugins,
+but you can do this after you have a solid knowledge of Chai.
+
+It requires knowledge of he Assert style, the BDD style (Behaviour-driven development, based on TDD. BDD comes in two flavors, 'expect' and 'should'. With these flavors, you can write a test that looks like natural language) and/or the TDD style (Test Driven Development, writing tests that initially fail, and then produce a minimal amount of code that passes the test) assertion style language, because these are the three assertion styles that may be used in the testing environment.
+Therefore it may be used later in the project, but it can also be a subject of a new research.
+
+\subsection{JSLint}
+
+The JavaScript Code Quality Tool\footnote{http://www.jslint.com}\\
+It is a static code analysis tool.
+NPM can be used to install JSLint.
+JSLint can operate on JavaScript source or JSON (JavaScript Object Notation)\footnote {http://www.json.org} text.
+JSLint defines a professional subset of JavaScript, a stricter language than that 
+defined by Third Edition of the ECMAScript Programming Language Standard.
+The subset is related to recommendations found in Code Conventions for the JavaScript Programming Language.
+The default settings are too strict for our purpose.
+For instance, it gives errors when there are no spaces on either side of an equal sign.
+
+\subsection{JSHint}
+
+"JSHint is a community-driven tool to detect errors and potential problems in JavaScript code and to enforce your team's coding conventions. It is very flexible so you can easily adjust it to your particular coding guidelines and the environment you expect your code to execute in."\footnote{http://www.jslhint.com/about}
+It can be installed with NPM.
+JSHint can be configured with enforcing options and relaxing options.
+The first, when set to true, produces more warnings. Whereas the latter produces less warnings about the code.
+Because JSHint is not as strict as JSLint, it is a more suitable option for the JavaScript-examiner.
+
+\subsection{HJS}
+
+"A JavaScript parser and interpreter. Works as per ECMA-262 plus some parts of JS $>=$1.5.
+HJS is a JavaScript parser written in Haskell. Available from HackageDB."\footnote{https://hackage.haskell.org/package/hjs}
+
+Because Haskell is also a subject of an Open University course\footnote{http://www.ou.nl/studieaanbod/T12331}, I have searched for a tool in Haskell.
+It seems that because Haskell is a functional language which can evaluate functions at high speed, it is a good candidate for a parser.
+But my knowledge of Haskell is not sufficient to give a thorough opinion on this.
+
+\subsection{Escomplex}
+
+"Software complexity analysis of JavaScript-family abstract syntax trees. The back-end for complexity-report"\footnote{\url{https://github.com/philbooth/escomplex}}.
+NPM can be used to install Escomplex.
+An AST (abstract syntax tree), represents the code as a tree, with the variables as leafs and keywords, assignments, equations etc. as nodes.
+This can be useful to see what construct is used at a given point in the code.
+The license Escomplex is released under is MIT.
+
+\subsection{Esprima}
+
+"Esprima is a high performance, standard-compliant ECMAScript parser written in ECMAScript."\footnote{\url{http://esprima.org}}
+
+Esprima can be installed on Rhino, Nashorn, and Node.js.
+It can return a syntax tree that conforms to the format defined in Mozilla's Parser API, which can be the input for Escomplex.
+Esprima's purpose is only to check for syntax errors.
+It is distributed under the BSD license.
+
+\subsection{Acorn}
+
+"Acorn is a tiny, fast JavaScript parser written in JavaScript."\footnote{\url{http://marijnhaverbeke.nl/acorn/}}\\
+Acorn returns an abstract syntax tree as specified by Mozilla parser API, which can be used as input for escomplex.
+With a second optional argument the parser process can be further configured.
+The advantage of Acorn is that it is tiny. About half as big as Esprima, in lines of code.
+Acorn is released under an MIT license.
+
+\section{Platform}
+
+To understand the use of the tools, we should look into the platform that can be used.
+
+I have looked at Node.js, Rhino and Nashorn.
+
+\subsection{Rhino}
+
+"Rhino is a JavaScript interpreter written in Java and designed to make it easy to write JavaScript programs 
+that leverage the power of the Java platform APIs."\footnote{\url{JavaScript, The Definitive Guide, David Fanagan, O'Reilly}}
+
+http://en.wikipedia.org/wiki/Rhino\_(JavaScript\_engine)
+https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
+
+\subsection{Node.js}
+
+"Node is a fast C++ based JavaScript interpreter with bindings to the low-level 
+Unix APIs for working with processes, files, network sockets, etc., and also to 
+HTTP client and server APIs."\footnote{\url{http://nodejs.org}}
+
+Node.js can be used to build and run JavaScript applications, without the need of a browser.
+A numerous amount of the tools run on Node.js \footnote{http://www.nodejs.org}. This is well know platform.
+Node.js runtime is available for different operating systems.
+There is a version for Unix, Linux, Windows and Mac.\\
+Tools that can be installed on Node are fairly easy to install. The command install package -g does the trick.
+
+Node.js can be a useful tool because it can run locally on a development computer, and also can be installed on a webserver.
+This way the JavaScript-examiner can be exposed via the browser.
+Node.js is released under the MIT license.
+
+\subsection{Nashorn}
+
+"Nashorn's goal is to implement a lightweight high-performance JavaScript runtime in Java with a native JVM.
+This Project intends to enable Java developers embedding of JavaScript in Java applications via JSR-223 and to develop 
+free standing JavaScript applications using the jrunscript command-line tool."\footnote{\url{http://openjdk.java.net/projects/nashorn/}}
+
+The use of a command-line tool to develop JavaScript applications is not our goal.
+Nashorn is a project on OpenJDK, which is published under GPL v2.
+
+\section{Environment}
+
+\subsection{Workshopper}
+
+With Workshopper\footnote{\url{https://github.com/rvagg/workshopper}} you can create open source lesson modules.
+Workshopper can be installed with Node.js.
+It is also covered in the paper of Bram Nieuwenhuize\footnote{domain-research-feedback.pdf}
+
+The Workshopper module is focused on local usage. It can be adapted to specific needs through configuration files.
+It can be used to generate an interface with a simple menu structure.
+Maybe it can be useful when we want to log statistics, to get insight into the errors that are often by students.
+Workshopper is open-source, under MIT license.
+
+\section{Conclusion}
+
+For the checking of the code JsHint can be a helpful tool.
+To parse the code, we can use Acorn, which also have the advantage that it generates an AST. 
+With this AST, we can perform checks between the code that the student submits, and the desired code, as proposed by the tutor.
+To analyse this AST, we can use Escomplex and take the output of this to give a basic feedback to the student.
+All the tools aforementioned can be installed on Node.js, so this would be the appropriate choice. 
+The way we can present the JavaScript-examiner in a first version can be through a menu interface which can be built with Workshopper.
+
+\end{document}
