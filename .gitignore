@@ -13,4 +13,5 @@
 *.gls
 *.ist
 *.toc
+node_modules
 
