@@ -16,6 +16,7 @@
     "url": "https://github.com/Slotkenov/javascript-examiner/issues"
   },
   "dependencies": {
-    "jscs": "~1.8.1"
+    "jscs": "~1.8.1",
+	"esprima" : "latest",
   }
 }

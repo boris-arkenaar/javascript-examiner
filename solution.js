@@ -25,8 +25,7 @@ function calcBMI(lengte, gewicht) {
       lengte > 225 ||
       gewicht < 30 ||
       gewicht > 250) {
-  throw new Error("Lengte of gewicht onjuist: lengte moet
-tussen 75 en 225 liggen; gewicht tussen 30 en 250");
+  throw new Error("Lengte of gewicht onjuist: lengte moet tussen 75 en 225 liggen; gewicht tussen 30 en 250");
   }
   return gewicht / ((lengte / 100) * (lengte / 100));
 }
