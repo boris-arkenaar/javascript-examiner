@@ -257,37 +257,48 @@ to handle that aspect in this research.
 
 \subsection{Relative execution time}
 
-The relative execution time of a given code can be measured mathematically. As
-explained by \citet[Chapter 4]{goodrich2008data} the relative execution time
-can be expressed using seven functions (constant, logarithm, linear, n-log~n,
-etc.). To determine with which function the relative execution time of a given
-code can be expressed one has to look at the language constructs used in that
-code. For each language construct the relative execution time has to be
-determined. Then you can calculate the relative execution time of the
-combination of those functions (i.e. the combination of the language constructs
-that make op the code).
+The \gls{rel-exe-time} of a given \gls{code} can be measured mathematically.
+As explained by \citet[Chapter 4]{goodrich2008data}
+the \gls{rel-exe-time} can be expressed using seven functions
+(constant, logarithm, linear, n-log~n, etc.).
+To determine with which function
+the gls{rel-exe-time} of a given \gls{code} can be expressed
+one has to look at the \glspl{construct} used in that \gls{code}.
+For each \gls{construct} the \gls{rel-exe-time} has to be determined.
+Then you can calculate the \gls{rel-exe-time}
+of the combination of those functions
+(i.e.\ the combination of the \glspl{construct} that make op the \gls{code}).
 
-This method would be a good way to see if the student has used an algorithm
-that is too complex for the given exercise. If, for example, the solution of
-the tutor executes in n-log~n time while the code of the student executes in
-quadratic time, feedback could be given to the student that he should use a
-more efficient algorithm for that exercise. The question would be: how to give
-the student more concrete feedback? Instead of just telling him he can do
-better it would be constructive to point him in the right direction. However,
-this would require more knowledge of the particular exercise and the difference
-between the solution of the tutor and the solution of the student.
+This method would be a good way to see
+if the \gls{student} has used an algorithm
+that is too complex for the given \gls{exercise}.
+If, for example, the \gls{solution} of the \gls{tutor} executes in n-log~n time
+while the \gls{code} of the \gls{student} executes in quadratic time,
+\gls{feedback} could be given to the \gls{student}
+that he should use a more efficient algorithm for that \gls{exercise}.
+The question would be:
+how to give the \gls{student} more concrete \gls{feedback}?
+Instead of just telling him he can do better
+it would be constructive to point him in the right direction.
+However, this would require more knowledge of the particular \gls{exercise}
+and the difference between the \gls{solution} of the \gls{tutor}
+and the \gls{solution} of the \gls{student}.
 
-An implementation of this method would require more than determining the
-language constructs used in a given code and how they are combined. When a loop
-is used, for instance, you would need information about run time variables to
-determine how many times the loop would be iterated over. In other words:
-looking at the language constructs is not enough, you would need a good
-understanding of the algorithm used and the problem that is being solved. This
-understanding might be provided by letting the tutor specify information about
-the algorithm used when creating an exercise in the
-JavaScript-examiner. However further study will be required to figure out how
-this would best be implemented, and what information would be required exactly
-from the tutor.
+An implementation of this method would require more than
+determining the \glspl{construct} used in a given \gls{code}
+and how they are combined.
+When a loop is used, for instance,
+you would need information about run time variables
+to determine how many times the loop would be iterated over.
+In other words: looking at the \glspl{construct} is not enough,
+you would need a good understanding of the algorithm used
+and the problem that is being solved.
+This understanding might be provided
+by letting the \gls{tutor} specify information about the algorithm used
+when creating an \gls{exercise} in the \gls{examiner}.
+However further study will be required to figure out
+how this would best be implemented,
+and what information would be required exactly from the \gls{tutor}.
 
 \subsection{Language constructs}
 
@@ -359,14 +370,14 @@ A different matter are the other metrics for code and execution quality. They
 do not simply give you an answer whether the code is good or not. It is more of
 a gray area and you would need to determine when code is good, when it is
 acceptable and when it would need improvement. These acceptability margins will
-be different for each exercise (e.g. a more complex assignment should allow a
+be different for each exercise (e.g.\ a more complex assignment should allow a
 higher cyclomatic complexity). The tutor could be asked to specify these
 margins when creating an exercise, but the tutor might struggle to determine
 good margins for the exercise at hand.
 
 The great thing is: we do not need to determine the quality of a given code
 on its own. We can compare it to a well defined base code that is assumed to be
-correct and efficient (i.e. an acceptable solution),
+correct and efficient (i.e.\ an acceptable solution),
 by asking the tutor to write a solution to the exercise himself.
 the JavaScript-examiner could determine a baseline for the different metrics
 by calculating the metrics for the tutor's solution.
@@ -405,7 +416,7 @@ representing the quality of the students' code.
 
 Examining execution quality of a given code would be an interesting area to
 look into, but will take more time and effort to implement. To calculate the
-relative execution time, good understanding of the code and the algorithm are
+gls{rel-exe-time}, good understanding of the code and the algorithm are
 needed. Also --- because of its complexity --- no ready to be used tools exist
 for executing this specific method. Serious research and development will be
 needed to be able to implement it.
