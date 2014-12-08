@@ -302,57 +302,75 @@ and what information would be required exactly from the \gls{tutor}.
 
 \subsection{Language constructs}
 
-When looking at the meaning of the code you can distinguish different language
-constructs. When you look at an exercise, it might be the case that a good
-solution should contain one or two specific language constructs. That means
-that we can look for those structures in a student's code. If they are not
-there, or if there are too much of them, the student can be given feedback
-mentioning this fact. In order to be able to give the student a more profound
-explanation of why his code is not optimal we would need input from the
-tutor. Because our goal is to relieve the tutor from too much work we could try
-and implement this feature in a similar way \citet[Section
-3.2]{watson2011learning} proposed in their article. They describe a way to
-provide feedback on how to correct a given code that generates an error
-(halting on execution). The
-first time the system encounters a specific error it has to request the tutor
-for feedback. The system saves that feedback into a database along with the
-error. On any subsequent occurrence of that same error in any of the students'
-code the system retrieves the tutor's feedback from the database. It does not
-need to bother the tutor any more, while the student receives valuable
-feedback.
+When looking at the meaning of the \gls{code}
+you can distinguish different \glspl{construct}.
+When you look at an \gls{exercise},
+it might be the case that a good \gls{solution}
+should contain one or two specific \glspl{construct}.
+That means that we can look for those structures
+in a \gls{student}'s \gls{code}.
+If they are not there, or if there are too much of them,
+the \gls{student} can be given \gls{feedback} mentioning this fact.
+In order to be able to give the \gls{student} a more profound explanation
+of why his \gls{code} is not optimal we would need input from the \gls{tutor}.
+Because our goal is to relieve the \gls{tutor} from too much work
+we could try and implement this feature in a similar way
+\citet[Section 3.2]{watson2011learning} proposed in their article.
+They describe a way to provide \gls{feedback}
+on how to correct a given \gls{code} that generates an error
+(halting on execution).
+The first time the system encounters a specific error
+it has to request the \gls{tutor} for \gls{feedback}.
+The system saves that \gls{feedback} into a database along with the error.
+On any subsequent occurrence of that same error
+in any of the \glspl{student}' \gls{code}
+the system retrieves the \gls{tutor}'s \gls{feedback} from the database.
+It does not need to bother the \gls{tutor} any more,
+while the \gls{student} receives valuable \gls{feedback}.
 
-We would need to determine first what language constructs are important
-for a specific exercise.
-When a student uses a for loop where the tutor does not,
+We would need to determine first what \glspl{construct} are important
+for a specific \gls{exercise}.
+When a \gls{student} uses a for loop where the \gls{tutor} does not,
 that would be an interesting case.
-But when a student uses one more simple assignment statement than the
-tutor does, that will probably not be very important for instance. We can
-determine the set of language constructs used in the code, by type and by
-quantity. And compare that with the solution of the tutor. This gives us a set
-of language constructs the student did not use while the tutor did, and a set
-of language constructs of the other way around. After filtering these two sets
-of language constructs for important ones we have something to give feedback
-on. Now we can use the same mechanics as \citet{watson2011learning}
-described. We look in the database for the feedback on a particular language
-construct that was used --- or not used --- and show that to the student. In
-case no feedback was found in the database, the tutor is requested for input.
-In that case the student will not receive immediate feedback.
-But after the tutor has provided feedback to the system
-all other students who run into the same problem
-will receive the feedback immediately.
+But when a \gls{student} uses one more simple assignment statement
+than the \gls{tutor} does,
+that will probably not be very important for instance.
+We can determine the set of \glspl{construct} used in the \gls{code},
+by type and by quantity.
+And compare that with the \gls{solution} of the \gls{tutor}.
+This gives us a set of \glspl{construct} the \gls{student} did not use
+while the \gls{tutor} did,
+and a set of \glspl{construct} of the other way around.
+After filtering these two sets of \glspl{construct} for important ones
+we have something to give \gls{feedback} on.
+Now we can use the same mechanics as \citet{watson2011learning} described.
+We look in the database for the \gls{feedback}
+on a particular \gls{construct} that was used --- or not used ---
+and show that to the \gls{student}.
+In case no \gls{feedback} was found in the database,
+the \gls{tutor} is requested for input.
+In that case the \gls{student} will not receive immediate \gls{feedback}.
+But after the \gls{tutor} has provided \gls{feedback} to the system
+all other \glspl{student} who run into the same problem
+will receive the \gls{feedback} immediately.
 
 Interesting use of this method for later implementation can be the comparison
---- not only of the a student's solution with the teacher's solution --- of a
-student's code with the code of previously submitted code of other
-students. This might give the student feedback on how he is doing relative to
-his fellow students.
+--- not only of the a \gls{student}'s \gls{solution}
+with the \gls{tutor}'s \gls{solution} ---
+of a \gls{student}'s \gls{code} with the \gls{code}
+of previously submitted \gls{code} of other \glspl{student}.
+This might give the \gls{student} \gls{feedback} on how he is doing
+relative to his fellow \glspl{student}.
 
-Research would be needed to see if this would work the way I describe it
-here. Would it be feasible to determine how to rate the language constructs of
-the JavaScript language? And would the system find all the problem cases or
-will it miss some, or find cases that are of no importance?  Besides that, this
-functionality would have to be created from the ground up because it is quite
-specific and I have not found something like it for JavaScript.
+Research would be needed to see if this would work
+the way I describe it here.
+Would it be feasible to determine how to rate the \glspl{construct}
+of the \gls{js} language?
+And would the system find all the problem cases or will it miss some,
+or find cases that are of no importance?
+Besides that, this functionality would have to be created from the ground up
+because it is quite specific and I have not found something like it
+for \gls{js}.
 
 \section{Comparing code}
 
