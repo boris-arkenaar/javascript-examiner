@@ -374,78 +374,100 @@ for \gls{js}.
 
 \section{Comparing code}
 
-The code layout is an absolute check to see if the student's code adheres to a
-well defined set of rules of best practices in coding. The code either fails on
-some points or it is completely laid out according to the layout definitions
-used. How you go about giving feedback when some rules are broken is another
-question. The JavaScript-examiner could say the code is incorrect or more
-gently tell the student that it could be better. It could clearly point out
-where the shortcomings are or simply tell the student to do better. The point
-is that the rules of code layout can be well defined, how strict you hold the
-student to it is a matter of feedback.
+The \gls{code-layout} is an absolute check to see
+if the \gls{student}'s \gls{code} adheres to a well defined set
+of rules of best practices in coding.
+The \gls{code} either fails on some points
+or it is completely laid out according to the layout definitions used.
+How you go about giving \gls{feedback} when some rules are broken
+is another question.
+The \gls{examiner} could say the \gls{code} is incorrect
+or more gently tell the \gls{student} that it could be better.
+It could clearly point out where the shortcomings are
+or simply tell the \gls{student} to do better.
+The point is that the rules of \gls{code-layout} can be well defined,
+how strict you hold the \gls{student} to it is a matter of \gls{feedback}.
 
-A different matter are the other metrics for code and execution quality. They
-do not simply give you an answer whether the code is good or not. It is more of
-a gray area and you would need to determine when code is good, when it is
-acceptable and when it would need improvement. These acceptability margins will
-be different for each exercise (e.g.\ a more complex assignment should allow a
-higher cyclomatic complexity). The tutor could be asked to specify these
-margins when creating an exercise, but the tutor might struggle to determine
-good margins for the exercise at hand.
+A different matter are the other metrics
+for \glslink{code-quality}{code} and \gls{exe-quality}.
+They do not simply give you an answer whether the \gls{code} is good or not.
+It is more of a gray area and you would need to determine
+when \gls{code} is good, when it is acceptable
+and when it would need improvement.
+These acceptability margins will be different for each \gls{exercise}
+(e.g.\ a more complex assignment should allow a higher cyclomatic complexity).
+The \gls{tutor} could be asked to specify these margins
+when creating an \gls{exercise},
+but the \gls{tutor} might struggle to determine good margins
+for the \gls{exercise} at hand.
 
-The great thing is: we do not need to determine the quality of a given code
-on its own. We can compare it to a well defined base code that is assumed to be
-correct and efficient (i.e.\ an acceptable solution),
-by asking the tutor to write a solution to the exercise himself.
-the JavaScript-examiner could determine a baseline for the different metrics
-by calculating the metrics for the tutor's solution.
-That means that we do not
-need to decide how many lines of code would be too much, or what cyclomatic
-complexity would make the code too complex. We can just compare the lines of
-code, and the Halstead complexity of a student's code with the solution of the
-tutor.
+The great thing is:
+we do not need to determine the quality of a given \gls{code} on its own.
+We can compare it to a well defined base \gls{code}
+that is assumed to be correct and efficient (i.e.\ an acceptable solution),
+by asking the \gls{tutor} to write a \gls{solution}
+to the \gls{exercise} himself.
+The \gls{examiner} could determine a baseline for the different metrics
+by calculating the metrics for the \gls{tutor}'s \gls{solution}.
+That means that we do not need to decide
+how many lines of code would be too much,
+or what cyclomatic complexity would make the \gls{code} too complex.
+We can just compare the lines of code,
+and the Halstead complexity of a \gls{student}'s \gls{code}
+with the \gls{solution} of the \gls{tutor}.
 That way the system would have a good base for which it can say:
-when I get these results (or better results) for the metrics on a given
-code, the code is good, otherwise the code could be better. Preferably you
-would still want some form of margin, where the results of the metrics only
-slightly below those of the tutor's are as acceptable as the
-tutor's. Determining how those margins can best be calculated is subject to
-further research.
-We do have to determine however: how bad is the code if it is not as
-good as the solution of the tutor? There should probably be some margin of
-acceptance.
+when I get these results (or better results)
+for the metrics on a given \gls{code}, the \gls{code} is good,
+otherwise the \gls{code} could be better.
+Preferably you would still want some form of margin,
+where the results of the metrics only slightly below those of the \gls{tutor}'s
+are as acceptable as the \gls{tutor}'s.
+Determining how those margins can best be calculated
+is subject to further research.
+We do have to determine however: how bad is the \gls{code}
+if it is not as good as the solution of the \gls{tutor}?
+There should probably be some margin of acceptance.
 
 
 \section{Conclusion}
 
-While no one method is perfect it would be best to combine several methods to
-determine the quality of the code and of its execution. Looking at code layout
-is a good starting point and will be easy to implement because many tools exist
-for performing these checks for JavaScript code. The other methods will require
-a baseline which can be obtained by analyzing the tutor's solution. This won't
-be a problem to implement as well but would require further research and
-development for determining the right margins of acceptance of these metrics.
+While no one method is perfect it would be best to combine several methods
+to determine the quality of the code and of its execution.
+Looking at \gls{code-layout} is a good starting point
+and will be easy to implement because many tools exist
+for performing these checks for \gls{js-code}.
+The other methods will require a baseline
+which can be obtained by analyzing the \gls{tutor}'s \gls{solution}.
+This won't be a problem to implement as well
+but would require further research and development
+for determining the right margins of acceptance of these metrics.
 
-The maintainability metrics are well defined and have been implemented in
-different tools. Therefore these are also a good candidate to implement in
-the JavaScript-examiner. Some extra research might be necessary though to find
-the right implementation, use and combination of these metrics for best
-representing the quality of the students' code.
+The maintainability metrics are well defined
+and have been implemented in different tools.
+Therefore these are also a good candidate to implement in the \gls{examiner}.
+Some extra research might be necessary though
+to find the right implementation, use and combination of these metrics
+for best representing the quality of the \glspl{student}' \gls{code}.
 
-Examining execution quality of a given code would be an interesting area to
-look into, but will take more time and effort to implement. To calculate the
-gls{rel-exe-time}, good understanding of the code and the algorithm are
-needed. Also --- because of its complexity --- no ready to be used tools exist
-for executing this specific method. Serious research and development will be
-needed to be able to implement it.
+Examining \gls{exe-quality} of a given \gls{code}
+would be an interesting area to look into,
+but will take more time and effort to implement.
+To calculate the \gls{rel-exe-time},
+good understanding of the \gls{code} and the algorithm are needed.
+Also --- because of its complexity --- no ready to be used tools exist
+for executing this specific method.
+Serious research and development will be needed to be able to implement it.
 
-Building up a database with specific usages of code constructs for an exercise
-along with helpful feedback for a student seems an interesting solution. The
-JavaScript-examiner will be able to generate valuable feedback, simply and
-effectively by asking the tutor. At the same time the teacher will be relieved
-from too much work because the system would save that feedback into a
-database. Further research is needed to determine the best way of extracting
-the important language constructs from code. Development is needed to implement
-this functionality and make sure the feedback from the database will be
-supplied at the right times.
+Building up a database with specific usages of \glspl{construct}
+for an \gls{exercise} along with helpful \gls{feedback} for a \gls{student}
+seems an interesting solution.
+The \gls{examiner} will be able to generate valuable \gls{feedback},
+simply and effectively by asking the \gls{tutor}.
+At the same time the \gls{tutor} will be relieved from too much work
+because the system would save that \gls{feedback} into a database.
+Further research is needed to determine the best way of
+extracting the important \glspl{construct} from \gls{code}.
+Development is needed to implement this functionality
+and make sure the \gls{feedback} from the database
+will be supplied at the right times.
 
