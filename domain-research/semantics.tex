@@ -86,78 +86,57 @@ headers (documentation blocks above routines, classes, etc.)
 and comments (explenation of the code between lines).
 These are three important aspects for giving \gls{feedback}
 as explained by \citet{stegeman2014empirically}.
-
+Determining the quality of natural language is much more difficult
+than for an artificial language.
+Therefor it would be best not to start with this aspect
+when develpment of the \gls{examiner} starts.
+It is a very interesting subject though,
+and it would be very valuable if the \gls{examiner} could give \gls{feedback}
+on this area as well.
+But this subject would need a lot of research and can be looked in to
+in a later stage of the development process of the \gls{examiner},
+probably for another team.
 
 \subsection{Code layout}
 
-For readability it is important to structure your code in a way
-that conveys clearly the intention of the code.
-There are many different ways you could layout your code
-and there is not one layout that is better than all the others.
+A good \Gls{code-layout} can help you maintain an overview
+of the various sections of a \gls{code}.
+This is another important aspect for giving feedback
+by \citet{stegeman2014empirically}.
+It says something about the order in which routines are placed
+and if routines are located close to the routines that call them.
+Because this becomes an importand aspect when your \gls{code} grows
+it won't be importent for us to implemnt into the \gls{examiner}.
+We will be looking at small \glspl{exercise}.
+When the \gls{examiner} will be expanded
+and also be used for bigger \glspl{exercise}
+it might become interesting to take a look at this aspect again.
+
+\subsection{Code formatting}
+
+For readability it is important to structure your \gls{code} in a way
+that conveys clearly the intention of the \gls{code},
+this is called \gls{code-formatting} \citep{stegeman2014empirically}.
+There are many different ways you could format your \gls{code}
+and there is not one formatting that is better than all the others.
 Most important is consistency.
 
-The easiest way to check for a consistent layout would be
-if one particular layout would be required from the students.
-Then the \gls{examiner} can simply check for that layout.
-Otherwise it would have to determine the layout of a particular \gls{exercise}
-on various aspects and see if that layout is used
-consistently throughout the entire assignment.
+The easiest way to check for a consistent formatting would be
+if one particular format would be required from the \glspl{student}.
+Then the \gls{examiner} can simply check for that formatting.
+Otherwise it would have to determine the formatting
+of a particular \gls{exercise} on various aspects
+and see if that formatting is used consistently
+throughout the entire assignment.
 
-Besides being consistent in using one layout
-there are still layout aspects that would be considered bad practice
+Besides being consistent in using one formatting
+there are still formatting aspects that would be considered bad practice
 and should be avoided at all times.
 There are many \glspl{tool} for examining \gls{code}
 to make sure none of these bad practices are used in \gls{code}.
 Even specific for \gls{js-code} such \glspl{tool} already
 exist.\footnote{For instance JSLint (\url{http://www.jslint.com/})
 and the less strict variant JSHint (\url{http://www.jshint.com/})}
-
-\subsubsection{Stegeman}
-
-\paragraph{Names}
-Natural language
-Maybe spell checking
-
-\paragraph{Headers}
-Natural language
-JSDoc
-Spell checking
-
-\paragraph{Comments}
-Natural language
-Spell checking
-Only where strictly needed
-
-\paragraph{Layout}
-Not applicable to small exercises
-Unreachable code detection
-Detection of commented-out code
-
-\paragraph{Formatting}
-Highlight intended structure using
-indentation, blank lines, spacing and brackets.
-Highlighting similarities and differences between code
-by using consistent formatting.
-Line length
-
-\paragraph{Flow}
-Choosing appropriate language constructs
-Not too deep nesting
-One task per line
-Not too much code in the body of a conditional statement.
-
-\paragraph{Expressions}
-Simple expressions
-Duplication of (partial) expressions
-Unnamed constants
-
-\paragraph{Decomposition}
-Limited set of tasks per routine
-Limited set of shared variables
-Not reuse variables for multiple purposes
-
-\paragraph{Modularization}
-Not applicable to small exercises
 
 \subsection{Maintainability}
 
@@ -174,9 +153,12 @@ used in tools for analyzing \gls{code}:
   \item Halstead complexity;
   \item Object oriented metrics.
 \end{itemize}
-We will look at the first three metrics mentioned. The last one --- Object
-oriented metrics --- might also be an interesting metric when object oriented
-aspects are introduced in the \glspl{exercise}.
+We will look at the first three metrics mentioned.
+They touch the subjects of flow, expressions, and decomposition
+as described by \citet{stegeman2014empirically}
+The last one --- Object oriented metrics ---
+might also be an interesting metric
+when object oriented aspects are introduced in the \glspl{exercise}.
 But it would lead too far for this research to go into;
 it can be the subject of a later research.
 
@@ -214,6 +196,10 @@ when the code base increases
 it is more useful to express the cyclomatic complexity relative to
 the lines of \gls{code}.
 This gives us the cyclomatic complexity density \citep{gill1991cyclomatic}.
+Also important is to make sure that
+the bodies of conditional statements don't get to large.
+And routines should as well contain only a limited set of tasks and variables
+\citep{stegeman2014empirically}.
 
 The third metric we will be discussing is the Halstead complexity
 which looks at operators and its operands.

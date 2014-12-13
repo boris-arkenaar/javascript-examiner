@@ -34,7 +34,7 @@
 \newglossaryentry{syntax}
 {
   name=syntax (of \gls{js-code}),
-  description={The order and combination of low level \gls{constructs}.
+  description={The order and combination of low level \glspl{construct}.
     \gls{js-code} is syntactically correct if it adheres
     to the official definition of the \gls{js} language
     ({\em ECMAScript}\footnote{http://www.ecmascript.org}).
@@ -54,7 +54,7 @@
 {
   name=semantics (of \gls{js-code}),
   description={The way \gls{js-code} is constructed
-    of combinations of \gls{constructs}.
+    of combinations of \glspl{construct}.
     Can be used to determine the quality and efficiency of \gls{js-code}.}
 }
 \newglossaryentry{construct}
@@ -63,7 +63,7 @@
   description={The smallest meaningful entity
     with which \gls{js-code} can be constructed
     (e.g.\ a variable definition, a for loop or an if statement).
-    Or a combination of such constructs for a specific function.}
+    Or a combination of such \glspl{construct} for a specific function.}
 }
 \newglossaryentry{exercise}
 {
@@ -150,8 +150,15 @@
 \newglossaryentry{code-layout}
 {
   name=code layout,
+  description={Describes the order in which sections of \gls{code} are placed,
+    relative to each other,
+    in order to keep a good overview of the \gls{code}.}
+}
+\newglossaryentry{code-formatting}
+{
+  name=code formatting,
   description={Describes different ways
-    to position the \gls{constructs} in a text file,
+    to position the \glspl{construct} in a text file,
     and the use of white space, in a given \gls{code},
     without affecting its functionality.}
 }
