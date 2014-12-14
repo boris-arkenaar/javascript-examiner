@@ -86,78 +86,57 @@ headers (documentation blocks above routines, classes, etc.)
 and comments (explenation of the code between lines).
 These are three important aspects for giving \gls{feedback}
 as explained by \citet{stegeman2014empirically}.
-
+Determining the quality of natural language is much more difficult
+than for an artificial language.
+Therefor it would be best not to start with this aspect
+when develpment of the \gls{examiner} starts.
+It is a very interesting subject though,
+and it would be very valuable if the \gls{examiner} could give \gls{feedback}
+on this area as well.
+But this subject would need a lot of research and can be looked in to
+in a later stage of the development process of the \gls{examiner},
+probably for another team.
 
 \subsection{Code layout}
 
-For readability it is important to structure your code in a way
-that conveys clearly the intention of the code.
-There are many different ways you could layout your code
-and there is not one layout that is better than all the others.
+A good \Gls{code-layout} can help you maintain an overview
+of the various sections of a \gls{code}.
+This is another important aspect for giving feedback
+by \citet{stegeman2014empirically}.
+It says something about the order in which routines are placed
+and if routines are located close to the routines that call them.
+Because this becomes an importand aspect when your \gls{code} grows
+it won't be importent for us to implemnt into the \gls{examiner}.
+We will be looking at small \glspl{exercise}.
+When the \gls{examiner} will be expanded
+and also be used for bigger \glspl{exercise}
+it might become interesting to take a look at this aspect again.
+
+\subsection{Code formatting}
+
+For readability it is important to structure your \gls{code} in a way
+that conveys clearly the intention of the \gls{code},
+this is called \gls{code-formatting} \citep{stegeman2014empirically}.
+There are many different ways you could format your \gls{code}
+and there is not one formatting that is better than all the others.
 Most important is consistency.
 
-The easiest way to check for a consistent layout would be
-if one particular layout would be required from the students.
-Then the \gls{examiner} can simply check for that layout.
-Otherwise it would have to determine the layout of a particular \gls{exercise}
-on various aspects and see if that layout is used
-consistently throughout the entire assignment.
+The easiest way to check for a consistent formatting would be
+if one particular format would be required from the \glspl{student}.
+Then the \gls{examiner} can simply check for that formatting.
+Otherwise it would have to determine the formatting
+of a particular \gls{exercise} on various aspects
+and see if that formatting is used consistently
+throughout the entire assignment.
 
-Besides being consistent in using one layout
-there are still layout aspects that would be considered bad practice
+Besides being consistent in using one formatting
+there are still formatting aspects that would be considered bad practice
 and should be avoided at all times.
 There are many \glspl{tool} for examining \gls{code}
 to make sure none of these bad practices are used in \gls{code}.
 Even specific for \gls{js-code} such \glspl{tool} already
 exist.\footnote{For instance JSLint (\url{http://www.jslint.com/})
 and the less strict variant JSHint (\url{http://www.jshint.com/})}
-
-\subsubsection{Stegeman}
-
-\paragraph{Names}
-Natural language
-Maybe spell checking
-
-\paragraph{Headers}
-Natural language
-JSDoc
-Spell checking
-
-\paragraph{Comments}
-Natural language
-Spell checking
-Only where strictly needed
-
-\paragraph{Layout}
-Not applicable to small exercises
-Unreachable code detection
-Detection of commented-out code
-
-\paragraph{Formatting}
-Highlight intended structure using
-indentation, blank lines, spacing and brackets.
-Highlighting similarities and differences between code
-by using consistent formatting.
-Line length
-
-\paragraph{Flow}
-Choosing appropriate language constructs
-Not too deep nesting
-One task per line
-Not too much code in the body of a conditional statement.
-
-\paragraph{Expressions}
-Simple expressions
-Duplication of (partial) expressions
-Unnamed constants
-
-\paragraph{Decomposition}
-Limited set of tasks per routine
-Limited set of shared variables
-Not reuse variables for multiple purposes
-
-\paragraph{Modularization}
-Not applicable to small exercises
 
 \subsection{Maintainability}
 
@@ -174,9 +153,12 @@ used in tools for analyzing \gls{code}:
   \item Halstead complexity;
   \item Object oriented metrics.
 \end{itemize}
-We will look at the first three metrics mentioned. The last one --- Object
-oriented metrics --- might also be an interesting metric when object oriented
-aspects are introduced in the \glspl{exercise}.
+We will look at the first three metrics mentioned.
+They touch the subjects of flow, expressions, and decomposition
+as described by \citet{stegeman2014empirically}
+The last one --- Object oriented metrics ---
+might also be an interesting metric
+when object oriented aspects are introduced in the \glspl{exercise}.
 But it would lead too far for this research to go into;
 it can be the subject of a later research.
 
@@ -214,6 +196,10 @@ when the code base increases
 it is more useful to express the cyclomatic complexity relative to
 the lines of \gls{code}.
 This gives us the cyclomatic complexity density \citep{gill1991cyclomatic}.
+Also important is to make sure that
+the bodies of conditional statements don't get to large.
+And routines should as well contain only a limited set of tasks and variables
+\citep{stegeman2014empirically}.
 
 The third metric we will be discussing is the Halstead complexity
 which looks at operators and its operands.
@@ -257,166 +243,217 @@ to handle that aspect in this research.
 
 \subsection{Relative execution time}
 
-The relative execution time of a given code can be measured mathematically. As
-explained by \citet[Chapter 4]{goodrich2008data} the relative execution time
-can be expressed using seven functions (constant, logarithm, linear, n-log~n,
-etc.). To determine with which function the relative execution time of a given
-code can be expressed one has to look at the language constructs used in that
-code. For each language construct the relative execution time has to be
-determined. Then you can calculate the relative execution time of the
-combination of those functions (i.e. the combination of the language constructs
-that make op the code).
+The \gls{rel-exe-time} of a given \gls{code} can be measured mathematically.
+As explained by \citet[Chapter 4]{goodrich2008data}
+the \gls{rel-exe-time} can be expressed using seven functions
+(constant, logarithm, linear, n-log~n, etc.).
+To determine with which function
+the gls{rel-exe-time} of a given \gls{code} can be expressed
+one has to look at the \glspl{construct} used in that \gls{code}.
+For each \gls{construct} the \gls{rel-exe-time} has to be determined.
+Then you can calculate the \gls{rel-exe-time}
+of the combination of those functions
+(i.e.\ the combination of the \glspl{construct} that make op the \gls{code}).
 
-This method would be a good way to see if the student has used an algorithm
-that is too complex for the given exercise. If, for example, the solution of
-the tutor executes in n-log~n time while the code of the student executes in
-quadratic time, feedback could be given to the student that he should use a
-more efficient algorithm for that exercise. The question would be: how to give
-the student more concrete feedback? Instead of just telling him he can do
-better it would be constructive to point him in the right direction. However,
-this would require more knowledge of the particular exercise and the difference
-between the solution of the tutor and the solution of the student.
+This method would be a good way to see
+if the \gls{student} has used an algorithm
+that is too complex for the given \gls{exercise}.
+If, for example, the \gls{solution} of the \gls{tutor} executes in n-log~n time
+while the \gls{code} of the \gls{student} executes in quadratic time,
+\gls{feedback} could be given to the \gls{student}
+that he should use a more efficient algorithm for that \gls{exercise}.
+The question would be:
+how to give the \gls{student} more concrete \gls{feedback}?
+Instead of just telling him he can do better
+it would be constructive to point him in the right direction.
+However, this would require more knowledge of the particular \gls{exercise}
+and the difference between the \gls{solution} of the \gls{tutor}
+and the \gls{solution} of the \gls{student}.
 
-An implementation of this method would require more than determining the
-language constructs used in a given code and how they are combined. When a loop
-is used, for instance, you would need information about run time variables to
-determine how many times the loop would be iterated over. In other words:
-looking at the language constructs is not enough, you would need a good
-understanding of the algorithm used and the problem that is being solved. This
-understanding might be provided by letting the tutor specify information about
-the algorithm used when creating an exercise in the
-JavaScript-examiner. However further study will be required to figure out how
-this would best be implemented, and what information would be required exactly
-from the tutor.
+An implementation of this method would require more than
+determining the \glspl{construct} used in a given \gls{code}
+and how they are combined.
+When a loop is used, for instance,
+you would need information about run time variables
+to determine how many times the loop would be iterated over.
+In other words: looking at the \glspl{construct} is not enough,
+you would need a good understanding of the algorithm used
+and the problem that is being solved.
+This understanding might be provided
+by letting the \gls{tutor} specify information about the algorithm used
+when creating an \gls{exercise} in the \gls{examiner}.
+However further study will be required to figure out
+how this would best be implemented,
+and what information would be required exactly from the \gls{tutor}.
 
 \subsection{Language constructs}
 
-When looking at the meaning of the code you can distinguish different language
-constructs. When you look at an exercise, it might be the case that a good
-solution should contain one or two specific language constructs. That means
-that we can look for those structures in a student's code. If they are not
-there, or if there are too much of them, the student can be given feedback
-mentioning this fact. In order to be able to give the student a more profound
-explanation of why his code is not optimal we would need input from the
-tutor. Because our goal is to relieve the tutor from too much work we could try
-and implement this feature in a similar way \citet[Section
-3.2]{watson2011learning} proposed in their article. They describe a way to
-provide feedback on how to correct a given code that generates an error
-(halting on execution). The
-first time the system encounters a specific error it has to request the tutor
-for feedback. The system saves that feedback into a database along with the
-error. On any subsequent occurrence of that same error in any of the students'
-code the system retrieves the tutor's feedback from the database. It does not
-need to bother the tutor any more, while the student receives valuable
-feedback.
+When looking at the meaning of the \gls{code}
+you can distinguish different \glspl{construct}.
+When you look at an \gls{exercise},
+it might be the case that a good \gls{solution}
+should contain one or two specific \glspl{construct}.
+That means that we can look for those structures
+in a \gls{student}'s \gls{code}.
+If they are not there, or if there are too much of them,
+the \gls{student} can be given \gls{feedback} mentioning this fact.
+In order to be able to give the \gls{student} a more profound explanation
+of why his \gls{code} is not optimal we would need input from the \gls{tutor}.
+Because our goal is to relieve the \gls{tutor} from too much work
+we could try and implement this feature in a similar way
+\citet[Section 3.2]{watson2011learning} proposed in their article.
+They describe a way to provide \gls{feedback}
+on how to correct a given \gls{code} that generates an error
+(halting on execution).
+The first time the system encounters a specific error
+it has to request the \gls{tutor} for \gls{feedback}.
+The system saves that \gls{feedback} into a database along with the error.
+On any subsequent occurrence of that same error
+in any of the \glspl{student}' \gls{code}
+the system retrieves the \gls{tutor}'s \gls{feedback} from the database.
+It does not need to bother the \gls{tutor} any more,
+while the \gls{student} receives valuable \gls{feedback}.
 
-We would need to determine first what language constructs are important
-for a specific exercise.
-When a student uses a for loop where the tutor does not,
+We would need to determine first what \glspl{construct} are important
+for a specific \gls{exercise}.
+When a \gls{student} uses a for loop where the \gls{tutor} does not,
 that would be an interesting case.
-But when a student uses one more simple assignment statement than the
-tutor does, that will probably not be very important for instance. We can
-determine the set of language constructs used in the code, by type and by
-quantity. And compare that with the solution of the tutor. This gives us a set
-of language constructs the student did not use while the tutor did, and a set
-of language constructs of the other way around. After filtering these two sets
-of language constructs for important ones we have something to give feedback
-on. Now we can use the same mechanics as \citet{watson2011learning}
-described. We look in the database for the feedback on a particular language
-construct that was used --- or not used --- and show that to the student. In
-case no feedback was found in the database, the tutor is requested for input.
-In that case the student will not receive immediate feedback.
-But after the tutor has provided feedback to the system
-all other students who run into the same problem
-will receive the feedback immediately.
+But when a \gls{student} uses one more simple assignment statement
+than the \gls{tutor} does,
+that will probably not be very important for instance.
+We can determine the set of \glspl{construct} used in the \gls{code},
+by type and by quantity.
+And compare that with the \gls{solution} of the \gls{tutor}.
+This gives us a set of \glspl{construct} the \gls{student} did not use
+while the \gls{tutor} did,
+and a set of \glspl{construct} of the other way around.
+After filtering these two sets of \glspl{construct} for important ones
+we have something to give \gls{feedback} on.
+Now we can use the same mechanics as \citet{watson2011learning} described.
+We look in the database for the \gls{feedback}
+on a particular \gls{construct} that was used --- or not used ---
+and show that to the \gls{student}.
+In case no \gls{feedback} was found in the database,
+the \gls{tutor} is requested for input.
+In that case the \gls{student} will not receive immediate \gls{feedback}.
+But after the \gls{tutor} has provided \gls{feedback} to the system
+all other \glspl{student} who run into the same problem
+will receive the \gls{feedback} immediately.
 
 Interesting use of this method for later implementation can be the comparison
---- not only of the a student's solution with the teacher's solution --- of a
-student's code with the code of previously submitted code of other
-students. This might give the student feedback on how he is doing relative to
-his fellow students.
+--- not only of the a \gls{student}'s \gls{solution}
+with the \gls{tutor}'s \gls{solution} ---
+of a \gls{student}'s \gls{code} with the \gls{code}
+of previously submitted \gls{code} of other \glspl{student}.
+This might give the \gls{student} \gls{feedback} on how he is doing
+relative to his fellow \glspl{student}.
 
-Research would be needed to see if this would work the way I describe it
-here. Would it be feasible to determine how to rate the language constructs of
-the JavaScript language? And would the system find all the problem cases or
-will it miss some, or find cases that are of no importance?  Besides that, this
-functionality would have to be created from the ground up because it is quite
-specific and I have not found something like it for JavaScript.
+Research would be needed to see if this would work
+the way I describe it here.
+Would it be feasible to determine how to rate the \glspl{construct}
+of the \gls{js} language?
+And would the system find all the problem cases or will it miss some,
+or find cases that are of no importance?
+Besides that, this functionality would have to be created from the ground up
+because it is quite specific and I have not found something like it
+for \gls{js}.
 
 \section{Comparing code}
 
-The code layout is an absolute check to see if the student's code adheres to a
-well defined set of rules of best practices in coding. The code either fails on
-some points or it is completely laid out according to the layout definitions
-used. How you go about giving feedback when some rules are broken is another
-question. The JavaScript-examiner could say the code is incorrect or more
-gently tell the student that it could be better. It could clearly point out
-where the shortcomings are or simply tell the student to do better. The point
-is that the rules of code layout can be well defined, how strict you hold the
-student to it is a matter of feedback.
+The \gls{code-layout} is an absolute check to see
+if the \gls{student}'s \gls{code} adheres to a well defined set
+of rules of best practices in coding.
+The \gls{code} either fails on some points
+or it is completely laid out according to the layout definitions used.
+How you go about giving \gls{feedback} when some rules are broken
+is another question.
+The \gls{examiner} could say the \gls{code} is incorrect
+or more gently tell the \gls{student} that it could be better.
+It could clearly point out where the shortcomings are
+or simply tell the \gls{student} to do better.
+The point is that the rules of \gls{code-layout} can be well defined,
+how strict you hold the \gls{student} to it is a matter of \gls{feedback}.
 
-A different matter are the other metrics for code and execution quality. They
-do not simply give you an answer whether the code is good or not. It is more of
-a gray area and you would need to determine when code is good, when it is
-acceptable and when it would need improvement. These acceptability margins will
-be different for each exercise (e.g. a more complex assignment should allow a
-higher cyclomatic complexity). The tutor could be asked to specify these
-margins when creating an exercise, but the tutor might struggle to determine
-good margins for the exercise at hand.
+A different matter are the other metrics
+for \glslink{code-quality}{code} and \gls{exe-quality}.
+They do not simply give you an answer whether the \gls{code} is good or not.
+It is more of a gray area and you would need to determine
+when \gls{code} is good, when it is acceptable
+and when it would need improvement.
+These acceptability margins will be different for each \gls{exercise}
+(e.g.\ a more complex assignment should allow a higher cyclomatic complexity).
+The \gls{tutor} could be asked to specify these margins
+when creating an \gls{exercise},
+but the \gls{tutor} might struggle to determine good margins
+for the \gls{exercise} at hand.
 
-The great thing is: we do not need to determine the quality of a given code
-on its own. We can compare it to a well defined base code that is assumed to be
-correct and efficient (i.e. an acceptable solution),
-by asking the tutor to write a solution to the exercise himself.
-the JavaScript-examiner could determine a baseline for the different metrics
-by calculating the metrics for the tutor's solution.
-That means that we do not
-need to decide how many lines of code would be too much, or what cyclomatic
-complexity would make the code too complex. We can just compare the lines of
-code, and the Halstead complexity of a student's code with the solution of the
-tutor.
+The great thing is:
+we do not need to determine the quality of a given \gls{code} on its own.
+We can compare it to a well defined base \gls{code}
+that is assumed to be correct and efficient (i.e.\ an acceptable solution),
+by asking the \gls{tutor} to write a \gls{solution}
+to the \gls{exercise} himself.
+The \gls{examiner} could determine a baseline for the different metrics
+by calculating the metrics for the \gls{tutor}'s \gls{solution}.
+That means that we do not need to decide
+how many lines of code would be too much,
+or what cyclomatic complexity would make the \gls{code} too complex.
+We can just compare the lines of code,
+and the Halstead complexity of a \gls{student}'s \gls{code}
+with the \gls{solution} of the \gls{tutor}.
 That way the system would have a good base for which it can say:
-when I get these results (or better results) for the metrics on a given
-code, the code is good, otherwise the code could be better. Preferably you
-would still want some form of margin, where the results of the metrics only
-slightly below those of the tutor's are as acceptable as the
-tutor's. Determining how those margins can best be calculated is subject to
-further research.
-We do have to determine however: how bad is the code if it is not as
-good as the solution of the tutor? There should probably be some margin of
-acceptance.
+when I get these results (or better results)
+for the metrics on a given \gls{code}, the \gls{code} is good,
+otherwise the \gls{code} could be better.
+Preferably you would still want some form of margin,
+where the results of the metrics only slightly below those of the \gls{tutor}'s
+are as acceptable as the \gls{tutor}'s.
+Determining how those margins can best be calculated
+is subject to further research.
+We do have to determine however: how bad is the \gls{code}
+if it is not as good as the solution of the \gls{tutor}?
+There should probably be some margin of acceptance.
 
 
 \section{Conclusion}
 
-While no one method is perfect it would be best to combine several methods to
-determine the quality of the code and of its execution. Looking at code layout
-is a good starting point and will be easy to implement because many tools exist
-for performing these checks for JavaScript code. The other methods will require
-a baseline which can be obtained by analyzing the tutor's solution. This won't
-be a problem to implement as well but would require further research and
-development for determining the right margins of acceptance of these metrics.
+While no one method is perfect it would be best to combine several methods
+to determine the quality of the code and of its execution.
+Looking at \gls{code-layout} is a good starting point
+and will be easy to implement because many tools exist
+for performing these checks for \gls{js-code}.
+The other methods will require a baseline
+which can be obtained by analyzing the \gls{tutor}'s \gls{solution}.
+This won't be a problem to implement as well
+but would require further research and development
+for determining the right margins of acceptance of these metrics.
 
-The maintainability metrics are well defined and have been implemented in
-different tools. Therefore these are also a good candidate to implement in
-the JavaScript-examiner. Some extra research might be necessary though to find
-the right implementation, use and combination of these metrics for best
-representing the quality of the students' code.
+The maintainability metrics are well defined
+and have been implemented in different tools.
+Therefore these are also a good candidate to implement in the \gls{examiner}.
+Some extra research might be necessary though
+to find the right implementation, use and combination of these metrics
+for best representing the quality of the \glspl{student}' \gls{code}.
 
-Examining execution quality of a given code would be an interesting area to
-look into, but will take more time and effort to implement. To calculate the
-relative execution time, good understanding of the code and the algorithm are
-needed. Also --- because of its complexity --- no ready to be used tools exist
-for executing this specific method. Serious research and development will be
-needed to be able to implement it.
+Examining \gls{exe-quality} of a given \gls{code}
+would be an interesting area to look into,
+but will take more time and effort to implement.
+To calculate the \gls{rel-exe-time},
+good understanding of the \gls{code} and the algorithm are needed.
+Also --- because of its complexity --- no ready to be used tools exist
+for executing this specific method.
+Serious research and development will be needed to be able to implement it.
 
-Building up a database with specific usages of code constructs for an exercise
-along with helpful feedback for a student seems an interesting solution. The
-JavaScript-examiner will be able to generate valuable feedback, simply and
-effectively by asking the tutor. At the same time the teacher will be relieved
-from too much work because the system would save that feedback into a
-database. Further research is needed to determine the best way of extracting
-the important language constructs from code. Development is needed to implement
-this functionality and make sure the feedback from the database will be
-supplied at the right times.
+Building up a database with specific usages of \glspl{construct}
+for an \gls{exercise} along with helpful \gls{feedback} for a \gls{student}
+seems an interesting solution.
+The \gls{examiner} will be able to generate valuable \gls{feedback},
+simply and effectively by asking the \gls{tutor}.
+At the same time the \gls{tutor} will be relieved from too much work
+because the system would save that \gls{feedback} into a database.
+Further research is needed to determine the best way of
+extracting the important \glspl{construct} from \gls{code}.
+Development is needed to implement this functionality
+and make sure the \gls{feedback} from the database
+will be supplied at the right times.
 
