@@ -7,7 +7,7 @@ var options = {tolerant:true,
 		tokens: true,
 		comment:true};
 
-module.exports = function(js, callback, filename) {
+module.exports = function(js, callback) {
   try {
     abSynTree = esprima.parse(js, options);
     callback(null, abSynTree);

@@ -8,14 +8,15 @@ exports.parseError = function ParseError (err, src, file) {
   this.message = err.message.replace(/^Line \d+: /, '');
   this.line = err.lineNumber;
   this.column = err.column;
-  this.annotated = '\n' +
+  this.annotated = '/*' +
       //+ (file || '(anonymous file)')
       //+ ':' + this.line
       //+ '\n'
       //+ src.split('\n')[this.line - 1]
-      Array(this.column).join(' ') + '^' +
+      Array(this.column-2).join(' ') + '^' +
       '\n' +
-      'ParseError: ' + this.message;
+      'ParseError: ' + this.message +
+      '\n*/\n';
 }
 
 exports.parseError.prototype = Object.create(SyntaxError.prototype);
