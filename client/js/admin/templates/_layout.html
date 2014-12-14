@@ -1,0 +1,29 @@
+<div id="admin" class="container">
+  <div class="row">
+    <div class="menu col-md-3">
+      <div class="well">
+        <div class="page-header">
+          <h3>{{ $state.current.data.menuTitle }}</h3>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+          <li ui-sref-active="active">
+            <a ui-sref="app.admin.dashboard">
+              {{ $state.get('app.admin.dashboard').data.title }}
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.admin.status">
+              {{ $state.get('app.admin.status').data.title }}
+            </a>
+          </li>
+          <li ui-sref-active="active">
+            <a ui-sref="app.admin.users">
+              {{ $state.get('app.admin.users').data.title }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="content col-md-9" ui-view></div>
+  </div>
+</div>

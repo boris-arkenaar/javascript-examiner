@@ -1,0 +1,18 @@
+{
+  "path": {
+    "bower": "client/js/node_modules/bower_components",
+    "client": "client",
+    "config": "config",
+    "dist": "client-built",
+    "log": "log",
+    "server": "server",
+    "static": "static",
+    "test": "test",
+    "temp": ".tmp"
+  },
+  "server": {
+    "livereload": 35729,
+    "port": 3000,
+    "repl": false
+  }
+}
