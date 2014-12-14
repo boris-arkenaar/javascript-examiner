@@ -3,32 +3,80 @@ var multer = require('multer');
 var app = express();
 app.engine('html', require('ejs').renderFile);
 app.use(multer({dest: './tmp/'}));
+var checkSyntax = require('./check-syntax');
+var checkFormat = require('./check-format');
 var fs = require('fs');
-var checkSyntax = require('./index-check-syntax');
-//app.use(multer({inMemory: true}));
-//Must be put before app.use(app.router);
+var solution;
 
+var FEEDBACKFILENAME = __dirname + '\\views\\feedback.html';
 
-app.get('/', function (req, res) {
-  res.render('form.html');
-})
+function processNext(current, data, res) {
+  if(!current) {
+    //check syntax
+    checkSyntax(data, function(err, feedback, ast) {
+      if(err) {
+        return console.log('error at checkSyntax: ' + err);
+      }
+      if(feedback) {
+        formatFeedback('syntax', feedback, res);
+      } else {
+        processNext('syntax', data, res);
+      }
+    });
+  } else if (current === 'syntax') {
+    //check format
+    checkFormat(data, function(err, feedback) {
+      if(err) {
+        return console.log('error at checkFormat: ' + err);
+      }
+      formatFeedback('format', feedback, res);
+    });
+  }
+}
 
-app.post('/file-upload', function (req, res, next) {
-  console.log(req.body);
-  console.log(req.files.thumbnail.name);
-  var solutionFN = req.files.thumbnail.name;
-  checkSyntax(__dirname + '\\tmp\\'+ solutionFN, function(err, filename) {
-    if(err) {
-      return console.log('error at server.js');
+//format feedback:
+function formatFeedback(feedbackType, feedback, res) {
+  if(feedbackType === 'syntax') {
+    feedback = '<div><textarea cols="100" rows="' + feedback.length + '">' +
+    feedback.join('\r\n') + '</textarea></div>';
+  } else if (feedbackType === 'format') {
+    feedback = '<div><textarea cols="100" rows="' + feedback.length + '">' +
+    feedback.join('\r\n') + '</textarea></div>';
+  }
+  fs.writeFile(FEEDBACKFILENAME, feedback, function(err) {
+    if (err) {
+    throw err;
     }
-    res.render(filename);
+    console.log('feedback saved: ' + FEEDBACKFILENAME);
+    sendFeedback(res);
   });
-  
-  
+}
+
+//send feedback:
+function sendFeedback(res) {
+  res.render(FEEDBACKFILENAME);
+}
+
+//process submitted solution:
+app.post('/file-upload', function (req, res, next) {
+  //load the file:
+  var fileLocation = __dirname + '\\tmp\\'+ req.files.thumbnail.name;
+  fs.readFile(fileLocation, 'utf8', function(err, data) {
+    if (err) {
+      return console.log(err);
+    }
+    processNext(null, data, res);
+  });
 });
 
+//run the server
 var server = app.listen(3000, function () {
   var host = server.address().address
   var port = server.address().port
   console.log('Example app listening at http://%s:%s', host, port)
+})
+
+//send form:
+app.get('/', function (req, res) {
+  res.render('form.html');
 })

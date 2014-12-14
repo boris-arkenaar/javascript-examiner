@@ -1,5 +1,4 @@
 'use strict';
-var fs = require('fs');
 var Checker = require('jscs');
 var loadConfigFile = require('jscs/lib/cli-config');
 
@@ -16,6 +15,8 @@ module.exports = function(code, cb) {
   } catch (err) {
     cb(err);
   }
+ 
+  
   cb(null, result);
 };
 
