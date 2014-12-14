@@ -17,6 +17,9 @@
   },
   "dependencies": {
     "jscs": "~1.8.1",
-	"esprima" : "latest"
+    "esprima" : "latest",
+    "express" : "latest",
+    "multer"  : "latest",
+    "ejs"     : "latest"
   }
 }
