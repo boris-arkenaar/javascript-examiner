@@ -1,11 +1,14 @@
 <div class="container">
   <div class="content">
     <h1>Express</h1>
-    <p>{{hello}}</p>
-    {{#extend "scripts"}}
-    <script>
-      console.log('script injected from home/express.html');
-    </script>
-    {{/extend}}
+    {{#if hello}}
+      <p>{{hello}}</p>
+    {{/if}}
+    {{#if err}}
+      <p>{{err}}</p>
+    {{/if}}
+    {{#if errors}}
+      <p>{{errors}}</p>
+    {{/if}}
   </div>
 </div>

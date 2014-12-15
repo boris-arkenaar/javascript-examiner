@@ -10,8 +10,8 @@ var app = require('../app');
 
 'use strict';
 var fs = require('fs');
-var checkFormat = require('./check-format');
-var solutionFile = './model-solution.js';
+var checkFormat = require('../lib/check-format');
+var solutionFile = 'static/model-solution.js';
 
 
 
@@ -22,19 +22,30 @@ function index(req, res) {
 
 function express(req, res) {
   fs.readFile(solutionFile, 'utf8', function(err, data) {
+    console.log('FILE READ');
     if (err) {
-      cb(err);
-    }
-    checkFormat(data, function(err, errors) {
-      if (err) {
-        console.log(err)
-      }
-
+      console.log('FILE READ ERROR', err);
       res.render('home/express', {
-        hello: 'Hello from express world!',
-        errors: errors
+        err: 'err'
       });
-    });
+    } else {
+      console.log('FILE READ OK', typeof data);
+      var err = false;
+      var errors = ['err1', 'err2'];
+      checkFormat(data, function(err, errors) {
+        console.log('FORMAT CHECKED');
+        if (err) {
+          console.log('FORMAT CHECKED ERROR', err);
+          console.log(err)
+        } else {
+          console.log('FORMAT CHECKED OK', errors);
+          res.render('home/express', {
+            hello: 'Hello from express world!',
+            errors: errors
+          });
+        }
+      });
+    }
   });
 }
 
