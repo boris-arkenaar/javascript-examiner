@@ -73,9 +73,7 @@
     "winston": "0.7.2",
     "winston-mongodb": "0.4.2",
     "wrench": "1.5.4",
-    "esprima": "~1.2.2",
-    "multer": "~0.1.6",
-    "ejs": "~1.0.0"
+    "esprima": "~1.2.2"
   },
   "devDependencies": {
     "chai": "1.8.1",

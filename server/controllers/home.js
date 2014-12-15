@@ -48,8 +48,7 @@ function express(req, res) {
 }
 
 function fileUpload(req, res, next) {
-  console.log('FILE UPLOAD');
-  var fileLocation = __dirname + '/tmp/'+ req.files.thumbnail.name;
+  var fileLocation = req.files.thumbnail.path;
   fs.readFile(fileLocation, 'utf8', function(err, data) {
     if (err) {
       return console.log(err);
