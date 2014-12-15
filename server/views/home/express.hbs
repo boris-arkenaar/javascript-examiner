@@ -1,6 +1,10 @@
 <div class="container">
   <div class="content">
     <h1>Express</h1>
+    <form method="post" enctype="multipart/form-data" action="/file-upload">
+      <input type="file" name="thumbnail">
+      <input type="submit">
+    </form>
     {{#if hello}}
       <p>{{hello}}</p>
     {{/if}}

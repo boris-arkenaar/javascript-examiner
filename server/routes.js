@@ -32,6 +32,7 @@ exports.register = function (app, restify) {
   // Home
   s.get('/', c.home.index);
   s.get('/express', c.home.express);
+  s.post('/file-upload', c.home.fileUpload);
   s.get('/page', c.home.page);
   s.get('/task', c.home.task);
 

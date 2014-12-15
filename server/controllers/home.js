@@ -5,13 +5,11 @@
 'use strict';
 
 var app = require('../app');
-
-
-
-'use strict';
 var fs = require('fs');
+var checkSyntax = require('../lib/check-syntax');
 var checkFormat = require('../lib/check-format');
 var solutionFile = 'static/model-solution.js';
+var solution;
 
 
 
@@ -49,6 +47,68 @@ function express(req, res) {
   });
 }
 
+function fileUpload(req, res, next) {
+  console.log('FILE UPLOAD');
+  var fileLocation = __dirname + '/tmp/'+ req.files.thumbnail.name;
+  fs.readFile(fileLocation, 'utf8', function(err, data) {
+    if (err) {
+      return console.log(err);
+    }
+    processNext(null, data, res);
+  });
+}
+
+function processNext(current, data, res) {
+  if(!current) {
+    //check syntax
+    checkSyntax(data, function(err, feedback, ast) {
+      if(err) {
+        return console.log('error at checkSyntax: ' + err);
+      }
+      if(feedback) {
+        //formatFeedback('syntax', feedback, res);
+        sendFeedback(feedback, res);
+      } else {
+        processNext('syntax', data, res);
+      }
+    });
+  } else if (current === 'syntax') {
+    //check format
+    checkFormat(data, function(err, feedback) {
+      if(err) {
+        return console.log('error at checkFormat: ' + err);
+      }
+      //formatFeedback('format', feedback, res);
+      sendFeedback(feedback, res);
+    });
+  }
+}
+
+//format feedback:
+function formatFeedback(feedbackType, feedback, res) {
+  if(feedbackType === 'syntax') {
+    feedback = '<div><textarea cols="100" rows="' + feedback.length + '">' +
+    feedback.join('\r\n') + '</textarea></div>';
+  } else if (feedbackType === 'format') {
+    feedback = '<div><textarea cols="100" rows="' + feedback.length + '">' +
+    feedback.join('\r\n') + '</textarea></div>';
+  }
+  fs.writeFile(FEEDBACKFILENAME, feedback, function(err) {
+    if (err) {
+    throw err;
+    }
+    console.log('feedback saved: ' + FEEDBACKFILENAME);
+    sendFeedback(res, feedback);
+  });
+}
+
+//send feedback:
+function sendFeedback(feedback, res) {
+  res.render('home/feedback', {
+    feedback: feedback
+  });
+}
+
 function page(req, res) {
   res.render('home/page', {
     layout: 'static',
@@ -70,5 +130,6 @@ function task(req, res, next) {
 // Public API
 exports.index = index;
 exports.express = express;
+exports.fileUpload = fileUpload;
 exports.page = page;
 exports.task = task;

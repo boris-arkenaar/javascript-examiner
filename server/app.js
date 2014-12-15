@@ -8,7 +8,8 @@ var util = require('util');
 
 var _ = require('lodash'),
     ultimate = require('ultimate'),
-    wrench = require('wrench');
+    wrench = require('wrench'),
+    multer = require('multer');
 
 var config = ultimate.config(__dirname + '/../config');
 
@@ -69,6 +70,9 @@ app.attachMiddlewares = function () {
 
   // Cache bust
   ultimate.server.middleware.cachebust.attach(app);
+
+  app.servers.express.getServer().engine('html', require('ejs').renderFile);
+  app.servers.express.getServer().use(multer({dest: './tmp/'}));
 
   // Custom
   app.servers.express.getServer().use(function (req, res, next) {
