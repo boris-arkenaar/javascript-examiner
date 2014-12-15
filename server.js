@@ -60,7 +60,7 @@ function sendFeedback(res) {
 //process submitted solution:
 app.post('/file-upload', function (req, res, next) {
   //load the file:
-  var fileLocation = __dirname + '\\tmp\\'+ req.files.thumbnail.name;
+  var fileLocation = __dirname + '/tmp/'+ req.files.thumbnail.name;
   fs.readFile(fileLocation, 'utf8', function(err, data) {
     if (err) {
       return console.log(err);
