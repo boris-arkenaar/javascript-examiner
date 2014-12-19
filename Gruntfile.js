@@ -10,7 +10,6 @@ var path = require('path'),
 var _ = require('lodash'),
     coffeeify = require('coffeeify'),
     hbsfy = require('hbsfy'),
-    ngmin = require('ngmin'),
     rfileify = require('rfileify'),
     uglify = require('uglify-js'),
     wrench = require('wrench');
@@ -25,15 +24,15 @@ module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
     project: project,
-    browserify2: {  // grunt-browserify2
+    browserify: {  // grunt-browserify
       dev: {
-        entry: './<%= project.path.client %>/js/index.js',
-        compile: '<%= project.path.temp %>/js/main.js',
-        debug: true,
-        beforeHook: function (bundle) {
-          bundle.transform(coffeeify);
-          bundle.transform(hbsfy);
-          bundle.transform(rfileify);
+        files: {
+          '<%= project.path.temp %>/js/main.js': [
+            './<%= project.path.client %>/js/index.js'
+          ]
+        },
+        options: {
+          transform: ['coffeeify', 'hbsfy', 'rfileify']
         }
       },
       dist: {
@@ -45,7 +44,9 @@ module.exports = function (grunt) {
           bundle.transform(rfileify);
         },
         afterHook: function (source) {
-          source = ngmin.annotate(source);
+          // TODO: Does this work? (ng-annotate instead of ngmin.)
+          source.transform(ngAnnotate);
+          //source = ngmin.annotate(source);
           source = uglify.minify(source, {
             fromString: true,
             mangle: false,
@@ -140,12 +141,11 @@ module.exports = function (grunt) {
       }
     },
     express: {  // grunt-express
-      server: {
+      dev: {
         options: {
           debug: true,
-          livereload: project.server.livereload,
           port: '<%= process.env.PORT || project.server.port %>',
-          server: path.resolve('<%= project.path.server %>')
+          script: path.resolve('<%= project.path.server %>')
         }
       }
     },
@@ -207,6 +207,15 @@ module.exports = function (grunt) {
         'Gruntfile.js'
       ]
     },
+    jscs: { // grunt-jscs
+      src: [
+        '<%= jshint.client %>',
+        '<%= jshint.server %>'
+      ],
+      options: {
+        config: '.jscsrc'
+      }
+    },
     karma: {  // grunt-karma
       single: {
         configFile: '<%= project.path.config %>/test/karma-unit.conf.js',
@@ -246,7 +255,7 @@ module.exports = function (grunt) {
     },
     open: {  // grunt-open
       dev: {
-        url: 'http://localhost:<%= process.env.PORT || project.server.port %>'
+        path: 'http://localhost:<%= process.env.PORT || project.server.port %>'
       }
     },
     protractor: {  // grunt-protractor-runner
@@ -287,10 +296,12 @@ module.exports = function (grunt) {
       html: '<%= project.path.client %>/*.html'
     },
     watch: {  // grunt-contrib-watch
-      livereload: {
+      /*livereload: {
         options: {
           livereload: project.server.livereload
         },
+      },*/
+      express: {
         files: [
           '<%= project.path.client %>/fonts/{,*/}*',
           '<%= project.path.client %>/img/**/*.{gif,jpg,png}',
@@ -299,7 +310,11 @@ module.exports = function (grunt) {
           '<%= project.path.temp %>/*.html',
           '<%= project.path.temp %>/css/{,*/}*.css',
           '<%= project.path.temp %>/js/{,*/}*.js'
-        ]
+        ],
+        tasks:  ['express:dev'],
+        options: {
+          spawn: false
+        }
       },
       html: {
         files: [
@@ -314,20 +329,27 @@ module.exports = function (grunt) {
         files: ['<%= project.path.client %>/less/**/*.less'],
         tasks: ['less:dev']
       },
-      js: {
+      jsClient: {
         files: [
           '<%= jshint.client %>',
           '<%= project.path.client %>/js/**/*.html',
           '!<%= project.path.client %>/js/bower_components/**/*.html'
         ],
-        tasks: ['browserify2:dev']
+        tasks: ['browserify:dev']
+      },
+      js: {
+        files: [
+          '<%= jshint.client %>',
+          '<%= jshint.server %>'
+        ],
+        tasks: ['jscs', 'jshint']
       }
     }
   });
 
   grunt.registerTask('buildDev', [
     'clean:dev',
-    'browserify2:dev',
+    'browserify:dev',
     'less:dev',
     'copy:dev',
     'symlinkDev',
@@ -337,7 +359,7 @@ module.exports = function (grunt) {
   grunt.registerTask('buildDist', [
     'jshint',
     'clean:dist',
-    'browserify2:dist',
+    'browserify:dist',
     'less:dist',
     'useminPrepare',
     'htmlmin:dist',
@@ -429,7 +451,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serverDev', function () {
     grunt.task.run([
-      'express',
+      'express:dev',
       'open'
     ]);
     if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'staging') {

@@ -11,9 +11,6 @@ var checkFormat = require('../lib/check-format');
 var solutionFile = 'static/model-solution.js';
 var solution;
 
-
-
-
 function index(req, res) {
   res.render('home/index');
 }
@@ -58,7 +55,7 @@ function fileUpload(req, res, next) {
 }
 
 function processNext(current, data, res) {
-  if(!current) {
+  if (!current) {
     //check syntax
     checkSyntax(data, function(err, feedback, ast) {
       if(err) {
