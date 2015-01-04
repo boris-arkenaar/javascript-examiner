@@ -8,6 +8,7 @@ var app = require('../app');
 var fs = require('fs');
 var checkSyntax = require('../lib/check-syntax');
 var checkFormat = require('../lib/check-format');
+var checkFunctionality = require('../lib/check-functionality');
 var solutionFile = 'static/model-solution.js';
 var solution;
 
@@ -49,6 +50,7 @@ function express(req, res) {
 
 function fileUpload(req, res, next) {
   var fileLocation = req.files.thumbnail.path;
+  checkFunctionality(fileLocation);
   fs.readFile(fileLocation, 'utf8', function(err, data) {
     if (err) {
       return console.log(err);
