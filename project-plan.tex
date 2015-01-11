@@ -27,7 +27,8 @@ In chapter 2 we explain the background of this project is to be found in the
 search for a way to improve JavaScript education. We see a good example of how 
 JavaScript is being educated at the OU. Chapter 3 states that the objective of 
 the project is to create a Program to automatically check program code 
-constructed of JavaScript. In the near future we, or another team, might be 
+constructed of JavaScript, and generate feedback. 
+In the near future we, or another team, might be 
 looking at checking a combination of JavaScript and HTML. In Chapter 4 we 
 explain that for realizing this project we will start off with the individual 
 domain research to find out in what direction it would be best to proceed with 
@@ -143,11 +144,12 @@ artifacts:
 % Wat is de koppeling tussen bedrijfsprocessen en de omgeving, gezien door de 
 % bril van de opdrachtgever? 
 
-The objective of the project is to create a Program to automatically check
-solutions constructed of JavaScript code, initially the submitted code from
-students of the course {\em Web applications: the Client Side}. this to reduce
-the amount of time spentby the Professors to correct the solutions to exercises
-and giving useful and constructive feedback to enhance didactical value in
+The objective of the project is to create a Program to automatically provide 
+feedback on solutions constructed of JavaScript code, initially the 
+submitted code from.
+students of the course {\em Web applications: the Client Side}. This to reduce
+the amount of time spent by the Professors to correct the solutions to exercises
+and giving useful and constructive feedback to enhance didactic value in
 general, and JavaScript knowledge and skills in particular, to the student. The
 program should be developed in such a way it can be easily extended, modified
 and reused. A thinkable extension might be the evaluation not only of
@@ -159,12 +161,12 @@ JavaScript code but of a combination with HTML as well.
 The goal is to provide a functioning program that is able to examine and 
 generate feedback on JavaScript code. The examination will be based on: 
 
-\begin{itemize} \item Domain knowledge about syntactical and semantical
+\begin{itemize} \item Domain knowledge about syntactical and semantic
 constructions possible in JavaScript; \item Input from the professor, namely an
 information set containing all required information of a specific
 problem/exercise; \item Input from the student, namely the solution for the
 specific problem/exercise. \end{itemize} To make this possible, a tutor should
-be able to add or create an exersize. A student must be able to submit a
+be able to add or create an exercise. A student must be able to submit a
 solution for review. The result should complement to the course Webapplication:
 the clientside, in particular chapter 4-7.
 
@@ -218,7 +220,7 @@ below.
     the remaining students can keep on working and deliver a working product,
     albeit with less functionality.
   \item[There is not enough time to create a working version] We will have to
-    reduce the functionality planed for the JavaScript examiner in order to be
+    reduce the functionality planned for the JavaScript examiner in order to be
     able to deliver a working version within the time we have.
   \item[There is no feedback from the project owner] We will contact the
     project owner and our mentor in order to work out a solution to this
@@ -274,32 +276,17 @@ one phase to the next. The areas of focus are listed below.
 When verifying JavaScript code the first step will be checking if it is valid
 JavaScript. This will be a syntactical check. When the Javascript code seems to
 be syntactically correct we can check for functionality with the use of unit
-tests. This second step checks if the JavaScript code produces the correct
+tests. These unit tests should be generated or at least reviewed by an expert
+(most likely a tutor), in order to ensure the quality. 
+This second step checks if the JavaScript code produces the correct
 output with a given input. After the JavaScript has been proven to be
 syntactically and functionally correct we can perform the third step of looking
 at the semantics of the JavaScript code. We will look at the meaning of the
 code constructs used, whether they are efficient for the problem at hand and
 combined in a logical manner.
 
-\begin{description}
-  \item[Basic feedback on JavaScript code] Is the Javascript code 
-    correct JavaScript (syntax)? And does executing the Javascript code result 
-    in the correct output (functionality)? 
-  \item[Checking JavaScript semantically] This has a broader meaning, trying to
-    determine the quality of JavaScript code (which has proven to be
-    syntactically and functionally correct).
-  \item[Making use of existing software and libraries] Are there libraries we
-    can use in our project? And maybe there are already complete software
-    systems we can use as a basis for our project?
-  \item[Building a system for managing assignments] An administration layer for
-    the professor to create assignments for the students.
-  \item[Building a front-end for submitting code] A layer for students to be
-    able to submit their JavaScript code for an assignment and retrieve
-    feedback.
-\end{description}
-
 The phases into which the execution of the project will be divided are listed
-below.
+below. These phases will overlap as we make use of an agile approach.
 
 \begin{itemize}
   \item Domain research
@@ -338,20 +325,6 @@ specific: what combination of code constructs are better than others. In a
 more broad sense we can look for scientific models available to review a
 programming language from a semantical point of view. 
 
-\subsubsection{Making use of existing software and libraries}
-Find out what related tools, libraries and software already exist in this area
-and in what ways they could be re-used for this project. Starting with a
-general overview of the aspects (programming language source code, licensing,
-interfaces etc.) of these software units, the most interesting ones can be
-selected and more closely evaluated to determine whether it's possible to use,
-combine and or distribute them.
-
-The results from this study provides information in which programming
-language(s) and architecture should be used for the realization of the
-program. On top of that insight will be available on which existing libraries
-and software systems are available and might be useful in this project, along
-with the pros and cons of using them.
-
 \subsection{Consult researcher from an active research}
 % Welke activiteiten in welke fase zijn hier nodig?
 % Wat zijn de tussenresultaten die deze activiteiten opleveren?
@@ -386,13 +359,6 @@ Checking for semantics is far more advanced and will therefore only be done if
 there will be enough time to complete this. Also the domain research might shed
 some light on the possibilities of this area.
 
-\subsubsection{Making use of existing software and libraries}
-We will include libraries into our software where the domain research has
-pointed out that would benefit the progress of this project. If the domain
-research directs us to a complete software package to be used, we will deploy a
-local working version of that package to start with. After which we will expand
-on the software.
-
 \subsubsection{Building a system for managing assignments} 
 Further into the development process we will build an interface into which a
 teacher has the ability to define assignments.
@@ -420,11 +386,7 @@ mandatory for a successful completion of the other activities.
 % welslagen van het totale project? 
 % Wat zijn de voorwaarden die de projectmanager stelt, zowel naar het project 
 % (intern) als naar de omgeving (extern)? 
-
-If there is a good foundation, which will be built in this project, the 
-possibility for extension are endless. It will lead to better education of 
-future software engineers. 
-
+ 
 \subsection{Project organization} 
 % Wat zijn de profielschetsen? 
 % Wat is het organogram en/of het verantwoordelijkheidsschema?
@@ -452,10 +414,6 @@ The responsibilities of each team member is explained in further detail
         4.2.2)
     \end{itemize}
   \item Ronald:
-    \begin{itemize}
-      \item Domain research: Technical aspects and reuse options of currently
-        available JavaScript check tools and API's. (chapter 4.2.3)
-    \end{itemize}
 \end{itemize}
 
 We do not have a project manager or specific roles within the project, but 
@@ -482,8 +440,7 @@ rotate tasks in an adhoc and pragmatic way.
 % Welke faciliteiten en hulpmiddelen zijn er nodig om het project te
 % realiseren?
 
-GIT server on GitHub\footnote{https://github.com/Slotkenov/javascript-examiner}
-(as long as a GIT server form the Open University is not available).
+GIT server on GitHub\footnote{https://github.com/Slotkenov/javascript-examiner}.
 
 \subsection{Procedures en guidelines}
 % Welke procedures en richtlijnen binnen en buiten het project zijn nodig om
@@ -520,10 +477,8 @@ The following procedures are being followed:
 Our planning is based on the prescribed workload for the project (400 hours for
 each project member: 1200 hours total), and a weekly investment of 15 hours a
 week by each person. To make a realistic planning, at first we will try to
-adhere to the given workload for each phase.  Though, in order to maintain a
-pragmatic approach, there are some predefined moments for reconsidering the
-planning, in case the project requires us to make alternations in the
-planning. The next phases, Domain Research and the Consult, will clarify the
+adhere to the given workload for each phase. The next phases, Domain Research 
+and the Consult, will clarify the
 specific activities for the remainder of the project. Therefore, these phases
 are planned in a specific manner, while the subsequent phases (Development and
 Finishing essay) are more loosely defined until the contents have become
