@@ -36,7 +36,7 @@ on which the \gls{examiner} can focus.
 What kind of quality aspects exist for programming languages in general?
 To make sure the scope of this article won't get to wide
 I will only pick a few quality aspects.
-I will base my choise on what we have learned at the Open University
+I will base my choice on what we have learned at the Open University
 and on well documented quality aspects found in literature.
 
 How easy is it to measure those quality aspects for a given \gls{code}?
@@ -44,18 +44,15 @@ and how precise is the \gls{feedback} of those measurements?
 For measuring quality aspects
 I will look at literature about available measurements,
 how well they are documented
-and how dificult it would be to implement such a measurement.
-For the availability of \glspl{tool} which can perform such measurements
-I would refer to the domain research of
-Ronald Kluft\footnote{domain-research-modules.pdf}.
+and how difficult it would be to implement such a measurement.
 The results of the measurements of different quality aspects can vary from
 a general idea about the quality aspect of a given \gls{code}
 to more specific indication of how a \gls{code} might be improved.
 I will compare the measurements found in this article
 on the impact of their results.
-More on how \gls{feedback} is givin to the student
+More on how \gls{feedback} is given to the student
 can be read in the domain research of
-Bram Nieuwenhuize\footnote{domain-research-feedback.pdf}
+Bram Nieuwenhuize\footnote{domain-research-feedback.pdf}.
 
 \section{Code quality}
 
@@ -67,7 +64,7 @@ how easy it is to read the \gls{code}
 and how well you can understand what the \gls{code} is trying to do.
 These aspects have no effect on the execution of the \gls{code} however.
 The second area looks at the quality of execution. How well
-does the \gls{code} execute? Does it use efficient glspl{construct}?
+does the \gls{code} execute? Does it use efficient \glspl{construct}?
 
 We will start in this section by looking at the first area:
 the quality of the \gls{code}.
@@ -79,17 +76,17 @@ to give \gls{feedback} to \glspl{student}.
 
 \subsection{Natural Language}
 
-Allthough a programming language is an artificial language,
+Although a programming language is an artificial language,
 natural language is also used often in code in the form of
 names (of variables, routines, etc.),
 headers (documentation blocks above routines, classes, etc.)
-and comments (explenation of the code between lines).
+and comments (explanation of the code between lines).
 These are three important aspects for giving \gls{feedback}
 as explained by \citet{stegeman2014empirically}.
 Determining the quality of natural language is much more difficult
 than for an artificial language.
 Therefor it would be best not to start with this aspect
-when develpment of the \gls{examiner} starts.
+when development of the \gls{examiner} starts.
 It is a very interesting subject though,
 and it would be very valuable if the \gls{examiner} could give \gls{feedback}
 on this area as well.
@@ -105,8 +102,8 @@ This is another important aspect for giving feedback
 by \citet{stegeman2014empirically}.
 It says something about the order in which routines are placed
 and if routines are located close to the routines that call them.
-Because this becomes an importand aspect when your \gls{code} grows
-it won't be importent for us to implemnt into the \gls{examiner}.
+Because this becomes an important aspect when your \gls{code} grows
+it won't be important for us to implement into the \gls{examiner}.
 We will be looking at small \glspl{exercise}.
 When the \gls{examiner} will be expanded
 and also be used for bigger \glspl{exercise}
@@ -212,9 +209,9 @@ While it is not necessary to fully understand
 the programming language for performing the Halstead metric,
 that method has some shortcomings as explained by \citet{yu2010survey}.
 Where the cyclomatic complexity looks at the control flow of the code,
-the Halstead methed only looks at the operations performed,
+the Halstead method only looks at the operations performed,
 but ignores the control flow completely.
-When used together however you can look at you \gls{code} from both sides
+When used together however you can look at your \gls{code} from both sides
 and express the \gls{maintainability} in a combination of the results.
 
 \section{Execution quality}
