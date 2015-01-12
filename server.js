@@ -36,13 +36,8 @@ function processNext(current, data, res) {
 
 //format feedback:
 function formatFeedback(feedbackType, feedback, res) {
-  if(feedbackType === 'syntax') {
-    feedback = '<div><textarea cols="100" rows="' + feedback.length + '">' +
-    feedback.join('\r\n') + '</textarea></div>';
-  } else if (feedbackType === 'format') {
-    feedback = '<div><textarea cols="100" rows="' + feedback.length + '">' +
-    feedback.join('\r\n') + '</textarea></div>';
-  }
+  feedback = '<div><textarea cols="100" rows="' + feedback.length + '">' +
+  feedback.join('\r\n') + '</textarea></div>';
   fs.writeFile(FEEDBACKFILENAME, feedback, function(err) {
     if (err) {
     throw err;
