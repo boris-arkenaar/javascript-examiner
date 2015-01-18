@@ -3,42 +3,59 @@ var multer = require('multer');
 var app = express();
 app.engine('html', require('ejs').renderFile);
 app.use(multer({dest: './tmp/'}));
-var checkSyntax = require('./check-syntax');
-var checkFormat = require('./check-format');
+
 var fs = require('fs');
-var solution;
+var FEEDBACKFILENAME = __dirname + '/views/feedback.html';
+var Solution = require('./solution');
+var EXECUTION_PLAN =  [ {name: 'syntax', mustPass: true, check: require('./check-syntax')},
+                        {name: 'functionality', mustPass: true, check: require('./check-functionality')},
+                        {name: 'format', mustPass: false, check: require('./check-format')}
+                        //{name: 'semantics', mustPass: false, last: true}
+                      ];
 
-var FEEDBACKFILENAME = __dirname + '\\views\\feedback.html';
-
-function processNext(current, data, res) {
-  if(!current) {
-    //check syntax
-    checkSyntax(data, function(err, feedback, ast) {
-      if(err) {
-        return console.log('error at checkSyntax: ' + err);
-      }
+function processNext(current, solution, res) {
+  if(current < EXECUTION_PLAN.length) {
+    var execution = EXECUTION_PLAN[current];
+    console.log(execution);
+    console.log(execution.check);
+    //TODO: replace with solution:
+    execution.check(solution, function(err, feedback) {
+      //TODO: Error Handling
+      if(err) console.log(err);
       if(feedback) {
-        formatFeedback('syntax', feedback, res);
+        solution.feedback[execution.name] = feedback
+        if(execution.mustPass) {
+          //TODO: Replace with solution.feedback
+          formatFeedback(execution.name, feedback, res);
+        } else {
+          processNext(current+1, solution, res);
+        }
       } else {
-        processNext('syntax', data, res);
+        processNext(current+1, solution, res);
       }
     });
-  } else if (current === 'syntax') {
-    //check format
-    checkFormat(data, function(err, feedback) {
-      if(err) {
-        return console.log('error at checkFormat: ' + err);
-      }
-      formatFeedback('format', feedback, res);
-    });
+  } else {
+    //TODO: Replace with solution.feedback
+    formatFeedback('format', solution.feedback.format, res); 
   }
 }
-
 //format feedback:
 function formatFeedback(feedbackType, feedback, res) {
-  feedback = '<div><textarea cols="100" rows="' + feedback.length + '">' +
-  feedback.join('\r\n') + '</textarea></div>';
-  fs.writeFile(FEEDBACKFILENAME, feedback, function(err) {
+  if(feedbackType == 'functionality') {
+    var feedbackOutput = '<div><textarea cols="100" rows="10">';
+    feedbackOutput += feedback[0].functionName + 
+                      ' ' + 
+                      feedback[0].feedback.name +
+                      ': ' +
+                      feedback[0].feedback.message;
+    feedbackOutput += '</textarea></div>';
+  } else {
+    var feedbackOutput = '<div><textarea cols="100" rows="' + feedback.length + '">' +
+    feedback.join('\r\n') + '</textarea></div>';
+  }
+
+  
+  fs.writeFile(FEEDBACKFILENAME, feedbackOutput, function(err) {
     if (err) {
     throw err;
     }
@@ -55,12 +72,14 @@ function sendFeedback(res) {
 //process submitted solution:
 app.post('/file-upload', function (req, res, next) {
   //load the file:
-  var fileLocation = __dirname + '/tmp/'+ req.files.thumbnail.name;
-  fs.readFile(fileLocation, 'utf8', function(err, data) {
+  var solution = new Solution();
+  solution.fileLocation = __dirname + '/tmp/'+ req.files.thumbnail.name;
+  fs.readFile(solution.fileLocation, 'utf8', function(err, data) {
     if (err) {
       return console.log(err);
     }
-    processNext(null, data, res);
+    solution.plain = data;
+    processNext(0, solution, res);
   });
 });
 

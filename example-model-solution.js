@@ -1,6 +1,6 @@
-const OK = "";
-NOK = "";
-EPS = 1e-2;
+var OK = "";
+var NOK = "";
+var EPS = 1e-2;
 
 
 /*
@@ -27,5 +27,3 @@ function calcBMI(lengte, gewicht) {
   }
   return gewicht / ((lengte / 100) * (lengte / 100));
 }
-
-exports.calcBMI = calcBMI;

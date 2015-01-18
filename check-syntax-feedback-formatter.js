@@ -9,7 +9,7 @@ exports.parseError = function ParseError (err, src) {
   this.line = err.lineNumber;
   this.column = err.column;
   this.annotated = '/*' +
-      Array(this.column-2).join(' ') + '^' +
+      Array(this.column).join(' ') + '^' +
       '\n' +
       'ParseError: ' + this.message +
       '\n*/\n';
@@ -17,7 +17,6 @@ exports.parseError = function ParseError (err, src) {
 
 exports.parseError.prototype = Object.create(SyntaxError.prototype);
 exports.parseError.prototype.constructor = exports.parseError;
-
 exports.parseError.prototype.toString = function() {
   return this.annotated;
 };

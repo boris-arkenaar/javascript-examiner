@@ -11,7 +11,7 @@ module.exports = function(code, cb) {
   //console.log(code);
   var result = [];
   try {
-    var errors = checker.checkString(code)
+    var errors = checker.checkString(code.plain);
     errors.getErrorList().forEach(function (err) {
       result.push(errors.explainError(err, false));
     });
