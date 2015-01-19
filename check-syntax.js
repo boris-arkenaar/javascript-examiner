@@ -1,11 +1,7 @@
-var formatter = require('./check-syntax-feedback-formatter');
-
-var outputFileName = __dirname + '\\views\\check-syntax-ast-output.html';
-var feedbackFileName = __dirname + '\\views\\check-syntax-feedback.html';
+var Objects = require('./Objects');
 
 //Variables for parsing:
 var esprima = require('esprima');
-var abSynTree;
 var options = {tolerant:false,
     loc: true,
     range: true,
@@ -19,17 +15,21 @@ var options = {tolerant:false,
 @param  {Function} callback - the function(error, result) to call with result as param
 */
 module.exports = function(solution, callback) {
-  parse(solution.plain, function(err, tree) {
+  parse(solution, function(err, tree) {
     if (err) {
-      console.log('no sucess:', err);
-      var feedbackComment = formatter.parseError(err, solution.plain).toString();
-      var feedback = solution.plain.split(/\r?\n/);
-      feedback = feedback.slice(0, err.lineNumber).concat(feedbackComment).concat([''])
-          .concat(feedback.slice(err.lineNumber));
-      callback(null, feedback);
+      console.log('no sucess Parse AST:', err);
+      //var feedbackComment = formatter.parseError(err, solution.plain).toString();
+      //var feedback = solution.plain.split(/\r?\n/);
+      //feedback = feedback.slice(0, err.lineNumber).concat(feedbackComment).concat([''])
+      //  .concat(feedback.slice(err.lineNumber));
+      var feedback = new Objects.Feedback();
+      feedback.name = 'ParseError';
+      feedback.description = err.message;
+      feedback.addressee = 'student';
+      callback(null, [feedback]);
     } else {
       console.log('sucess: Check-syntax');
-      console.log(tree);
+      solution.abstractSyntaxTree = tree;
       callback(null, null, tree);
     }
   });
@@ -43,8 +43,8 @@ module.exports = function(solution, callback) {
 */
 function parse(solution, callback) {
   try {
-    abSynTree = esprima.parse(solution.plain);
-    callback(null, abSynTree);
+    var abSynTree = esprima.parse(solution.plain, options);
+    callback(null, abSynTree);  
   } catch (err) {
     callback(err);
   }

@@ -20,6 +20,7 @@
     "esprima" : "latest",
     "express" : "latest",
     "multer"  : "latest",
-    "ejs"     : "latest"
+    "ejs"     : "latest",
+    "clone"   : "latest"
   }
 }

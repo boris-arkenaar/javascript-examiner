@@ -1,6 +1,7 @@
 'use strict';
 var Checker = require('jscs');
 var loadConfigFile = require('jscs/lib/cli-config');
+var Objects = require('./Objects');
 
 module.exports = function(code, cb) {
   var checker = new Checker();
@@ -9,18 +10,27 @@ module.exports = function(code, cb) {
   
   //code = removeComments(code);
   //console.log(code);
-  var result = [];
+  var feedbackList = [];
+  //var result = [];
   try {
     var errors = checker.checkString(code.plain);
     errors.getErrorList().forEach(function (err) {
-      result.push(errors.explainError(err, false));
+      
+      console.log(err);
+      var feedback = new Objects.Feedback();
+      feedback.addressee = 'student';
+      feedback.name = err.rule;
+      feedback.description = err.message + ' @line: ' + err.line + ' @column: ' + err.column;
+      feedbackList.push(feedback);
+      //result.push(errors.explainError(err, false));
     });
   } catch (err) {
     cb(err);
   }
  
   
-  cb(null, result);
+  //cb(null, result);
+  cb(null, feedbackList);
 };
 
 /* 
