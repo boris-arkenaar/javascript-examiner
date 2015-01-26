@@ -7,31 +7,37 @@ module.exports = function(code, cb) {
   var checker = new Checker();
   checker.registerDefaultRules();
   checker.configure(loadConfigFile.load('./.jscs.json'));
-  
-  //code = removeComments(code);
+
+  code.plain = ignoreComments(code.plain);
   //console.log(code);
   var feedbackList = [];
   //var result = [];
   try {
     var errors = checker.checkString(code.plain);
     errors.getErrorList().forEach(function (err) {
-      
-      console.log(err);
       var feedback = new Objects.Feedback();
       feedback.addressee = 'student';
       feedback.name = err.rule;
-      feedback.description = err.message + ' @line: ' + err.line + ' @column: ' + err.column;
+      feedback.description = err.message;
+      feedback.line = err.line;
+      feedback.column = err.column;
       feedbackList.push(feedback);
-      //result.push(errors.explainError(err, false));
     });
   } catch (err) {
     cb(err);
   }
- 
-  
-  //cb(null, result);
+  console.log('success: Check-Format');
   cb(null, feedbackList);
+
 };
+
+function ignoreComments(plainCode) {
+    console.log(typeof plainCode);
+    console.log(plainCode.indexOf('/*'));
+    plainCode = plainCode.replace('/*', '/* jscs: disable').replace('*/', '*/ \n //jscs: enable');
+    console.log(plainCode);
+    return plainCode;
+}
 
 /* 
     This function is loosely based on the one found here:
