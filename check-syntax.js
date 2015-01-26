@@ -17,14 +17,11 @@ var options = {tolerant:false,
 module.exports = function(solution, callback) {
   parse(solution, function(err, tree) {
     if (err) {
-      console.log('no sucess Parse AST:', err);
-      //var feedbackComment = formatter.parseError(err, solution.plain).toString();
-      //var feedback = solution.plain.split(/\r?\n/);
-      //feedback = feedback.slice(0, err.lineNumber).concat(feedbackComment).concat([''])
-      //  .concat(feedback.slice(err.lineNumber));
       var feedback = new Objects.Feedback();
       feedback.name = 'ParseError';
       feedback.description = err.message;
+      feedback.line = err.lineNumber
+      feedback.column = err.column;
       feedback.addressee = 'student';
       callback(null, [feedback]);
     } else {
