@@ -1,18 +1,20 @@
 var assert = require('assert');
 var fs = require('fs');
 var Objects = require('./objects');
+var requireNew = require('require-new');
 
 //replace with database call:
-var testFunction1 = {
+var testFunction = {
 	functionName: 'calcBMI',
 	check: function(solution) {
 		try {
-			assert.equal(35.55555555555556, solution.module[this.functionName](150, 80));
+			assert.equal(36, solution.module[this.functionName](150, 80));
 		} catch(err) {
+			console.log('Generate Feedback:');
 			var feedback = new Objects.Feedback();
 			feedback.name = 'Test "'+this.functionName+'" failed';
 			feedback.description = err.name + ': ' + err.message;
-			feedback.addressee = 'student';
+			feedback.addressee = 'student';	
 			this.feedback = feedback;
 		}
 	}
@@ -22,14 +24,17 @@ var testFunction1 = {
 var exercise = {
 	id: 'TestExercise',
 	description: 'Dummy Exercise for development',
-	testSuite: [testFunction1]
+	testSuite: [testFunction]
 };
 
-module.exports = function(solution, callback){
 
+
+module.exports = function(solution, callback){
+	testFunction.feedback = null;
 	//get the exercise:
 	//exercise = db.get('exercise', solution.exerciseID);
 	//solution.module = require(createModule(solution, exercise, function));
+
 	if(!exercise.testSuite || exercise.testSuite.lenth == 0) {
 		var feedback = new Objects.Feedback();
 		feedback.name = 'No test suite';
@@ -55,6 +60,7 @@ module.exports = function(solution, callback){
 				if(feedbackList.length > 0) {
 					callback(null, feedbackList);
 				}	else {
+					console.log('success: Check-functionality');
 					callback(null, null);	
 				}
 				
@@ -90,7 +96,7 @@ function createModule(solution, exercise, callback) {
 	} else {
 		solution.moduleFileLocation = solution.fileLocation.replace('.js', '-module.js');
 		fs.writeFileSync(solution.moduleFileLocation, moduleContent);
-		solution.module = require('./'+solution.moduleFileLocation);
+		solution.module = requireNew('./'+solution.moduleFileLocation);
 		callback();
 	}
 }
