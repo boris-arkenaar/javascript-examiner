@@ -1,7 +1,6 @@
 var assert = require('assert');
 var fs = require('fs');
 var Objects = require('./objects');
-var requireNew = require('require-new');
 
 //replace with database call:
 var testFunction = {
@@ -96,7 +95,7 @@ function createModule(solution, exercise, callback) {
 	} else {
 		solution.moduleFileLocation = solution.fileLocation.replace('.js', '-module.js');
 		fs.writeFileSync(solution.moduleFileLocation, moduleContent);
-		solution.module = requireNew('./'+solution.moduleFileLocation);
+		solution.module = require('./'+solution.moduleFileLocation);
 		callback();
 	}
 }

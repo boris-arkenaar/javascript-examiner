@@ -27,7 +27,9 @@ function processNext(current, solution, res) {
       //TODO: Error Handling
       if(err) return console.log(err);
       //If the module added feedback:
+        console.log(execution.name);
       if(thisFeedback) {
+        console.log(execution.name);
         var feedbackWrapper = { type: execution.name,
                                 feedbackList: thisFeedback
                               };
@@ -43,7 +45,6 @@ function processNext(current, solution, res) {
       }
     });
   } else {
-    //TODO: Replace with solution.feedback
     formatFeedback('format', solution.feedback, res); 
   }
 }
@@ -74,17 +75,19 @@ function formatFeedback(feedbackType, feedback, res) {
       feedbackOutput += '\r\n';
       feedbackOutput += 'Description: ' + feedbackInstance.description;  
       feedbackOutput += '\r\n';
+      if(feedbackInstance.line) feedbackOutput += 'Line: ' + feedbackInstance.line + '\r\n';
+      if(feedbackInstance.column) feedbackOutput += 'Column: ' + feedbackInstance.column + '\r\n';
       feedbackOutput += '-----------------------------------';
       feedbackOutput += '\r\n';
     });
   });
 
-  var keys = Object.keys(feedback);
-  keys.forEach(function(key) {
-    feedbackOutput += key;
-    feedbackOutput += ' ';
-    feedbackOutput += feedback[key];
-  });
+  // var keys = Object.keys(feedback);
+  // keys.forEach(function(key) {
+  //   feedbackOutput += key;
+  //   feedbackOutput += ' ';
+  //   feedbackOutput += feedback[key];
+  // });
 
   feedbackOutput += '</textarea></div>';
 
