@@ -28,4 +28,6 @@ exports.Feedback = function() {
 	this.description;
 	this.addressee;
 	this.error;
+  this.line;
+  this.column;
 }
