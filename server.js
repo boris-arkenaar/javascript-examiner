@@ -119,14 +119,20 @@ app.post('/file-upload', function (req, res, next) {
   });
 });
 
+//send form:
+app.get('/upload', function (req, res) {
+  res.render('form.html');
+})
+
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
+app.use('/rest', express.static(__dirname + '/rest'));
+app.use(express.static(__dirname + '/public'));
+
+
 //run the server
 var server = app.listen(3000, function () {
   var host = server.address().address
   var port = server.address().port
   console.log('JavaScript-Examiner listening at http://%s:%s', host, port)
-})
+});
 
-//send form:
-app.get('/', function (req, res) {
-  res.render('form.html');
-})
