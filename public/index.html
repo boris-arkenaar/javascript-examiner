@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- 1. Load webcomponents.min.js for polyfill support. -->
-  <script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <meta name="viewport"
+        content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <title>Javascript Examiner</title>
 
-  <!-- 2. Use an HTML Import to bring in the element. -->
+  <script
+      src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+  <link rel="import" href="../bower_components/font-roboto/roboto.html">
+  <link rel="import" href="../bower_components/core-icons/core-icons.html">
+  <link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
   <link rel="import"
-        href="../bower_components/core-ajax/core-ajax.html">
+        href="../bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="/elements/je-app.html">
+
+  <style>
+    body {
+      font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+      margin: 0;
+      padding: 24px;
+    }
+  </style>
 </head>
-<body>
-  <!-- 3. Declare the element. Configure using its attributes.
-  Replace '//example.com/json' with valid json file -->
-  <core-ajax url="/rest/exercises.json"
-             handleAs="json"></core-ajax>
+<body unresolved>
+  <core-toolbar>
+    <paper-icon-button icon="menu"></paper-icon-button>
+    <span flex>Javascript Examiner</span>
+    <paper-icon-button icon="more-vert"></paper-icon-button>
+  </core-toolbar>
 
-  <script>
-    // Wait for 'polymer-ready'. Ensures the element is upgraded.
-    window.addEventListener('polymer-ready', function(e) {
-      var ajax = document.querySelector('core-ajax');
-
-      // Respond to events it fires.
-      ajax.addEventListener('core-response', function(e) {
-        console.log(this.response);
-      });
-
-      ajax.go(); // Call its API methods.
-    });
-  </script>
+  <je-app></je-app>
 </body>
 </html>
 

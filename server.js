@@ -125,6 +125,7 @@ app.get('/upload', function (req, res) {
 })
 
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
+app.use('/elements', express.static(__dirname + '/elements'));
 app.use('/rest', express.static(__dirname + '/rest'));
 app.use(express.static(__dirname + '/public'));
 

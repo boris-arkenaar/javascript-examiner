@@ -1,0 +1,47 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import"
+      href="../bower_components/paper-input/paper-autogrow-textarea.html">
+<link rel="import"
+      href="../bower_components/paper-input/paper-input-decorator.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+
+<polymer-element name="je-app">
+  <template>
+    <paper-input-decorator label="Your solution Javascript code" floatingLabel>
+      <paper-autogrow-textarea>
+        <textarea>{{code}}</textarea>
+      </paper-autogrow-textarea>
+    </paper-input-decorator>
+
+    <paper-button raised on-click="{{onSubmitClick}}">
+      Submit your solution
+    </paper-button>
+
+    <core-ajax id="syntaxRequest" url="/rest/syntax"
+               handleAs="json" params='{"code": "{{code}}"}'></core-ajax>
+
+    <paper-input-decorator label="Feedback on your solution" floatingLabel
+                           disabled>
+      <paper-autogrow-textarea>
+        <textarea disabled>{{feedback}}</textarea>
+      </paper-autogrow-textarea>
+    </paper-input-decorator>
+  </template>
+  <script>
+    Polymer({
+      publish: {
+        code: 'master',
+        feedback: ''
+      },
+      onSubmitClick: function() {
+        console.log('Submit clicked');
+        this.$.syntaxRequest.sparams = {
+          code: this.code
+        };
+        console.log('request', this.$.syntaxRequest.go());
+      }
+    });
+  </script>
+</polymer-element>
