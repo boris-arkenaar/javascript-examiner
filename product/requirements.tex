@@ -44,6 +44,10 @@
   \item[Results logging] The JavaScript-examiner should log the results from
     the various checks and metrics calculations performed, for future
     generation of statistics for the tutor.
+  \item[Progress logging] The JavaScript-examiner should log the progress for each
+    student (while maintaining anonymity).
+  \item[Feedback on platform and exercises] Students should be able to provide
+    feedback on JavaScript-examiner in general and exercises in particular.
 \end{description}
 
 \subsection{Non-functional Requirements}
@@ -51,13 +55,11 @@
   \item[Anonymity] The student should be anonymous while using the
     JavaScript-examiner: the submitted JavaScript code may not be traced back
     to a student.
-  \item[Feedback on platform and exercises] Students should be able to provide
-    feedback on JavaScript-examiner in general and exercises in particular.
   \item[Security in executing submitted code] Sufficient measures should be
     taken to guarantee the integrity of the system while executing submitted
     code.
   \item[Extensible exercises] The JavaScript-examiner should be designed in a
-    way it's possible to extend the scope of exersises and even add support for
+    way it's possible to extend the scope of exercises and even add support for
     other programming languages in the future. 
 \end{description}
 
@@ -81,7 +83,7 @@
     able to calculate the relative execution time for given JavaScript code.
   \item[Language constructs detection] The JavaScript-examiner should be able
     to detect, and point out to the student, when an important language
-    construct is missing that is adviced to be used in the exercise in
+    construct is missing that is advised to be used in the exercise in
     question.
   \item[Student test case submission] The students should be able to write and
     submit test cases for exercises, which the JavaScript-examiner can examine
@@ -89,16 +91,12 @@
   \item[Dynamic configuration] All aspects of the JavaScript-examiner should be
     dynamically and easily configurable (e.g.\ code layout definitions,
     programming guidelines, metrics comparison margins).
-\end{description}
-
-\subsection{Non-functional Requirements}
-\begin{description}
-  \item[Feedback among students] The JavaScript-examiner should enable feedback
-    among the students so they can help each other with the exercises. 
+  \item[Feedback among students] The JavaScript-examiner should facilitate 
+    communication among the students so they can help each other with the 
+    exercises. 
   \item[Store progress] The JavaScript-examiner should help the students to
     keep track of their progress.
   \item[Statistics] The tutor should be able to retrieve statistics about the
     results of the various metrics and checks performed in the past on the
-    JavaScript code of the students.
+    JavaScript code of (any or some of) the students.
 \end{description}
-
