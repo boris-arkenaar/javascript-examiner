@@ -11,7 +11,7 @@
   <template>
     <paper-input-decorator label="Your solution Javascript code" floatingLabel>
       <paper-autogrow-textarea>
-        <textarea>{{code}}</textarea>
+        <textarea value="{{code}}"></textarea>
       </paper-autogrow-textarea>
     </paper-input-decorator>
 
@@ -20,7 +20,8 @@
     </paper-button>
 
     <core-ajax id="syntaxRequest" url="/rest/syntax"
-               handleAs="json" params='{"code": "{{code}}"}'></core-ajax>
+               handleAs="json" params='{"code": "{{code}}"}'
+               on-core-response="{{onSyntaxResponse}}"></core-ajax>
 
     <paper-input-decorator label="Feedback on your solution" floatingLabel
                            disabled>
@@ -40,7 +41,11 @@
         this.$.syntaxRequest.sparams = {
           code: this.code
         };
-        console.log('request', this.$.syntaxRequest.go());
+        feedback = console.log('request', this.$.syntaxRequest.go());
+      },
+      onSyntaxResponse: function(response) {
+        console.log('response', response);
+        this.feedback = response.detail.response.test;
       }
     });
   </script>
