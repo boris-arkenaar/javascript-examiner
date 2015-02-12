@@ -16,11 +16,12 @@
     "url": "https://github.com/Slotkenov/javascript-examiner/issues"
   },
   "dependencies": {
+    "body-parser": "^1.11.0",
+    "clone": "latest",
+    "ejs": "latest",
+    "esprima": "latest",
+    "express": "latest",
     "jscs": "~1.8.1",
-    "esprima" : "latest",
-    "express" : "latest",
-    "multer"  : "latest",
-    "ejs"     : "latest",
-    "clone"   : "latest"
+    "multer": "latest"
   }
 }
