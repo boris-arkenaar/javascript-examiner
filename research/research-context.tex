@@ -3,34 +3,93 @@
 \section{Introduction}
 % Research group: IDEAS
 % Tool: Ask- Elle
-% Focus: research question 2 and 3: easily adding and finetuning exercises by a tutor 
+% Focus: research question 2 and 3: easily adding and finetuning exercises by a 
+% tutor 
 % Corresponding requirements:
 %  - The tutor should be able to create an exercise (...)
 %  - Code Layout definition
 %  - Programming guidelines definition
 
+Often, science itself is characterized/designated as being the root of 
+scientific breakthroughs/evolution. However, the starting point of the 
+\gls{examiner} project has been pragmatic rather than scientific. 
+The urge to reduce labor intensity while
+maintaining or even improving the extent of providing \gls{feedback} has little 
+scientific value by itself. From this perspective, it may be argued there is 
+no scientific context, or at least no computer science related context. 
+This does by no means degrade the scientific value of this project, it just 
+denotes the scientific research context is to be found elsewhere. 
+
+The domain research has a practical focus for the main part. The importance of
+this approach is clear, when keeping the goal (a functioning prototype
+of the Javascript-Examiner) in mind. Where the <Ronalds Artikel> and Feedback
+papers are focused on some aspects of the domain, the Semantics article revealed
+a more fundamental question. In order to get beyond the checking of rudimentary
+characteristics (like functionality, format, syntax) it is necessary to 
+reason about \gls{js}, or even programming languages in general, itself. Of
+course, it is way beyond our limits to pursue this reasoning to it is 
+foundations. Luckily, this is no unexplored domain.
+
+
+The main stakeholder of this project directed us towards the IDEAS framework,
+which is the foundation for a set of domain reasoners. 
+After broadly studying \citep{gerdes2012ask} and \citep{heeren2010specifying}
+their approach (with regards to semantic analysis) 
+revealed some possible relevant pointers. Relevant because of their goal (alike)
+and method (different) as well on their approach of systematic/semantic analysis.
+% Two way: Scope, Extent (GOAL)
+% With regards to Semantic Analysis
+
+%Some info about IDEAS from the perspective of the Examiner-Project
+-Same high level goals
+-Practical approach (prototypes)
+-Differences 
+%End Some info about IDEAS>>
+
+We found Heeren, B. willing to discuss some aspects of the IDEAS project. As 
+this project -probably deliberately- has been presented to us as being the 
+start of a new, autonomous from any existing project, the scope and extent for
+the consult has been fairly general. Our interest has been merely about the 
+conceptual considerations and scientific foundations related to IDEAS, 
+rather then the pure technical specifications. This focus led to an, in our
+experience, interesting and fruitful consult. Within this demarcation we picked
+two distinct topics: 
+	* Project Goals and Approach (Similarity --> Distinct)
+	* Systematic / Semantic Analysis 
+
+\section{Consult}
+%Verslag consult.
+%Vragen + Antwoorden uitwerken:
 %Questions
 %  - Is it possible to get insight in the actual process of exercise creation?
 %  - How many exercises have been created by tutors? 
-%  - How is their reception of the exercise creation process? (research already in progress?)
+%  - How is their reception of the exercise creation process? (research already 
+% in progress?)
 %     * What are the difficulties they experience?
 %     * Are their didactic aspects they can't, but would like to introduce? 
 %     * What features are used most? (i.e. Global vs Location specific)
-%  - What were the arguments to work with model solutions? Have other possibilities
+%  - What were the arguments to work with model solutions? Have other 
+% possibilities
 %    been considered? (i.e. test suites)
-%  - Is there a limit for the magnitude of an exericse? What are implications (towards possibilities, scope etc.)?
-%  - Would it be possible to create a set of exercises in a way there is no need for additional material?
-%  ? Are there indicators for a tutor on which constructs feedback annotations are needed? How does
+%  - Is there a limit for the magnitude of an exericse? What are implications 
+% (towards possibilities, scope etc.)?
+%  - Would it be possible to create a set of exercises in a way there is no need
+ % for additional material?
+%  ? Are there indicators for a tutor on which constructs feedback annotations 
+% are needed? How does
 %    the retrieve these indicators?
 %  - Is there a size limit or minimum for a  provided set of model solutions?
-%  - The correctness is based on equality. Is the current measure method to determine (in)equality rightly balanced?
+%  - The correctness is based on equality. Is the current measure method to 
+% determine (in)equality rightly balanced?
 %  - Is it possible to get a demo on actually adding a simple exercise?
 %  - Is Ask-Elle flexible in usage? (mainly in the way exercises are added)
 %  - How to proceed if there are 3 model solutions,
 %    and two solutions need feedback on the same particular construct,
 %    should this feedack annotation be global?
-%  - How does Ask-Elle make a distinction between the different solutions (from optimal to suboptimal)?
-%    @TODO: meer specifieke vragen (met name hoofdstuk 7 + hoofstuk 5 (feedback scripts))
+%  - How does Ask-Elle make a distinction between the different solutions (from 
+% optimal to suboptimal)?
+%    @TODO: meer specifieke vragen (met name hoofdstuk 7 + hoofstuk 5 (feedback 
+% scripts))
 %  - How are the feedback texts generated?
 %    And how do you choose which feedback to show
 %    according to the step a student took.
@@ -42,3 +101,119 @@
 %  - Could the annotations used by Ask-Elle be used in the same way
 %    for a non-functional language (e.g. JavaScript)?
 
+
+% Topics of discussion:
+% Formative / Summative distinction
+% Ask-elle (and alike IDEAS implementations) has a more summative approach, 
+% whereas the focus for the Javascript-Examiner for a great part has a formative n
+% Nature.
+% Normal form
+% Deceitful problem (equality)
+% Semantic preserving variations
+% http://www.cs.uu.nl/research/techreps/UU-CS-2014-026.html
+ % (article Hieke Keuning)
+% http://dspace.ou.nl/bitstream/1820/5388/1/INF_20140617_Keuning.pdf 
+% (thesis Hieke Keuning)
+% Compared to dynamic analysis an inverted approach
+% Model solutions
+% In the IDEAS approach, more model solutions are required as the exercise expands
+% due to the search space (tending to exponential)
+% Agorithmic variations (i.e. Quicksort vs Bubblesort)
+% Static comparison
+% Inverted use of Plagiarism detectors (Juriaan Haring in Java (UU)
+% Div tools
+% Edit distance
+
+% Implementation 
+% Services based
+% Modular
+% Easily expandable / adaptable
+% Solutions
+% Collect solutions written by Students for testing the Javascript-Examiner
+
+% Abstract Syntax Tree
+% Possibilities to clean the Abstract Syntax Tree at some stage, in order to be 
+% able to achieve more accuracy when it’s used for i.e. Semantic Analysis
+
+\section{Semantic Preserving Variations}
+
+% ????? In hoeverre dit uitwerken ????? Vraag voor Annemiek. ????? Met name 
+% gezien het praktische uitgangspunt van Harry en Sylvia.
+
+
+% From Xu and Chee, explained with the application of IDEAS based reasoner 
+% Hieke Keuning
+% 1 	Different algorithms
+% 2 	Different source code formats
+% 3 	Different syntax forms
+% 4 	Different variable declarations
+% 5 	Different algebraic expression forms 6 Different control structures
+% 7 	Different Boolean expression forms 8 Different temporary variables
+% 9 	Different redundant statements
+% 10 	Different statement orders
+% 11 	Different variable names
+% 12 	Different program logical structures 
+% 13 Different statements
+
+% Examples:
+% SPV1 - Different algorithms (i.e. sorting)
+% 	SPV2 - Code format (spaces, indentation, comments)
+% 	SPV3 - Syntax forms (if(i) {x = y} else{x = z} or x = (i) ? y : z)
+% 	SPV4 - Variable declaration (method / block)
+% 	SPV5 - Algebraic expression forms (+ vs --)
+% 	SPV6 - Control structures (branching, iterating, traversing)
+% 	SPV7 - Boolean expression forms (x == false vs !x (SPV3))
+% 	SPV8 - Temporary variables
+% 	SPV9 - Redundancy / Code for debugging
+% 	SPV10 - Different (statement) order
+% 	SPV11 - Diferenent variable names (parameters, functions)
+% 	SPV12 - Different logical structures
+% 	SPV13 - Different statements
+
+% three forms of representation:
+
+% 	1 - Source Code
+% 	2 - AST
+% 	3 - Augmented Object-oriented program dependence graph (AOPDG)
+
+% Source-to-specification approach:
+% 	-Consistent with Research on program understanding
+% 	-Match student code with templates with corresponding specifications OR
+% 	-Match student code with specifications like:
+% 		*structures
+% 		*schemata
+% 		*plans
+% 		*assertions
+% 		*processes
+% 	-Moeilijk generaliseren voor alle typen programmeertalen
+
+% Specification-to-specification approach:
+% 	-Derive formal specifications from student and reference code
+% 	-Not possible for many languages
+
+% Source-to-Source approach:
+% 	-performs automatic reasoning at the level of program dependence graphs
+% 		(FDG: semantic representation for programs, but no formal specification)
+
+% The Xu and Chee approach:
+% 	-Model programs are used as input to the diagnosis of student programs. 
+% 	-Comparing student program with model program after standardization 
+% (by program transformations)
+% 	-transformation-based diagnosis
+% 	-Simpler to make use of in practice
+
+% 	-Program standardization and semantic-level program matching
+% 	-No intentional checks
+	% -Intraprocedural diagnosis method (class hierarchies and inter-procedural 
+	% variations are not included)
+% 	-Different model programs used to diagnose students program
+% 	-correct = being equivalent after standardization
+% 	-semantic differences indicate errors
+
+% 	-Computational Semantics vs Operational Semantics
+
+
+% 	-Standardize programs (representation)
+% 	-Match them
+
+\section{Conclusion}
