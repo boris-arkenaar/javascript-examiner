@@ -1,11 +1,13 @@
 var express = require('express');
 var multer = require('multer');
 var clone = require('clone');
+var bodyParser = require('body-parser');
 
 
 var app = express();
 app.engine('html', require('ejs').renderFile);
 app.use(multer({dest: './tmp/'}));
+app.use(bodyParser.json());
 
 var fs = require('fs');
 var FEEDBACKFILENAME = __dirname + '/views/feedback.html';
@@ -30,6 +32,7 @@ function processNext(current, solution, res) {
         console.log(execution.name);
       if(thisFeedback) {
         console.log(execution.name);
+        console.log(JSON.stringify(thisFeedback || {}));
         var feedbackWrapper = { type: execution.name,
                                 feedbackList: thisFeedback
                               };
@@ -126,6 +129,20 @@ app.get('/upload', function (req, res) {
 
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use('/elements', express.static(__dirname + '/elements'));
+app.post('/rest/format', function (req, res) {
+  var encoded = req.body.code;
+  console.log('encoded', encoded);
+  var buffer = new Buffer(encoded, 'base64');
+  var code = buffer.toString();
+  console.log('code', code);
+  fs.readFile('rest/format', 'utf8', function(err, data) {
+    if (err) {
+      return console.log(err);
+    }
+
+    res.send(data);
+  });
+});
 app.use('/rest', express.static(__dirname + '/rest'));
 app.use(express.static(__dirname + '/public'));
 

@@ -1,0 +1,58 @@
+[
+    {
+        "addressee": "student",
+        "name": "validateQuoteMarks",
+        "description": "Invalid quote mark found",
+        "line": 1,
+        "column": 11
+    },
+    {
+        "addressee": "student",
+        "name": "validateQuoteMarks",
+        "description": "Invalid quote mark found",
+        "line": 2,
+        "column": 6
+    },
+    {
+        "addressee": "student",
+        "name": "disallowTrailingWhitespace",
+        "description": "Illegal trailing whitespace",
+        "line": 18,
+        "column": 16
+    },
+    {
+        "addressee": "student",
+        "name": "disallowTrailingWhitespace",
+        "description": "Illegal trailing whitespace",
+        "line": 22,
+        "column": 22
+    },
+    {
+        "addressee": "student",
+        "name": "validateIndentation",
+        "description": "Expected indentation of 4 characters",
+        "line": 25,
+        "column": 4
+    },
+    {
+        "addressee": "student",
+        "name": "validateQuoteMarks",
+        "description": "Invalid quote mark found",
+        "line": 25,
+        "column": 18
+    },
+    {
+        "addressee": "student",
+        "name": "maximumLineLength",
+        "description": "Line must be at most 80 characters",
+        "line": 25,
+        "column": 110
+    },
+    {
+        "addressee": "student",
+        "name": "disallowTrailingWhitespace",
+        "description": "Illegal trailing whitespace",
+        "line": 26,
+        "column": 4
+    }
+]
