@@ -1,156 +1,77 @@
-var express = require('express');
-var multer = require('multer');
-var clone = require('clone');
-var bodyParser = require('body-parser');
-
-
-var app = express();
-app.engine('html', require('ejs').renderFile);
-app.use(multer({dest: './tmp/'}));
-app.use(bodyParser.json());
+var checkFormat = require('./check-format');
 
 var fs = require('fs');
-var FEEDBACKFILENAME = __dirname + '/views/feedback.html';
-var Objects = require('./objects');
-var EXECUTION_PLAN =  [ {name: 'syntax', mustPass: true, check: require('./check-syntax')},
-                        {name: 'functionality', mustPass: true, check: require('./check-functionality')},
-                        {name: 'format', mustPass: false, check: require('./check-format')}
-                        //{name: 'semantics', mustPass: false, last: true}
-                      ];
+var express = require('express');
+var bodyParser = require('body-parser');
+var getRawBody = require('raw-body');
+var typer = require('media-typer');
+var multer = require('multer');
+var Objects = require("./objects");
 
-function processNext(current, solution, res) {
-  if(current < EXECUTION_PLAN.length) {
-    //clone solution for integrety:
-    var solutionClone = clone(solution);
-    //reset feedback:
-    solutionClone.feedbackList = [];
-    var execution = EXECUTION_PLAN[current];
-    execution.check(solutionClone, function(err, thisFeedback, newAttributes) {
-      //TODO: Error Handling
-      if(err) return console.log(err);
-      //If the module added feedback:
-        console.log(execution.name);
-      if(thisFeedback) {
-        console.log(execution.name);
-        console.log(JSON.stringify(thisFeedback || {}));
-        var feedbackWrapper = { type: execution.name,
-                                feedbackList: thisFeedback
-                              };
-        solution.feedback[solution.feedback.length] = feedbackWrapper;
-        if(execution.mustPass) {
-          //TODO: Replace with solution.feedback
-          formatFeedback(execution.name, solution.feedback, res);
-        } else {
-          processNext(current+1, solution, res);
-        }
-      } else {
-        processNext(current+1, solution, res);
-      }
-    });
-  } else {
-    formatFeedback('format', solution.feedback, res); 
-  }
-}
-//format feedback:
-function formatFeedback(feedbackType, feedback, res) {
-  // if(feedbackType == 'functionality') {
-  //   var feedbackOutput = '<div><textarea cols="100" rows="10">';
-  //   feedbackOutput += feedback[0].functionName + 
-  //                     ' ' + 
-  //                     feedback[0].feedback.name +
-  //                     ': ' +
-  //                     feedback[0].feedback.message;
-  //   feedbackOutput += '</textarea></div>';
-  // } else {
-  //   var feedbackOutput = '<div><textarea cols="100" rows="' + feedback.length + '">' +
-  //   feedback.join('\r\n') + '</textarea></div>';
-  // }
+var app = express();
 
-  var feedbackOutput = '<div><textarea cols="100" rows="100">';
 
-  feedback.forEach(function(feedbackWrapper) {
-    feedbackOutput += feedbackWrapper.type + ': ';
-    feedbackWrapper.feedbackList.forEach(function(feedbackInstance) {
-      feedbackOutput += '\r\n';
-      feedbackOutput += 'Feedbackname: ' +feedbackInstance.name; 
-      feedbackOutput += '\r\n';
-      feedbackOutput += 'Addressee: ' + feedbackInstance.addressee;  
-      feedbackOutput += '\r\n';
-      feedbackOutput += 'Description: ' + feedbackInstance.description;  
-      feedbackOutput += '\r\n';
-      if(feedbackInstance.line) feedbackOutput += 'Line: ' + feedbackInstance.line + '\r\n';
-      if(feedbackInstance.column) feedbackOutput += 'Column: ' + feedbackInstance.column + '\r\n';
-      feedbackOutput += '-----------------------------------';
-      feedbackOutput += '\r\n';
-    });
-  });
+app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended: true}));
+app.use(multer());
 
-  // var keys = Object.keys(feedback);
-  // keys.forEach(function(key) {
-  //   feedbackOutput += key;
-  //   feedbackOutput += ' ';
-  //   feedbackOutput += feedback[key];
-  // });
 
-  feedbackOutput += '</textarea></div>';
+app.post('/post', function(req, res) {
+  var data
+//  // Met de volgende statement wordt de value op het scherm gezet, behorende bij de key "sleutel",
+//  // die geplaatst is in de body van het POST bericht.
+//  //  console.log(req.body.sleutel);
+//  data = req.body.sleutel;
+//  check(data);
+//  res.send('Gereed');
 
-  
-  fs.writeFile(FEEDBACKFILENAME, feedbackOutput, function(err) {
-    if (err) {
-    throw err;
-    }
-    sendFeedback(res);
-  });
-}
+//  // Met de volgende statement wordt de value op het scherm gezet, behorende bij de key "sleutel",
+//  // die geplaatst is in URL Parameter van het POST bericht.
+//  //  console.log(req.query.sleutel);
+//  data = req.query.sleutel;
+//  check(data);
+//  res.send('Gereed');
 
-//send feedback:
-function sendFeedback(res) {
-  res.render(FEEDBACKFILENAME);
-}
+//  // Met het volgende stuk code wordt een meegestuurd bestand gecheckt.
+//  // De naam van het bestand staat in de key met de naam "sleutel"
+//  var raw = req.files.sleutel.path
+//  var pad = raw.replace("\\","/");
+//  fs.readFile(pad, 'utf8',  function(err, data) {
+//	if(err) return console.log('Error:', err);
+//	checkFormat(data, function(err, feedback) {
 
-//process submitted solution:
-app.post('/file-upload', function (req, res, next) {
-  //load the file:
-  var solution = new Objects.Solution();
-  solution.fileLocation = 'tmp/'+ req.files.thumbnail.name;
-  fs.readFile(solution.fileLocation, 'utf8', function(err, data) {
-    if (err) {
-      return console.log(err);
-    }
-    solution.plain = data;
-    processNext(0, solution, res);
-  });
+//          if(err) {
+
+//            return console.log('error at checkFormat: ' + err);
+
+//            console.log(feedback);
+//          }
+//        });
+//  });
+
+  res.send('Gereed');
+
 });
 
-//send form:
-app.get('/upload', function (req, res) {
-  res.render('form.html');
-})
 
-app.use('/bower_components', express.static(__dirname + '/bower_components'));
-app.use('/elements', express.static(__dirname + '/elements'));
-app.post('/rest/format', function (req, res) {
-  var encoded = req.body.code;
-  console.log('encoded', encoded);
-  var buffer = new Buffer(encoded, 'base64');
-  var code = buffer.toString();
-  console.log('code', code);
-  fs.readFile('rest/format', 'utf8', function(err, data) {
-    if (err) {
-      return console.log(err);
+
+function check(data) {
+  checkFormat(data, function(err, feedback) {
+
+    if(err) {
+
+      return console.log('error at checkFormat: ' + err);
+
+      console.log(feedback);
     }
-
-    res.send(data);
   });
+};
+
+
+
+var server = app.listen(3030, function() {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example http://%s:%s', host, port);
 });
-app.use('/rest', express.static(__dirname + '/rest'));
-app.use(express.static(__dirname + '/public'));
-
-
-//run the server
-var server = app.listen(3000, function () {
-  var host = server.address().address
-  var port = server.address().port
-  console.log('JavaScript-Examiner listening at http://%s:%s', host, port)
-});
-
