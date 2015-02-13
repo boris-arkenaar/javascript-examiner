@@ -8,12 +8,12 @@ module.exports = function(code, cb) {
   checker.registerDefaultRules();
   checker.configure(loadConfigFile.load('./.jscs.json'));
 
-  code.plain = ignoreComments(code.plain);
-  //console.log(code);
+  var strippedCode = ignoreComments(code);
+  //console.log(strippedCode);
   var feedbackList = [];
   //var result = [];
   try {
-    var errors = checker.checkString(code.plain);
+    var errors = checker.checkString(strippedCode);
     errors.getErrorList().forEach(function (err) {
       var feedback = new Objects.Feedback();
       feedback.addressee = 'student';

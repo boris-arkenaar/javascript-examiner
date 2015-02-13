@@ -8,6 +8,7 @@ var typer = require('media-typer');
 var multer = require('multer');
 var Objects = require('./objects');
 var checkSyntax = require('./check-syntax');
+var checkFormat = require('./check-format');
 
 var app = express();
 
@@ -96,19 +97,7 @@ function getCheckHandler(check) {
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use('/elements', express.static(__dirname + '/elements'));
 app.post('/rest/syntax', getCheckHandler(checkSyntax));
-app.post('/rest/format', function (req, res) {
-  var encoded = req.body.code;
-  console.log('encoded', encoded);
-  var buffer = new Buffer(encoded, 'base64');
-  var code = buffer.toString();
-  console.log('code', code);
-  fs.readFile('rest/format', 'utf8', function(err, data) {
-    if (err) {
-      return console.log(err);
-    }
-    res.send(data);
-  });
-});
+app.post('/rest/format', getCheckHandler(checkFormat));
 app.use('/rest', express.static(__dirname + '/rest'));
 app.use(express.static(__dirname + '/public'));
 
