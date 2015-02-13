@@ -1,12 +1,12 @@
 'use strict';
 var Checker = require('jscs');
 var loadConfigFile = require('jscs/lib/cli-config');
-var Objects = require('./Objects');
+var Objects = require('../objects');
 
 module.exports = function(code, cb) {
   var checker = new Checker();
   checker.registerDefaultRules();
-  checker.configure(loadConfigFile.load('./.jscs.json'));
+  checker.configure(loadConfigFile.load(__dirname + '/jscs-config.json'));
 
   var strippedCode = ignoreComments(code);
   //console.log(strippedCode);

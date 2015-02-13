@@ -19,19 +19,19 @@
       Submit your solution
     </paper-button>
 
-    <core-ajax id="syntaxRequest" url="/rest/syntax" method="post"
+    <core-ajax id="syntaxRequest" url="/check/syntax"
+               method="post" contentType="application/json"
                handleAs="json" body='{"code": "{{encoded}}"}'
-               contentType="application/json"
                on-core-response="{{onSyntaxResponse}}"></core-ajax>
 
-    <core-ajax id="formatRequest" url="/rest/format" method="post"
+    <core-ajax id="formatRequest" url="/check/format"
+               method="post" contentType="application/json"
                handleAs="json" body='{"code": "{{encoded}}"}'
-               contentType="application/json"
                on-core-response="{{onFormatResponse}}"></core-ajax>
 
-    <core-ajax id="functionalityRequest" url="/rest/functionality" method="post"
+    <core-ajax id="functionalityRequest" url="/check/functionality"
+               method="post" contentType="application/json"
                handleAs="json" body='{"code": "{{encoded}}"}'
-               contentType="application/json"
                on-core-response="{{onFunctionalityResponse}}"></core-ajax>
 
     <template if="{{feedback.length}}">

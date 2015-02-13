@@ -1,4 +1,4 @@
-var Objects = require('./Objects');
+var Objects = require('../objects');
 
 //Variables for parsing:
 var esprima = require('esprima');

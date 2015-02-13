@@ -1,6 +1,6 @@
 var assert = require('assert');
 var fs = require('fs');
-var Objects = require('./objects');
+var Objects = require('../objects');
 var uuid = require('node-uuid');
 
 //replace with database call:
@@ -98,7 +98,7 @@ function createModule(solution, exercise, callback) {
 		callback(feedbackList);
 	} else {
 	  var fileName = uuid.v4();
-		solution.moduleFileLocation = './tmp/' + fileName + '.js';
+		solution.moduleFileLocation = __dirname + '/../../tmp/' + fileName + '.js';
 		fs.writeFileSync(solution.moduleFileLocation, moduleContent);
 		solution.module = require(solution.moduleFileLocation);
 		callback();
