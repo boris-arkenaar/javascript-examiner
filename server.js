@@ -9,6 +9,7 @@ var multer = require('multer');
 var Objects = require('./objects');
 var checkSyntax = require('./check-syntax');
 var checkFormat = require('./check-format');
+var checkFunctionality = require('./check-functionality');
 
 var app = express();
 
@@ -98,6 +99,7 @@ app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use('/elements', express.static(__dirname + '/elements'));
 app.post('/rest/syntax', getCheckHandler(checkSyntax));
 app.post('/rest/format', getCheckHandler(checkFormat));
+app.post('/rest/functionality', getCheckHandler(checkFunctionality));
 app.use('/rest', express.static(__dirname + '/rest'));
 app.use(express.static(__dirname + '/public'));
 

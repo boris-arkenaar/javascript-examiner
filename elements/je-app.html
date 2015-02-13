@@ -29,6 +29,11 @@
                contentType="application/json"
                on-core-response="{{onFormatResponse}}"></core-ajax>
 
+    <core-ajax id="functionalityRequest" url="/rest/functionality" method="post"
+               handleAs="json" body='{"code": "{{encoded}}"}'
+               contentType="application/json"
+               on-core-response="{{onFunctionalityResponse}}"></core-ajax>
+
     <template if="{{feedback.length}}">
       <h1>Feedback</h1>
       <template repeat="{{item in feedback}}">
@@ -87,6 +92,15 @@
       },
       onFormatResponse: function(response) {
         console.log('format response', response);
+        this.feedback = response.detail.response.feedback;
+        this.artifacts = response.detail.response.artifacts;
+
+        if (!this.feedback.length) {
+          this.$.functionalityRequest.go();
+        }
+      },
+      onFunctionalityResponse: function(response) {
+        console.log('functionality response', response);
         this.feedback = response.detail.response.feedback;
         this.artifacts = response.detail.response.artifacts;
       }
