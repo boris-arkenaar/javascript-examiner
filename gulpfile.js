@@ -3,7 +3,7 @@ var nodemon = require('gulp-nodemon');
 var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
 
-gulp.task('serve', /*['lint'],*/ function() {
+gulp.task('serve', ['lint'], function() {
   nodemon({
     script: 'server/server.js',
     ext: 'html json js',
@@ -12,7 +12,7 @@ gulp.task('serve', /*['lint'],*/ function() {
     }
   });
 
-  //gulp.watch('server/**/*.js', ['lint']);
+  gulp.watch('server/**/*.js', ['lint']);
 });
 
 gulp.task('lint', function() {

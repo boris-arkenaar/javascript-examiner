@@ -13,7 +13,7 @@ exports.parseError = function ParseError (err, src) {
       '\n' +
       'ParseError: ' + this.message +
       '\n*/\n';
-}
+};
 
 exports.parseError.prototype = Object.create(SyntaxError.prototype);
 exports.parseError.prototype.constructor = exports.parseError;

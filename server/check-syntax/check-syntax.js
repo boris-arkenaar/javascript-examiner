@@ -2,11 +2,13 @@ var Objects = require('../objects');
 
 //Variables for parsing:
 var esprima = require('esprima');
-var options = {tolerant:false,
-    loc: true,
-    range: true,
-    raw: true,
-    tokens: true};
+var options = {
+  tolerant:false,
+  loc: true,
+  range: true,
+  raw: true,
+  tokens: true
+};
 
 /*
 @function check-syntax(exports)
@@ -20,7 +22,7 @@ module.exports = function(solution, callback) {
       var feedback = new Objects.Feedback();
       feedback.name = 'ParseError';
       feedback.description = err.message;
-      feedback.line = err.lineNumber
+      feedback.line = err.lineNumber;
       feedback.column = err.column;
       feedback.addressee = 'student';
       callback(null, [feedback]);
@@ -32,7 +34,7 @@ module.exports = function(solution, callback) {
       });
     }
   });
-}
+};
 
 /*
 @function parse
@@ -43,9 +45,8 @@ module.exports = function(solution, callback) {
 function parse(solution, callback) {
   try {
     var abSynTree = esprima.parse(solution, options);
-    callback(null, abSynTree);  
+    callback(null, abSynTree);
   } catch (err) {
     callback(err);
   }
 }
-
