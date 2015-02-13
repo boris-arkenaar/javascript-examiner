@@ -6,7 +6,8 @@ var bodyParser = require('body-parser');
 var getRawBody = require('raw-body');
 var typer = require('media-typer');
 var multer = require('multer');
-var Objects = require("./objects");
+var Objects = require('./objects');
+var checkSyntax = require('./check-syntax');
 
 var app = express();
 
@@ -67,8 +68,34 @@ function check(data) {
   });
 };
 
+function getCheckHandler(check) {
+  return function (request, response) {
+    var encoded = request.body.code;
+    console.log('encoded', encoded);
+    var buffer = new Buffer(encoded, 'base64');
+    var code = buffer.toString();
+    console.log('code', code);
+
+    check(code, function(err, feedback, artifacts) {
+      var responseData;
+
+      if (err) {
+        responseData = err;
+      } else {
+        responseData = {
+          feedback: feedback || [],
+          artifacts: artifacts || {}
+        }
+      }
+
+      response.send(responseData);
+    });
+  }
+}
+
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use('/elements', express.static(__dirname + '/elements'));
+app.post('/rest/syntax', getCheckHandler(checkSyntax));
 app.post('/rest/format', function (req, res) {
   var encoded = req.body.code;
   console.log('encoded', encoded);

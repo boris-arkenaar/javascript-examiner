@@ -27,7 +27,9 @@ module.exports = function(solution, callback) {
     } else {
       console.log('sucess: Check-syntax');
       solution.abstractSyntaxTree = tree;
-      callback(null, null, tree);
+      callback(null, [], {
+        ast: tree
+      });
     }
   });
 }
@@ -40,7 +42,7 @@ module.exports = function(solution, callback) {
 */
 function parse(solution, callback) {
   try {
-    var abSynTree = esprima.parse(solution.plain, options);
+    var abSynTree = esprima.parse(solution, options);
     callback(null, abSynTree);  
   } catch (err) {
     callback(err);

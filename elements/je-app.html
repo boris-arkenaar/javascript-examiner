@@ -19,19 +19,31 @@
       Submit your solution
     </paper-button>
 
-    <core-ajax id="syntaxRequest" url="/rest/format" method="post"
+    <core-ajax id="syntaxRequest" url="/rest/syntax" method="post"
                handleAs="json" body='{"code": "{{encoded}}"}'
                contentType="application/json"
                on-core-response="{{onSyntaxResponse}}"></core-ajax>
 
-    <h1>Feedback</h1>
-    <template repeat="{{item in feedback}}">
-      <h2>{{item.name}}</h2>
-      <div>
-        <span>line: {{item.line}}</span>
-        <span>column: {{item.column}}</span>
-      </div>
-      <p>{{item.description}}</p>
+    <template if="{{feedback.length}}">
+      <h1>Feedback</h1>
+      <template repeat="{{item in feedback}}">
+        <h2>{{item.name}}</h2>
+        <div>
+          <span>line: {{item.line}}</span>
+          <span>column: {{item.column}}</span>
+        </div>
+        <p>{{item.description}}</p>
+      </template>
+    </template>
+
+    <template if="{{ast}}" id="ast">
+      <h1>Abstract Syntax Tree</h1>
+      <paper-input-decorator label="The abstract syntax tree of your code"
+                             floatingLabel >
+        <paper-autogrow-textarea id="astAutoTextArea" rows="20">
+          <textarea id="astTextArea" value="{{ast}}" ></textarea>
+        </paper-autogrow-textarea>
+      </paper-input-decorator>
     </template>
   </template>
   <script>
@@ -39,10 +51,15 @@
       publish: {
         code: '',
         encoded: '',
-        feedback: ''
+        feedback: [],
+        ast: '',
+        artifacts: {}
       },
       onSubmitClick: function() {
         console.log('Submit clicked');
+
+        this.feedback = [];
+        this.ast = '';
 
         this.encoded = utf8_to_b64(this.code);
         console.log('Sending encoded code', typeof this.encoded, this.encoded);
@@ -54,7 +71,11 @@
       },
       onSyntaxResponse: function(response) {
         console.log('response', response);
-        this.feedback = response.detail.response;
+        this.feedback = response.detail.response.feedback;
+        this.artifacts = response.detail.response.artifacts;
+        if (this.artifacts.ast) {
+          this.ast = JSON.stringify(this.artifacts.ast, null, 2);
+        }
       }
     });
 
