@@ -13,14 +13,12 @@ var checkFunctionality = require('./check-functionality');
 
 var app = express();
 
-
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({extended: true}));
 app.use(multer());
 
-
 app.post('/post', function(req, res) {
-  var data
+  var data;
 //  // Met de volgende statement wordt de value op het scherm gezet, behorende bij de key "sleutel",
 //  // die geplaatst is in de body van het POST bericht.
 //  //  console.log(req.body.sleutel);
@@ -56,22 +54,20 @@ app.post('/post', function(req, res) {
 
 });
 
-
-
 function check(data) {
   checkFormat(data, function(err, feedback) {
 
-    if(err) {
+    if (err) {
 
       return console.log('error at checkFormat: ' + err);
 
-      console.log(feedback);
     }
+    console.log(feedback);
   });
-};
+}
 
 function getCheckHandler(check) {
-  return function (request, response) {
+  return function(request, response) {
     var encoded = request.body.code;
     console.log('encoded', encoded);
     var buffer = new Buffer(encoded, 'base64');
@@ -87,12 +83,12 @@ function getCheckHandler(check) {
         responseData = {
           feedback: feedback || [],
           artifacts: artifacts || {}
-        }
+        };
       }
 
       response.send(responseData);
     });
-  }
+  };
 }
 
 app.use('/bower_components', express.static(__dirname + '/bower_components'));

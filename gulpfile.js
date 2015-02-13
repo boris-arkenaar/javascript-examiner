@@ -1,7 +1,9 @@
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
+var jscs = require('gulp-jscs');
+var jshint = require('gulp-jshint');
 
-gulp.task('serve', function() {
+gulp.task('serve', ['lint'], function() {
   nodemon({
     script: 'server.js',
     ext: 'html json js',
@@ -9,6 +11,15 @@ gulp.task('serve', function() {
       'NODE_ENV': 'development'
     }
   });
+
+  gulp.watch('server.js', ['lint']);
+});
+
+gulp.task('lint', function() {
+  return gulp.src('server.js')
+      .pipe(jshint())
+      .pipe(jshint.reporter('jshint-stylish'))
+      .pipe(jscs());
 });
 
 gulp.task('default', ['serve']);

@@ -31,6 +31,9 @@
   },
   "devDependencies": {
     "gulp": "^3.8.11",
-    "gulp-nodemon": "^1.0.5"
+    "gulp-jscs": "^1.4.0",
+    "gulp-jshint": "^1.9.2",
+    "gulp-nodemon": "^1.0.5",
+    "jshint-stylish": "^1.0.0"
   }
 }
