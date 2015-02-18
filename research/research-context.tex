@@ -218,39 +218,39 @@ two distinct topics:
 
 
 
-  Program transformations:
+ %  Program transformations:
 
-  	Basic: (SPV3,4,5,6,7)
+ %  	Basic: (SPV3,4,5,6,7)
 
-  	-Statement separation	(remove cascaded messages i.e. var a, b, c = 5);
-  	-Temporary declaration standardization (declaratie variabelen op bepaalde plaats);
-  	-Algebraic expression standardization (rules voor notatie berekeningen (normaalvorm));
-  	-Controle structure standardization (??);
-  	-Boolean expression standardization (rules voor notatie boolean expressies !x --> x == false);
-
-
-  	Adv:
-
-  	-Forward substitution
-  	-Dead code removal
-
-  	3 criteria:
-
-  	-Applicable to programs at source code level
-  	-Covergant (avoid cyclic triggering)
-  	-Intra-procedural (as limited to intra-procedural)
+ %  	-Statement separation	(remove cascaded messages i.e. var a, b, c = 5);
+ %  	-Temporary declaration standardization (declaratie variabelen op bepaalde plaats);
+ %  	-Algebraic expression standardization (rules voor notatie berekeningen (normaalvorm));
+ %  	-Controle structure standardization (??);
+ %  	-Boolean expression standardization (rules voor notatie boolean expressies !x --> x == false);
 
 
+ %  	Adv:
 
-  AOFFG (AUGMENTED Object-Oriented Flow Graph) Program Respresentation
+ %  	-Forward substitution
+ %  	-Dead code removal
 
-	-PRG: Program Representation Graphs (Static compile-time semantics)
-		*SSA: Static-Single-Assignment
-		*PDG: Program Dependence Graphs
-			*CDS: Control Dependence Subgraph
-			*DDS: Data Dependence Subgraph
-		*OPDG: Object-oriented PDG
-			*ODS: Object Dependence Subgraph
+ %  	3 criteria:
+
+ %  	-Applicable to programs at source code level
+ %  	-Covergant (avoid cyclic triggering)
+ %  	-Intra-procedural (as limited to intra-procedural)
+
+
+
+ %  AOFFG (AUGMENTED Object-Oriented Flow Graph) Program Respresentation
+
+	% -PRG: Program Representation Graphs (Static compile-time semantics)
+	% 	*SSA: Static-Single-Assignment
+	% 	*PDG: Program Dependence Graphs
+	% 		*CDS: Control Dependence Subgraph
+	% 		*DDS: Data Dependence Subgraph
+	% 	*OPDG: Object-oriented PDG
+	% 		*ODS: Object Dependence Subgraph
 			
 
 
