@@ -21,7 +21,6 @@
     "ejs": "latest",
     "esprima": "latest",
     "express": "latest",
-    "fs": "0.0.2",
     "jscs": "~1.8.1",
     "media-typer": "^0.3.0",
     "multer": "latest",
