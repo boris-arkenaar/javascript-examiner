@@ -12,27 +12,26 @@
 
 Often, science itself is characterized/designated as being the root of 
 scientific breakthroughs/evolution. However, the starting point of the 
-\gls{examiner} project has been pragmatic rather than scientific. 
+\gls{examiner} project has been pragmatic rather then scientific. 
 The urge to reduce labor intensity while
-maintaining or even improving the extent of providing \gls{feedback} has little 
+maintaining or even improve the extent of providing \gls{feedback} has little 
 scientific value by itself. From this perspective, it may be argued there is 
-no scientific context, or at least no computer science related context. 
-This does by no means degrade the scientific value of this project, it just 
-denotes the scientific research context is to be found elsewhere. 
+no scientific context, or at least no computer science related scientific 
+context. This does by no means degrade the scientific value of this project, 
+it just denotes the research context is to be found elsewhere. 
 
-The domain research has a practical focus for the main part. The importance of
+The domain research has a practical focus for the greatest part. The importance of
 this approach is clear, when keeping the goal (a functioning prototype
 of the Javascript-Examiner) in mind. Where the <Ronalds Artikel> and Feedback
 papers are focused on some aspects of the domain, the Semantics article revealed
 a more fundamental question. In order to get beyond the checking of rudimentary
-characteristics (like functionality, format, syntax) it is necessary to 
-reason about \gls{js}, or even programming languages in general, itself. Of
-course, it is way beyond our limits to pursue this reasoning to it is 
+characteristics (like functionality, format and syntax) it is necessary to 
+reason on \gls{js}, or even programming languages in general, itself. Of
+course, it is way beyond our limits to pursue this reasoning to the
 foundations. Luckily, this is no unexplored domain.
 
-
 The main stakeholder of this project directed us towards the IDEAS framework,
-which is the foundation for a set of domain reasoners. 
+which is the core for a set of domain reasoners. 
 After broadly studying \citep{gerdes2012ask} and \citep{heeren2010specifying}
 their approach (with regards to semantic analysis) 
 revealed some possible relevant pointers. Relevant because of their goal (alike)
@@ -40,16 +39,16 @@ and method (different) as well on their approach of systematic/semantic analysis
 % Two way: Scope, Extent (GOAL)
 % With regards to Semantic Analysis
 
-%Some info about IDEAS from the perspective of the Examiner-Project
+%Start Some info about IDEAS from the perspective of the Examiner-Project
 -Same high level goals
 -Practical approach (prototypes)
 -Differences 
 %End Some info about IDEAS>>
 
-We found Heeren, B. willing to discuss some aspects of the IDEAS project. As 
-this project -probably deliberately- has been presented to us as being the 
-start of a new, autonomous from any existing project, the scope and extent for
-the consult has been fairly general. Our interest has been merely about the 
+We found Heeren, B. willing to discuss with us some aspects of the IDEAS project. As 
+our project -probably deliberately- has been presented to us as being the 
+start of a new, autonomous from any existing project, the scope and aim for
+the consult has been fairly general. Our interest laid merely in the 
 conceptual considerations and scientific foundations related to IDEAS, 
 rather then the pure technical specifications. This focus led to an, in our
 experience, interesting and fruitful consult. Within this demarcation we picked
@@ -137,6 +136,8 @@ two distinct topics:
 
 \section{Semantic Preserving Variations}
 
+% Toetsen aan Javascript in het algemeen
+
 % ????? In hoeverre dit uitwerken ????? Vraag voor Annemiek. ????? Met name 
 % gezien het praktische uitgangspunt van Harry en Sylvia.
 
@@ -153,7 +154,7 @@ two distinct topics:
 % 10 	Different statement orders
 % 11 	Different variable names
 % 12 	Different program logical structures 
-% 13 Different statements
+% 13 	Different statements
 
 % Examples:
 % SPV1 - Different algorithms (i.e. sorting)
@@ -244,20 +245,38 @@ two distinct topics:
 
  %  AOFFG (AUGMENTED Object-Oriented Flow Graph) Program Respresentation
 
-	% -PRG: Program Representation Graphs (Static compile-time semantics)
+	% -PRG: Program Representation Graphs (Static compile-time semantics) (OFG: Object-oriented Flow Graph for OO)
 	% 	*SSA: Static-Single-Assignment
 	% 	*PDG: Program Dependence Graphs
 	% 		*CDS: Control Dependence Subgraph
 	% 		*DDS: Data Dependence Subgraph
 	% 	*OPDG: Object-oriented PDG
+	%		*PDG
 	% 		*ODS: Object Dependence Subgraph
+	% 		*ODG: Object based dependence graph		
+	% 		*
+	% 
+	% 	*AOPDG (Augmented Object-oriented Program Dependence Graph) = AOCDS (Augmented Object-oriented Control Dependence Subgraphs) + AODDS (Augmented Object-oriented Data Dependence Subgraphs)(contstructed from AOCDS)
+	%  	
+	% 	
+	% 
+	% 	
+
+% Program comparison
+
+	% Partitioned graphs: if vertexSP and vertextMP in same set: statement in vertices semantically equivalent
+	% 3 result maps: equivalent map, textual difference map, unmatched map
 	% 
 
+% Error detection
 
-
-
-
-
-
+	% Problem: Operational semantic differences rather than computational semantic differences
+		% --> solution: variation learning process to detect unsystematic semantics-preserving variations
 	
 \section{Conclusion}
+
+% Mogelijkheden SPV
+% In hoeverre wenselijk voor dit project? Wat karakteriseerd JavaScript, en waar is het juist ook niet geschikt voor.... (rapid development vs rigourous analysis (functional math foundational programs)) 
+% Handvat voor mogelijke vervolg applicatie.
+
+% In hoeverre tools voorhanden (Uglify )
