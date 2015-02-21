@@ -1,0 +1,115 @@
+<script src="../bower_components/codemirror/lib/codemirror.js"></script>
+<script src="../bower_components/codemirror/mode/javascript/javascript.js"></script>
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="je-feedback.html">
+
+<polymer-element name="je-code-mirror">
+  <template>
+    <style>
+      div.feedback {
+        width: 1em;
+        background-color: #fee;
+      }
+      core-icon.feedback {
+        width: 1em;
+        height: 1em;
+        color: #c66;
+      }
+      .mark {
+        background-color: #fdd;
+      }
+    </style>
+    <link rel="stylesheet" href="../bower_components/codemirror/lib/codemirror.css">
+    <textarea id="inputField" value="{{value}}"></textarea>
+  </template>
+  <script>
+    var editor;
+    var widgets = [];
+
+    Polymer({
+      publish: {
+        value: '',
+        feedback: []
+      },
+      domReady: function() {
+        editor = CodeMirror.fromTextArea(this.$.inputField, {
+          lineNumbers: true,
+          mode: 'javascript',
+          gutters: ['feedback']
+        });
+        editor.on('blur', function(instance, changeObj) {
+          console.log(this.value);
+          this.value = editor.getValue();
+        }.bind(this));
+      },
+      feedbackChanged: function(oldValue, newValue) {
+        if (!editor) {
+          return;
+        }
+
+        widgets.forEach(function(node) {
+          node.parentNode.removeChild(node);
+        });
+        widgets = [];
+
+        newValue.forEach(function(item) {
+          console.log('feedback item', item);
+          var pos = {
+            line: item.line - 1,
+            ch: item.column - 1
+          };
+          var node = document.createElement('je-feedback');
+          node.innerHTML = item.description;
+          editor.addWidget(pos, node, true);
+          //editor.addLineWidget(pos.line, node, true);
+          widgets.push(node);
+
+          var element = document.createElement('core-icon');
+          element.dataNode = node;
+          element.dataParent = null;
+          console.log('data', element.data);
+          toggleFeedback(element);
+          element.icon = 'error';
+          element.className = 'feedback';
+          var eventListener = function(event) {
+            toggleFeedback(event.path[0]);
+          };
+          element.addEventListener('mouseover', eventListener);
+          element.addEventListener('mouseout', eventListener);
+          //element.innerHTML = '→';
+          console.log('addGutterMarker',
+            editor.setGutterMarker(pos.line, 'feedback', element));
+
+          var start = {
+            line: pos.line,
+            ch: pos.ch
+          };
+          var end = {
+            line: start.line,
+            ch: start.ch + 1
+          };
+          editor.markText(start, end, {
+            className: 'mark'
+          });
+        });
+
+
+        console.log('marks', editor.getAllMarks());
+      },
+    });
+
+    function toggleFeedback(element) {
+      var node = element.dataNode;
+      var parentElement = element.dataParent;
+      console.log('icon clicked');
+      if (node.parentElement) {
+        parentElement = node.parentElement;
+        parentElement.removeChild(node);
+      } else if (parentElement) {
+        parentElement.appendChild(node);
+        parentElement = null;
+      }
+      element.dataParent = parentElement;
+    }
+  </script>
+</polymer-element>

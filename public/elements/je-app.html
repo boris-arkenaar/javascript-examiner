@@ -6,18 +6,17 @@
       href="../bower_components/paper-input/paper-input-decorator.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="je-code-mirror.html">
 
 <polymer-element name="je-app">
   <template>
-    <paper-input-decorator label="Your solution Javascript code" floatingLabel>
-      <paper-autogrow-textarea>
-        <textarea value="{{code}}"></textarea>
-      </paper-autogrow-textarea>
-    </paper-input-decorator>
+    <p>
+      <paper-button raised on-click="{{onSubmitClick}}">
+        Submit your solution
+      </paper-button>
+    </p>
 
-    <paper-button raised on-click="{{onSubmitClick}}">
-      Submit your solution
-    </paper-button>
+    <je-code-mirror value="{{code}}" feedback="{{feedback}}"></je-code-mirror>
 
     <core-ajax id="syntaxRequest" url="/check/syntax"
                method="post" contentType="application/json"
@@ -59,7 +58,7 @@
   <script>
     Polymer({
       publish: {
-        code: '',
+        code: 'test test test\n',
         encoded: '',
         feedback: [],
         ast: '',
