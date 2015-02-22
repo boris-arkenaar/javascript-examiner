@@ -2,6 +2,8 @@ var Objects = require('../objects');
 
 //Variables for parsing:
 var esprima = require('esprima');
+var UglifyJS = require('uglify-js').parser;
+
 var options = {
   tolerant:false,
   loc: true,
@@ -45,7 +47,9 @@ module.exports = function(solution, callback) {
 function parse(solution, callback) {
   try {
     var abSynTree = esprima.parse(solution, options);
-    callback(null, abSynTree);
+    //try to parse with uglify as well for double check
+    var abSynTree2 = UglifyJS.parse(solution);
+    callback(null, abSynTree2);
   } catch (err) {
     callback(err);
   }
