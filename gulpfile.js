@@ -23,19 +23,27 @@ gulp.task('lint', function() {
       .pipe(jscs());
 });
 
+function handleError(err) {
+  console.log('');
+  this.emit('end');
+}
+
 gulp.task('test1', function() {
     return gulp.src('server/test/check-syntax-test.js', {read: false})
-        .pipe(mocha());
+        .pipe(mocha()
+        .on("error", handleError));
 });
 
 gulp.task('test2', function() {
     return gulp.src('server/test/check-format-test.js', {read: false})
-        .pipe(mocha());
+        .pipe(mocha()
+        .on("error", handleError));
 });
 
 gulp.task('test3', function() {
     return gulp.src('server/test/check-functionality-test.js', {read: false})
-        .pipe(mocha());
+        .pipe(mocha()
+        .on("error", handleError));
 });
 
 gulp.task('default', ['serve']);
