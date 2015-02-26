@@ -20,96 +20,163 @@
       }
     </style>
     <link rel="stylesheet" href="../bower_components/codemirror/lib/codemirror.css">
+    <template if="{{globalFeedback.length}}">
+      <je-feedback>{{globalFeedback}}</je-feedback>
+    </template>
     <textarea id="inputField" value="{{value}}"></textarea>
   </template>
   <script>
-    var editor;
-    var widgets = [];
 
     Polymer({
       publish: {
         value: '',
-        feedback: []
+        feedback: [],
+        globalFeedback: ''
       },
+
+      editor: null,
+      widgets: [],
+      markings: [],
+
       domReady: function() {
-        editor = CodeMirror.fromTextArea(this.$.inputField, {
+        this.editor = CodeMirror.fromTextArea(this.$.inputField, {
           lineNumbers: true,
           mode: 'javascript',
           gutters: ['feedback']
         });
-        editor.on('blur', function(instance, changeObj) {
+        this.editor.on('blur', function(instance, changeObj) {
           console.log(this.value);
-          this.value = editor.getValue();
+          this.value = this.editor.getValue();
         }.bind(this));
       },
+
       feedbackChanged: function(oldValue, newValue) {
-        if (!editor) {
+        if (!this.editor) {
           return;
         }
 
-        widgets.forEach(function(node) {
-          node.parentNode.removeChild(node);
-        });
-        widgets = [];
+        this.removeVisualFeedback();
 
         newValue.forEach(function(item) {
           console.log('feedback item', item);
-          var pos = {
-            line: item.line - 1,
-            ch: item.column - 1
-          };
-          var node = document.createElement('je-feedback');
-          node.innerHTML = item.description;
-          editor.addWidget(pos, node, true);
-          //editor.addLineWidget(pos.line, node, true);
-          widgets.push(node);
 
-          var element = document.createElement('core-icon');
-          element.dataNode = node;
-          element.dataParent = null;
-          console.log('data', element.data);
-          toggleFeedback(element);
-          element.icon = 'error';
-          element.className = 'feedback';
-          var eventListener = function(event) {
-            toggleFeedback(event.path[0]);
-          };
-          element.addEventListener('mouseover', eventListener);
-          element.addEventListener('mouseout', eventListener);
-          //element.innerHTML = '→';
-          console.log('addGutterMarker',
-            editor.setGutterMarker(pos.line, 'feedback', element));
+          if (item.line) {
+            var pos = {
+              line: item.line - 1,
+              ch: item.column - 1
+            };
+            var widget = this.createFeedbackWidget(item, pos);
+            var gutterIcon = this.createFeedbackGutterIcon(widget, pos);
 
-          var start = {
-            line: pos.line,
-            ch: pos.ch
-          };
-          var end = {
-            line: start.line,
-            ch: start.ch + 1
-          };
-          editor.markText(start, end, {
-            className: 'mark'
-          });
-        });
+            if (item.column) {
+              this.markings.push(this.markText(pos));
+            }
+          } else {
+            this.createGlobalFeedbackWidget.apply(this, [item]);
+          }
+        }.bind(this));
 
-
-        console.log('marks', editor.getAllMarks());
+        console.log('marks', this.editor.getAllMarks());
       },
-    });
 
-    function toggleFeedback(element) {
-      var node = element.dataNode;
-      var parentElement = element.dataParent;
-      console.log('icon clicked');
-      if (node.parentElement) {
-        parentElement = node.parentElement;
-        parentElement.removeChild(node);
-      } else if (parentElement) {
-        parentElement.appendChild(node);
-        parentElement = null;
+      createFeedbackWidget: function(feedback, pos) {
+        var element = document.createElement('je-feedback');
+        element.innerHTML = feedback.description;
+        this.editor.addWidget(pos, element, true);
+        this.widgets.push(element);
+        return element;
+      },
+
+      createGlobalFeedbackWidget: function(feedback) {
+        console.log('creating global feedback from', feedback);
+        this.globalFeedback = feedback.description;
+      },
+
+      createFeedbackGutterIcon: function(widget, pos) {
+        var gutterIcon = document.createElement('core-icon');
+        gutterIcon.dataWidget = widget;
+        gutterIcon.dataParent = null;
+        widget.dataGutterIcon = gutterIcon;
+
+        console.log('data', gutterIcon.data);
+        this.toggleFeedbackWidgets(gutterIcon);
+
+        gutterIcon.icon = 'error';
+        gutterIcon.className = 'feedback';
+
+        var eventListener = function(event) {
+          this.toggleFeedbackWidgets(event.path[0]);
+        }.bind(this);
+        gutterIcon.addEventListener('mouseover', eventListener);
+        gutterIcon.addEventListener('mouseout', eventListener);
+
+        console.log('addGutterMarker',
+          this.editor.setGutterMarker(pos.line, 'feedback', gutterIcon));
+
+        return gutterIcon;
+      },
+
+      markText: function(pos) {
+        var start = {
+          line: pos.line,
+          ch: pos.ch
+        };
+        var end = {
+          line: start.line,
+          ch: start.ch + 1
+        };
+        return this.editor.markText(start, end, {
+          className: 'mark'
+        });
+      },
+
+      removeVisualFeedback: function() {
+        this.removeGlobalFeedback.apply(this);
+        this.removeFeedbackWidgets();
+        this.removeFeedbackGutterIcons();
+        this.removeTextMarkings();
+      },
+
+      removeGlobalFeedback: function() {
+        this.globalFeedback = '';
+      },
+
+      removeFeedbackWidgets: function() {
+        this.widgets.forEach(function(widget) {
+          var parent = widget.parentNode;
+          if (parent) {
+            parent.removeChild(widget);
+          }
+          widget.dataGutterIcon.dataWidget = null;
+          widget.dataGutterIcon = null;
+        });
+        this.widgets = [];
+      },
+
+      removeFeedbackGutterIcons: function() {
+        this.editor.clearGutter('feedback');
+      },
+
+      removeTextMarkings: function() {
+        this.markings.forEach(function(marking) {
+          marking.clear();
+        });
+        this.markings = [];
+      },
+
+      toggleFeedbackWidgets: function(element) {
+        var node = element.dataWidget;
+        var parentElement = element.dataParent;
+        console.log('icon clicked');
+        if (node.parentElement) {
+          parentElement = node.parentElement;
+          parentElement.removeChild(node);
+        } else if (parentElement) {
+          parentElement.appendChild(node);
+          parentElement = null;
+        }
+        element.dataParent = parentElement;
       }
-      element.dataParent = parentElement;
-    }
+    });
   </script>
 </polymer-element>
