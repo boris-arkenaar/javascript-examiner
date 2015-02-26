@@ -23,11 +23,10 @@ gulp.task('lint', function() {
       .pipe(jscs());
 });
 
-gulp.task('mongoDB', function(callback) {
+gulp.task('mongoDB', function() {
   child_process.exec('mongod -dbpath ./server/data/db', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
-    callback(err);
   })
 });
 

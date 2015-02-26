@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var connected = false;
 
-
 /**
 * Get the testSuite corresponding with the exercise
 * @param {string} exerciseId the identifier of the exercise
@@ -16,13 +15,11 @@ exports.getTestSuite = function(exerciseId, callback) {
 * @param {function} callback with form callback(err, res)
 */
 exports.getExercises = function(callback) {
-  if(!callback || typeof callback != 'function') {
+  if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as first param');
   }
-
-
   ExerciseM.find(function(err, exercises) {
-    if(err) {
+    if (err) {
       return callback(err);
     }
     callback(null, exercises);
@@ -54,15 +51,15 @@ exports.putFeedback = function(solution, feedback, callback) {
 * @param {callback} callback the callback with form callback(err, res)
 */
 exports.putExercise = function(exercise, callback) {
-  if(exercise == null || (exercise && typeof exercise != 'object')) {
+  if (exercise == null || (exercise && typeof exercise != 'object')) {
     return callback(new Error('An exercise is required'));
   }
-  if(!callback || typeof callback != 'function') {
+  if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
   }
   var dbExercise = new ExerciseM(exercise);
-  dbExercise.save(function (err, dbExercise) {
-    if(err) {
+  dbExercise.save(function(err, dbExercise) {
+    if (err) {
       return callback(err);
     }
     callback(null, dbExercise);
@@ -88,7 +85,7 @@ exports.connect = function(db) {
   });
 }
 
-exports.disconnect = function(callback){
+exports.disconnect = function(callback) {
   mongoose.disconnect();
   callback();
 }
