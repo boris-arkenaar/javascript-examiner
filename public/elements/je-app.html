@@ -64,22 +64,15 @@
         ast: '',
         artifacts: {}
       },
-      onSubmitClick: function() {
-        console.log('Submit clicked');
 
+      onSubmitClick: function() {
         this.feedback = [];
         this.ast = '';
-
         this.encoded = utf8_to_b64(this.code);
-        console.log('Sending encoded code', typeof this.encoded, this.encoded);
-
-        var decoded = b64_to_utf8(this.encoded);
-        console.log('Decoded would be', typeof decoded, decoded);
-
-        console.log('request', this.$.syntaxRequest.go());
+        this.$.syntaxRequest.go();
       },
+
       onSyntaxResponse: function(response) {
-        console.log('syntax response', response);
         this.feedback = response.detail.response.feedback;
         this.artifacts = response.detail.response.artifacts;
         if (this.artifacts.ast) {
@@ -89,8 +82,8 @@
           this.$.formatRequest.go();
         }
       },
+
       onFormatResponse: function(response) {
-        console.log('format response', response);
         this.feedback = response.detail.response.feedback;
         this.artifacts = response.detail.response.artifacts;
 
@@ -98,8 +91,8 @@
           this.$.functionalityRequest.go();
         }
       },
+
       onFunctionalityResponse: function(response) {
-        console.log('functionality response', response);
         this.feedback = response.detail.response.feedback;
         this.artifacts = response.detail.response.artifacts;
       }

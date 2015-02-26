@@ -45,7 +45,6 @@
           gutters: ['feedback']
         });
         this.editor.on('blur', function(instance, changeObj) {
-          console.log(this.value);
           this.value = this.editor.getValue();
         }.bind(this));
       },
@@ -58,8 +57,6 @@
         this.removeVisualFeedback();
 
         newValue.forEach(function(item) {
-          console.log('feedback item', item);
-
           if (item.line) {
             var pos = {
               line: item.line - 1,
@@ -75,8 +72,6 @@
             this.createGlobalFeedbackWidget.apply(this, [item]);
           }
         }.bind(this));
-
-        console.log('marks', this.editor.getAllMarks());
       },
 
       createFeedbackWidget: function(feedback, pos) {
@@ -88,7 +83,6 @@
       },
 
       createGlobalFeedbackWidget: function(feedback) {
-        console.log('creating global feedback from', feedback);
         this.globalFeedback = feedback.description;
       },
 
@@ -98,7 +92,6 @@
         gutterIcon.dataParent = null;
         widget.dataGutterIcon = gutterIcon;
 
-        console.log('data', gutterIcon.data);
         this.toggleFeedbackWidgets(gutterIcon);
 
         gutterIcon.icon = 'error';
@@ -110,8 +103,7 @@
         gutterIcon.addEventListener('mouseover', eventListener);
         gutterIcon.addEventListener('mouseout', eventListener);
 
-        console.log('addGutterMarker',
-          this.editor.setGutterMarker(pos.line, 'feedback', gutterIcon));
+        this.editor.setGutterMarker(pos.line, 'feedback', gutterIcon);
 
         return gutterIcon;
       },
@@ -167,7 +159,6 @@
       toggleFeedbackWidgets: function(element) {
         var node = element.dataWidget;
         var parentElement = element.dataParent;
-        console.log('icon clicked');
         if (node.parentElement) {
           parentElement = node.parentElement;
           parentElement.removeChild(node);

@@ -14,14 +14,6 @@
         z-index: 10;
       }
     </style>
-    <!--
-    <core-tooltip>
-      <div>→</div>
-      <div tip class="tip">
-        <content></content>
-      </div>
-    </core-tooltip>
-    -->
     <paper-shadow z="2" if="{{show}}">
       <content></content>
     </paper-shadow>
@@ -31,7 +23,6 @@
       publish: {
         show: false,
         toggle: function() {
-          console.log('toggle feedback');
           this.show = !this.show
         }
       }
