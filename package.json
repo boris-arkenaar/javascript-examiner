@@ -27,7 +27,8 @@
     "node-uuid": "^1.4.2",
     "objects": "^0.3.0",
     "raw-body": "^1.3.3",
-    "uglify": "latest"
+    "uglify-js": "latest",
+    "mongoose": "latest"
   },
   "devDependencies": {
     "gulp": "^3.8.11",
