@@ -26,7 +26,8 @@
     "multer": "latest",
     "node-uuid": "^1.4.2",
     "objects": "^0.3.0",
-    "raw-body": "^1.3.3"
+    "raw-body": "^1.3.3",
+    "uglify": "latest"
   },
   "devDependencies": {
     "gulp": "^3.8.11",
