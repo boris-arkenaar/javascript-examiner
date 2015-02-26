@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
 var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
+var child_process = require('child_process');
 
 gulp.task('serve', ['lint'], function() {
   nodemon({
@@ -22,5 +23,12 @@ gulp.task('lint', function() {
       .pipe(jscs());
 });
 
-gulp.task('default', ['serve']);
+gulp.task('mongoDB', function(callback) {
+  child_process.exec('mongod -dbpath ./server/data/db', function(err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    callback(err);
+  })
+});
 
+gulp.task('default', ['serve', 'mongoDB']);
