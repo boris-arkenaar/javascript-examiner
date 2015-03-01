@@ -14,4 +14,8 @@
 *.ist
 *.toc
 node_modules
+public
+server
+tmp
+views
 
