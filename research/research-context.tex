@@ -12,93 +12,92 @@
 
 The starting point of the 
 \gls{examiner} project is pragmatic rather then scientific. 
-The urge to reduce labor intensity while
-maintaining or even improving the extent of providing \gls{feedback} has little 
-scientific value by itself. From this perspective, it may be argued there is 
-no scientific context, or at least no computer science related scientific 
-context. This does by no means degrade the scientific value of this project, 
-it just denotes the research context is to be found elsewhere. 
+The urge to reduce labor intensity while maintaining or even improving the 
+extent of providing \gls{feedback} has little scientific value by itself. From 
+this perspective, it may be argued there is no scientific context, or at least 
+no computer science related scientific context. This does by no means degrade 
+the scientific value of this project, it just denotes the research context is 
+to be found elsewhere. 
 
 
-The domain research has a practical focus for the greatest part. The importance of
-this approach is clear, when keeping the goal (a functioning prototype
-of the \gls{examiner}) in mind. Whereas the Design Recipe and Feedback
-papers are merely focused on some aspects of the domain, the Semantics paper reveals
-a more fundamental question. In order to get beyond the checking of rudimentary
-characteristics (like functionality, format and syntax) it is necessary to 
-reason on \gls{js}, or even on programming languages in general, itself. Of
-course, it is way beyond our limits to pursue this reasoning to its
-foundations. Luckily, this is no unexplored domain.
+The domain research has a practical focus for the greatest part. The 
+importance of this approach is clear, when keeping the goal (a functioning 
+prototype of the \gls{examiner}) in mind. Whereas the Design Recipe and 
+Feedback papers are merely focused on some aspects of the domain, the 
+Semantics paper reveals a more fundamental question. In order to get beyond 
+the checking of rudimentary characteristics (like functionality, format and 
+syntax) it is necessary to reason on \gls{js}, or even on programming 
+languages in general, itself. Of course, it is way beyond our limits to pursue 
+this reasoning to its foundations. Luckily, this is no unexplored domain.
 
 
-The main stakeholder of this project directed us towards the IDEAS framework, %reference
-which is the core for a set of \glspl{domainreasoner}. 
-After broadly studying \citep{gerdes2012ask} and \citep{heeren2010specifying}
-their approaches (with regards to semantic analysis) 
-revealed some possible relevant pointers. The IDEAS framework is used to 
-generate feedback on input from a specified domain. 
-The domain may vary, as the first article is about
-\gls{haskell}, whereas the second is about rewriting strategies for logic expressions.
+The main stakeholder of this project directed us towards the IDEAS framework, 
+% reference
+which is the core for a set of \glspl{domainreasoner}. After broadly studying 
+\citep{gerdes2012ask} and \citep{heeren2010specifying} their approaches (with 
+regards to semantic analysis) revealed some possible relevant pointers. The 
+IDEAS framework is used to generate feedback on input from a specified domain. 
+The domain may vary, as the first article is about \gls{haskell}, whereas the 
+second is about rewriting strategies for logic expressions.
 
 
 Both articles describe research projects that focus, like our project, on
-providing feedback for (academic) students. In particular, the former article strengthens
-the relevance, by putting the usability and maintainability for tutors
-as its central research question. Thus, the goals to our project are very much alike. 
+providing feedback for (academic) students. In particular, the former article
+strengthens the relevance, by putting the usability and maintainability for 
+tutors as its central research question. Thus, the goals to our project are 
+very much alike. 
 
 
 When considering their approach, there is one fundamental difference. The IDEAS
 framework is designed to provide stepwise feedback. Instead of reviewing a
-submitted solution as being complete, it is possible to review a partial solution. This
-feature is deliberately no part of our project. Still, it is not unthinkable that there
-might be successive projects to extend the \gls{examiner} with this feature.  
-Like our approach, the developed domain reasoners are built as prototypes at first.
+submitted solution as being complete, it is possible to review a partial 
+solution. This feature is deliberately no part of our project. Still, it is 
+not unthinkable that there might be successive projects to extend the \gls{
+examiner} with this feature. Like our approach, the developed domain reasoners 
+are built as prototypes at first.
 
 
 In order to be able to provide feedback on partial solutions, a thoughtful and 
-sophisticated reasoning on the domain specific language semantics is necessary. 
+sophisticated reasoning on the domain specific language semantics is 
+necessary. 
 
 
-We found Heeren, B. willing to discuss with us some aspects of the IDEAS project. Since
-our project has been presented as being the 
-start of a new and autonomous project, the scope and aim for
-the consult has been fairly general. We are primarily interested in the 
-conceptual considerations and scientific foundations (in particular on 
-semantic evaluation) rather than focused on the pure technical specifications. 
-Eventually, this interest led to an, from our experience, interesting and fruitful 
-consult. 
+We found Heeren, B. willing to discuss with us some aspects of the IDEAS 
+project. Since our project has been presented as being the start of a new and 
+autonomous project, the scope and aim for the consult has been fairly general. 
+We are primarily interested in the conceptual considerations and scientific 
+foundations (in particular on semantic evaluation) rather than focused on the 
+pure technical specifications. Eventually, this interest led to an, from our 
+experience, interesting and fruitful consult. 
 
-
-In what follows, the consult will be described. As will become apparent, some interesting 
-topics will pass. As a result, a brief examination of one of these topics will follow. 
-In conclusion, the consult and examination will be linked to our project. Furthermore,
-some interesting topics will be hinted for possible succeeding projects.
+In what follows, the consult will be described. As will become apparent, some 
+interesting topics will pass. As a result, a brief examination of one of these 
+topics will follow. In conclusion, the consult and examination will be linked 
+to our project. Furthermore, some interesting topics will be hinted for 
+possible succeeding projects.
 
 
 \section{Consult}
-Due to the nature of our project, the outline and boundaries of this consult were not 
-clear beforehand. As mentioned in the introduction, there were two main topics. 
-The meeting with Heeren was very open and fluent. We no longer used our prepared 
-questions during the conversation. Still, at times the conversation spirited away, 
-we used the question to get back to the main topic. Since we did not literally
-recorded the consult, the resume below is an interpretation based on the prepared 
-questions, the consult itself and the keynotes taken.
+Due to the nature of our project, the outline and boundaries of this consult 
+were not clear beforehand. As mentioned in the introduction, there were two 
+main topics. The meeting with Heeren was very open and fluent. We no longer 
+used our prepared questions during the conversation. Still, at times the 
+conversation spirited away, we used the question to get back to the main 
+topic. Since we did not literally recorded the consult, the resume below is an 
+interpretation based on the prepared questions, the consult itself and the 
+keynotes taken.
 
 
-After a short introduction on the IDEAS framework and our project, the discussion
-started with a demarcation by Heeren, in putting the Formative approach of the 
-IDEAS related projects against the Summative approach of our project. This 
-distinction is the result of the difference in approach. The extent to which 
-our project really is summative, is withheld by the way it will be used eventually. 
-Still, it seems to be fruitful to keep this distinction alive for now, as the central 
-point (no partial solution feedback functionality in our project) is striking.
-
+After a short introduction on the IDEAS framework and our project, the 
+discussion started with a demarcation posted by Heeren, in putting the 
+Formative approach of the IDEAS related projects against the Summative 
+approach of our project. This distinction is the result of the difference in 
+approach. The extent to which our project really is summative, is withheld by 
+the way it will be used eventually. Still, it seems to be fruitful to keep 
+this distinction alive for now, as the central point (no partial solution 
+feedback functionality in our project) is striking.
 
 The reasoners have been 
-
-
-
-
 
 %Verslag consult.
 %Vragen + Antwoorden uitwerken:
