@@ -65,6 +65,7 @@ foundations (in particular on semantic evaluation) rather than focused on the
 pure technical specifications. Eventually, this interest led to an, from our 
 experience, interesting and fruitful consult. 
 
+
 In what follows, the consult will be described. As will become apparent, some 
 interesting topics will pass. As a result, a brief examination of one of these 
 topics will follow. In conclusion, the consult and examination will be linked 
@@ -99,7 +100,8 @@ striking.
 At this point, the conversation shifted to the topic of semantic evaluation.
 Heeren introduced to us an overview of the technique to bring code back to a
 normal form. This technique abstracts from the particular code, by replacing 
-constructs. For example, a \em{for loop} can be replaced by a \em{while construct},without 
+constructs. For example, a \em{for loop} can be replaced by a 
+\em{while construct}, without 
 changing the execution result of the code. In this way, two solutions can be
 compared, even if the first uses the \em{while} construct, and the second a 
 \em{for loop}. At first, this seems very fruitful to use, but Heeren made clear
@@ -120,79 +122,60 @@ After this theoretical introduction, some practical pointers were given, that
 could be helpful as well, when starting to experiment within this area. 
 Thorough analysis of (generation of) \glspl{abs} might discern opportunities 
 to get rid of some variations, and as such provide a first implementation of
-normalization. %Maybe refer to next chapter
+normalization. %Maybe refer to next chapter 
+Furthermore, diving into techniques that deal with static comparison or static
+testing might be fruitful, as there is (semantic) reasoning required as well.
+Finally, the inverted use of plagiarism detectors could be interesting. 
+Inverted use, because the detectors are designed to deal with input that is
+ought to be different from eachother (the input to be tested is reviewed 
+against all existing documents), whereas we expect and search for similarities to, for example, match a solution with (one of the) example solutions. 
 
 
-%Reference  
+Packed with both a theoretical introduction as practical handlebars on
+Semantic Evaluation, the topic changed to our second general question.
 
-%Semantic evaluation
-	
+\subsection{Create an exercise}
+The answer to our main question concerning this topic was clear. At this moment
+there are no results from usage of the examiners by tutors that did not
+actively participate in the development of the reasoners. Looking at the 
+complexity and theoretical approach, this seems reasonable. Still, it stresses
+the ability to determine the value of the approach, when comparing it to our 
+own project, as our success heavily depends on the usability by the tutors. 
+Apart from the lack of test results, Heeren did outline a possible time
+consuming factor for tutors. As it is hard or even impossible to normalize 
+algorithmic variation, and the diversity in usage of algorithms tends to
+grow when the size of an exercise and solutions extends, the only way of 
+dealing with this diversity is adding more model solutions (which implements
+different algorithms). %May be add example (Quicksort vs Bubblesort oid)
+As the space of possible variation grows, the need
+for model solutions grows, with a factor tending to exponential. This can 
+quite quickly stress of reducing the tutors labor intensity, which is one 
+of our main goals. Therefor, it's quite important to keep this goal in mind
+when developing the examiner, as new features might have unwanted implications 
+to the time and efforts required to successfully deploy the \gls{examiner} or
+new \gls{exercises}.
 
-	% Tools / Methods:
-		% Abstract Syntax Tree
-		% Possibilities to clean the Abstract Syntax Tree at some stage, in order to 
-		% be 
-		% able to achieve more accuracy when it’s used for i.e. Semantic Analysis
-		% - Static comparison
-		% - Inverted use of Plagiarism detectors (Juriaan Haring in Java (UU)
-		% - Div tools
+\subsection{Implentation Pointers}
+During the consult, we recognized Heeren had gained a lot of experience in the
+execution of the research. To learn from him, we conclued the consult by 
+asking him what pointers we should take in mind while developing the 
+\gls{examiner}. According to him, we should adapt an approach which allows for 
+easy expanding and adapting. As our project might be only a first step in a
+series of \gls{examiner} related projects, this characteristic is of great 
+importance. He advised us to develop service based or at least in a modular 
+way. On top of this, he pointed to the importance of relevant test data. It
+could be a pitfall to only use or own written exercises and solutions, because
+it's not unlikely that solutions from other students are fundamentally 
+different when it comes to the means of properly analyzing and reviewing.
 
-%Tutor Perspective
-% 	- No results yet
-% - Model solutions
-% 	- In the IDEAS approach, more model solutions are required as the exercise expands due to the search space (tending to exponential)
-% 	- Agorithmic variations (i.e. Quicksort vs Bubblesort)
-
-% %Implementation
-% 	- Service based
-% 	- Modular
-% 	- Easily expandable / adaptable 
-% 	- Collect solutions written by students for testing the examiner
-
-
-
-%Verslag consult.
-%Vragen + Antwoorden uitwerken:
-%Questions
-%  - Is it possible to get insight in the actual process of exercise creation?
-%  - How many exercises have been created by tutors? 
-%  - How is their reception of the exercise creation process? (research already 
-% in progress?)
-%     * What are the difficulties they experience?
-%     * Are their didactic aspects they can't, but would like to introduce? 
-%     * What features are used most? (i.e. Global vs Location specific)
-%  - What were the arguments to work with model solutions? Have other 
-% possibilities
-%    been considered? (i.e. test suites)
-%  - Is there a limit for the magnitude of an exericse? What are implications 
-% (towards possibilities, scope etc.)?
-%  - Would it be possible to create a set of exercises in a way there is no need
- % for additional material?
-%  ? Are there indicators for a tutor on which constructs feedback annotations 
-% are needed? How does
-%    the retrieve these indicators?
-%  - Is there a size limit or minimum for a  provided set of model solutions?
-%  - The correctness is based on equality. Is the current measure method to 
-% determine (in)equality rightly balanced?
-%  - Is it possible to get a demo on actually adding a simple exercise?
-%  - Is Ask-Elle flexible in usage? (mainly in the way exercises are added)
-%  - How to proceed if there are 3 model solutions,
-%    and two solutions need feedback on the same particular construct,
-%    should this feedack annotation be global?
-%  - How does Ask-Elle make a distinction between the different solutions (from 
-% optimal to suboptimal)?
-%    @TODO: meer specifieke vragen (met name hoofdstuk 7 + hoofstuk 5 (feedback 
-% scripts))
-%  - How are the feedback texts generated?
-%    And how do you choose which feedback to show
-%    according to the step a student took.
-%  - Could the normalization rules be easily ported to JavaScript?
-%  - Could the Haskell service be modified to be used for JavaScript code?
-%  - Or could the functionality of the Haskell service be ported to JavaScript?
-%  - How dificult is it for a tutor
-%    to provide the right annotations to a model solution?
-%  - Could the annotations used by Ask-Elle be used in the same way
-%    for a non-functional language (e.g. JavaScript)?
+\subsection{Resume}
+Enthusiastic and enlightened, we thanked Heeren for his help and contribution.
+While reviewing the consult, we recognized our flaw in understanding the 
+problems related to semantic equality and \gls{spv} more deeply. Even if we 
+don't implement related functionality during this project, it's still required
+to grasp the fundamentals in order to be able to design and develop an 
+appropriate foundation to actually implement functionality related to semantic
+evaluation. As a result, a brief analysis of the \gls{spv} is added. 
 
 \section{Semantic Preserving Variations}
 
