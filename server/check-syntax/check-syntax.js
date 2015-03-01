@@ -2,7 +2,7 @@ var Objects = require('../objects');
 
 //Variables for parsing:
 var esprima = require('esprima');
-var UglifyJS = require('uglify-js').parser;
+var UglifyJS = require('uglify-js');
 
 var options = {
   tolerant:false,
