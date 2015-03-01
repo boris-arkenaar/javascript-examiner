@@ -1,9 +1,9 @@
-% verslag analyse onderzoekcontext, plusminus 5 pagina's
+% report research context
 
 \section{Introduction}
 % Research group: IDEAS
 % Tool: Ask- Elle
-% Focus: research question 2 and 3: easily adding and finetuning exercises by a 
+% Focus: research question 2 and 3: easily adding and fine tuning exercises by a 
 % tutor 
 % Corresponding requirements:
 %  - The tutor should be able to create an exercise (...)
@@ -54,12 +54,7 @@ submitted solution as being complete, it is possible to review a partial
 solution. This feature is deliberately no part of our project. Still, it is 
 not unthinkable that there might be successive projects to extend the \gls{
 examiner} with this feature. Like our approach, the developed domain reasoners 
-are built as prototypes at first.
-
-
-In order to be able to provide feedback on partial solutions, a thoughtful and 
-sophisticated reasoning on the domain specific language semantics is 
-necessary. 
+are built as prototypes at first. In order to be able to provide feedback on partial solutions, a thoughtful and sophisticated reasoning on the domain specific language semantics is required.
 
 
 We found Heeren, B. willing to discuss with us some aspects of the IDEAS 
@@ -79,25 +74,82 @@ possible succeeding projects.
 
 \section{Consult}
 Due to the nature of our project, the outline and boundaries of this consult 
-were not clear beforehand. As mentioned in the introduction, there were two 
-main topics. The meeting with Heeren was very open and fluent. We no longer 
-used our prepared questions during the conversation. Still, at times the 
+were not clear beforehand. To prevent a lack of scope, we determined two 
+central topics, namely semantic evaluation and the usability of the reasoners 
+from a tutor perspective. The meeting with Heeren was very open and fluent. We 
+did not strictly follow the order of our prepared questions during the 
+conversation. Still, at times the 
 conversation spirited away, we used the question to get back to the main 
 topic. Since we did not literally recorded the consult, the resume below is an 
 interpretation based on the prepared questions, the consult itself and the 
 keynotes taken.
 
-
+%Formative - Summative
 After a short introduction on the IDEAS framework and our project, the 
 discussion started with a demarcation posted by Heeren, in putting the 
 Formative approach of the IDEAS related projects against the Summative 
 approach of our project. This distinction is the result of the difference in 
 approach. The extent to which our project really is summative, is withheld by 
-the way it will be used eventually. Still, it seems to be fruitful to keep 
-this distinction alive for now, as the central point (no partial solution 
-feedback functionality in our project) is striking.
+the way it will be used eventually. %Work out argument 
+Still, it seems to be fruitful to keep this distinction alive for now, as the 
+central point (no partial solution feedback functionality in our project) is 
+striking. 
 
-The reasoners have been 
+\subsection{Semantic Evaluation} %Please review this subtitle 
+At this point, the conversation shifted to the topic of semantic evaluation.
+Heeren introduced to us an overview of the technique to bring code back to a
+normal form. This technique abstracts from the particular code, by replacing 
+constructs. For example, a \em{for loop} can be replaced by a \em{while construct},without 
+changing the execution result of the code. In this way, two solutions can be
+compared, even if the first uses the \em{while} construct, and the second a 
+\em{for loop}. At first, this seems very fruitful to use, but Heeren made clear
+that the search for a normal form is quite hard. Reasoning toward a normal form
+is reasoning about equality. Under what conditions can be stated that two or 
+more statements are equal. \"A deceitful problem\", according to Heeren. To 
+get more insight in the complexity of this topic, an article about one of the
+IDEAS based reasoners was recommended to us. \citep{keuning2014strategy} 
+stresses the equality problem by reviewing her implementation (and in
+doing this the framework as a whole) to the exhaustive set of normalization 
+techniques under the name of \gls{spv}. This set, as argued in 
+\citep{xu2003transformation}, covers a complete spectrum of normalizing 
+techniques on a semantic level. These articles could be the appropriate 
+starting point if one wants to add semantic evaluation to the \gls{examiner}.
+
+
+After this theoretical introduction, some practical pointers were given, that
+could be helpful as well, when starting to experiment within this area. 
+Thorough analysis of (generation of) \glspl{abs} might discern opportunities 
+to get rid of some variations, and as such provide a first implementation of
+normalization. %Maybe refer to next chapter
+
+
+%Reference  
+
+%Semantic evaluation
+	
+
+	% Tools / Methods:
+		% Abstract Syntax Tree
+		% Possibilities to clean the Abstract Syntax Tree at some stage, in order to 
+		% be 
+		% able to achieve more accuracy when it’s used for i.e. Semantic Analysis
+		% - Static comparison
+		% - Inverted use of Plagiarism detectors (Juriaan Haring in Java (UU)
+		% - Div tools
+
+%Tutor Perspective
+% 	- No results yet
+% - Model solutions
+% 	- In the IDEAS approach, more model solutions are required as the exercise expands due to the search space (tending to exponential)
+% 	- Agorithmic variations (i.e. Quicksort vs Bubblesort)
+
+% %Implementation
+% 	- Service based
+% 	- Modular
+% 	- Easily expandable / adaptable 
+% 	- Collect solutions written by students for testing the examiner
+
+
 
 %Verslag consult.
 %Vragen + Antwoorden uitwerken:
@@ -141,40 +193,6 @@ The reasoners have been
 %    to provide the right annotations to a model solution?
 %  - Could the annotations used by Ask-Elle be used in the same way
 %    for a non-functional language (e.g. JavaScript)?
-
-
-% Topics of discussion:
-%V Formative / Summative distinction
-%V Ask-elle (and alike IDEAS implementations) has a more summative approach, 
-%V whereas the focus for the Javascript-Examiner for a great part has a formative n
-%V Nature.
-% Normal form
-% Deceitful problem (equality)
-% Semantic preserving variations
-% http://www.cs.uu.nl/research/techreps/UU-CS-2014-026.html
- % (article Hieke Keuning)
-% http://dspace.ou.nl/bitstream/1820/5388/1/INF_20140617_Keuning.pdf 
-% (thesis Hieke Keuning)
-% Compared to dynamic analysis an inverted approach
-% Model solutions
-% In the IDEAS approach, more model solutions are required as the exercise expands
-% due to the search space (tending to exponential)
-% Agorithmic variations (i.e. Quicksort vs Bubblesort)
-% Static comparison
-% Inverted use of Plagiarism detectors (Juriaan Haring in Java (UU)
-% Div tools
-% Edit distance
-
-% Implementation 
-% Services based
-% Modular
-% Easily expandable / adaptable
-% Solutions
-% Collect solutions written by Students for testing the Javascript-Examiner
-
-% Abstract Syntax Tree
-% Possibilities to clean the Abstract Syntax Tree at some stage, in order to be 
-% able to achieve more accuracy when it’s used for i.e. Semantic Analysis
 
 \section{Semantic Preserving Variations}
 
