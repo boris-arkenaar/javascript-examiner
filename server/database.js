@@ -51,7 +51,7 @@ exports.putFeedback = function(solution, feedback, callback) {
 * @param {callback} callback the callback with form callback(err, res)
 */
 exports.putExercise = function(exercise, callback) {
-  if (exercise == null || (exercise && typeof exercise != 'object')) {
+  if (exercise === null || (exercise && typeof exercise != 'object')) {
     return callback(new Error('An exercise is required'));
   }
   if (!callback || typeof callback != 'function') {
@@ -64,41 +64,40 @@ exports.putExercise = function(exercise, callback) {
     }
     callback(null, dbExercise);
   });
-}
+};
 
 exports.isConnected = function() {
   return connected;
-}
+};
 
-exports.connect = function(db) {
-  mongoose.connect('mongodb://localhost/' + db || 'examiner-dev',
-    {server: {socketOptions:{keepAlive: 1}}});
-  var db = mongoose.connection;
+exports.connect = function(dbName) {
   //Connect to MongoDB:
   //Keep connection alive:
   //based on http://mongoosejs.com/docs/connections.html
   //based on http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html
+  mongoose.connect('mongodb://localhost/' + dbName || 'examiner-dev',
+    {server: {socketOptions:{keepAlive: 1}}});
+  var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'MongoDB connection error:'));
   db.once('open', function(callback) {
-    console.log('Connected!');
     connected = true;
   });
-}
+};
 
 exports.disconnect = function(callback) {
   mongoose.disconnect();
   callback();
-}
+};
 
 //for developing only:
 exports.drop = function(name) {
 
-}
+};
 
 var exerciseSchema = mongoose.Schema({
   id: String,
   //number: String,
-  //description: String,
+  description: String,
   name: String
 });
 var ExerciseM = mongoose.model('Exercise', exerciseSchema);

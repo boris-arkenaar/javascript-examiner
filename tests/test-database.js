@@ -28,7 +28,14 @@ describe('Database', function() {
 		database.connect('test');
 		if(!database.isConnected()) {
 			//set timeout to make sure the database is connected
-			setTimeout(function(){return done();}, 1000);
+			//if connecting takes more then 1 sec, an error is thrown
+			setTimeout(function(){
+				if(!database.isConnected()) {
+					throw new Error('Can\'t connect to MongoDB');
+				} else {
+					return done();	
+				}
+			}, 1000);
 		} else {
 			done();
 		}
