@@ -33,6 +33,11 @@
                handleAs="json" body='{"code": "{{encoded}}"}'
                on-core-response="{{onFunctionalityResponse}}"></core-ajax>
 
+    <core-ajax id="maintainabilityRequest" url="/check/maintainability"
+               method="post" contentType="application/json"
+               handleAs="json" body='{"code": "{{encoded}}"}'
+               on-core-response="{{onMaintainabilityResponse}}"></core-ajax>
+
     <template if="{{feedback.length}}">
       <h1>Feedback</h1>
       <template repeat="{{item in feedback}}">
@@ -45,12 +50,22 @@
       </template>
     </template>
 
+    <template if="{{artifactsString}}" id="artifacts">
+      <h1>Artifacts</h1>
+      <paper-input-decorator label="The artifacts that came with the feedback"
+                             floatingLabel >
+        <paper-autogrow-textarea id="astAutoTextArea" rows="20">
+          <textarea id="astTextArea" value="{{artifactsString}}"></textarea>
+        </paper-autogrow-textarea>
+      </paper-input-decorator>
+    </template>
+
     <template if="{{ast}}" id="ast">
       <h1>Abstract Syntax Tree</h1>
       <paper-input-decorator label="The abstract syntax tree of your code"
                              floatingLabel >
         <paper-autogrow-textarea id="astAutoTextArea" rows="20">
-          <textarea id="astTextArea" value="{{ast}}" ></textarea>
+          <textarea id="astTextArea" value="{{ast}}"></textarea>
         </paper-autogrow-textarea>
       </paper-input-decorator>
     </template>
@@ -62,7 +77,12 @@
         encoded: '',
         feedback: [],
         ast: '',
-        artifacts: {}
+        artifacts: {},
+        artifactsString: ''
+      },
+
+      artifactsChanged: function(oldValue, newValue) {
+        this.artifactsString = JSON.stringify(newValue, null, 2);
       },
 
       onSubmitClick: function() {
@@ -93,6 +113,15 @@
       },
 
       onFunctionalityResponse: function(response) {
+        this.feedback = response.detail.response.feedback;
+        this.artifacts = response.detail.response.artifacts;
+
+        if (!this.feedback.length) {
+          this.$.maintainabilityRequest.go();
+        }
+      },
+
+      onMaintainabilityResponse: function(response) {
         this.feedback = response.detail.response.feedback;
         this.artifacts = response.detail.response.artifacts;
       }

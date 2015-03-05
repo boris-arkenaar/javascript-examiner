@@ -8,6 +8,8 @@ var Objects = require('./objects');
 var checkSyntax = require('./check-syntax/check-syntax');
 var checkFormat = require('./check-format/check-format');
 var checkFunctionality = require('./check-functionality/check-functionality');
+var checkMaintainability =
+    require('./check-maintainability/check-maintainability');
 
 var app = express();
 
@@ -19,6 +21,7 @@ app.use(express.static(__dirname + '/../public'));
 app.post('/check/syntax', getCheckHandler(checkSyntax));
 app.post('/check/format', getCheckHandler(checkFormat));
 app.post('/check/functionality', getCheckHandler(checkFunctionality));
+app.post('/check/maintainability', getCheckHandler(checkMaintainability));
 
 var server = app.listen(3030, function() {
   var host = server.address().address;

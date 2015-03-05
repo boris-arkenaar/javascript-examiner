@@ -50,7 +50,7 @@
       },
 
       feedbackChanged: function(oldValue, newValue) {
-        if (!this.editor) {
+        if (!this.editor || ! newValue) {
           return;
         }
 
