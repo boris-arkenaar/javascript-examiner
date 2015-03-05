@@ -26,9 +26,12 @@ gulp.task('lint', function() {
 
 gulp.task('mongoDB', function() {
   child_process.exec('mongod -dbpath ./server/data/db', function(err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-  })
+    //Add exercise fixtures if none present
+    //exerciceFixtures();
+  });
+  setTimeout(function() {
+    child_process.exec('node ./server/data/exercise_fixtures.js');
+  }, 3000);
 });
 
 gulp.task('unittest', function() {
@@ -37,10 +40,7 @@ gulp.task('unittest', function() {
         .on("error", handleError));
 });
 
-//gulp.task('default', ['serve']);
-
 gulp.task('default', ['serve', 'mongoDB', 'unittest']);
-
 
 function handleError(err) {
   console.log('');
