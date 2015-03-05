@@ -26,14 +26,16 @@ function addExercises() {
     number: 1,
     name: 'Bereken oppervlakte circel',
     description: 'Schrijf een pure functie die de oppervlakte van een' +
-      'circel berekent'
+      'circel berekent',
+    functions: [{name: 'berekenOppervlakteCircle', params: [{name: 'straal'}]}]
   };
   var exercise2 = {
     chapter: 5,
     number: 2,
     name: 'Genereer is wortel van x functies',
     description: 'Schrijf een functie isWortelVan() met een numerieke ' +
-      'parameter n waarmee getest kan worden of n een worel is van g'
+      'parameter n waarmee getest kan worden of n een worel is van g',
+    functions: [{name: 'isWortelVan', params: [{name: 'n'}]}]
   };
   var exercise3 = {
     chapter: 5,
@@ -42,7 +44,9 @@ function addExercises() {
     description: 'Schrijf een functie toString() met parameter obj ' +
       'die van het object obj een string representatie terug geeft in de ' +
       'vorm: "property1" = "value van property1", "property 2" = "' +
-      'value van property2", "propertyN" = "value van propertyN" '
+      'value van property2", "propertyN" = "value van propertyN" ',
+    functions: [{name: 'toString', params: [{name: 'obj'}]}]
+
   };
   var exercises = [exercise1, exercise2, exercise3];
   var processed = 0;
