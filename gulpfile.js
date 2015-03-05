@@ -5,7 +5,7 @@ var jshint = require('gulp-jshint');
 var child_process = require('child_process');
 var mocha = require('gulp-mocha');
 
-gulp.task('serve', ['lint', 'unittest'], function() {
+gulp.task('serve', ['lint'], function() {
   nodemon({
     script: 'server/server.js',
     ext: 'html json js',
@@ -14,7 +14,7 @@ gulp.task('serve', ['lint', 'unittest'], function() {
     }
   });
 
-  gulp.watch('server/**/*.js', ['lint']);
+  gulp.watch('server/**/*.js', ['lint', 'unittest']);
 });
 
 gulp.task('lint', function() {
@@ -37,9 +37,9 @@ gulp.task('unittest', function() {
         .on("error", handleError));
 });
 
-gulp.task('default', ['serve']);
+//gulp.task('default', ['serve']);
 
-gulp.task('default', ['serve', 'mongoDB']);
+gulp.task('default', ['serve', 'mongoDB', 'unittest']);
 
 
 function handleError(err) {
