@@ -6,18 +6,17 @@
       href="../bower_components/paper-input/paper-input-decorator.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="je-code-mirror.html">
 
 <polymer-element name="je-app">
   <template>
-    <paper-input-decorator label="Your solution Javascript code" floatingLabel>
-      <paper-autogrow-textarea>
-        <textarea value="{{code}}"></textarea>
-      </paper-autogrow-textarea>
-    </paper-input-decorator>
+    <p>
+      <paper-button raised on-click="{{onSubmitClick}}">
+        Submit your solution
+      </paper-button>
+    </p>
 
-    <paper-button raised on-click="{{onSubmitClick}}">
-      Submit your solution
-    </paper-button>
+    <je-code-mirror value="{{code}}" feedback="{{feedback}}"></je-code-mirror>
 
     <core-ajax id="syntaxRequest" url="/check/syntax"
                method="post" contentType="application/json"
@@ -59,28 +58,21 @@
   <script>
     Polymer({
       publish: {
-        code: '',
+        code: 'test test test\n',
         encoded: '',
         feedback: [],
         ast: '',
         artifacts: {}
       },
-      onSubmitClick: function() {
-        console.log('Submit clicked');
 
+      onSubmitClick: function() {
         this.feedback = [];
         this.ast = '';
-
         this.encoded = utf8_to_b64(this.code);
-        console.log('Sending encoded code', typeof this.encoded, this.encoded);
-
-        var decoded = b64_to_utf8(this.encoded);
-        console.log('Decoded would be', typeof decoded, decoded);
-
-        console.log('request', this.$.syntaxRequest.go());
+        this.$.syntaxRequest.go();
       },
+
       onSyntaxResponse: function(response) {
-        console.log('syntax response', response);
         this.feedback = response.detail.response.feedback;
         this.artifacts = response.detail.response.artifacts;
         if (this.artifacts.ast) {
@@ -90,8 +82,8 @@
           this.$.formatRequest.go();
         }
       },
+
       onFormatResponse: function(response) {
-        console.log('format response', response);
         this.feedback = response.detail.response.feedback;
         this.artifacts = response.detail.response.artifacts;
 
@@ -99,8 +91,8 @@
           this.$.functionalityRequest.go();
         }
       },
+
       onFunctionalityResponse: function(response) {
-        console.log('functionality response', response);
         this.feedback = response.detail.response.feedback;
         this.artifacts = response.detail.response.artifacts;
       }

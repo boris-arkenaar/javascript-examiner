@@ -1,0 +1,31 @@
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../bower_components/core-tooltip/core-tooltip.html">
+
+<polymer-element name="je-feedback">
+  <template>
+    <style>
+      paper-shadow {
+        padding: 1em;
+        background-color: rgba(211, 211, 211, .7);
+        z-index: 10;
+        font-family: sans-serif;
+      }
+      .tip {
+        z-index: 10;
+      }
+    </style>
+    <paper-shadow z="2" if="{{show}}">
+      <content></content>
+    </paper-shadow>
+  </template>
+  <script>
+    Polymer({
+      publish: {
+        show: false,
+        toggle: function() {
+          this.show = !this.show
+        }
+      }
+    });
+  </script>
+</polymer-element>
