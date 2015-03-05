@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var connected = false;
+var Collections = require('./data/collections');
 
 /**
 * Get the testSuite corresponding with the exercise
@@ -12,19 +13,25 @@ exports.getTestSuite = function(exerciseId, callback) {
 
 /**
 * Get the exercises
+* @param {filter} filter , an object with the properties to filter on
 * @param {function} callback with form callback(err, res)
 */
-exports.getExercises = function(callback) {
+function getExercises(filter, callback) {
   if (!callback || typeof callback != 'function') {
-    throw new Error('A callback function is required as first param');
+    throw new Error('A callback function is required as second param');
   }
-  ExerciseM.find(function(err, exercises) {
+  if (!connected) {
+    return connect(null, function() {
+      getExercises(filter, callback);
+    });
+  }
+  Collections.Exercise.find(filter || {}, function(err, exercises) {
     if (err) {
       return callback(err);
     }
     callback(null, exercises);
   });
-};
+}
 
 /**
 * Insert/Update the solution in the database
@@ -57,7 +64,12 @@ exports.putExercise = function(exercise, callback) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
   }
-  var dbExercise = new ExerciseM(exercise);
+  if (!connected) {
+    return connect(null, function() {
+      putExercise(exercise, callback);
+    });
+  }
+  var dbExercise = new Collections.Exercise(exercise);
   dbExercise.save(function(err, dbExercise) {
     if (err) {
       return callback(err);
@@ -66,38 +78,37 @@ exports.putExercise = function(exercise, callback) {
   });
 };
 
-exports.isConnected = function() {
-  return connected;
-};
-
-exports.connect = function(dbName) {
+function connect(dbName, callback) {
+  if (connected) {
+    return disconnect(function() {
+      connect(dbName, callback);
+    });
+  }
   //Connect to MongoDB:
   //Keep connection alive:
   //based on http://mongoosejs.com/docs/connections.html
   //based on http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html
-  mongoose.connect('mongodb://localhost/' + dbName || 'examiner-dev',
+  var link = (dbName) ? 'mongodb://localhost/' + dbName :
+      'mongodb://localhost/examiner-dev';
+  console.log('Askie:', link);
+  mongoose.connect(link,
     {server: {socketOptions:{keepAlive: 1}}});
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-  db.once('open', function(callback) {
+  db.once('open', function(cb) {
     connected = true;
+    callback();
   });
-};
+}
 
-exports.disconnect = function(callback) {
+function disconnect(callback) {
   mongoose.disconnect();
-  callback();
-};
+  connected = false;
+  if (callback) {
+    callback();
+  }
+}
 
-//for developing only:
-exports.drop = function(name) {
-
-};
-
-var exerciseSchema = mongoose.Schema({
-  id: String,
-  //number: String,
-  description: String,
-  name: String
-});
-var ExerciseM = mongoose.model('Exercise', exerciseSchema);
+exports.connect = connect;
+exports.disconnect = disconnect;
+exports.getExercises = getExercises;

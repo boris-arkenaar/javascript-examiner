@@ -12,7 +12,7 @@ var assert = require('assert');
 //  }
 //    console.log('Exercise:');
 //    console.log(res);
-//    database.getExercises(function(err,res) {
+//    database.getExercises(null, function(err,res) {
 //      if(err) {
 //        console.log(err);
 //      }
@@ -24,20 +24,9 @@ var assert = require('assert');
 
 describe('Database', function() {
   before(function(done) {
-    database.connect('test');
-    if (!database.isConnected()) {
-      //set timeout to make sure the database is connected
-      //if connecting takes more then 1 sec, an error is thrown
-      setTimeout(function() {
-        if (!database.isConnected()) {
-          throw new Error('Can\'t connect to MongoDB');
-        } else {
-          return done();
-        }
-      }, 1000);
-    } else {
+    database.connect('test', function() {
       done();
-    }
+    });
   });
 
   after(function(done) {
@@ -45,6 +34,12 @@ describe('Database', function() {
   });
 
   describe('Exports', function() {
+    it('should export a connect function', function() {
+      assert.equal('function', typeof database.connect);
+    });
+    it('should export a disconnect function', function() {
+      assert.equal('function', typeof database.disconnect);
+    });
     it('should export a getTestSuite function', function() {
       assert.equal('function', typeof database.getTestSuite);
     });
@@ -59,9 +54,6 @@ describe('Database', function() {
     });
     it('should export a putExercise function', function() {
       assert.equal('function', typeof database.putExercise);
-    });
-    it('should export a isConnected function', function() {
-      assert.equal('function', typeof database.isConnected);
     });
   });
   describe('putExercise', function() {
@@ -83,20 +75,20 @@ describe('Database', function() {
     it('should return the exercise in the callback', function(done) {
       var exercise = {name: 'Askie', id: new Date().toString()};
       database.putExercise(exercise, function(err, res) {
-        done();
         assert.equal('object', typeof res);
         assert.equal(exercise.name, res.name);
         assert.equal('object', typeof res._id);
+        done();
       });
     });
   });
   describe('getExercises', function() {
     it('should get the exerices currently in the database', function(done) {
-      database.getExercises(function(err, res) {
+      database.getExercises(null, function(err, res) {
         var count = res.length;
         var exercise = {name: 'Askie', id: new Date().toString()};
         database.putExercise(exercise, function(err, res) {
-          database.getExercises(function(err, res2) {
+          database.getExercises(null, function(err, res2) {
             assert.equal(count + 1, res2.length);
             done();
           });
@@ -104,8 +96,38 @@ describe('Database', function() {
       });
     });
     it('should throw an error if no callback is passed', function() {
-      assert.throws(function() {database.getExercises();}, Error);
-      assert.throws(function() {database.getExercises(false);}, Error);
+      assert.throws(function() {database.getExercises(null);}, Error);
+      assert.throws(function() {database.getExercises(null, false);}, Error);
+    });
+    it('should get a particular exercise if a filter is applied',
+        function(done) {
+      var exercise = {name: new Date().toString() + Math.random()};
+      database.putExercise(exercise, function(err, res) {
+        if (err) {
+          throw err;
+        }
+        var exercise2 = {name: new Date().toString() + Math.random()};
+        database.putExercise(exercise2, function(err, res) {
+          if (err) {
+            throw err;
+          }
+          database.getExercises({name: exercise.name}, function(err, res) {
+            if (err) {
+              throw err;
+            }
+            assert.equal(res.length, 1);
+            assert.equal(res[0].name, exercise.name);
+            database.getExercises({name: exercise2.name}, function(err, res) {
+              if (err) {
+                throw err;
+              }
+              assert.equal(res.length, 1);
+              assert.equal(res[0].name, exercise2.name);
+              done();
+            });
+          });
+        });
+      });
     });
   });
 });
