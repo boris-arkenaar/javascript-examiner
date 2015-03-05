@@ -5,7 +5,7 @@ var jshint = require('gulp-jshint');
 var child_process = require('child_process');
 var mocha = require('gulp-mocha');
 
-gulp.task('serve', ['lint', 'test1', 'test2', 'test3'], function() {
+gulp.task('serve', ['lint', 'unittest'], function() {
   nodemon({
     script: 'server/server.js',
     ext: 'html json js',
@@ -31,20 +31,8 @@ gulp.task('mongoDB', function() {
   })
 });
 
-gulp.task('test1', function() {
-    return gulp.src('server/test/check-syntax-test.js', {read: false})
-        .pipe(mocha()
-        .on("error", handleError));
-});
-
-gulp.task('test2', function() {
-    return gulp.src('server/test/check-format-test.js', {read: false})
-        .pipe(mocha()
-        .on("error", handleError));
-});
-
-gulp.task('test3', function() {
-    return gulp.src('server/test/check-functionality-test.js', {read: false})
+gulp.task('unittest', function() {
+    return gulp.src('server/test/unittest.js', {read: false})
         .pipe(mocha()
         .on("error", handleError));
 });

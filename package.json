@@ -19,6 +19,8 @@
     "body-parser": "^1.11.0",
     "clone": "latest",
     "ejs": "latest",
+    "escomplex": "^1.1.0",
+    "escomplex-ast-moz": "^0.1.6",
     "esprima": "latest",
     "express": "latest",
     "jscs": "~1.8.1",
