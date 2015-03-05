@@ -10,6 +10,7 @@ var checkFormat = require('./check-format/check-format');
 var checkFunctionality = require('./check-functionality/check-functionality');
 var checkMaintainability =
     require('./check-maintainability/check-maintainability');
+var database = require('./database');
 
 var app = express();
 
@@ -22,6 +23,43 @@ app.post('/check/syntax', getCheckHandler(checkSyntax));
 app.post('/check/format', getCheckHandler(checkFormat));
 app.post('/check/functionality', getCheckHandler(checkFunctionality));
 app.post('/check/maintainability', getCheckHandler(checkMaintainability));
+
+app.get('/exercises', function(req, res) {
+  //get the exercises:
+  var filter = {};
+  if (req.query.chapter) {
+    filter.chapter = req.query.chapter;
+  }
+  if (req.query.number) {
+    filter.number = req.query.number;
+  }
+
+  database.getExercises(filter, function(err, exercises) {
+    if (err) {
+      //TODO: replace with 503 oid
+      res.send(err);
+    } else {
+      res.send(exercises);
+    }
+  });
+});
+
+//Depreciated
+// app.get('/exercise', function(req, res) {
+//   var filter = {
+//     chapter: req.query.chapter,
+//     number: req.query.number
+//   };
+//   console.log(filter);
+//   database.getExercises(filter, function(err, exercise) {
+//     if (err) {
+//       //TODO: replace with 503 oid
+//       res.send(err);
+//     } else {
+//       res.send(exercise);
+//     }
+//   });
+// });
 
 var server = app.listen(3030, function() {
   var host = server.address().address;
