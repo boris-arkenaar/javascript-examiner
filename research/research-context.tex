@@ -337,18 +337,59 @@ The extent of a variation is not always clear.
 
 As became clear, some variations can already be tackled with the techniques
 currently used in the \gls{examiner}. This might appear to be an indication of 
-the applicability of techniques to overcome the other variations. We think this is
-misleading. The variations are exhaustive, so it is by no means exceptional that
-some variations can be dealt with very easily. Besides, as long as there are
+the applicability of techniques to overcome the other variations. We think this 
+is misleading. The variations are exhaustive, so it is by no means exceptional 
+that some variations can be dealt with very easily. Besides, as long as there are
 variations that can't be recognized, it's quite hard or even impossible to make
 claims about the quality of a \gls{solution}. 
 	
 \section{Conclusion}
+When determining the research context, the primary stakeholder directed us 
+towards related projects that for great part deal with the semantics related
+evaluation of \gls{code}. This became the main topic during the literature 
+study, both before and after the consult, as the central topic for the consult
+itself. After studying \citep{gerdes2012ask} and \citep{heeren2010specifying},
+it became clear the IDEAS framework could provide us with handlebars for our
+research, and a consult with one of the stakeholders could be very fruitful. 
+After the (reflection on) the consult, we can acknowledge this supposition.
 
 
+Heeren gave us insight in the complexity of semantic analysis when it comes to
+programming languages. He directed us via \citep{keuning2014strategy} to 
+\citep{xu2003transformation}. Based on these articles, we were able to get a
+more structured insight on this complex field. This insight can help us to 
+design and develop the \gls{examiner} in a way that facilitates implementation 
+of semantic examination.
 
-% Mogelijkheden SPV
-% In hoeverre wenselijk voor dit project? Wat karakteriseerd JavaScript, en waar is het juist ook niet geschikt voor.... (rapid development vs rigourous analysis (functional math foundational programs)) 
-% Handvat voor mogelijke vervolg applicatie.
 
-% In hoeverre tools voorhanden (Uglify )
+With regards to this design and development, Heeren shared his experience and
+gave us advice. Developing in a service based and modular way enables expansion
+and adjustment in succeeding projects. As we discovered in the examination of 
+\gls{spv}, it could be beneficial to make artifacts generated with one 
+service accessible for a successive service. For example, when performing a
+syntax check, an \gls{ast} is generated. In a later project, a service
+might be added that needs an \gls{ast} in order to work. Now, we take this into
+account while developing the \gls{examiner}. Furthermore, the all ready 
+implemented code style check functionality might be used as starting point to
+overcome some of the \gls{spv}. In a more general way, these insights can be
+used in successive projects, to determine which direction to take, and in case
+of semantic analysis, offer some guidance.
+
+
+Besides the semantics related enlightenment, the practical advices and insights
+are taken into account as well. Now, we consider the usage of the 
+\gls{examiner} by actual \glspl{tutor} even more important, as the 
+implementations of the IDEAS framework based domain reasoners have shown the
+difficulty to achieve this. Related to this \"production phase mindfulness\", 
+the usage of actual student solutions to test the \gls{examiner} has gained 
+priority. 
+
+
+Before developing functionality that is able to overcome the mentioned 
+variations, thorough research on the practical demand should be performed. 
+As we move towards a production ready state for the \gls{examiner} during
+this project, we hope to pave the way (in exposing the \gls{examiner} to 
+students) to get insight in the degree to which this demand exists, and to what 
+extent this kind of examination actually benefits to the reduction of labor 
+insensitivity as to support of programming language education in general, and 
+learning \gls{js} in particular.
