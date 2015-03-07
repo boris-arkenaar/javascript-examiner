@@ -34,7 +34,7 @@ this reasoning to its foundations. Luckily, this is no unexplored domain.
 The main stakeholder of this project directed us towards the IDEAS framework, 
 % reference
 which is the core for a set of \glspl{domainreasoner}. After broadly studying 
-\citep{gerdes2012ask} and \citep{heeren2010specifying} their approaches (with 
+\citep{gerdes2012ask} and \citep{heeren2010specifying}, their approaches (with 
 regards to semantic analysis) revealed some possible relevant pointers. The 
 IDEAS framework is used to generate feedback on input from a specified domain. 
 The domain may vary, as the first article is about \gls{haskell}, whereas the 
@@ -42,8 +42,8 @@ second is about rewriting strategies for logic expressions.
 
 
 Both articles describe research projects that focus, like our project, on
-providing feedback for (academic) students. In particular, the former article
-strengthens the relevance, by putting the usability and maintainability for 
+providing feedback for (academic) students. Hence, the former article
+strengthens the relevance, in putting the usability and maintainability for 
 tutors as its central research question. Thus, the goals to our project are 
 very much alike. 
 
@@ -52,16 +52,18 @@ When considering their approach, there is one fundamental difference. The IDEAS
 framework is designed to provide stepwise feedback. Instead of reviewing a
 submitted solution as being complete, it is possible to review a partial 
 solution. This feature is deliberately no part of our project. Still, it is 
-not unthinkable that there might be successive projects to extend the \gls{
-examiner} with this feature. Like our approach, the developed domain reasoners 
-are built as prototypes at first. In order to be able to provide feedback on partial solutions, a thoughtful and sophisticated reasoning on the domain specific language semantics is required.
+not unthinkable that there might be successive projects to extend the 
+\gls{examiner} with this feature. Like our approach, the developed domain 
+reasoners are built as prototypes at first. In order to be able to provide 
+feedback on partial solutions, a thoughtful and sophisticated reasoning on the 
+domain specific language semantics is required.
 
 
 We found Heeren, B. willing to discuss with us some aspects of the IDEAS 
 project. Since our project has been presented as being the start of a new and 
-autonomous project, the scope and aim for the consult has been fairly general. 
+autonomous project, the scope and aim for the consult is fairly general. 
 We are primarily interested in the conceptual considerations and scientific 
-foundations (in particular on semantic evaluation) rather than focused on the 
+foundations (in particular on semantic evaluation) rather than focusing on the 
 pure technical specifications. Eventually, this interest led to an, from our 
 experience, interesting and fruitful consult. 
 
@@ -75,12 +77,12 @@ possible succeeding projects.
 
 \section{Consult}
 Due to the nature of our project, the outline and boundaries of this consult 
-were not clear beforehand. To prevent a lack of scope, we determined two 
+were not clear beforehand. To prevent a lack of scope, we specified two 
 central topics, namely semantic evaluation and the usability of the reasoners 
 from a tutor perspective. The meeting with Heeren was very open and fluent. We 
 did not strictly follow the order of our prepared questions during the 
 conversation. Still, at times the 
-conversation spirited away, we used the question to get back to the main 
+conversation spirited away, we used the questions to get back to the main 
 topic. Since we did not literally recorded the consult, the resume below is an 
 interpretation based on the prepared questions, the consult itself and the 
 keynotes taken.
@@ -88,13 +90,14 @@ keynotes taken.
 %Formative - Summative
 After a short introduction on the IDEAS framework and our project, the 
 discussion started with a demarcation posted by Heeren, in putting the 
-Formative approach of the IDEAS related projects against the Summative 
+Formative approach of the IDEAS related projects against the summative 
 approach of our project. This distinction is the result of the difference in 
 approach. The extent to which our project really is summative, is withheld by 
 the way it will be used eventually. %Work out argument 
 Still, it seems to be fruitful to keep this distinction alive for now, as the 
 central point (no partial solution feedback functionality in our project) is 
 striking. 
+
 
 \subsection{Semantic Evaluation} %Please review this subtitle 
 At this point, the conversation shifted to the topic of semantic evaluation.
@@ -115,23 +118,26 @@ doing this the framework as a whole) to the exhaustive set of normalization
 techniques under the name of \gls{spv}. This set, as argued in 
 \citep{xu2003transformation}, covers a complete spectrum of normalizing 
 techniques on a semantic level. These articles could be the appropriate 
-starting point if one wants to add semantic evaluation to the \gls{examiner}.
+starting point if one wants to add semantic normalization functionality 
+to the \gls{examiner}.
 
 
 After this theoretical introduction, some practical pointers were given, that
 could be helpful as well, when starting to experiment within this area. 
-Thorough analysis of (generation of) \glspl{abs} might discern opportunities 
+Thorough analysis of (generation of) \glspl{ast} might discern opportunities 
 to get rid of some variations, and as such provide a first implementation of
 normalization. %Maybe refer to next chapter 
 Furthermore, diving into techniques that deal with static comparison or static
-testing might be fruitful, as there is (semantic) reasoning required as well.
-Finally, the inverted use of plagiarism detectors could be interesting. 
-Inverted use, because the detectors are designed to deal with input that is
-ought to be different from eachother (the input to be tested is reviewed 
-against all existing documents), whereas we expect and search for similarities to, for example, match a solution with (one of the) example solutions. 
+testing might be fruitful, as there is (semantic) reasoning required in that
+area as well. Finally, the inverted use of plagiarism detectors could be 
+interesting. Inverted use, because the detectors are designed to deal with input 
+that is ought to be different from each other (the input to be tested is 
+reviewed against all existing documents), whereas we expect and search for 
+similarities to, for example, match a solution with (one of the) example 
+solutions. 
 
 
-Packed with both a theoretical introduction as practical handlebars on
+Packed with both a theoretical introduction and practical handlebars on
 Semantic Evaluation, the topic changed to our second general question.
 
 \subsection{Create an exercise}
@@ -142,181 +148,204 @@ complexity and theoretical approach, this seems reasonable. Still, it stresses
 the ability to determine the value of the approach, when comparing it to our 
 own project, as our success heavily depends on the usability by the tutors. 
 Apart from the lack of test results, Heeren did outline a possible time
-consuming factor for tutors. As it is hard or even impossible to normalize 
-algorithmic variation, and the diversity in usage of algorithms tends to
-grow when the size of an exercise and solutions extends, the only way of 
-dealing with this diversity is adding more model solutions (which implements
-different algorithms). %May be add example (Quicksort vs Bubblesort oid)
+consuming factor for tutors, when using the reasoners. As it is hard or even 
+impossible to normalize algorithmic variation, and the diversity in usage of 
+algorithms tends to grow when the size of an exercise and solutions extends, 
+the only way of dealing with this diversity is adding more model solutions 
+(which implements different algorithms). 
+%May be add example (Quicksort vs Bubblesort oid)
 As the space of possible variation grows, the need
 for model solutions grows, with a factor tending to exponential. This can 
-quite quickly stress of reducing the tutors labor intensity, which is one 
-of our main goals. Therefor, it's quite important to keep this goal in mind
-when developing the examiner, as new features might have unwanted implications 
-to the time and efforts required to successfully deploy the \gls{examiner} or
-new \gls{exercises}.
+quite quickly stress the reduction of the tutors labor intensity, which is one 
+of our main goals. Therefore, it's quite important to keep this goal in mind
+while designing and developing the examiner, as new features might have 
+unwanted implications to the time and efforts required to successfully deploy 
+the \gls{examiner} or new \glspl{exercise}.
 
 \subsection{Implentation Pointers}
-During the consult, we recognized Heeren had gained a lot of experience in the
-execution of the research. To learn from him, we conclued the consult by 
+During the consult, we recognized Heeren had gained a lot of research and 
+development experience. To learn from him, we concluded the consult by 
 asking him what pointers we should take in mind while developing the 
 \gls{examiner}. According to him, we should adapt an approach which allows for 
 easy expanding and adapting. As our project might be only a first step in a
 series of \gls{examiner} related projects, this characteristic is of great 
 importance. He advised us to develop service based or at least in a modular 
-way. On top of this, he pointed to the importance of relevant test data. It
+way. On top of this, he stressed the importance of relevant test data. It
 could be a pitfall to only use or own written exercises and solutions, because
 it's not unlikely that solutions from other students are fundamentally 
-different when it comes to the means of properly analyzing and reviewing.
+different when it comes to the means of properly analysis and review.
 
 \subsection{Resume}
-Enthusiastic and enlightened, we thanked Heeren for his help and contribution.
-While reviewing the consult, we recognized our flaw in understanding the 
-problems related to semantic equality and \gls{spv} more deeply. Even if we 
+Enthusiastic and enlightened, we thank Heeren for his help and contribution.
+While reviewing the consult, we recognized our shortcomings in the understanding
+of problems related to semantic equality and \gls{spv}. Even if we 
 don't implement related functionality during this project, it's still required
 to grasp the fundamentals in order to be able to design and develop an 
-appropriate foundation to actually implement functionality related to semantic
-evaluation. As a result, a brief analysis of the \gls{spv} is added. 
+appropriate foundation that is enabled to actually implement functionality 
+related to semantic evaluation. As a result, the \gls{spv} has been briefly
+analyzed and the results are included in the next section.
 
 \section{Semantic Preserving Variations}
+\gls{spv}, as outlined in \citep{xu2003transformation}, are the result of code
+analysis from a conceptual point of view. As the researchers themselves were
+actively participating in the discourse of programming education, their goal
+was related to ours. Their approach was quite different. This may have to do
+with the more scientifically centered base, but its likely this also has to do
+with the fact that there were not yet as much relevant research results 
+available in the late nineties. 
 
-% Toetsen aan Javascript in het algemeen
+The article begins with the positioning their approach, in 
+demarcating the used technique from other code analysis techniques. These other
+approaches are:
+\begin{description}
+	\item[Source to Specification] This approach is consistent with the (at that
+	time) research on program understanding. The technique aims at matching a
+	\gls{solution} with corresponding (specific to the related exercise) 
+	specifications or with general specifications like:
+	\begin{itemize}
+		\item Structures
+		\item Schemas
+		\item Plans
+		\item Assertions
+		\item Processes
+	\end{itemize} 
+	\item[Specification to Specification] In these approach, the \gls{solution} 
+	itself is first converted to a specification, and this specification is 
+	compared with an model specification. According to the article, the usage
+	of this approach is limited to only a few programming languages.
+	\item[Source to Source] This approach is the base for the \gls{spv}. It aims
+	at comparing the student \{solution} with one or more model \{solution}(s).
+	To enable comparison, the \{code} is transformed from the actual code to
+	\glspl{ast} and program dependence graphs. These graphs are like formal 
+	dependence graphs, without being a formal specification.
+\end{description}
+According to the Source to Source approach, model solutions are used as 
+instrument to examine student solutions. In order to be able to do so, both 
+solutions are transformed. In general, these transformations are the key to
+the success of this approach, so the article describes the distinct 
+transformations techniques in great detail. As we have no intention to implement
+these techniques in the current project, we will only focus here on the 
+conceptual results of these transformation. The actual results are the 
+elimination of distinctions in the solutions, while maintaining the semantic
+integrity of the code. The conceptual result are solutions that are adjusted in 
+a manner they can be compared. In what follows, an overview of the
+transformations is given, as much as possible accompanied with examples that 
+correspond with \gls{js-code}. 
 
-% ????? In hoeverre dit uitwerken ????? Vraag voor Annemiek. ????? Met name 
-% gezien het praktische uitgangspunt van Harry en Sylvia.
+%Eventueel hier wel een paragraaf over de technieken achter de transformaties:
 
+%  Program transformations:
 
-% From Xu and Chee, explained with the application of IDEAS based reasoner 
-% Hieke Keuning
-% 1 	Different algorithms
-% 2 	Different source code formats
-% 3 	Different syntax forms
-% 4 	Different variable declarations
-% 5 	Different algebraic expression forms 6 Different control structures
-% 7 	Different Boolean expression forms 8 Different temporary variables
-% 9 	Different redundant statements
-% 10 	Different statement orders
-% 11 	Different variable names
-% 12 	Different program logical structures 
-% 13 	Different statements
+ %    Basic: (SPV3,4,5,6,7)
 
-% Examples:
-% SPV1 - Different algorithms (i.e. sorting)
-% 	SPV2 - Code format (spaces, indentation, comments)
-% 	SPV3 - Syntax forms (if(i) {x = y} else{x = z} or x = (i) ? y : z)
-% 	SPV4 - Variable declaration (method / block)
-% 	SPV5 - Algebraic expression forms (+ vs --)
-% 	SPV6 - Control structures (branching, iterating, traversing)
-% 	SPV7 - Boolean expression forms (x == false vs !x (SPV3))
-% 	SPV8 - Temporary variables
-% 	SPV9 - Redundancy / Code for debugging
-% 	SPV10 - Different (statement) order
-% 	SPV11 - Diferenent variable names (parameters, functions)
-% 	SPV12 - Different logical structures
-% 	SPV13 - Different statements
-
-% three forms of representation:
-
-% 	1 - Source Code
-% 	2 - AST
-% 	3 - Augmented Object-oriented program dependence graph (AOPDG)
-
-% Source-to-specification approach:
-% 	-Consistent with Research on program understanding
-% 	-Match student code with templates with corresponding specifications OR
-% 	-Match student code with specifications like:
-% 		*structures
-% 		*schemata
-% 		*plans
-% 		*assertions
-% 		*processes
-% 	-Moeilijk generaliseren voor alle typen programmeertalen
-
-% Specification-to-specification approach:
-% 	-Derive formal specifications from student and reference code
-% 	-Not possible for many languages
-
-% Source-to-Source approach:
-% 	-performs automatic reasoning at the level of program dependence graphs
-% 		(FDG: semantic representation for programs, but no formal specification)
-
-% The Xu and Chee approach:
-% 	-Model programs are used as input to the diagnosis of student programs. 
-% 	-Comparing student program with model program after standardization 
-% (by program transformations)
-% 	-transformation-based diagnosis
-% 	-Simpler to make use of in practice
-
-% 	-Program standardization and semantic-level program matching
-% 	-No intentional checks
-	% -Intraprocedural diagnosis method (class hierarchies and inter-procedural 
-	% variations are not included)
-% 	-Different model programs used to diagnose students program
-% 	-correct = being equivalent after standardization
-% 	-semantic differences indicate errors
-
-% 	-Computational Semantics vs Operational Semantics
+ %    -Statement separation (remove cascaded messages i.e. var a, b, c = 5);
+ %    -Temporary declaration standardization (declaratie variabelen op bepaalde plaats);
+ %    -Algebraic expression standardization (rules voor notatie berekeningen (normaalvorm));
+ %    -Controle structure standardization (??);
+ %    -Boolean expression standardization (rules voor notatie boolean expressies !x --> x == false);
 
 
-% 	-Standardize programs (representation)
-% 	-Match them
+ %    Adv:
+
+ %    -Forward substitution
+ %    -Dead code removal
+
+ %    3 criteria:
+
+ %    -Applicable to programs at source code level
+ %    -Covergant (avoid cyclic triggering)
+ %    -Intra-procedural (as limited to intra-procedural)
 
 
-
- %  Program transformations:
-
- %  	Basic: (SPV3,4,5,6,7)
-
- %  	-Statement separation	(remove cascaded messages i.e. var a, b, c = 5);
- %  	-Temporary declaration standardization (declaratie variabelen op bepaalde plaats);
- %  	-Algebraic expression standardization (rules voor notatie berekeningen (normaalvorm));
- %  	-Controle structure standardization (??);
- %  	-Boolean expression standardization (rules voor notatie boolean expressies !x --> x == false);
-
-
- %  	Adv:
-
- %  	-Forward substitution
- %  	-Dead code removal
-
- %  	3 criteria:
-
- %  	-Applicable to programs at source code level
- %  	-Covergant (avoid cyclic triggering)
- %  	-Intra-procedural (as limited to intra-procedural)
-
-
+%  Program transformations:
 
  %  AOFFG (AUGMENTED Object-Oriented Flow Graph) Program Respresentation
 
-	% -PRG: Program Representation Graphs (Static compile-time semantics) (OFG: Object-oriented Flow Graph for OO)
-	% 	*SSA: Static-Single-Assignment
-	% 	*PDG: Program Dependence Graphs
-	% 		*CDS: Control Dependence Subgraph
-	% 		*DDS: Data Dependence Subgraph
-	% 	*OPDG: Object-oriented PDG
-	%		*PDG
-	% 		*ODS: Object Dependence Subgraph
-	% 		*ODG: Object based dependence graph		
-	% 		*
-	% 
-	% 	*AOPDG (Augmented Object-oriented Program Dependence Graph) = AOCDS (Augmented Object-oriented Control Dependence Subgraphs) + AODDS (Augmented Object-oriented Data Dependence Subgraphs)(contstructed from AOCDS)
-	%  	
-	% 	
-	% 
-	% 	
+  % -PRG: Program Representation Graphs (Static compile-time semantics) (OFG: Object-oriented Flow Graph for OO)
+  %   *SSA: Static-Single-Assignment
+  %   *PDG: Program Dependence Graphs
+  %     *CDS: Control Dependence Subgraph
+  %     *DDS: Data Dependence Subgraph
+  %   *OPDG: Object-oriented PDG
+  %   *PDG
+  %     *ODS: Object Dependence Subgraph
+  %     *ODG: Object based dependence graph   
+  %     *
+  % 
+  %   *AOPDG (Augmented Object-oriented Program Dependence Graph) = AOCDS (Augmented Object-oriented Control Dependence Subgraphs) + AODDS (Augmented Object-oriented Data Dependence Subgraphs)(contstructed from AOCDS)
+  %   
 
 % Program comparison
 
-	% Partitioned graphs: if vertexSP and vertextMP in same set: statement in vertices semantically equivalent
-	% 3 result maps: equivalent map, textual difference map, unmatched map
-	% 
+  % Partitioned graphs: if vertexSP and vertextMP in same set: statement in vertices semantically equivalent
+  % 3 result maps: equivalent map, textual difference map, unmatched map
+  % 
 
 % Error detection
 
-	% Problem: Operational semantic differences rather than computational semantic differences
-		% --> solution: variation learning process to detect unsystematic semantics-preserving variations
+  % Problem: Operational semantic differences rather than computational semantic differences
+    % --> solution: variation learning process to detect unsystematic semantics-preserving variations
+
+\subsection{Variations} %TODO: The code examples within this chapter should be
+% examined and put in 'blocks'.
+The are thirteen distinguished \gls{spv}. All variations will be mentioned and
+briefly described, with reference to possible usage in \gls{js-code}. 
+The extent of a variation is not always clear. 
+\begin{description}
+	\item[Algorithms] This is alike within each programming language. For example,
+	when there is sorting required, there are several algorithms that can be 
+	applied.
+	\item[Source code formats] As \gls{js} is a very tolerant language, the
+	code formats can differ a many levels. For example, the usage of space can be
+	omitted at many places: if( or if ( does compute the same thing, another
+	striking example is the non-committal usage of \";\" to mark the end
+	of a statement. In our project we already implemented a code style checker, 
+	which enforces a particular code format. Another approach to bypass this 
+	variation is to parse an \gls{ast}.
+	\item[Syntax forms] The tolerance of \gls{js} is relevant for this variation
+	type as well. Writing a simple conditional assignment can be done in many 
+	ways:
+	\begin{itemize}
+		\item if(i) x = i; else x = 0;
+		\item if(i) { x = i;} else { x = 0;}
+		\item x = (i) ? x = i : x = 0;
+		\item x = i || 0;
+	\end{itemize}
+	\item[Variable declarations] For the declaration of variables there are 
+	several options. Usage of the keyword \"var\" or not (which declares a global 
+	var, declaring variables in a sequence (i.e var a, b, c), using the keyword 
+	\"const\" for constants.
+	\item[Temporary variables] Temporary variables can be declared when used, but
+	also in a \"parent\" block, and then reassigned when needed. As mentioned in
+	the former item, variables declared without the \"var\" keyword, can be used
+	anywhere in the program, even if declared in a block.
+	\item[Algebraic expression forms] This is much alike for all programming
+	languages, in any case they share the same operators. A very simple example is
+	writing -- against +.
+	\item[Redundant statements] Statements that are identical have the same result
+	when executing the code.  
+	\item[Order statements] The order of statements is in many case arbitrary, for
+	as long they are not dependent on each other in between.
+	\item[Naming variables] As names of variables can be seen as labels, they do
+	not determine the execution. In case of \gls{js}, it's possible to use an
+	existing module called Uglify, which replaces variable names with externally
+	specified ones.
+	\item[Logical structure] %TODO: Add description + example
+	\item[Statements]	%TODO: Add description + example
+\end{description}
+
+
+As became clear, some variations can already be tackled with the techniques
+currently used in the \gls{examiner}. This might appear to be an indication of 
+the applicability of techniques to overcome the other variations. We think this is
+misleading. The variations are exhaustive, so it is by no means exceptional that
+some variations can be dealt with very easily. Besides, as long as there are
+variations that can't be recognized, it's quite hard or even impossible to make
+claims about the quality of a \gls{solution}. 
 	
 \section{Conclusion}
+
+
 
 % Mogelijkheden SPV
 % In hoeverre wenselijk voor dit project? Wat karakteriseerd JavaScript, en waar is het juist ook niet geschikt voor.... (rapid development vs rigourous analysis (functional math foundational programs)) 
