@@ -3,7 +3,8 @@
 <link rel="import" href="../bower_components/core-icons/core-icons.html">
 <link rel="import" href="je-feedback.html">
 
-<polymer-element name="je-code-mirror">
+<polymer-element name="je-code-mirror"
+                 attributes="value feedback globalFeedback">
   <template>
     <style>
       div.feedback {
@@ -28,15 +29,14 @@
   <script>
 
     Polymer({
-      publish: {
-        value: '',
-        feedback: [],
-        globalFeedback: ''
+      created: function() {
+        this.value = '';
+        this.feedback = [];
+        this.globalFeedback = '';
+        this.editor = null;
+        this.widgets = [];
+        this.markings = [];
       },
-
-      editor: null,
-      widgets: [],
-      markings: [],
 
       domReady: function() {
         this.editor = CodeMirror.fromTextArea(this.$.inputField, {
