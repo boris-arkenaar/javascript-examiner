@@ -2,6 +2,7 @@ var assert = require('assert');
 var fs = require('fs');
 var Objects = require('../objects');
 var uuid = require('node-uuid');
+var mapper = require('../feedback-mapper');
 
 //replace with database call:
 var testFunction = {
@@ -15,6 +16,7 @@ var testFunction = {
       feedback.name = 'Test "' + this.functionName + '" failed';
       feedback.description = err.name + ': ' + err.message;
       feedback.addressee = 'student';
+      feedback = mapper('check-functionality', feedback);
       this.feedback = feedback;
     }
   }
