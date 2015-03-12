@@ -39,7 +39,7 @@ function addExercises() {
   };
   var exercise3 = {
     chapter: 5,
-    number: 3,
+    number: 4,
     name: 'Object naar string',
     description: 'Schrijf een functie toString() met parameter obj ' +
       'die van het object obj een string representatie terug geeft in de ' +
@@ -48,7 +48,16 @@ function addExercises() {
     functions: [{name: 'toString', params: [{name: 'obj'}]}]
 
   };
-  var exercises = [exercise1, exercise2, exercise3];
+  var exercise4 = {
+    chapter: 5,
+    number: 5,
+    name: 'Bereken Bmi',
+    description: 'Schrijf een functie calcBMI() met parameters lengte ' +
+      'en gewicht, die het BMI teruggeeft.',
+    functions: [{name: 'calcBMI',
+    params: [{name: 'lengte'}, {name: 'gewicht'}]}]
+  };
+  var exercises = [exercise1, exercise2, exercise3, exercise4];
   var processed = 0;
   exercises.forEach(function(exercise) {
     database.putExercise(exercise, function(err, res) {
