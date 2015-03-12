@@ -1,4 +1,5 @@
 var Objects = require('../objects');
+var mapper = require('../feedback-mapper');
 
 //Variables for parsing:
 var esprima = require('esprima');
@@ -27,6 +28,7 @@ module.exports = function(solution, callback) {
       feedback.line = err.lineNumber;
       feedback.column = err.column;
       feedback.addressee = 'student';
+      feedback = mapper('check-syntax', feedback);
       callback(null, [feedback]);
     } else {
       console.log('sucess: Check-syntax');
