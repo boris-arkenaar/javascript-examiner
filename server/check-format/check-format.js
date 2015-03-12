@@ -1,6 +1,7 @@
 var Checker = require('jscs');
 var loadConfigFile = require('jscs/lib/cli-config');
 var Objects = require('../objects');
+var mapper = require('../feedback-mapper');
 
 module.exports = function(code, cb) {
   var checker = new Checker();
@@ -20,6 +21,7 @@ module.exports = function(code, cb) {
       feedback.description = err.message;
       feedback.line = err.line;
       feedback.column = err.column;
+      feedback = mapper('check-format', feedback);
       feedbackList.push(feedback);
     });
   } catch (err) {
