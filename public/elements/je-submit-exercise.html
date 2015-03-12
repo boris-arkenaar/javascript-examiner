@@ -1,0 +1,159 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import"
+      href="../bower_components/paper-input/paper-autogrow-textarea.html">
+<link rel="import"
+      href="../bower_components/paper-input/paper-input-decorator.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="je-code-mirror.html">
+<link rel="import" href="je-exercises.html">
+
+<polymer-element name="je-submit-exercise" attributes="exerciseId">
+  <template>
+    <core-ajax id="exerciseRequest" url="/exercises?number={{exerciseId}}"
+               method="get" contentType="application/json"
+               handleAs="json"
+               on-core-response="{{onExerciseResponse}}"></core-ajax>
+
+    <h1>{{exercise.name}}</h1>
+    <p>{{exercise.description}}</p>
+
+    <p>
+      <paper-button raised on-click="{{onSubmitClick}}">
+        Submit your solution
+      </paper-button>
+    </p>
+
+    <je-code-mirror value="{{code}}" feedback="{{feedback}}"></je-code-mirror>
+
+    <core-ajax id="syntaxRequest" url="/check/syntax"
+               method="post" contentType="application/json"
+               handleAs="json" body='{"code": "{{encoded}}"}'
+               on-core-response="{{onSyntaxResponse}}"></core-ajax>
+
+    <core-ajax id="formatRequest" url="/check/format"
+               method="post" contentType="application/json"
+               handleAs="json" body='{"code": "{{encoded}}"}'
+               on-core-response="{{onFormatResponse}}"></core-ajax>
+
+    <core-ajax id="functionalityRequest" url="/check/functionality"
+               method="post" contentType="application/json"
+               handleAs="json" body='{"code": "{{encoded}}"}'
+               on-core-response="{{onFunctionalityResponse}}"></core-ajax>
+
+    <core-ajax id="maintainabilityRequest" url="/check/maintainability"
+               method="post" contentType="application/json"
+               handleAs="json" body='{"code": "{{encoded}}"}'
+               on-core-response="{{onMaintainabilityResponse}}"></core-ajax>
+
+    <template if="{{feedback.length}}">
+      <h1>Feedback</h1>
+      <template repeat="{{item in feedback}}">
+        <h2>{{item.name}}</h2>
+        <div>
+          <span>line: {{item.line}}</span>
+          <span>column: {{item.column}}</span>
+        </div>
+        <p>{{item.description}}</p>
+      </template>
+    </template>
+
+    <template if="{{artifactsString}}" id="artifacts">
+      <h1>Artifacts</h1>
+      <paper-input-decorator label="The artifacts that came with the feedback"
+                             floatingLabel >
+        <paper-autogrow-textarea id="astAutoTextArea" rows="20">
+          <textarea id="astTextArea" value="{{artifactsString}}"></textarea>
+        </paper-autogrow-textarea>
+      </paper-input-decorator>
+    </template>
+
+    <template if="{{ast}}" id="ast">
+      <h1>Abstract Syntax Tree</h1>
+      <paper-input-decorator label="The abstract syntax tree of your code"
+                             floatingLabel >
+        <paper-autogrow-textarea id="astAutoTextArea" rows="20">
+          <textarea id="astTextArea" value="{{ast}}"></textarea>
+        </paper-autogrow-textarea>
+      </paper-input-decorator>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      exerciseId: 0,
+
+      created: function() {
+        this.code = 'test test test\n';
+        this.encoded = '';
+        this.feedback = [];
+        this.ast = '';
+        this.artifacts = {};
+        this.artifactsString = '';
+      },
+
+      attached: function() {
+        this.$.exerciseRequest.go();
+      },
+
+      onExerciseResponse: function(response) {
+        this.exercise = response.detail.response[0];
+      },
+
+      artifactsChanged: function(oldValue, newValue) {
+        this.artifactsString = JSON.stringify(newValue, null, 2);
+      },
+
+      onSubmitClick: function() {
+        this.feedback = [];
+        this.ast = '';
+        this.encoded = utf8_to_b64(this.code);
+        this.$.syntaxRequest.go();
+      },
+
+      onSyntaxResponse: function(response) {
+        this.feedback = response.detail.response.feedback;
+        this.artifacts = response.detail.response.artifacts;
+        if (this.artifacts.ast) {
+          this.ast = JSON.stringify(this.artifacts.ast, null, 2);
+        }
+        if (!this.feedback.length) {
+          this.$.formatRequest.go();
+        }
+      },
+
+      onFormatResponse: function(response) {
+        this.feedback = response.detail.response.feedback;
+        this.artifacts = response.detail.response.artifacts;
+
+        if (!this.feedback.length) {
+          this.$.functionalityRequest.go();
+        }
+      },
+
+      onFunctionalityResponse: function(response) {
+        this.feedback = response.detail.response.feedback;
+        this.artifacts = response.detail.response.artifacts;
+
+        if (!this.feedback.length) {
+          this.$.maintainabilityRequest.go();
+        }
+      },
+
+      onMaintainabilityResponse: function(response) {
+        this.feedback = response.detail.response.feedback;
+        this.artifacts = response.detail.response.artifacts;
+      }
+    });
+
+    /**
+     * Source: https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64.btoa
+     */
+    function utf8_to_b64(str) {
+      return window.btoa(unescape(encodeURIComponent(str)));
+    }
+    function b64_to_utf8(str) {
+      return decodeURIComponent(escape(window.atob(str)));
+    }
+  </script>
+</polymer-element>
