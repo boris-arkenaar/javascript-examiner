@@ -8,12 +8,10 @@ module.exports = function(code, cb) {
   checker.registerDefaultRules();
   checker.configure(loadConfigFile.load(__dirname + '/jscs-config.json'));
 
-  var strippedCode = ignoreComments(code);
-  //console.log(strippedCode);
   var feedbackList = [];
   //var result = [];
   try {
-    var errors = checker.checkString(strippedCode);
+    var errors = checker.checkString(code);
     errors.getErrorList().forEach(function(err) {
       var feedback = new Objects.Feedback();
       feedback.addressee = 'student';
@@ -33,11 +31,11 @@ module.exports = function(code, cb) {
 };
 
 function ignoreComments(plainCode) {
-  console.log(typeof plainCode);
-  console.log(plainCode.indexOf('/*'));
-  plainCode = plainCode.replace('/*', '/* jscs: disable')
-      .replace('*/', '*/ \n //jscs: enable');
-  console.log(plainCode);
+  // console.log(typeof plainCode);
+  // console.log(plainCode.indexOf('/*'));
+  // plainCode = plainCode.replace('/*', '/* jscs: disable')
+  //     .replace('*/', '*/ \n //jscs: enable');
+  // console.log(plainCode);
   return plainCode;
 }
 
