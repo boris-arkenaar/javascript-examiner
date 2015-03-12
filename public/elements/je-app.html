@@ -1,140 +1,89 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
 <link rel="import"
-      href="../bower_components/paper-input/paper-autogrow-textarea.html">
+      href="../bower_components/core-scaffold/core-scaffold.html">
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/core-menu/core-menu.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import"
-      href="../bower_components/paper-input/paper-input-decorator.html">
-<link rel="import" href="../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
-<link rel="import" href="je-code-mirror.html">
+      href="../bower_components/core-animated-pages/core-animated-pages.html">
+<link rel="import"
+      href="../bower_components/core-animated-pages/transitions/slide-from-right.html">
+<link rel="import" href="../bower_components/app-router/app-router.html">
+<link rel="import" href="../elements/je-exercises.html">
+<link rel="import" href="../elements/je-submit-exercise.html">
 
 <polymer-element name="je-app">
   <template>
-    <p>
-      <paper-button raised on-click="{{onSubmitClick}}">
-        Submit your solution
-      </paper-button>
-    </p>
+    <style>
+      .page {
+        overflow: scroll;
+      }
+      .page {
+        padding: 1em 3em;
+        background-color: white;
+      }
+      core-menu {
+        color: #01579b;
+        margin: 10px 0 0 0;
+      }
+      core-menu > paper-item {
+        transition: all 300ms ease-in-out;
+      }
+      paper-item a {
+        text-decoration: none;
+        margin-left: 5px;
+      }
+      core-menu > paper-item.core-selected {
+        background: #e1f5fe;
+      }
+      @media all and (max-width: 480px) {
+        core-animated-pages {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    </style>
 
-    <je-code-mirror value="{{code}}" feedback="{{feedback}}"></je-code-mirror>
+    <flatiron-director route="{{route}}" autoHash></flatiron-director>
 
-    <core-ajax id="syntaxRequest" url="/check/syntax"
-               method="post" contentType="application/json"
-               handleAs="json" body='{"code": "{{encoded}}"}'
-               on-core-response="{{onSyntaxResponse}}"></core-ajax>
+    <core-scaffold>
+      <nav>
+        <core-toolbar><span>Javascript Examiner</span></core-toolbar>
+        <core-menu selected="{{route}">
+          <template repeat="{{page in pages}}">
+            <paper-item noink>
+              <core-icon icon="label-outline"></core-icon>
+              <a href="#/{{page.hash}}">{{page.name}}</a>
+            </paper-item>
+          </template>
+        </core-menu>
+      </nav>
 
-    <core-ajax id="formatRequest" url="/check/format"
-               method="post" contentType="application/json"
-               handleAs="json" body='{"code": "{{encoded}}"}'
-               on-core-response="{{onFormatResponse}}"></core-ajax>
+      <core-toolbar tool flex>
+        <div flex>Application</div>
+      </core-toolbar>
 
-    <core-ajax id="functionalityRequest" url="/check/functionality"
-               method="post" contentType="application/json"
-               handleAs="json" body='{"code": "{{encoded}}"}'
-               on-core-response="{{onFunctionalityResponse}}"></core-ajax>
-
-    <core-ajax id="maintainabilityRequest" url="/check/maintainability"
-               method="post" contentType="application/json"
-               handleAs="json" body='{"code": "{{encoded}}"}'
-               on-core-response="{{onMaintainabilityResponse}}"></core-ajax>
-
-    <template if="{{feedback.length}}">
-      <h1>Feedback</h1>
-      <template repeat="{{item in feedback}}">
-        <h2>{{item.name}}</h2>
-        <div>
-          <span>line: {{item.line}}</span>
-          <span>column: {{item.column}}</span>
-        </div>
-        <p>{{item.description}}</p>
-      </template>
-    </template>
-
-    <template if="{{artifactsString}}" id="artifacts">
-      <h1>Artifacts</h1>
-      <paper-input-decorator label="The artifacts that came with the feedback"
-                             floatingLabel >
-        <paper-autogrow-textarea id="astAutoTextArea" rows="20">
-          <textarea id="astTextArea" value="{{artifactsString}}"></textarea>
-        </paper-autogrow-textarea>
-      </paper-input-decorator>
-    </template>
-
-    <template if="{{ast}}" id="ast">
-      <h1>Abstract Syntax Tree</h1>
-      <paper-input-decorator label="The abstract syntax tree of your code"
-                             floatingLabel >
-        <paper-autogrow-textarea id="astAutoTextArea" rows="20">
-          <textarea id="astTextArea" value="{{ast}}"></textarea>
-        </paper-autogrow-textarea>
-      </paper-input-decorator>
-    </template>
+      <div class="page" horizontal center-center fit>
+        <app-router>
+          <app-route path="/exercises" element="je-exercises"></app-route>
+          <app-route path="/exercises/:exerciseId"
+                     element="je-submit-exercise"></app-route>
+          <app-route path="*" redirect="/exercises"></app-route>
+        </app-router>
+      </div>
+    </core-scaffold>
   </template>
   <script>
     Polymer({
-      publish: {
-        code: 'test test test\n',
-        encoded: '',
-        feedback: [],
-        ast: '',
-        artifacts: {},
-        artifactsString: ''
-      },
-
-      artifactsChanged: function(oldValue, newValue) {
-        this.artifactsString = JSON.stringify(newValue, null, 2);
-      },
-
-      onSubmitClick: function() {
-        this.feedback = [];
-        this.ast = '';
-        this.encoded = utf8_to_b64(this.code);
-        this.$.syntaxRequest.go();
-      },
-
-      onSyntaxResponse: function(response) {
-        this.feedback = response.detail.response.feedback;
-        this.artifacts = response.detail.response.artifacts;
-        if (this.artifacts.ast) {
-          this.ast = JSON.stringify(this.artifacts.ast, null, 2);
-        }
-        if (!this.feedback.length) {
-          this.$.formatRequest.go();
-        }
-      },
-
-      onFormatResponse: function(response) {
-        this.feedback = response.detail.response.feedback;
-        this.artifacts = response.detail.response.artifacts;
-
-        if (!this.feedback.length) {
-          this.$.functionalityRequest.go();
-        }
-      },
-
-      onFunctionalityResponse: function(response) {
-        this.feedback = response.detail.response.feedback;
-        this.artifacts = response.detail.response.artifacts;
-
-        if (!this.feedback.length) {
-          this.$.maintainabilityRequest.go();
-        }
-      },
-
-      onMaintainabilityResponse: function(response) {
-        this.feedback = response.detail.response.feedback;
-        this.artifacts = response.detail.response.artifacts;
+      ready: function() {
+        this.pages = [
+          {
+            name: 'Exercises',
+            hash: 'exercises'
+          }
+        ];
       }
     });
-
-    /**
-     * Source: https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64.btoa
-     */
-    function utf8_to_b64(str) {
-      return window.btoa(unescape(encodeURIComponent(str)));
-    }
-    function b64_to_utf8(str) {
-      return decodeURIComponent(escape(window.atob(str)));
-    }
   </script>
 </polymer-element>

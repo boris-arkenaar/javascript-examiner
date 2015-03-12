@@ -1,0 +1,43 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+
+<polymer-element name="je-exercises">
+  <template>
+    <core-ajax id="exercisesRequest" url="/exercises"
+               method="get" contentType="application/json"
+               handleAs="json"
+               on-core-response="{{onExercisesResponse}}"></core-ajax>
+
+    <h1>Exercises</h1>
+
+    <template if="{{exercises.length}}">
+      <ul>
+        <template repeat="{{exercise in exercises}}">
+          <li>
+            <a href="#/exercises/{{exercise.number}}">{{exercise.name}}</a>
+          </li>
+        </template>
+      </ul>
+    </template>
+    <template if="{{!exercises.length}}">
+      <p>There are no exercises available.</p>
+    </template>
+
+  </template>
+  <script>
+    Polymer({
+      created: function() {
+        this.exercises = [];
+      },
+
+      ready: function() {
+        this.$.exercisesRequest.go();
+      },
+
+      onExercisesResponse: function(response) {
+        this.exercises = response.detail.response;
+      },
+    });
+  </script>
+</polymer-element>
