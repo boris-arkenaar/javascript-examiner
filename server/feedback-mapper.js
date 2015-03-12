@@ -13,7 +13,7 @@ module.exports = function(check, feedback) {
       break;
     case 'check-functionality':
       break;
-    }
+  }
   feedback.description = feedback.description.replace('Line', 'Regel');
   return feedback;
 };

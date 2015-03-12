@@ -37,7 +37,7 @@ gulp.task('mongoDB', function() {
 
 gulp.task('unittest', function() {
     gulp.src('server/**/*.test.js', {read: false})
-        .pipe(mocha())
+        .pipe(mocha({reporter: 'nyan'}))
         .on("error", handleError);
 });
 

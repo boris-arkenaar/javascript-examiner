@@ -2,6 +2,16 @@ var mongoose = require('mongoose');
 var connected = false;
 var Collections = require('./data/collections');
 
+exports.connect = connect;
+exports.disconnect = disconnect;
+
+/**
+* Get the exercises
+* @param {filter} filter , an object with the properties to filter on
+* @param {function} callback with form callback(err, res)
+*/
+exports.getExercises = getExercises;
+
 /**
 * Get the testSuite corresponding with the exercise
 * @param {string} exerciseId the identifier of the exercise
@@ -11,11 +21,6 @@ exports.getTestSuite = function(exerciseId, callback) {
 
 };
 
-/**
-* Get the exercises
-* @param {filter} filter , an object with the properties to filter on
-* @param {function} callback with form callback(err, res)
-*/
 function getExercises(filter, callback) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
@@ -90,7 +95,6 @@ function connect(dbName, callback) {
   //based on http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html
   var link = (dbName) ? 'mongodb://localhost/' + dbName :
       'mongodb://localhost/examiner-dev';
-  console.log('Askie:', link);
   mongoose.connect(link,
     {server: {socketOptions:{keepAlive: 1}}});
   var db = mongoose.connection;
@@ -101,6 +105,7 @@ function connect(dbName, callback) {
   });
 }
 
+//Helper to disconnect from MongoDB
 function disconnect(callback) {
   mongoose.disconnect();
   connected = false;
@@ -108,7 +113,3 @@ function disconnect(callback) {
     callback();
   }
 }
-
-exports.connect = connect;
-exports.disconnect = disconnect;
-exports.getExercises = getExercises;
