@@ -98,6 +98,7 @@
 
       onExerciseResponse: function(response) {
         this.exercise = response.detail.response[0];
+        console.log(this.exercise);
       },
 
       artifactsChanged: function(oldValue, newValue) {
