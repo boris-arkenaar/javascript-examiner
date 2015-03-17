@@ -10,10 +10,9 @@ Parameters:
            (minimum 75 cm, maximum 225 cm)
   gewicht: lichaamsgewicht in kg
            (minimum 30 kg, maximum 250 kg)
-       
+
 Returns: de BMI-indexThrows exeption als een of meer parameters een waarde
 hebben buiten aangegeven interval
-       
 */
 
 function calcBMI(lengte, gewicht) {
