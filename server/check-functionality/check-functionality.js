@@ -29,9 +29,9 @@ var exercise = {
   testSuite: [testFunction]
 };
 
-module.exports = function(code, callback) {
+module.exports = function(submitted, callback) {
   var solution = {
-    plain: code
+    plain: submitted.code
   };
   testFunction.feedback = null;
   //get the exercise:
