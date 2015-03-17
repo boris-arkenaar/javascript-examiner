@@ -1,13 +1,53 @@
 \section{Use Cases}
 
 \subsection{Use Case Diagram}
-\includegraphics[scale=1.2]{diagrams-images/use-case-diagram}
+% \includegraphics[scale=1.2]{diagrams-images/use-case-diagram}
 
 \subsection{Main Use Cases}
 
 \subsubsection{Create an Exercise}
+\begin{mdframed} [rightmargin=-100pt]
+\begin{description}
+  \item[Scope] Javascript-Examiner
+  \item[Level] user goal
+  \item[Primary Actor] Tutor
+  \item[Preconditions] -
+  \item[Success Guarantee] The tutor has created an exercise.
+  \item[Main Success Scenario] \mbox{}
+	\begin{enumerate}
+	  \item Tutor starts creation of a new exercise.
+	  \item System requests general exercise information.
+	  \item Tutor provides general exercise information.
+    \item System request model solution(s).
+    \item Tutor provides model solution(s).
+    \item System requests test suite.
+    \item Tutor provides test suite.
+    \item System shows overview with exercise information.
+    \item Tutor acknowledges exercise information.
+    \item System confirms the exercise is successfully added.
+	\end{enumerate}
+\end{description}
+\end{mdframed}
 
 \subsubsection{Modify an Exercise}
+\begin{mdframed} [rightmargin=-100pt]
+\begin{description}
+  \item[Scope] Javascript-Examiner
+  \item[Level] user goal
+  \item[Primary Actor] Tutor
+  \item[Preconditions] There is at least 1 exercise available.
+  \item[Success Guarantee] The tutor has modified an exercise.
+  \item[Main Success Scenario] \mbox{}
+	\begin{enumerate}
+	  \item Tutor selects exercise from overview. \underline{Include: get
+        an overview of available exercises}
+	  \item System presents editable overview with exercise information.
+	  \item Tutor modifies exercise information.
+    \item Tutor submits modified exercise information.
+    \item System confirms the exercise is successfully modified.
+	\end{enumerate}
+\end{description}
+\end{mdframed}
 
 \subsubsection{Make an exercise}
 \begin{mdframed} [rightmargin=-100pt]
