@@ -72,8 +72,12 @@ function getCheckHandler(check) {
     var encoded = request.body.code;
     var buffer = new Buffer(encoded, 'base64');
     var code = buffer.toString();
-
-    check(code, function(err, feedback, artifacts) {
+    var submitted = {
+      code: code,
+      exerciseId: request.body.exerciseId
+    };
+    console.log(submitted.exerciseId);
+    check(submitted, function(err, feedback, artifacts) {
       var responseData;
 
       if (err) {

@@ -13,8 +13,8 @@ var esprimaOptions = {
 var escomplexOptions = {
 };
 
-module.exports = function(solution, callback) {
-  var ast = esprima.parse(solution, esprimaOptions);
+module.exports = function(submitted, callback) {
+  var ast = esprima.parse(submitted.code, esprimaOptions);
   var artifacts = escomplex.analyse(ast, walker, escomplexOptions);
 
   callback(null, null, artifacts);

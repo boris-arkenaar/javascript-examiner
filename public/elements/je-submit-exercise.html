@@ -39,7 +39,8 @@
 
     <core-ajax id="functionalityRequest" url="/check/functionality"
                method="post" contentType="application/json"
-               handleAs="json" body='{"code": "{{encoded}}"}'
+               handleAs="json" 
+               body='{"code": "{{encoded}}", "exerciseId": "{{exerciseId}}"}'
                on-core-response="{{onFunctionalityResponse}}"></core-ajax>
 
     <core-ajax id="maintainabilityRequest" url="/check/maintainability"
@@ -97,7 +98,8 @@
       },
 
       onExerciseResponse: function(response) {
-        this.exercise = response.detail.response[0];
+        this.exerciseId = response.detail.response[0]._id;
+        console.log(this.exercise);
       },
 
       artifactsChanged: function(oldValue, newValue) {

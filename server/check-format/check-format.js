@@ -3,7 +3,7 @@ var loadConfigFile = require('jscs/lib/cli-config');
 var Objects = require('../objects');
 var mapper = require('../feedback-mapper');
 
-module.exports = function(code, cb) {
+module.exports = function(submitted, cb) {
   var checker = new Checker();
   checker.registerDefaultRules();
   checker.configure(loadConfigFile.load(__dirname + '/jscs-config.json'));
@@ -11,7 +11,7 @@ module.exports = function(code, cb) {
   var feedbackList = [];
   //var result = [];
   try {
-    var errors = checker.checkString(code);
+    var errors = checker.checkString(submitted.code);
     errors.getErrorList().forEach(function(err) {
       var feedback = new Objects.Feedback();
       feedback.addressee = 'student';

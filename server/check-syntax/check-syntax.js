@@ -19,8 +19,8 @@ var options = {
 @param  {String} data - the JS code to check
 @param  {Function} callback - the function(error, result) to call with result as param
 */
-module.exports = function(solution, callback) {
-  parse(solution, function(err, tree) {
+module.exports = function(submitted, callback) {
+  parse(submitted.code, function(err, tree) {
     if (err) {
       var feedback = new Objects.Feedback();
       feedback.name = 'ParseError';
@@ -32,7 +32,6 @@ module.exports = function(solution, callback) {
       callback(null, [feedback]);
     } else {
       console.log('sucess: Check-syntax');
-      solution.abstractSyntaxTree = tree;
       callback(null, [], {
         ast: tree
       });
@@ -46,11 +45,11 @@ module.exports = function(solution, callback) {
 @param {String} data - the JS code to parse
 @param {Function} callback - the function(error, result) to call with result as param
 */
-function parse(solution, callback) {
+function parse(code, callback) {
   try {
-    var abSynTree = esprima.parse(solution, options);
+    var abSynTree = esprima.parse(code, options);
     //try to parse with uglify as well for double check
-    var abSynTree2 = UglifyJS.parse(solution);
+    var abSynTree2 = UglifyJS.parse(code);
     callback(null, abSynTree2);
   } catch (err) {
     callback(err);
