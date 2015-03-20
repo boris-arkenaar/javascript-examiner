@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "body-parser": "^1.11.0",
+    "chai": "^2.1.2",
     "clone": "latest",
     "ejs": "latest",
     "escomplex": "^1.1.0",
@@ -25,12 +26,13 @@
     "express": "latest",
     "jscs": "~1.8.1",
     "media-typer": "^0.3.0",
+    "mocha": "^2.2.1",
+    "mongoose": "latest",
     "multer": "latest",
     "node-uuid": "^1.4.2",
     "objects": "^0.3.0",
     "raw-body": "^1.3.3",
-    "uglify-js": "latest",
-    "mongoose": "latest"
+    "uglify-js": "latest"
   },
   "devDependencies": {
     "gulp": "^3.8.11",
