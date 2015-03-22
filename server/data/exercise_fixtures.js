@@ -54,8 +54,12 @@ function addExercises() {
     name: 'Bereken Bmi',
     description: 'Schrijf een functie calcBMI() met parameters lengte ' +
       'en gewicht, die het BMI teruggeeft.',
-    functions: [{name: 'calcBMI',
-    params: [{name: 'lengte'}, {name: 'gewicht'}]}]
+    functions: [
+      {name: 'calcBMI',
+      params: [{name: 'lengte'}, {name: 'gewicht'}]},
+      {name: 'calcBMI2',
+      params: [{name: 'ipsum'}, {name: 'lorem'}]}
+    ]
   };
   var exercises = [exercise1, exercise2, exercise3, exercise4];
   var processed = 0;
