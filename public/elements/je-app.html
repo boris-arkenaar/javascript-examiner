@@ -12,6 +12,7 @@
 <link rel="import" href="../bower_components/app-router/app-router.html">
 <link rel="import" href="../elements/je-exercises.html">
 <link rel="import" href="../elements/je-submit-exercise.html">
+<link rel="import" href="../elements/je-exercise-management.html">
 
 <polymer-element name="je-app">
   <template>
@@ -69,6 +70,8 @@
           <app-route path="/exercises" element="je-exercises"></app-route>
           <app-route path="/exercises/:exerciseId"
                      element="je-submit-exercise"></app-route>
+          <app-route path="/admin/exercises/:exerciseId"
+                     element="je-exercise-management"></app-route>
           <app-route path="*" redirect="/exercises"></app-route>
         </app-router>
       </div>
