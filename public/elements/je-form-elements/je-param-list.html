@@ -1,0 +1,80 @@
+<!-- Inspired by: -->
+<!-- https://github.com/bstavroulakis/web-components/blob/master/
+form-creator/Components/wc-form/wc-choice/wc-choice.html -->
+<!-- check example app here: -->
+<!-- http://bstavroulakis.com/demos/webcomponents/form-creator/ -->
+
+<link rel="import" href="../../bower_components/core-label/core-label.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input-decorator.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<polymer-element name="je-param-list" attributes="params">
+	<template>
+		<style>
+			.param * {
+
+			}
+			.label {
+				margin-right: 10px;
+				width: 80px;
+			}
+			.input-container {
+				width: 60px;
+				overflow: hidden;
+			}
+			.input-long {
+				width: 100%;
+				/*overflow: scroll;*/
+			}
+			span {
+				margin-left: 5px;
+				margin-right: 5px;
+			}
+		</style>
+		<div flex vertical layout class="params">
+			<template repeat="{{param in params}}">
+				<div horizontal layout class="param">
+					<div self-center class="label">
+						<core-label>@param</core-label>
+					</div>
+					<div self-center><span>{</span></div>
+					<div class="input-container">
+						<paper-input-decorator label="Type">
+							<input value="{{param.type}}" id="input1" is="core-input" pattern="^[0-9].*">
+						</paper-input-decorator> 
+					</div>
+					<div self-center><span>}</span></div>
+					<div class="input-container">
+						<paper-input label="Name" value="{{param.name}}"></paper-input>
+					</div>
+					<div self-center><span>-</span></div>
+					<div flex class="input-container-long">
+						<paper-input class="input-long" label="Description" value="{{param.description}}">
+						</paper-input>
+        	</div>
+				</div>
+			</template>
+			<paper-button raised on-click="{{addParam}}">
+        Add param
+      </paper-button>
+		<div flex vertical layout class="content">
+	</template>
+	<script>
+		Polymer('je-param-list', {
+			params: [],
+			created: function() {
+        //this.params = [];
+      },
+      ready: function() {
+      	console.log(this.params);
+      },
+			//params: [{type:'omg', name:'askie', description: 'rofl'}],
+			addParam: function() {
+				this.params.push({type: '', name: '', description: ''});
+				console.log(this.params);
+			}
+		});
+	</script>
+</polymer-element>

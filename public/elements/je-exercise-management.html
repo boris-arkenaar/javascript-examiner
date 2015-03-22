@@ -1,0 +1,153 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-collapse/core-collapse.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import"
+      href="../bower_components/paper-input/paper-autogrow-textarea.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="./je-form-elements/je-param-list.html">
+
+<polymer-element name="je-exercise-management" attributes="exerciseId">
+
+  <template>
+    <style>
+      .label {
+        width: 80px;
+        margin-right: 10px;
+      }
+
+      .param {
+        padding-bottom: 14px;
+        padding-top: 10px;
+      }
+
+      /*#function {
+        width: 50px;
+      }*/
+    </style>
+    <core-ajax id="exerciseRequest" url="/exercises?number={{exerciseId}}"
+               method="get" contentType="application/json"
+               handleAs="json"
+               on-core-response="{{onExerciseResponse}}"></core-ajax>
+    <div id="theForm"></div>
+    <!-- sections in here -->
+    <div id="container" vertical layout wrap>
+    <!-- section -->
+    <div horizontal layout>
+      <!-- label -->
+      <div self-center class="label">
+        <core-label>Name:</core-label>  
+      </div>
+      <!-- content -->
+      <div flex class="content">
+        <paper-input value="{{exercise.name}}"></paper-input>
+      </div>
+    </div>
+    <!-- section -->
+    <div horizontal layout>
+      <!-- label -->
+      <div class="label">
+        <core-label>Description:</core-label>
+      </div> 
+      <!-- content -->
+      <div flex class="content">
+        <paper-autogrow-textarea id="excercise-description-area" rows="3">
+          <textarea id="excercise-description" value="{{exercise.description}}">
+          </textarea>
+        </paper-autogrow-textarea>
+      </div>
+    </div>
+    <!-- section -->
+    <div horizontal layout>
+      <!-- label -->
+      <div class="label">
+        <core-label>Functions:</core-label>
+      </div> 
+      <!-- content -->
+      <div flex vertical layout class="content">
+        <template id="requiredFunction" 
+            repeat="{{function in exercise.functions}}">
+          <div vertical layout id="function">
+              <!-- <paper-input value="{{function.name}}"></paper-input> -->
+            <div horizontal layout>
+              <div self-center class="label">
+                <core-label id="{{function.name}}" on-click="{{toggleFunctionContent}}" >
+                  @function 
+                </core-label>
+              </div>
+              <paper-input value="{{function.name}}"></paper-input>
+            </div>
+            <je-param-list params="{{function.params}}"></je-param-list>
+            <!-- <core-collapse id="{{function.name}}-detail" opened="true" 
+              class="function-content" on-load="{{askie}}" > 
+              <div self-end class="param">(</div>
+              <template repeat="{{param in function.params}}">  
+                <div self-end class="param">{{param.name}}, </div>
+              </template>
+              <div self-end class="param">)</div>
+              <div>
+              <je-code-mirror value="{{function.description}}" feedback="{{feedback}}">
+              </je-code-mirror>
+              </div>
+            </core-collapse> -->
+          </div>
+        </template>
+      </div>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      created: function() {
+        this.exercises = [];
+      },
+
+      attached: function() {
+        this.$.exerciseRequest.go();        
+      },
+
+      ready: function() {
+        //collapse all code mirrors
+        var that = this;
+        setTimeout(function() {
+          var mirrors = that.$.container.querySelectorAll('.function-content');
+          console.log('Mirrors');
+          console.log(mirrors);
+          for (var i = 0; i < mirrors.length; i++) {
+            mirrors[i].toggle();
+          }
+        }, 100);
+      },
+
+      toggleFunctionContent: function(event, detail, sender) {
+        console.log(sender);
+        console.log(sender.id+'-detail');
+        console.log(this.$.container.querySelectorAll('.function-content'));
+        this.$.container.querySelector('#'+sender.id+'-detail').toggle();
+      },
+
+      onExerciseResponse: function(response) {
+        this.exercise = response.detail.response[0];
+        console.log(this.exercise);
+        
+        this.exercise.functions.forEach(function(func) {
+          var description = '/*\n';
+          description += '\t@function\t'+func.name+'\n\t@desc\t'+
+              (func.description || '<description>')+'\n';
+          func.params.forEach(function(param) {
+            description += '\t@param {'+
+                (param.type || '<type>')+'} '+
+                (param.name || '<name> ')+'\t'+'- '+
+                (param.description || '<description>')+'\n'
+          });
+          description +='*/\n'
+          func.description = description;
+        });
+        //console.log(this.$.a1.jsElement);
+        // askie = this.$.a1
+        // this.$.a1.update([this.$.t1]);
+      },
+    });
+
+    
+  </script>
+</polymer-element>
