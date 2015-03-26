@@ -98,7 +98,7 @@
       },
 
       onExerciseResponse: function(response) {
-        this.exerciseId = response.detail.response[0]._id;
+        this.exercise = response.detail.response[0];
         console.log(this.exercise);
       },
 
