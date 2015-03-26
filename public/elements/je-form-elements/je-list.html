@@ -1,0 +1,42 @@
+<polymer-element name="je-list" attributes="items">
+	<script>
+		Polymer("je-list", {
+			items: [],
+      created: function() {
+        //this.items = [];
+      },
+      ready: function() {
+        console.log(this.items);
+      },
+      //items: [{type:'omg', name:'askie', description: 'rofl'}],
+      addItem: function(item) {
+      	console.log(item);
+      	this.items.push(item);
+      	console.log(this.items);
+      },
+      removeItem: function(event, detail, sender) {
+        console.log(event);
+        console.log(detail);
+        console.log(sender);
+        var index;
+        var parent;
+        while(!index) {
+        	console.log('parent');
+        	console.log(parent);
+        	parent = (parent) ? parent.parentNode : sender.parentNode;
+        	index = parent.getAttribute("data-index");
+        }
+        console.log(this.items);
+        this.items.splice(index, 1);
+
+
+        // for (var i in this.items) {
+        //   console.log(this.items);
+        //   if (parent.getAttribute("data-index") == i) {
+        //     this.items.splice(i, 1);
+        //   }
+        // }
+      }
+    });
+	</script>
+</polymer-element>

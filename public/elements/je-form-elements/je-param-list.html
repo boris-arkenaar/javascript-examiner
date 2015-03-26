@@ -3,48 +3,21 @@
 form-creator/Components/wc-form/wc-choice/wc-choice.html -->
 <!-- check example app here: -->
 <!-- http://bstavroulakis.com/demos/webcomponents/form-creator/ -->
+<link rel="import" href="./je-list.html">
 
-<link rel="import" href="../../bower_components/core-label/core-label.html">
-<link rel="import" href="../../bower_components/core-icons/core-icons.html">
-<link rel="import" href="../../bower_components/core-icon/core-icon.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input-decorator.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
-<polymer-element name="je-param-list" attributes="params">
+<polymer-element name="je-param-list" extends="je-list">
 	<template>
-		<style>
-			.param * {
-
-			}
-			.label {
-				margin-right: 10px;
-				width: 80px;
-			}
-			.input-container {
-				width: 60px;
-				overflow: hidden;
-			}
-			.input-long {
-				width: 100%;
-				/*overflow: scroll;*/
-			}
-			span {
-				margin-left: 5px;
-				margin-right: 5px;
-			}
-		</style>
-		<div flex vertical layout class="params">
-			<template repeat="{{param, index in params}}">
+		<link rel="stylesheet"  href="je-list.css">
+		<div flex vertical layout class="items">
+			<template repeat="{{param, index in items}}">
 				<div horizontal layout class="param" data-index="{{index}}">
 					<div self-center class="label">
 						<core-label>@param</core-label>
 					</div>
 					<div self-center><span>{</span></div>
 					<div class="input-container">
-						<paper-input-decorator label="Type">
-							<input value="{{param.type}}" id="input1" is="core-input" 
-									pattern="^[0-9].*">
+						<paper-input label="Type" value="{{param.type}}">
 						</paper-input-decorator> 
 					</div>
 					<div self-center><span>}</span></div>
@@ -58,45 +31,37 @@ form-creator/Components/wc-form/wc-choice/wc-choice.html -->
 						</paper-input>
         	</div>
         	<div self-center>
-        		<core-icon on-click="{{removeParam}}" 
-        				icon="delete"></core-icon>
+        		<core-icon on-click="{{removeItem}}" icon="delete">
+        		</core-icon>
         	</div>
 				</div>
 			</template>
 			<div>
-				<paper-button raised on-click="{{addParam}}">
+				<paper-button raised on-click="{{addItem}}">
 	        Add param
 	      </paper-button>
 	  	</div>
 		<div flex vertical layout class="content">
 	</template>
 	<script>
-		Polymer('je-param-list', {
-			params: [],
+		Polymer("je-param-list", {
+
+			items: [],
 			created: function() {
-        //this.params = [];
+        //this.items = [];
       },
       ready: function() {
-      	console.log(this.params);
+      	console.log(this.items);
       },
-			//params: [{type:'omg', name:'askie', description: 'rofl'}],
-			addParam: function() {
-				this.params.push({type: '', name: '', description: ''});
-				console.log(this.params);
+			//items: [{type:'omg', name:'askie', description: 'rofl'}],
+			addItem: function() {
+				var newParam = {type: '', name: '', description: ''};
+				this.super([newParam]);
 			},
-			removeParam: function(event, detail, sender) {
-				console.log(event);
-				console.log(detail);
-				console.log(sender);
-				var self = this;
-        var parent = sender.parentNode.parentNode;
-        console.log(parent);
-        for (var i in self.params) {
-        	console.log(self.params);
-          if (parent.getAttribute("data-index") == i) {
-        	  self.params.splice(i, 1);
-          }
-        }
+			removeItem: function(event, detail, sender) {
+				console.log('Call superklasse');
+				console.log(arguments);
+				this.super(arguments);
 			}
 		});
 	</script>

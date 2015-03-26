@@ -4,7 +4,7 @@
 <link rel="import"
       href="../bower_components/paper-input/paper-autogrow-textarea.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
-<link rel="import" href="./je-form-elements/je-param-list.html">
+<link rel="import" href="./je-form-elements/je-function-list.html">
 
 <polymer-element name="je-exercise-management" attributes="exerciseId">
 
@@ -56,43 +56,7 @@
         </paper-autogrow-textarea>
       </div>
     </div>
-    <!-- section -->
-    <div horizontal layout>
-      <!-- label -->
-      <div class="label">
-        <core-label>Functions:</core-label>
-      </div> 
-      <!-- content -->
-      <div flex vertical layout class="content">
-        <template id="requiredFunction" 
-            repeat="{{function in exercise.functions}}">
-          <div vertical layout id="function">
-              <!-- <paper-input value="{{function.name}}"></paper-input> -->
-            <div horizontal layout>
-              <div self-center class="label">
-                <core-label id="{{function.name}}" on-click="{{toggleFunctionContent}}" >
-                  @function 
-                </core-label>
-              </div>
-              <paper-input value="{{function.name}}"></paper-input>
-            </div>
-            <je-param-list params="{{function.params}}"></je-param-list>
-            <!-- <core-collapse id="{{function.name}}-detail" opened="true" 
-              class="function-content" on-load="{{askie}}" > 
-              <div self-end class="param">(</div>
-              <template repeat="{{param in function.params}}">  
-                <div self-end class="param">{{param.name}}, </div>
-              </template>
-              <div self-end class="param">)</div>
-              <div>
-              <je-code-mirror value="{{function.description}}" feedback="{{feedback}}">
-              </je-code-mirror>
-              </div>
-            </core-collapse> -->
-          </div>
-        </template>
-      </div>
-    </div>
+    <je-function-list items="{{exercise.functions}}"></je-function-list>
     <div on-click="{{addFunction}}">Hallo</div>
   </template>
   <script>
