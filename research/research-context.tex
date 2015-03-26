@@ -51,7 +51,7 @@ very much alike.
 When considering their approach, there is one fundamental difference. The IDEAS
 framework is designed to provide stepwise feedback. Instead of reviewing a
 submitted solution as being complete, it is possible to review a partial 
-solution. This feature is deliberately no part of our project. Still, it is 
+solution. This feature is deliberately not part of our project. Still, it is 
 not unthinkable that there might be successive projects to extend the 
 \gls{examiner} with this feature. Like our approach, the developed domain 
 reasoners are built as prototypes at first. In order to be able to provide 
@@ -59,7 +59,7 @@ feedback on partial solutions, a thoughtful and sophisticated reasoning on the
 domain specific language semantics is required.
 
 
-We found Heeren, B. willing to discuss with us some aspects of the IDEAS 
+We found dr. B.J. Heeren willing to discuss with us some aspects of the IDEAS 
 project. Since our project has been presented as being the start of a new and 
 autonomous project, the scope and aim for the consult is fairly general. 
 We are primarily interested in the conceptual considerations and scientific 
@@ -90,7 +90,7 @@ keynotes taken.
 %Formative - Summative
 After a short introduction on the IDEAS framework and our project, the 
 discussion started with a demarcation posted by Heeren, in putting the 
-Formative approach of the IDEAS related projects against the summative 
+formative approach of the IDEAS related projects against the summative 
 approach of our project. This distinction is the result of the difference in 
 approach. The extent to which our project really is summative, is withheld by 
 the way it will be used eventually. %Work out argument 
@@ -101,16 +101,16 @@ striking.
 
 \subsection{Semantic Evaluation} %Please review this subtitle 
 At this point, the conversation shifted to the topic of semantic evaluation.
-Heeren introduced to us an overview of the technique to bring code back to a
+Heeren introduced an overview of the technique to bring code back to a
 normal form. This technique abstracts from the particular code, by replacing 
-constructs. For example, a \em{for loop} can be replaced by a 
-\em{while construct}, without 
+constructs. For example, a \emph{for loop} can be replaced by a 
+\emph{while construct}, without 
 changing the execution result of the code. In this way, two solutions can be
-compared, even if the first uses the \em{while} construct, and the second a 
-\em{for loop}. At first, this seems very fruitful to use, but Heeren made clear
+compared, even if the first uses the \emph{while} construct, and the second a 
+\emph{for loop}. At first, this seems very fruitful to use, but Heeren made clear
 that the search for a normal form is quite hard. Reasoning toward a normal form
 is reasoning about equality. Under what conditions can be stated that two or 
-more statements are equal. \"A deceitful problem\", according to Heeren. To 
+more statements are equal. ``\,A deceitful problem''\,, according to Heeren. To 
 get more insight in the complexity of this topic, an article about one of the
 IDEAS based reasoners was recommended to us. \citep{keuning2014strategy} 
 stresses the equality problem by reviewing her implementation (and in
@@ -156,13 +156,13 @@ the only way of dealing with this diversity is adding more model solutions
 %May be add example (Quicksort vs Bubblesort oid)
 As the space of possible variation grows, the need
 for model solutions grows, with a factor tending to exponential. This can 
-quite quickly stress the reduction of the tutors labor intensity, which is one 
+quite quickly stress the reduction of the tutors labour intensity, which is one 
 of our main goals. Therefore, it's quite important to keep this goal in mind
 while designing and developing the examiner, as new features might have 
 unwanted implications to the time and efforts required to successfully deploy 
 the \gls{examiner} or new \glspl{exercise}.
 
-\subsection{Implentation Pointers}
+\subsection{Implementation Pointers}
 During the consult, we recognized Heeren had gained a lot of research and 
 development experience. To learn from him, we concluded the consult by 
 asking him what pointers we should take in mind while developing the 
@@ -171,7 +171,7 @@ easy expanding and adapting. As our project might be only a first step in a
 series of \gls{examiner} related projects, this characteristic is of great 
 importance. He advised us to develop service based or at least in a modular 
 way. On top of this, he stressed the importance of relevant test data. It
-could be a pitfall to only use or own written exercises and solutions, because
+could be a pitfall to only use our own written exercises and solutions, because
 it's not unlikely that solutions from other students are fundamentally 
 different when it comes to the means of properly analysis and review.
 
@@ -194,7 +194,7 @@ with the more scientifically centered base, but its likely this also has to do
 with the fact that there were not yet as much relevant research results 
 available in the late nineties. 
 
-The article begins with the positioning their approach, in 
+The article begins with the positioning of their approach, in 
 demarcating the used technique from other code analysis techniques. These other
 approaches are:
 \begin{description}
@@ -288,7 +288,7 @@ correspond with \gls{js-code}.
 
 \subsection{Variations} %TODO: The code examples within this chapter should be
 % examined and put in 'blocks'.
-The are thirteen distinguished \gls{spv}. All variations will be mentioned and
+There are thirteen distinguished \gls{spv}. All variations will be mentioned and
 briefly described, with reference to possible usage in \gls{js-code}. 
 The extent of a variation is not always clear. 
 \begin{description}
@@ -298,7 +298,7 @@ The extent of a variation is not always clear.
 	\item[Source code formats] As \gls{js} is a very tolerant language, the
 	code formats can differ a many levels. For example, the usage of space can be
 	omitted at many places: if( or if ( does compute the same thing, another
-	striking example is the non-committal usage of \";\" to mark the end
+	striking example is the non-committal usage of ``\,;''\, to mark the end
 	of a statement. In our project we already implemented a code style checker, 
 	which enforces a particular code format. Another approach to bypass this 
 	variation is to parse an \gls{ast}.
@@ -309,15 +309,15 @@ The extent of a variation is not always clear.
 		\item if(i) x = i; else x = 0;
 		\item if(i) { x = i;} else { x = 0;}
 		\item x = (i) ? x = i : x = 0;
-		\item x = i || 0;
+		\item x = i \textbar \textbar 0;
 	\end{itemize}
 	\item[Variable declarations] For the declaration of variables there are 
-	several options. Usage of the keyword \"var\" or not (which declares a global 
+	several options. Usage of the keyword ``\,var''\, or not (which declares a global 
 	var, declaring variables in a sequence (i.e var a, b, c), using the keyword 
-	\"const\" for constants.
+	``\,const''\, for constants.
 	\item[Temporary variables] Temporary variables can be declared when used, but
 	also in a \"parent\" block, and then reassigned when needed. As mentioned in
-	the former item, variables declared without the \"var\" keyword, can be used
+	the former item, variables declared without the ``\,var''\, keyword, can be used
 	anywhere in the program, even if declared in a block.
 	\item[Algebraic expression forms] This is much alike for all programming
 	languages, in any case they share the same operators. A very simple example is
@@ -365,7 +365,7 @@ of semantic examination.
 With regards to this design and development, Heeren shared his experience and
 gave us advice. Developing in a service based and modular way enables expansion
 and adjustment in succeeding projects. As we discovered in the examination of 
-\gls{spv}, it could be beneficial to make artifacts generated with one 
+\gls{spv}, it could be beneficial to make artefacts generated with one 
 service accessible for a successive service. For example, when performing a
 syntax check, an \gls{ast} is generated. In a later project, a service
 might be added that needs an \gls{ast} in order to work. Now, we take this into
@@ -380,7 +380,7 @@ Besides the semantics related enlightenment, the practical advices and insights
 are taken into account as well. Now, we consider the usage of the 
 \gls{examiner} by actual \glspl{tutor} even more important, as the 
 implementations of the IDEAS framework based domain reasoners have shown the
-difficulty to achieve this. Related to this \"production phase mindfulness\", 
+difficulty to achieve this. Related to this ``\,production phase mindfulness''\,, 
 the usage of actual student solutions to test the \gls{examiner} has gained 
 priority. 
 
@@ -390,6 +390,6 @@ variations, thorough research on the practical demand should be performed.
 As we move towards a production ready state for the \gls{examiner} during
 this project, we hope to pave the way (in exposing the \gls{examiner} to 
 students) to get insight in the degree to which this demand exists, and to what 
-extent this kind of examination actually benefits to the reduction of labor 
+extent this kind of examination actually benefits to the reduction of labour 
 insensitivity as to support of programming language education in general, and 
 learning \gls{js} in particular.
