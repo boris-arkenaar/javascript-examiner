@@ -27,7 +27,7 @@
     "jscs": "~1.8.1",
     "media-typer": "^0.3.0",
     "mocha": "^2.2.1",
-    "mongoose": "latest",
+    "mongoose": "3.8.x",
     "multer": "latest",
     "node-uuid": "^1.4.2",
     "objects": "^0.3.0",
