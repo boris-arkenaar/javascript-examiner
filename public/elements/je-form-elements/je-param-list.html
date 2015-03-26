@@ -6,9 +6,10 @@ form-creator/Components/wc-form/wc-choice/wc-choice.html -->
 
 <link rel="import" href="../../bower_components/core-label/core-label.html">
 <link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../../bower_components/core-icon/core-icon.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input-decorator.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <polymer-element name="je-param-list" attributes="params">
 	<template>
@@ -34,15 +35,16 @@ form-creator/Components/wc-form/wc-choice/wc-choice.html -->
 			}
 		</style>
 		<div flex vertical layout class="params">
-			<template repeat="{{param in params}}">
-				<div horizontal layout class="param">
+			<template repeat="{{param, index in params}}">
+				<div horizontal layout class="param" data-index="{{index}}">
 					<div self-center class="label">
 						<core-label>@param</core-label>
 					</div>
 					<div self-center><span>{</span></div>
 					<div class="input-container">
 						<paper-input-decorator label="Type">
-							<input value="{{param.type}}" id="input1" is="core-input" pattern="^[0-9].*">
+							<input value="{{param.type}}" id="input1" is="core-input" 
+									pattern="^[0-9].*">
 						</paper-input-decorator> 
 					</div>
 					<div self-center><span>}</span></div>
@@ -51,14 +53,21 @@ form-creator/Components/wc-form/wc-choice/wc-choice.html -->
 					</div>
 					<div self-center><span>-</span></div>
 					<div flex class="input-container-long">
-						<paper-input class="input-long" label="Description" value="{{param.description}}">
+						<paper-input class="input-long" label="Description" 
+								value="{{param.description}}">
 						</paper-input>
+        	</div>
+        	<div self-center>
+        		<core-icon on-click="{{removeParam}}" 
+        				icon="delete"></core-icon>
         	</div>
 				</div>
 			</template>
-			<paper-button raised on-click="{{addParam}}">
-        Add param
-      </paper-button>
+			<div>
+				<paper-button raised on-click="{{addParam}}">
+	        Add param
+	      </paper-button>
+	  	</div>
 		<div flex vertical layout class="content">
 	</template>
 	<script>
@@ -74,6 +83,20 @@ form-creator/Components/wc-form/wc-choice/wc-choice.html -->
 			addParam: function() {
 				this.params.push({type: '', name: '', description: ''});
 				console.log(this.params);
+			},
+			removeParam: function(event, detail, sender) {
+				console.log(event);
+				console.log(detail);
+				console.log(sender);
+				var self = this;
+        var parent = sender.parentNode.parentNode;
+        console.log(parent);
+        for (var i in self.params) {
+        	console.log(self.params);
+          if (parent.getAttribute("data-index") == i) {
+        	  self.params.splice(i, 1);
+          }
+        }
 			}
 		});
 	</script>

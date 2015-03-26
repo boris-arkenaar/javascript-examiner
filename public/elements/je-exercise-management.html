@@ -93,7 +93,7 @@
         </template>
       </div>
     </div>
-
+    <div on-click="{{addFunction}}">Hallo</div>
   </template>
   <script>
     Polymer({
@@ -146,6 +146,10 @@
         // askie = this.$.a1
         // this.$.a1.update([this.$.t1]);
       },
+
+      addFunction: function() {
+        console.log(this.exercise);
+      }
     });
 
     
