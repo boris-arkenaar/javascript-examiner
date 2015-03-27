@@ -1,9 +1,13 @@
 var mongoose = require('mongoose');
 
+var userSchema = mongoose.Schema({
+  email: String,
+  password: String
+});
+
 var exerciseSchema = mongoose.Schema({
   chapter: Number,
   number: Number,
-  //number: String,
   name: String,
   description: String,
   functions: [functionSchema],
@@ -23,4 +27,5 @@ var paramSchema = mongoose.Schema({
 
 var testSuiteSchema = mongoose.Schema();
 
+exports.User = mongoose.model('User', userSchema);
 exports.Exercise = mongoose.model('Exercise', exerciseSchema);

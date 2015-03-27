@@ -10,9 +10,27 @@ exports.disconnect = disconnect;
 * @param {filter} filter , an object with the properties to filter on
 * @param {function} callback with form callback(err, res)
 */
+exports.getUsers = getUsers;
 exports.getExercises = getExercises;
 exports.getExercise = getExercise;
 exports.getTestSuite = getTestSuite;
+
+function getUsers(filter, callback) {
+  if (!callback || typeof callback != 'function') {
+    throw new Error('A callback function is required as second param');
+  }
+  if (!connected) {
+    return connect(null, function() {
+      getUsers(filter, callback);
+    });
+  }
+  Collections.Users.find(filter || {}, function(err, users) {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, users);
+  });
+}
 
 /**
 * Get the testSuite corresponding with the exercise
@@ -37,7 +55,7 @@ function getTestSuite(exerciseId, callback) {
       callback(new Error('Test suite does not exist for id: ' + exerciseId));
     }
   });
-};
+}
 
 function getExercises(filter, callback) {
   if (!callback || typeof callback != 'function') {
@@ -96,6 +114,32 @@ exports.putFeedback = function(solution, feedback, callback) {
 };
 
 /**
+* Insert/Update a user in the database
+* @param {Object} user the exercise
+* @param {callback} callback the callback with form callback(err, res)
+*/
+exports.putUser = function(user, callback) {
+  if (user === null || (user && typeof user != 'object')) {
+    return callback(new Error('A user is required'));
+  }
+  if (!callback || typeof callback != 'function') {
+    throw new Error('A callback function is required as second param');
+  }
+  if (!connected) {
+    return connect(null, function() {
+      putUser(user, callback);
+    });
+  }
+  var dbUser = new Collections.User(user);
+  dbUser.save(function(err, dbUser) {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, dbUser);
+  });
+};
+
+/**
 * Insert/Update an exercise in the database
 * @param {Object} exercise the exercise
 * @param {callback} callback the callback with form callback(err, res)
@@ -136,7 +180,14 @@ function connect(dbName, callback) {
   mongoose.connect(link,
     {server: {socketOptions:{keepAlive: 1}}});
   var db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+  //db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+  db.on('error', function(err) {
+    if (connected) {
+      callback();
+    } else {
+      console.error('MongoDB connection error', err);
+    }
+  });
   db.once('open', function(cb) {
     connected = true;
     callback();
