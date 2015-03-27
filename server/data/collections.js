@@ -6,7 +6,10 @@ var exerciseSchema = mongoose.Schema({
   //number: String,
   name: String,
   description: String,
-  functions: [functionSchema]
+  functions: [functionSchema],
+  testSuite: {
+    code: String
+  }
 });
 
 var functionSchema = mongoose.Schema({
@@ -17,5 +20,7 @@ var functionSchema = mongoose.Schema({
 var paramSchema = mongoose.Schema({
   name: String
 });
+
+var testSuiteSchema = mongoose.Schema();
 
 exports.Exercise = mongoose.model('Exercise', exerciseSchema);

@@ -11,7 +11,7 @@
 
 <polymer-element name="je-submit-exercise" attributes="exerciseId">
   <template>
-    <core-ajax id="exerciseRequest" url="/exercises?number={{exerciseId}}"
+    <core-ajax id="exerciseRequest" url="/exercises/{{exerciseId}}"
                method="get" contentType="application/json"
                handleAs="json"
                on-core-response="{{onExerciseResponse}}"></core-ajax>
@@ -39,7 +39,7 @@
 
     <core-ajax id="functionalityRequest" url="/check/functionality"
                method="post" contentType="application/json"
-               handleAs="json" 
+               handleAs="json"
                body='{"code": "{{encoded}}", "exerciseId": "{{exerciseId}}"}'
                on-core-response="{{onFunctionalityResponse}}"></core-ajax>
 
@@ -47,6 +47,18 @@
                method="post" contentType="application/json"
                handleAs="json" body='{"code": "{{encoded}}"}'
                on-core-response="{{onMaintainabilityResponse}}"></core-ajax>
+
+    <template if="{{testResults.stats}}">
+      <h1>Test results</h1>
+      <p>{{testResults.stats.passes}} tests passed</p>
+      <template if="{{testResults.stats.failures}}">
+        <p>{{testResults.stats.failures}} tests failded</p>
+        <template repeat="{{test in testResults.failures}}">
+          <h2>{{test.fullTitle}}</h2>
+          <p>{{test.err.message}}</p>
+        </template>
+      </template>
+    </template>
 
     <template if="{{feedback.length}}">
       <h1>Feedback</h1>
@@ -88,6 +100,7 @@
         this.code = 'test test test\n';
         this.encoded = '';
         this.feedback = [];
+        this.testResults = {};
         this.ast = '';
         this.artifacts = {};
         this.artifactsString = '';
@@ -98,8 +111,7 @@
       },
 
       onExerciseResponse: function(response) {
-        this.exercise = response.detail.response[0];
-        console.log(this.exercise);
+        this.exercise = response.detail.response;
       },
 
       artifactsChanged: function(oldValue, newValue) {
@@ -134,10 +146,10 @@
       },
 
       onFunctionalityResponse: function(response) {
-        this.feedback = response.detail.response.feedback;
+        this.testResults = response.detail.response.feedback;
         this.artifacts = response.detail.response.artifacts;
 
-        if (!this.feedback.length) {
+        if (!this.testResults.stats.failures) {
           this.$.maintainabilityRequest.go();
         }
       },
