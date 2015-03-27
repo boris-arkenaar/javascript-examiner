@@ -5,7 +5,7 @@
 - NPM
   - Bower
   - Gulp
-- (mongoDB)[http://www.mongodb.org/] (on (Linux)[http://docs.mongodb
+- [mongoDB](http://www.mongodb.org/) (on (Linux)[http://docs.mongodb
 .org/manual/administration/install-on-linux/], (OS X)[http://docs.mongodb
 .org/manual/tutorial/install-mongodb-on-os-x/] or (Windows)[http://docs
 .mongodb.org/manual/tutorial/install-mongodb-on-windows/])
