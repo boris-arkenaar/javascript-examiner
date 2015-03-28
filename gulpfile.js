@@ -25,13 +25,9 @@ gulp.task('lint', function() {
 });
 
 gulp.task('mongoDB', function() {
-  child_process.exec('mongod -dbpath ./server/data/db',
-      function(err, stdout, stderr) {
-    //Add exercise fixtures if none present
-    //exerciceFixtures();
-  });
+  child_process.exec('mongod -dbpath ./server/data/db');
   setTimeout(function() {
-    child_process.exec('node ./server/data/exercise_fixtures.js');
+    child_process.exec('node ./server/data/fixtures.js');
   }, 3000);
 });
 

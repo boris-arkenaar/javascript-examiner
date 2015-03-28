@@ -21,6 +21,19 @@ async.series(
           callback();
         }
       });
+    },
+    function(callback) {
+      database.getExercises(null, function(err, res) {
+        if (err) {
+          callback(err);
+        }
+        if (res.length === 0) {
+          addExercises(callback);
+        } else {
+          console.log('Already exercises present, added none');
+          callback();
+        }
+      });
     }
   ],
   function(errs, results) {
@@ -36,6 +49,7 @@ async.series(
     } else {
       console.log('All fixtures processed successfully');
     }
+    process.exit();
   }
 );
 
@@ -74,7 +88,7 @@ function addUsers(callback) {
 * Add the exercises
 * @param {function} callback with form callback(err, res)
 */
-function addExercises() {
+function addExercises(callback) {
   var exercise1 = {
     chapter: 5,
     number: 1,
