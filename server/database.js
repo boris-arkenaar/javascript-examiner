@@ -11,6 +11,7 @@ exports.disconnect = disconnect;
 * @param {function} callback with form callback(err, res)
 */
 exports.getUsers = getUsers;
+exports.getUser = getUser;
 exports.getExercises = getExercises;
 exports.getExercise = getExercise;
 exports.getTestSuite = getTestSuite;
@@ -24,11 +25,23 @@ function getUsers(filter, callback) {
       getUsers(filter, callback);
     });
   }
-  Collections.Users.find(filter || {}, function(err, users) {
+  Collections.User.find(filter || {}, function(err, users) {
     if (err) {
       return callback(err);
     }
     callback(null, users);
+  });
+}
+
+function getUser(filter, callback) {
+  getUsers(filter, function(err, users) {
+    if (err) {
+      callback(err);
+    } else if (!users.length || users.length > 1) {
+      callback();
+    } else {
+      callback(null, users[0]);
+    }
   });
 }
 

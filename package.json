@@ -25,6 +25,7 @@
     "escomplex-ast-moz": "^0.1.6",
     "esprima": "latest",
     "express": "latest",
+    "express-session": "^1.10.4",
     "jscs": "~1.8.1",
     "media-typer": "^0.3.0",
     "mocha": "^2.2.1",

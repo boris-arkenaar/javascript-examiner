@@ -11,10 +11,24 @@ var checkFunctionality = require('./check-functionality/check-functionality');
 var checkMaintainability =
     require('./check-maintainability/check-maintainability');
 var database = require('./database');
+var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-passport.use(new LocalStrategy(
+passport.serializeUser(function(user, done) {
+  done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+  database.getUser({'_id': id}, function(err, user) {
+    done(err, user);
+  });
+});
+
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  },
   function(email, password, done) {
     var userData = {
       email: email,
@@ -27,12 +41,7 @@ passport.use(new LocalStrategy(
       }
       if (!user) {
         return done(null, false, {
-          message: 'Incorrect username.'
-        });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, {
-          message: 'Incorrect password.'
+          message: 'Incorrect credentials.'
         });
       }
       return done(null, user);
@@ -46,6 +55,47 @@ app.use(bodyParser.json());
 
 console.log('dirname', __dirname);
 app.use(express.static(__dirname + '/../public'));
+
+// TODO: Create a real secret and store it seperatly.
+// TODO: Use an other store than the default
+//       (https://www.npmjs.com/package/express-session).
+//       After that, reconsider the resave option.
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.send(info);
+    }
+    req.logIn(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect('/secret');
+    });
+  })(req, res, next);
+});
+
+function loggedIn(req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
+app.get('/secret', loggedIn, function(req, res) {
+  res.send('secret');
+});
 
 app.post('/check/syntax', getCheckHandler(checkSyntax));
 app.post('/check/format', getCheckHandler(checkFormat));
