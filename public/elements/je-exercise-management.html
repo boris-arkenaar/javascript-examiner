@@ -20,6 +20,9 @@
         padding-top: 10px;
       }
 
+      div {
+        margin-top: 10px;
+      }
       /*#function {
         width: 50px;
       }*/
@@ -57,7 +60,11 @@
       </div>
     </div>
     <je-function-list items="{{exercise.functions}}"></je-function-list>
-    <div on-click="{{addFunction}}">Hallo</div>
+    <div flex>
+      <paper-button raised on-click="{{saveExercise}}">
+            Save Exercise
+      </paper-button>
+    </div>
   </template>
   <script>
     Polymer({
@@ -111,7 +118,7 @@
         // this.$.a1.update([this.$.t1]);
       },
 
-      addFunction: function() {
+      saveExcercise: function() {
         console.log(this.exercise);
       }
     });
