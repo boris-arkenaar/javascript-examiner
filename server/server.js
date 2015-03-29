@@ -24,6 +24,10 @@ app.post('/check/format', getCheckHandler(checkFormat));
 app.post('/check/functionality', getCheckHandler(checkFunctionality));
 app.post('/check/maintainability', getCheckHandler(checkMaintainability));
 
+app.post('/upsert/exercise', function(req, res) {
+
+});
+
 app.get('/exercises', function(req, res) {
   //get the exercises:
   var filter = {};
