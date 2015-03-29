@@ -25,7 +25,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('mongoDB', function() {
-  child_process.exec('mongod -dbpath ./server/data/db', 
+  child_process.exec('mongod -dbpath ./server/data/db',
       function(err, stdout, stderr) {
     //Add exercise fixtures if none present
     //exerciceFixtures();

@@ -55,11 +55,25 @@ function addExercises() {
     description: 'Schrijf een functie calcBMI() met parameters lengte ' +
       'en gewicht, die het BMI teruggeeft.',
     functions: [
-      {name: 'calcBMI',
-      params: [{name: 'lengte'}, {name: 'gewicht'}]},
-      {name: 'calcBMI2',
-      params: [{name: 'ipsum'}, {name: 'lorem'}]}
-    ]
+      {
+        name: 'calcBMI',
+        params: [{name: 'lengte'}, {name: 'gewicht'}]
+      },
+      {
+        name: 'calcBMI2',
+        params: [{name: 'ipsum'}, {name: 'lorem'}]
+      }
+    ],
+    testSuite: {
+      code: '\n' +
+        'var expect = require(\'chai\').expect;\n' +
+        '\n' +
+        'describe(\'calcBMI function\', function() {\n' +
+        '  it(\'should have been defined\', function() {\n' +
+        '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
+        '  });\n' +
+        '});\n'
+    }
   };
   var exercises = [exercise1, exercise2, exercise3, exercise4];
   var processed = 0;

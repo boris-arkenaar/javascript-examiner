@@ -1,106 +1,146 @@
-var assert = require('assert');
 var fs = require('fs');
-var Objects = require('../objects');
-var uuid = require('node-uuid');
-var mapper = require('../feedback-mapper');
+var database = require('../database');
+var crypto = require('crypto');
+var Mocha = require('mocha');
+var reporter = Mocha.reporters.JSON;
 
-//replace with database call:
-var testFunction = {
-  functionName: 'calcBMI',
-  check: function(solution) {
-    try {
-      assert.equal(36, solution.module[this.functionName](150, 80));
-    } catch (err) {
-      console.log('Generate Feedback:');
-      var feedback = new Objects.Feedback();
-      feedback.name = 'Test "' + this.functionName + '" failed';
-      feedback.description = err.name + ': ' + err.message;
-      feedback.addressee = 'student';
-      feedback = mapper('check-functionality', feedback);
-      this.feedback = feedback;
-    }
-  }
-};
-
-//replace with database call;
-var exercise = {
-  id: 'TestExercise',
-  description: 'Dummy Exercise for development',
-  testSuite: [testFunction]
-};
+const tempPath = __dirname + '/../../tmp/';
+createTempDir(tempPath);
 
 module.exports = function(submitted, callback) {
-  var solution = {
-    plain: submitted.code
-  };
-  testFunction.feedback = null;
-  //get the exercise:
-  //exercise = db.get('exercise', solution.exerciseID);
-  //solution.module = require(createModule(solution, exercise, function));
+  var solution = submitted.code;
 
-  if (!exercise.testSuite || !exercise.testSuite.length) {
-    var feedback = new Objects.Feedback();
-    feedback.name = 'No test suite';
-    feedback.check = 'functionality';
-    feedback.addressee = 'tutor';
-    feedback.description = 'No test suite available for this Exercise';
-    callback(null, [feedback]);
-  } else {
-    //create module
-    createModule(solution, exercise, function(feedback) {
-      if (feedback) {
-        callback(null, feedback);
-      } else {
-        //test the solution:
-        var feedbackList = [];
-        exercise.testSuite.forEach(function(test) {
-          test.check(solution);
-          if (test.feedback) {
-            feedbackList[feedbackList.length] = test.feedback;
-          }
-        });
-        solution.module = null;
-        if (feedbackList.length > 0) {
-          callback(null, feedbackList);
-        }	else {
-          console.log('success: Check-functionality');
-          callback(null, null);
-        }
-      }
-    });
-  }
-};
-
-function createModule(solution, exercise, callback) {
-  //check if all functions are present:
-  var moduleContent = solution.plain;
-  var feedbackList = [];
-  exercise.testSuite.forEach(function(elem) {
-    //check if function exists:
-    var name = elem.functionName;
-    if (moduleContent.indexOf('function ' + name) > -1) {
-      while (moduleContent.indexOf('function ' + name) > -1) {
-        moduleContent = moduleContent.replace('function ' + name,
-            ' exports.' + name + '= function');
-      }
+  database.getExercise(submitted.exerciseId, function(err, exercise) {
+    if (err) {
+      callback(err);
     } else {
-      //missing function: add feedback:
-      var feedback = new Objects.Feedback();
-      feedback.name = 'Function "' + name + '" not present';
-      feedback.check = 'functionality';
-      feedback.addressee = 'student';
-      feedback.description = 'Unable to find this function in the solution';
-      feedbackList[feedbackList.length] = feedback;
+      var extendedSolution = addExportsToSolution(solution,
+          exercise.functions);
+      var solutionFileId = saveSolution(extendedSolution);
+
+      var extendedTestSuite = addSolutionToTestSuite(exercise.testSuite.code,
+          solutionFileId);
+      var testSuiteFileId = saveTestSuite(extendedTestSuite, solutionFileId);
+
+      runTestSuite(testSuiteFileId, callback);
     }
   });
+};
 
-  if (feedbackList.length > 0) {
-    callback(feedbackList);
-  } else {
-    var fileName = uuid.v4();
-    solution.moduleFileLocation = __dirname + '/../../tmp/' + fileName + '.js';
-    fs.writeFileSync(solution.moduleFileLocation, moduleContent);
-    solution.module = require(solution.moduleFileLocation);
-    callback();
+function getExercise(exerciseId) {
+  database.getExercise(exerciseId, function(err, exercise) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, exercise);
+    }
+  });
+}
+
+function addExportsToSolution(solution, functions) {
+  var exportsCode = 'module.exports = {\n';
+  var i;
+  var fn;
+  functions.forEach(function(fnData) {
+    fn = fnData.name;
+    exportsCode += '  ' + fn + ': typeof ' + fn + ' != \'undefined\' ? ' +
+        fn + ' : undefined,\n';
+  });
+  exportsCode += '};\n';
+  console.log(exportsCode);
+  return solution  + '\n\n' + exportsCode;
+}
+
+function saveSolution(solution) {
+  var fileId = getHash(solution);
+  var filePath = tempPath + fileId;
+  fs.writeFileSync(filePath, solution);
+  return fileId;
+}
+
+function addSolutionToTestSuite(testSuite, solutionFileId) {
+  var solutionFilePath = tempPath + solutionFileId;
+  var requireStatement =
+      'var studentCode = require(\'' + solutionFilePath + '\');';
+  return requireStatement + '\n\n' + testSuite;
+}
+
+function saveTestSuite(testSuite, solutionFileId) {
+  var testSuiteFileId = solutionFileId + '_test';
+  var filePath = tempPath + testSuiteFileId;
+  fs.writeFileSync(filePath, testSuite);
+  return testSuiteFileId;
+}
+
+function runTestSuite(fileId, callback) {
+  var filePath = tempPath + fileId;
+  var mocha = new Mocha({
+    reporter: reporter
+  });
+  var cache = prepareCache();
+  var runner;
+  var ended = false;
+
+  mocha.addFile(filePath);
+  try {
+    runner = mocha.run(function(failureCount) {
+      ended = true;
+      clearCache(cache);
+      //var result;
+      //if (failureCount > 0) {
+      //  result = 'Tests failed: ' + failureCount;
+      //} else {
+      //  result = 'All tests passed!';
+      //}
+      callback(null, runner.testResults);
+      //callback(null, [{
+      //  name: 'Test results',
+      //  description: result
+      //}]);
+    });
+
+    runner.on('end', function() {
+      if (!ended) {
+        clearCache(cache);
+        var err = new Error('Test runner failed unexpectedly');
+        console.log(err);
+        callback(err);
+      }
+    });
+  } catch (err) {
+    console.log('test failure', err);
+    callback(err);
   }
+}
+
+function prepareCache() {
+  var key;
+  var cache = {};
+  for (key in require.cache) {
+    cache[key] = true;
+  }
+  return cache;
+}
+
+function clearCache(cache) {
+  var key;
+  for (key in require.cache) {
+    if (!cache[key]) {
+      delete require.cache[key];
+    }
+  }
+}
+
+function getHash(data) {
+  var shasum = crypto.createHash('sha1');
+  shasum.update(data);
+  return shasum.digest('hex');
+}
+
+function createTempDir(tempPath) {
+  fs.mkdir(tempPath, function(error) {
+    if (error && error.code !== 'EEXIST') {
+      console.log('error reading or creating temp directory', tempPath);
+    }
+  });
 }

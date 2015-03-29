@@ -48,6 +48,18 @@ app.get('/exercises', function(req, res) {
   });
 });
 
+app.get('/exercises/:id', function(req, res) {
+  var exerciseId = req.params.id;
+  database.getExercise(exerciseId, function(err, exercise) {
+    if (err) {
+      //TODO: replace with 503 oid
+      res.send(err);
+    } else {
+      res.send(exercise);
+    }
+  });
+});
+
 //Depreciated
 // app.get('/exercise', function(req, res) {
 //   var filter = {
