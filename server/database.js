@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var connected = false;
 var Collections = require('./data/collections');
+var extend = require('extend');
 
 exports.connect = connect;
 exports.disconnect = disconnect;
@@ -37,7 +38,7 @@ function getTestSuite(exerciseId, callback) {
       callback(new Error('Test suite does not exist for id: ' + exerciseId));
     }
   });
-};
+}
 
 function getExercises(filter, callback) {
   if (!callback || typeof callback != 'function') {
@@ -112,6 +113,18 @@ exports.putExercise = function(exercise, callback) {
       putExercise(exercise, callback);
     });
   }
+  //determine if insert or update
+  if (exercise._id) {
+    //update
+    updateExercise(exercise, callback);
+  } else {
+    //insert
+    insertExercise(exercise, callback);
+  }
+
+};
+
+function insertExercise(exercise, callback) {
   var dbExercise = new Collections.Exercise(exercise);
   dbExercise.save(function(err, dbExercise) {
     if (err) {
@@ -119,7 +132,25 @@ exports.putExercise = function(exercise, callback) {
     }
     callback(null, dbExercise);
   });
-};
+}
+
+function updateExercise(exercise, callback) {
+  Collections.Exercise.findById(exercise._id,
+    function(err, old) {
+      if (err) {
+        callback(err);
+      } else {
+        delete exercise._id;
+        console.log('Exercise pre');
+        console.log(old);
+        extend(false, old, exercise);
+        console.log('Exercise');
+        console.log(old);
+        old.save(callback);
+      }
+    }
+  );
+}
 
 function connect(dbName, callback) {
   if (connected) {

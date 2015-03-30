@@ -1,5 +1,14 @@
 var mongoose = require('mongoose');
 
+var paramSchema = mongoose.Schema({
+  name: String
+});
+
+var functionSchema = mongoose.Schema({
+  name: String,
+  params: [paramSchema]
+});
+
 var exerciseSchema = mongoose.Schema({
   chapter: Number,
   number: Number,
@@ -12,15 +21,6 @@ var exerciseSchema = mongoose.Schema({
   }
 });
 
-var functionSchema = mongoose.Schema({
-  name: String,
-  params: [paramSchema]
-});
-
-var paramSchema = mongoose.Schema({
-  name: String
-});
-
 var testSuiteSchema = mongoose.Schema();
-
-exports.Exercise = mongoose.model('Exercise', exerciseSchema);
+mongoose.model('Exercise', exerciseSchema);
+exports.Exercise = mongoose.model('Exercise');

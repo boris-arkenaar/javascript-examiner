@@ -27,7 +27,7 @@
         width: 50px;
       }*/
     </style>
-    <core-ajax id="exerciseRequest" url="/exercises?number={{exerciseId}}"
+    <core-ajax id="exerciseRequest" url="/exercises/{{exerciseId}}"
                method="get" contentType="application/json"
                handleAs="json"
                on-core-response="{{onExerciseResponse}}"></core-ajax>
@@ -60,16 +60,35 @@
       </div>
     </div>
     <je-function-list items="{{exercise.functions}}"></je-function-list>
+    <div horizontal layout>
+      <div class="label">
+        <core-label>Testsuite:</core-label>
+      </div>
+      <div class="content">
+          <je-code-mirror value="{{exercise.testSuite.code}}" 
+              feedback="{{testSuitefeedback}}">
+          </je-code-mirror>
+      </div>
+    </div>
     <div flex>
       <paper-button raised on-click="{{saveExercise}}">
-            Save Exercise
+        Save Exercise
       </paper-button>
     </div>
+
+     <core-ajax id="upsertExercise" url="/upsert/exercise"
+               method="post" contentType="application/json"
+               handleAs="json" body='{"exercise": "{{encoded}}"}'
+               on-core-response="{{onSaveResponse}}"></core-ajax>
   </template>
   <script>
     Polymer({
+      exerciseId: 0,
+
       created: function() {
-        this.exercises = [];
+        this.exercise = {};
+        this.testSuitefeedback = [];
+        this.encoded = '';
       },
 
       attached: function() {
@@ -77,16 +96,16 @@
       },
 
       ready: function() {
-        //collapse all code mirrors
-        var that = this;
-        setTimeout(function() {
-          var mirrors = that.$.container.querySelectorAll('.function-content');
-          console.log('Mirrors');
-          console.log(mirrors);
-          for (var i = 0; i < mirrors.length; i++) {
-            mirrors[i].toggle();
-          }
-        }, 100);
+        // //collapse all code mirrors
+        // var that = this;
+        // setTimeout(function() {
+        //   var mirrors = that.$.container.querySelectorAll('.function-content');
+        //   console.log('Mirrors');
+        //   console.log(mirrors);
+        //   for (var i = 0; i < mirrors.length; i++) {
+        //     mirrors[i].toggle();
+        //   }
+        // }, 100);
       },
 
       toggleFunctionContent: function(event, detail, sender) {
@@ -97,9 +116,7 @@
       },
 
       onExerciseResponse: function(response) {
-        this.exercise = response.detail.response[0];
-        console.log(this.exercise);
-        
+        this.exercise = response.detail.response;
         this.exercise.functions.forEach(function(func) {
           var description = '/*\n';
           description += '\t@function\t'+func.name+'\n\t@desc\t'+
@@ -113,16 +130,29 @@
           description +='*/\n'
           func.description = description;
         });
-        //console.log(this.$.a1.jsElement);
-        // askie = this.$.a1
-        // this.$.a1.update([this.$.t1]);
       },
 
-      saveExcercise: function() {
+      saveExercise: function() {
         console.log(this.exercise);
+        this.encoded = utf8_to_b64(JSON.stringify(this.exercise));
+        this.$.upsertExercise.go();
+        // console.log(this.exercise.testSuite.code);
+      },
+
+      onSaveResponse: function(response) {
+        console.log('Geroepen response');
+        console.log(response.detail.response);
+        this.testSuitefeedback = response.detail.response.feedback;
       }
     });
-
+    
+    /**
+     * Source: 
+     * https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64.btoa
+     */
+    function utf8_to_b64(str) {
+      return window.btoa(unescape(encodeURIComponent(str)));
+    }
     
   </script>
 </polymer-element>

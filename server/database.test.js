@@ -81,6 +81,38 @@ describe('Database', function() {
         done();
       });
     });
+    it('should be able to update an exercise', function(done) {
+      var exercise = {name: 'BaraKi'};
+      database.putExercise(exercise, function(err, res) {
+        //assert.equal('string', JSON.stringify(err));
+        var newName = 'PlusKi';
+        res.name = newName;
+        var updated = {
+          functions: [{name: 'func1', params: []}],
+          name: newName,
+          ipsum: 'lorem',
+          number: 8,
+          _id: res._id.toString(),
+          testSuite: {
+            code: '\n' +
+              'var expect = require(\'chai\').expect;\n' +
+              '\n' +
+              'describe(\'calcBMI function\', function() {\n' +
+              '  it(\'should have been defined\', function() {\n' +
+              '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
+              '  });\n' +
+              '});\n'
+          }
+        };
+        assert.equal('string', typeof res._id.toString());
+        res._id = res._id.toString();
+        database.putExercise(updated, function(err, res2) {
+          assert.equal(null, err);
+          assert.equal(res2.name, newName);
+          done();
+        });
+      });
+    });
   });
   describe('getExercises', function() {
     it('should get the exerices currently in the database', function(done) {
