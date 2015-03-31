@@ -5,10 +5,7 @@ module.exports = function(check, feedback) {
   var trg;
   var pos;
   var module = check;
-  checkFile(module);
-  feedback.description = searchError(module, feedback);
-  checkFile('Algemeen');
-  feedback.description = searchError('Algemeen', feedback);
+  searchError(module, feedback);
   return feedback;
 };
 
@@ -29,12 +26,9 @@ function createFile(filename) {
 
 function checkFile(name) {
   var fn = generateFileName(name);
-  fs.exists(fn, function(exist) {
-    if (!exist) {
-      createFile(fn);
-    }
+  fs.exists(fn, function(err) {
+    console.log(err);
   });
-  // if not file exist, create file
 }
 
 function searchError(module, feedback) {
@@ -44,36 +38,30 @@ function searchError(module, feedback) {
 // if found, replace feedback with entrance
 // otherwise, add feedback to file
   var fn = generateFileName(module);
-  var input = fs.createReadStream(fn);
-  var lines = fs.readFileSync(fn).toString().split('\n');
+  var contents = fs.readFileSync(fn).toString();
   var found = false;
-  console.log('1: ' + feedback.description);
-  if (lines.length > 1) {
-    lines.forEach(function(v) {
-      if (v != '') {
-        src = v.split(';');
-        console.log('2a: ' + src[0]);
-        console.log('2b: ' + src[1]);
-        pos = feedback.description.indexOf(src[0]);
-        console.log('2: ' + v);
-        console.log('3: ' + pos)
-        if (pos > -1) {
-          feedback.description = feedback.description.replace(src[0], src[1]);
-          found = true;
-        }
+  if (contents.toString().trim() !== '') {
+    var lines = contents.toString().split('\n');
+    lines.map(function(e, i, a) {
+      if (e.trim() === '') {
+        lines.splice(i, 1);
+      }
+    });
+    lines.map(function(x) {
+      src = x.split(';');
+      if (feedback.description === src[0]) {
+        found = true;
+        feedback.description = src[1];
       }
     });
   }
-  var descr = feedback.description;
-  console.log('4: ' + descr);
-  console.log('5: ' + found);
   if (found === false) {
     // append description to file
+    var descr = feedback.description;
     fs.appendFile(fn, descr + ';' + descr + '\n', function(err) {
-      console.log('6: ' + err);
+      if (err) {
+        return console.log(err);
+      }
     });
   }
-  return feedback.description;
 }
-
-//Unexpected identifier;Onverwachte variabele
