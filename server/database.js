@@ -11,14 +11,32 @@ exports.disconnect = disconnect;
 * @param {function} callback with form callback(err, res)
 */
 exports.getExercises = getExercises;
+exports.getExercise = getExercise;
+exports.getTestSuite = getTestSuite;
 
 /**
 * Get the testSuite corresponding with the exercise
 * @param {string} exerciseId the identifier of the exercise
 * @param {function} callback with the form callback(err, res)
 */
-exports.getTestSuite = function(exerciseId, callback) {
-
+function getTestSuite(exerciseId, callback) {
+  if (!callback || typeof callback != 'function') {
+    throw new Error('A callback function is required as second param');
+  }
+  if (!connected) {
+    return connect(null, function() {
+      getTestSuite(exerciseId, callback);
+    });
+  }
+  getExercise(exerciseId, function(err, exercise) {
+    if (err) {
+      callback(err);
+    } else if (exercise && exercise.testSuite) {
+      callback(null, exercise.testSuite);
+    } else {
+      callback(new Error('Test suite does not exist for id: ' + exerciseId));
+    }
+  });
 };
 
 function getExercises(filter, callback) {
@@ -35,6 +53,26 @@ function getExercises(filter, callback) {
       return callback(err);
     }
     callback(null, exercises);
+  });
+}
+
+function getExercise(exerciseId, callback) {
+  if (!callback || typeof callback != 'function') {
+    throw new Error('A callback function is required as second param');
+  }
+  if (!connected) {
+    return connect(null, function() {
+      getExercise(exerciseId, callback);
+    });
+  }
+  Collections.Exercise.findOne({_id: exerciseId}, function(err, exercise) {
+    if (err) {
+      callback(err);
+    } else if (exercise) {
+      callback(null, exercise);
+    } else {
+      callback(new Error('Exercise does not exist with id: ' + exerciseId));
+    }
   });
 }
 
