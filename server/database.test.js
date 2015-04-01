@@ -97,7 +97,7 @@ describe('Database', function() {
             code: '\n' +
               'var expect = require(\'chai\').expect;\n' +
               '\n' +
-              'describe(\'calcBMI function\', function() {\n' +
+              'describe(\'the calcBMI function\', function() {\n' +
               '  it(\'should have been defined\', function() {\n' +
               '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
               '  });\n' +
@@ -106,11 +106,21 @@ describe('Database', function() {
         };
         assert.equal('string', typeof res._id.toString());
         res._id = res._id.toString();
-        database.putExercise(updated, function(err, res2) {
-          assert.equal(null, err);
-          assert.equal(res2.name, newName);
-          done();
-        });
+        database.getExercises(null, function(err, res2) {
+          var count = res2.length;
+          database.putExercise(updated, function(err, res3) {
+            assert.equal(null, err);
+            assert.equal(res3.name, newName);
+            //assert.equal(res._id, res3._id);
+            assert.equal(typeof res._id, 'object');
+            assert.equal(typeof res3._id, 'object');
+            assert.equal(String.valueOf(res._id), String.valueOf(res3._id));
+            database.getExercises(null, function(err, res4) {
+              assert.equal(count, res4.length);
+              done();
+            });
+          });
+        })
       });
     });
   });
