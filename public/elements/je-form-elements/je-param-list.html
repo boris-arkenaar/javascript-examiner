@@ -1,10 +1,10 @@
-<!-- Inspired by: -->
-<!-- https://github.com/bstavroulakis/web-components/blob/master/
-form-creator/Components/wc-form/wc-choice/wc-choice.html -->
-<!-- check example app here: -->
-<!-- http://bstavroulakis.com/demos/webcomponents/form-creator/ -->
-<link rel="import" href="./je-list.html">
+<link rel="import" href="../../bower_components/core-label/core-label.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../../bower_components/core-icon/core-icon.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
+<link rel="import" href="./je-list.html">
 
 <polymer-element name="je-param-list" extends="je-list">
 	<template>
@@ -18,7 +18,7 @@ form-creator/Components/wc-form/wc-choice/wc-choice.html -->
 					<div self-center><span>{</span></div>
 					<div class="input-container">
 						<paper-input label="Type" value="{{param.type}}">
-						</paper-input-decorator> 
+						</paper-input> 
 					</div>
 					<div self-center><span>}</span></div>
 					<div class="input-container">
