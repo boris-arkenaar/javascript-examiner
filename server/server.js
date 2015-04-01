@@ -24,7 +24,19 @@ app.post('/check/format', getCheckHandler(checkFormat));
 app.post('/check/functionality', getCheckHandler(checkFunctionality));
 app.post('/check/maintainability', getCheckHandler(checkMaintainability));
 
-app.post('/upsert/exercise', function(req, response) {
+app.delete('/exercise/:id', function(req, response) {
+  var exerciseId = req.params.id;
+  database.deleteExercise(exerciseId, function(err, exercise) {
+    if (err) {
+      //TODO: replace with 503 oid
+      response.send(err);
+    } else {
+      response.send({exercise: exercise, removed: true});
+    }
+  });
+});
+
+app.post('/exercise', function(req, response) {
   console.log('Geroepen');
   var exercise = JSON.parse(decode(req.body.exercise));
   console.log(exercise);

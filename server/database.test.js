@@ -55,6 +55,9 @@ describe('Database', function() {
     it('should export a putExercise function', function() {
       assert.equal('function', typeof database.putExercise);
     });
+    it('should export a deleteExercise function', function() {
+      assert.equal('function', typeof database.deleteExercise);
+    });
   });
   describe('putExercise', function() {
     it('should call callback with an error if there is no param',
@@ -120,7 +123,7 @@ describe('Database', function() {
               done();
             });
           });
-        })
+        });
       });
     });
   });
@@ -166,6 +169,30 @@ describe('Database', function() {
               assert.equal(res.length, 1);
               assert.equal(res[0].name, exercise2.name);
               done();
+            });
+          });
+        });
+      });
+    });
+  });
+  describe('deleteExercise', function() {
+    it('should delete an exercise', function(done) {
+      //Get the current exercises
+      database.getExercises(null, function(err, res1) {
+        var count = res1.length;
+        var exercise = {name: 'Askie', id: new Date().toString()};
+        //Add an exercise
+        database.putExercise(exercise, function(err, res2) {
+          //Check if size has increased by one
+          database.getExercises(null, function(err, res3) {
+            assert.equal(count + 1, res3.length);
+            //Remove the exercise
+            database.deleteExercise(res2._id, function(err, res4) {
+              //Check if size has decreased by one
+              database.getExercises(null, function(err, res5) {
+                assert.equal(count, res5.length);
+                done();
+              });
             });
           });
         });

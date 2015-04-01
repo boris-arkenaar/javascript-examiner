@@ -89,10 +89,15 @@
       </div>
 
 
-       <core-ajax id="upsertExercise" url="/upsert/exercise"
+       <core-ajax id="upsertExercise" url="/exercise"
                  method="post" contentType="application/json"
                  handleAs="json" body='{"exercise": "{{encoded}}"}'
                  on-core-response="{{onSaveResponse}}"></core-ajax>
+      <core-ajax id="deleteExercise" url="/exercise/{{exerciseId}}"
+                 method="delete" contentType="application/json"
+                 handleAs="json" 
+                 on-core-response="{{onDeleteResponse}}"></core-ajax>
+
     </div>
   </template>
   <script>
@@ -155,8 +160,21 @@
       },
 
       deleteExercise: function() {
-        if(confirm('Do you really want to delete this Exercise?')) {
+        if(this.exerciseId && 
+          this.exerciseId.length > 0 &&
+          confirm('Do you really want to delete this Exercise?')) {
           //Delete exercise
+          this.$.deleteExercise.go();
+        }
+      },
+
+      onDeleteResponse: function(response) {
+        console.log(response.detail.response);
+        if(response.detail.response.removed) {
+          console.log('Exercise removed');
+          this.router.go('/exercises');
+        } else {
+          console.log('Something went wrong');
         }
       }
 

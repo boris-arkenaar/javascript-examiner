@@ -24,7 +24,24 @@ exports.getTestSuite = getTestSuite;
 * @param {callback} callback the callback with form callback(err, res)
 */
 exports.putExercise = putExercise;
+/**
+* Delete an exercise from the database
+* @param {String} exerciseId the Id of the exercise
+* @param {callback} callback the callback with form callback(err, res)
+*/
+exports.deleteExercise = deleteExercise;
 
+function deleteExercise(exerciseId, callback) {
+  findExerciseById(exerciseId, function(err, old) {
+    if (err) {
+      callback(err);
+    } else {
+      //gives error with id so remove it.
+      // delete exercise._id;
+      old.remove(callback);
+    }
+  });
+}
 
 function getTestSuite(exerciseId, callback) {
   if (!callback || typeof callback != 'function') {
@@ -102,7 +119,6 @@ exports.putFeedback = function(solution, feedback, callback) {
 
 };
 
-
 function putExercise(exercise, callback) {
   if (exercise === null || (exercise && typeof exercise != 'object')) {
     return callback(new Error('An exercise is required'));
@@ -124,7 +140,7 @@ function putExercise(exercise, callback) {
     insertExercise(exercise, callback);
   }
 
-};
+}
 
 function insertExercise(exercise, callback) {
   var dbExercise = new Collections.Exercise(exercise);
@@ -137,21 +153,22 @@ function insertExercise(exercise, callback) {
 }
 
 function updateExercise(exercise, callback) {
-  Collections.Exercise.findById(exercise._id,
+  findExerciseById(exercise._id,
     function(err, old) {
       if (err) {
         callback(err);
       } else {
+        //gives error with id so remove it.
         delete exercise._id;
-        console.log('Exercise pre');
-        console.log(old);
         extend(false, old, exercise);
-        console.log('Exercise');
-        console.log(old);
         old.save(callback);
       }
     }
   );
+}
+
+function findExerciseById(id, callback) {
+  Collections.Exercise.findById(id, callback);
 }
 
 function connect(dbName, callback) {
