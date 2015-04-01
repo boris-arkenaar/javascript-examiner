@@ -5,7 +5,6 @@ var extend = require('extend');
 
 exports.connect = connect;
 exports.disconnect = disconnect;
-
 /**
 * Get the exercises
 * @param {filter} filter , an object with the properties to filter on
@@ -13,13 +12,20 @@ exports.disconnect = disconnect;
 */
 exports.getExercises = getExercises;
 exports.getExercise = getExercise;
-exports.getTestSuite = getTestSuite;
-
 /**
 * Get the testSuite corresponding with the exercise
 * @param {string} exerciseId the identifier of the exercise
 * @param {function} callback with the form callback(err, res)
 */
+exports.getTestSuite = getTestSuite;
+/**
+* Insert/Update an exercise in the database
+* @param {Object} exercise the exercise
+* @param {callback} callback the callback with form callback(err, res)
+*/
+exports.putExercise = putExercise;
+
+
 function getTestSuite(exerciseId, callback) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
@@ -96,12 +102,8 @@ exports.putFeedback = function(solution, feedback, callback) {
 
 };
 
-/**
-* Insert/Update an exercise in the database
-* @param {Object} exercise the exercise
-* @param {callback} callback the callback with form callback(err, res)
-*/
-exports.putExercise = function(exercise, callback) {
+
+function putExercise(exercise, callback) {
   if (exercise === null || (exercise && typeof exercise != 'object')) {
     return callback(new Error('An exercise is required'));
   }
