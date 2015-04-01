@@ -2,17 +2,14 @@ var fs = require('fs');
 var description;
 var module;
 
-module.exports = function(check, feedback) {
+module.exports = function(check, feedback, cb) {
   var src;
   var trg;
   var pos;
   var callback = function(value) {
-    console.log('callback ' + value);
-    return value;
+    cb(value);
   };
-  module = check;
-  searchError(module, feedback, callback);
-  return feedback.description;
+  searchError(check, feedback, callback);
 };
 
 function generateFileName(name) {
@@ -63,7 +60,7 @@ function searchError(module, feedback, callback) {
           src = x.split(';');
           if (description === src[0]) {
             found = true;
-            description = src[1];
+            feedback.description = src[1];
           }
         });
       }
@@ -76,7 +73,7 @@ function searchError(module, feedback, callback) {
           }
         });
       }
-      callback(description);
+      callback(feedback.description);
     });
   });
 }
