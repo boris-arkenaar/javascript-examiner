@@ -1,27 +1,5 @@
 var database = require('../server/database');
 var assert = require('assert');
-
-// var exercise = {
-//  id: new Date().toString(),
-//  name: 'An Exercise'
-// };
-
-// database.putExercise(exercise, function(err, res) {
-//  if(err) {
-//    console.log(err);
-//  }
-//    console.log('Exercise:');
-//    console.log(res);
-//    database.getExercises(null, function(err,res) {
-//      if(err) {
-//        console.log(err);
-//      }
-//        console.log('Exercises:')
-//        console.log(res);
-//        process.exit();
-//    })
-// });
-
 describe('Database', function() {
   before(function(done) {
     database.connect('test', function() {
