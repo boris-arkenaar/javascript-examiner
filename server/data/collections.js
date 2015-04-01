@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 
 var paramSchema = mongoose.Schema({
-  name: String
+  name: String,
+  type: String,
+  description: String
 });
 
 var functionSchema = mongoose.Schema({
