@@ -16,7 +16,6 @@ var app = express();
 
 app.use(bodyParser.json());
 
-console.log('dirname', __dirname);
 app.use(express.static(__dirname + '/../public'));
 
 app.post('/check/syntax', getCheckHandler(checkSyntax));
@@ -37,31 +36,22 @@ app.delete('/exercise/:id', function(req, response) {
 });
 
 app.post('/exercise', function(req, response) {
-  console.log('Geroepen');
   var exercise = JSON.parse(decode(req.body.exercise));
-  console.log(exercise);
   var upsertResponse = function(err, result) {
     if (err) {
-      console.log('Geroepen5');
-      console.log(err);
       response.send(err);
     } else {
-      console.log('Geroepen6');
       response.send({exercise: result});
     }
   };
 
   if (exercise.testSuite.code && exercise.testSuite.code !== '') {
-    console.log('Geroepen2');
     //Check if syntax test suite is ok
     checkSyntax({code: exercise.testSuite.code}, function(err, feedback) {
       if (err) {
-        console.log('Geroepen3');
         return response.send(err);
       }
       if (feedback && feedback.length > 0) {
-        console.log('Geroepen4');
-        console.log(feedback);
         return response.send({feedback: feedback});
       }
       database.putExercise(exercise, upsertResponse);
@@ -103,27 +93,9 @@ app.get('/exercises', function(req, res) {
   });
 });
 
-//Depreciated
-// app.get('/exercise', function(req, res) {
-//   var filter = {
-//     chapter: req.query.chapter,
-//     number: req.query.number
-//   };
-//   console.log(filter);
-//   database.getExercises(filter, function(err, exercise) {
-//     if (err) {
-//       //TODO: replace with 503 oid
-//       res.send(err);
-//     } else {
-//       res.send(exercise);
-//     }
-//   });
-// });
-
 var server = app.listen(3030, function() {
   var host = server.address().address;
   var port = server.address().port;
-  console.log('Example http://%s:%s', host, port);
 });
 
 function getCheckHandler(check) {
@@ -133,7 +105,6 @@ function getCheckHandler(check) {
       code: code,
       exerciseId: request.body.exerciseId
     };
-    console.log(submitted.exerciseId);
     check(submitted, function(err, feedback, artifacts) {
       var responseData;
 
@@ -145,7 +116,6 @@ function getCheckHandler(check) {
           artifacts: artifacts || {}
         };
       }
-
       response.send(responseData);
     });
   };
