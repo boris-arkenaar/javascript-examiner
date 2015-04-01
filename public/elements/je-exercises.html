@@ -1,6 +1,8 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
 
 <polymer-element name="je-exercises">
   <template>
@@ -16,9 +18,17 @@
         <template repeat="{{exercise in exercises}}">
           <li>
             <a href="#/exercises/{{exercise._id}}">{{exercise.name}}</a>
+            <a href="#/exercises/{{exercise._id}}/edit">
+              <paper-icon-button title="edit" icon="create"></paper-icon-button>
+            </a>
           </li>
         </template>
       </ul>
+      <a href="#/exercises//edit">
+        <paper-button raised title="add Exercise" icon="add">
+          Add
+        </paper-button>
+      </a>
     </template>
     <template if="{{!exercises.length}}">
       <p>There are no exercises available.</p>
