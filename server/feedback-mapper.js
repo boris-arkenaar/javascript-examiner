@@ -35,11 +35,12 @@ function checkFile(name) {
 }
 
 function searchError(module, feedback, callback) {
-// search for error, if not found create error with description is equal to error
-// read file and put the content in an array
-// then check the feedback with items from the array
-// if found, replace feedback with entrance
-// otherwise, add feedback to file
+  // search for error,
+  // if not found create error with description is equal to error
+  // read file and put the content in an array
+  // then check the feedback with items from the array
+  // if found, replace feedback with entrance
+  // otherwise, add feedback to file
   var fn = generateFileName(module);
   description = feedback.description;
   fs.open(fn, 'a+', function() {
@@ -50,7 +51,7 @@ function searchError(module, feedback, callback) {
       var found = false;
       if (buf.toString().trim() !== '') {
         var lines = buf.toString().split('\n');
-        var found = false;
+        // var found = false;
         lines.map(function(e, i, a) {
           if (e.trim() === '') {
             lines.splice(i, 1);
@@ -68,7 +69,7 @@ function searchError(module, feedback, callback) {
         // append description to file
         var descr = feedback.description;
         fs.appendFile(fn, descr + ';' + descr + '\n', function(err) {
-          if (err) {
+        if (err) {
             return console.log(err);
           }
         });
