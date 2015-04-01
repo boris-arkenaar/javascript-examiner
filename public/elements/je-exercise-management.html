@@ -5,8 +5,9 @@
       href="../bower_components/paper-input/paper-autogrow-textarea.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="./je-form-elements/je-function-list.html">
+<link rel="import" href="je-feedback.html">
 
-<polymer-element name="je-exercise-management" attributes="exerciseId">
+<polymer-element name="je-exercise-management" attributes="exerciseId, router">
 
   <template>
     <style>
@@ -70,24 +71,37 @@
           </je-code-mirror>
       </div>
     </div>
-    <div flex>
+    <div horizontal layout flex>
       <paper-button raised on-click="{{saveExercise}}">
         Save Exercise
       </paper-button>
+      <template if="{{globalFeedback.length}}">
+        <je-feedback>{{globalFeedback}}</je-feedback>
+      </template>
     </div>
-
+    <div>
+      
+    </div>
      <core-ajax id="upsertExercise" url="/upsert/exercise"
                method="post" contentType="application/json"
                handleAs="json" body='{"exercise": "{{encoded}}"}'
                on-core-response="{{onSaveResponse}}"></core-ajax>
   </template>
   <script>
-    Polymer({
+    Polymer("je-exercise-management", {
+      observe: {
+        'exercise': 'exerciseChanged',
+        'exercise.description' : 'exerciseChanged',
+        'exercise.functions' : 'exerciseChanged',
+        'exercise.description' : 'exerciseChanged',
+      },
+
       exerciseId: 0,
 
       created: function() {
         this.exercise = {};
         this.testSuitefeedback = [];
+        this.globalFeedback = [];
         this.encoded = '';
       },
 
@@ -106,6 +120,10 @@
         //     mirrors[i].toggle();
         //   }
         // }, 100);
+      },
+
+      exerciseChanged: function() {
+        console.log('Geroepen Changed');
       },
 
       toggleFunctionContent: function(event, detail, sender) {
@@ -133,6 +151,7 @@
       },
 
       saveExercise: function() {
+        this.globalFeedback = null;
         console.log(this.exercise);
         this.encoded = utf8_to_b64(JSON.stringify(this.exercise));
         this.$.upsertExercise.go();
@@ -142,7 +161,14 @@
       onSaveResponse: function(response) {
         console.log('Geroepen response');
         console.log(response.detail.response);
-        this.testSuitefeedback = response.detail.response.feedback;
+        if(response.detail.response.feedback) {
+          //Show syntax feedback, not saved
+          this.testSuitefeedback = response.detail.response.feedback;
+          this.globalFeedback = 'Not saved: Please fix Testsuite Errors';
+        } else if(response.detail.response.exercise) {
+          this.exercise = response.detail.response.exercise;
+          this.globalFeedback = 'Exercise Saved';
+        }
       }
     });
     
