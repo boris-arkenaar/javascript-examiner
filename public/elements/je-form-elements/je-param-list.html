@@ -45,22 +45,11 @@
 	</template>
 	<script>
 		Polymer("je-param-list", {
-
-			items: [],
-			created: function() {
-        //this.items = [];
-      },
-      ready: function() {
-      	console.log(this.items);
-      },
-			//items: [{type:'omg', name:'askie', description: 'rofl'}],
 			addItem: function() {
 				var newParam = {type: '', name: '', description: ''};
 				this.super([newParam]);
 			},
 			removeItem: function(event, detail, sender) {
-				console.log('Call superklasse');
-				console.log(arguments);
 				this.super(arguments);
 			}
 		});

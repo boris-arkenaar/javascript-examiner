@@ -32,105 +32,92 @@
                method="get" contentType="application/json"
                handleAs="json"
                on-core-response="{{onExerciseResponse}}"></core-ajax>
-    <div id="theForm"></div>
-    <!-- sections in here -->
-    <div id="container" vertical layout wrap>
-    <!-- section -->
-    <div horizontal layout>
-      <!-- label -->
-      <div self-center class="label">
-        <core-label>Name:</core-label>  
+    <div id="theForm">
+      <!-- sections in here -->
+      <div id="container" vertical layout wrap>
+      <!-- section -->
+      <div horizontal layout>
+        <!-- label -->
+        <div self-center class="label">
+          <core-label>Name:</core-label>  
+        </div>
+        <!-- content -->
+        <div flex class="content">
+          <paper-input value="{{exercise.name}}"></paper-input>
+        </div>
       </div>
-      <!-- content -->
-      <div flex class="content">
-        <paper-input value="{{exercise.name}}"></paper-input>
+      <!-- section -->
+      <div horizontal layout>
+        <!-- label -->
+        <div class="label">
+          <core-label>Description:</core-label>
+        </div> 
+        <!-- content -->
+        <div flex class="content">
+          <paper-autogrow-textarea id="excercise-description-area" rows="3">
+            <textarea id="excercise-description" value="{{exercise.description}}">
+            </textarea>
+          </paper-autogrow-textarea>
+        </div>
       </div>
-    </div>
-    <!-- section -->
-    <div horizontal layout>
-      <!-- label -->
-      <div class="label">
-        <core-label>Description:</core-label>
-      </div> 
-      <!-- content -->
-      <div flex class="content">
-        <paper-autogrow-textarea id="excercise-description-area" rows="3">
-          <textarea id="excercise-description" value="{{exercise.description}}">
-          </textarea>
-        </paper-autogrow-textarea>
+      <je-function-list items="{{exercise.functions}}"></je-function-list>
+      <div horizontal layout>
+        <div class="label">
+          <core-label>Testsuite:</core-label>
+        </div>
+        <div class="content">
+            <je-code-mirror value="{{exercise.testSuite.code}}" 
+                feedback="{{testSuitefeedback}}">
+            </je-code-mirror>
+        </div>
       </div>
-    </div>
-    <je-function-list items="{{exercise.functions}}"></je-function-list>
-    <div horizontal layout>
-      <div class="label">
-        <core-label>Testsuite:</core-label>
+      <div horizontal layout flex>
+        <paper-button raised on-click="{{saveExercise}}">
+          Save
+        </paper-button>
+        <paper-button raised on-click="{{deleteExercise}}">
+          Delete Exercise
+        </paper-button>
+        <template if="{{globalFeedback.length}}">
+          <je-feedback>{{globalFeedback}}</je-feedback>
+        </template>  
+        <a href="#/exercises">
+          <paper-button raised>
+            Back
+          </paper-button> 
+        </a>    
       </div>
-      <div class="content">
-          <je-code-mirror value="{{exercise.testSuite.code}}" 
-              feedback="{{testSuitefeedback}}">
-          </je-code-mirror>
-      </div>
+
+
+       <core-ajax id="upsertExercise" url="/upsert/exercise"
+                 method="post" contentType="application/json"
+                 handleAs="json" body='{"exercise": "{{encoded}}"}'
+                 on-core-response="{{onSaveResponse}}"></core-ajax>
     </div>
-    <div horizontal layout flex>
-      <paper-button raised on-click="{{saveExercise}}">
-        Save Exercise
-      </paper-button>
-      <template if="{{globalFeedback.length}}">
-        <je-feedback>{{globalFeedback}}</je-feedback>
-      </template>
-    </div>
-    <div>
-      
-    </div>
-     <core-ajax id="upsertExercise" url="/upsert/exercise"
-               method="post" contentType="application/json"
-               handleAs="json" body='{"exercise": "{{encoded}}"}'
-               on-core-response="{{onSaveResponse}}"></core-ajax>
   </template>
   <script>
     Polymer("je-exercise-management", {
-      observe: {
-        'exercise': 'exerciseChanged',
-        'exercise.description' : 'exerciseChanged',
-        'exercise.functions' : 'exerciseChanged',
-        'exercise.description' : 'exerciseChanged',
-      },
-
+      
       exerciseId: 0,
 
       created: function() {
-        this.exercise = {};
+        this.exercise = {
+          functions: [],
+          name: '',
+          testSuite: {
+            code: ''
+          }
+        };
         this.testSuitefeedback = [];
         this.globalFeedback = [];
         this.encoded = '';
       },
 
       attached: function() {
-        this.$.exerciseRequest.go();        
-      },
-
-      ready: function() {
-        // //collapse all code mirrors
-        // var that = this;
-        // setTimeout(function() {
-        //   var mirrors = that.$.container.querySelectorAll('.function-content');
-        //   console.log('Mirrors');
-        //   console.log(mirrors);
-        //   for (var i = 0; i < mirrors.length; i++) {
-        //     mirrors[i].toggle();
-        //   }
-        // }, 100);
-      },
-
-      exerciseChanged: function() {
-        console.log('Geroepen Changed');
-      },
-
-      toggleFunctionContent: function(event, detail, sender) {
-        console.log(sender);
-        console.log(sender.id+'-detail');
-        console.log(this.$.container.querySelectorAll('.function-content'));
-        this.$.container.querySelector('#'+sender.id+'-detail').toggle();
+        if(this.exerciseId && this.exerciseId.length > 0) {
+          this.$.exerciseRequest.go();  
+        }
+        
       },
 
       onExerciseResponse: function(response) {
@@ -152,15 +139,11 @@
 
       saveExercise: function() {
         this.globalFeedback = null;
-        console.log(this.exercise);
         this.encoded = utf8_to_b64(JSON.stringify(this.exercise));
         this.$.upsertExercise.go();
-        // console.log(this.exercise.testSuite.code);
       },
 
       onSaveResponse: function(response) {
-        console.log('Geroepen response');
-        console.log(response.detail.response);
         if(response.detail.response.feedback) {
           //Show syntax feedback, not saved
           this.testSuitefeedback = response.detail.response.feedback;
@@ -169,7 +152,14 @@
           this.exercise = response.detail.response.exercise;
           this.globalFeedback = 'Exercise Saved';
         }
+      },
+
+      deleteExercise: function() {
+        if(confirm('Do you really want to delete this Exercise?')) {
+          //Delete exercise
+        }
       }
+
     });
     
     /**
