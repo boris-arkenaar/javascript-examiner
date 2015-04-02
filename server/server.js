@@ -123,7 +123,8 @@ app.post('/exercise', function(req, response) {
     }
   };
 
-  if (exercise.testSuite && exercise.testSuite.code && exercise.testSuite.code !== '') {
+  if (exercise.testSuite &&
+      exercise.testSuite.code && exercise.testSuite.code !== '') {
     //Check if syntax test suite is ok
     checkSyntax({code: exercise.testSuite.code}, function(err, feedback) {
       if (err) {

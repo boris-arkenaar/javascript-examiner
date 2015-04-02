@@ -95,7 +95,10 @@ function addExercises(callback) {
     name: 'Bereken oppervlakte circel',
     description: 'Schrijf een pure functie die de oppervlakte van een' +
       'circel berekent',
-    functions: [{name: 'berekenOppervlakteCircle', params: [{name: 'straal'}]}]
+    functions: [{name: 'berekenOppervlakteCircle', params: [{name: 'straal'}]}],
+    testSuite: {
+      code: ''
+    }
   };
   var exercise2 = {
     chapter: 5,
@@ -103,7 +106,10 @@ function addExercises(callback) {
     name: 'Genereer is wortel van x functies',
     description: 'Schrijf een functie isWortelVan() met een numerieke ' +
       'parameter n waarmee getest kan worden of n een worel is van g',
-    functions: [{name: 'isWortelVan', params: [{name: 'n'}]}]
+    functions: [{name: 'isWortelVan', params: [{name: 'n'}]}],
+    testSuite: {
+      code: ''
+    }
   };
   var exercise3 = {
     chapter: 5,
@@ -113,8 +119,10 @@ function addExercises(callback) {
       'die van het object obj een string representatie terug geeft in de ' +
       'vorm: "property1" = "value van property1", "property 2" = "' +
       'value van property2", "propertyN" = "value van propertyN" ',
-    functions: [{name: 'toString', params: [{name: 'obj'}]}]
-
+    functions: [{name: 'toString', params: [{name: 'obj'}]}],
+    testSuite: {
+      code: ''
+    }
   };
   var exercise4 = {
     chapter: 5,
