@@ -19,8 +19,10 @@ module.exports = function(submitted, cb) {
       feedback.description = err.message;
       feedback.line = err.line;
       feedback.column = err.column;
-      feedback = mapper('check-format', feedback);
-      feedbackList.push(feedback);
+      mapper('check-syntax', feedback, function(value) {
+        feedback.description = value;
+        feedbackList.push(feedback);
+      });
     });
   } catch (err) {
     cb(err);
