@@ -5,6 +5,17 @@ var userSchema = mongoose.Schema({
   password: String
 });
 
+var paramSchema = mongoose.Schema({
+  name: String,
+  type: String,
+  description: String
+});
+
+var functionSchema = mongoose.Schema({
+  name: String,
+  params: [paramSchema]
+});
+
 var exerciseSchema = mongoose.Schema({
   chapter: Number,
   number: Number,
@@ -16,16 +27,8 @@ var exerciseSchema = mongoose.Schema({
   }
 });
 
-var functionSchema = mongoose.Schema({
-  name: String,
-  params: [paramSchema]
-});
-
-var paramSchema = mongoose.Schema({
-  name: String
-});
-
 var testSuiteSchema = mongoose.Schema();
 
 exports.User = mongoose.model('User', userSchema);
-exports.Exercise = mongoose.model('Exercise', exerciseSchema);
+mongoose.model('Exercise', exerciseSchema);
+exports.Exercise = mongoose.model('Exercise');

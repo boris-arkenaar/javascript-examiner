@@ -125,10 +125,11 @@ function addExercises(callback) {
     functions: [
       {
         name: 'calcBMI',
-        params: [
-          {name: 'lengte'},
-          {name: 'gewicht'}
-        ]
+        params: [{name: 'lengte'}, {name: 'gewicht'}]
+      },
+      {
+        name: 'calcBMI2',
+        params: [{name: 'ipsum'}, {name: 'lorem'}]
       }
     ],
     testSuite: {

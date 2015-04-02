@@ -1,0 +1,192 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-collapse/core-collapse.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import"
+      href="../bower_components/paper-input/paper-autogrow-textarea.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="./je-form-elements/je-function-list.html">
+<link rel="import" href="je-feedback.html">
+
+<polymer-element name="je-exercise-management" attributes="exerciseId, router">
+
+  <template>
+    <style>
+      .label {
+        width: 80px;
+        margin-right: 10px;
+      }
+
+      .param {
+        padding-bottom: 14px;
+        padding-top: 10px;
+      }
+
+      div {
+        margin-top: 10px;
+      }
+      /*#function {
+        width: 50px;
+      }*/
+    </style>
+    <core-ajax id="exerciseRequest" url="/exercises/{{exerciseId}}"
+               method="get" contentType="application/json"
+               handleAs="json"
+               on-core-response="{{onExerciseResponse}}"></core-ajax>
+    <div id="theForm">
+      <!-- sections in here -->
+      <div id="container" vertical layout wrap>
+      <!-- section -->
+      <div horizontal layout>
+        <!-- label -->
+        <div self-center class="label">
+          <core-label>Name:</core-label>  
+        </div>
+        <!-- content -->
+        <div flex class="content">
+          <paper-input value="{{exercise.name}}"></paper-input>
+        </div>
+      </div>
+      <!-- section -->
+      <div horizontal layout>
+        <!-- label -->
+        <div class="label">
+          <core-label>Description:</core-label>
+        </div> 
+        <!-- content -->
+        <div flex class="content">
+          <paper-autogrow-textarea id="excercise-description-area" rows="3">
+            <textarea id="excercise-description" value="{{exercise.description}}">
+            </textarea>
+          </paper-autogrow-textarea>
+        </div>
+      </div>
+      <je-function-list items="{{exercise.functions}}"></je-function-list>
+      <div horizontal layout>
+        <div class="label">
+          <core-label>Testsuite:</core-label>
+        </div>
+        <div flex class="content">
+            <je-code-mirror value="{{exercise.testSuite.code}}" 
+                feedback="{{testSuitefeedback}}">
+            </je-code-mirror>
+        </div>
+      </div>
+      <div horizontal layout flex>
+        <paper-button raised on-click="{{saveExercise}}">
+          Save
+        </paper-button>
+        <paper-button raised on-click="{{deleteExercise}}">
+          Delete Exercise
+        </paper-button>
+        <template if="{{globalFeedback.length}}">
+          <je-feedback>{{globalFeedback}}</je-feedback>
+        </template>  
+        <a href="#/exercises">
+          <paper-button raised>
+            Back
+          </paper-button> 
+        </a>    
+      </div>
+
+
+       <core-ajax id="upsertExercise" url="/exercise"
+                 method="post" contentType="application/json"
+                 handleAs="json" body='{"exercise": "{{encoded}}"}'
+                 on-core-response="{{onSaveResponse}}"></core-ajax>
+      <core-ajax id="deleteExercise" url="/exercise/{{exerciseId}}"
+                 method="delete" contentType="application/json"
+                 handleAs="json" 
+                 on-core-response="{{onDeleteResponse}}"></core-ajax>
+
+    </div>
+  </template>
+  <script>
+    Polymer("je-exercise-management", {
+      
+      exerciseId: 0,
+
+      created: function() {
+        this.exercise = {
+          functions: [],
+          name: '',
+          testSuite: {
+            code: ''
+          }
+        };
+        this.testSuitefeedback = [];
+        this.globalFeedback = [];
+        this.encoded = '';
+      },
+
+      attached: function() {
+        if(this.exerciseId && this.exerciseId.length > 0) {
+          this.$.exerciseRequest.go();  
+        }
+        
+      },
+
+      onExerciseResponse: function(response) {
+        this.exercise = response.detail.response;
+        this.exercise.functions.forEach(function(func) {
+          var description = '/*\n';
+          description += '\t@function\t'+func.name+'\n\t@desc\t'+
+              (func.description || '<description>')+'\n';
+          func.params.forEach(function(param) {
+            description += '\t@param {'+
+                (param.type || '<type>')+'} '+
+                (param.name || '<name> ')+'\t'+'- '+
+                (param.description || '<description>')+'\n'
+          });
+          description +='*/\n'
+          func.description = description;
+        });
+      },
+
+      saveExercise: function() {
+        this.globalFeedback = null;
+        this.encoded = utf8_to_b64(JSON.stringify(this.exercise));
+        this.$.upsertExercise.go();
+      },
+
+      onSaveResponse: function(response) {
+        if(response.detail.response.feedback) {
+          //Show syntax feedback, not saved
+          this.testSuitefeedback = response.detail.response.feedback;
+          this.globalFeedback = 'Not saved: Please fix Testsuite Errors';
+        } else if(response.detail.response.exercise) {
+          this.exercise = response.detail.response.exercise;
+          this.globalFeedback = 'Exercise Saved';
+        }
+      },
+
+      deleteExercise: function() {
+        if(this.exerciseId && 
+          this.exerciseId.length > 0 &&
+          confirm('Do you really want to delete this Exercise?')) {
+          //Delete exercise
+          this.$.deleteExercise.go();
+        }
+      },
+
+      onDeleteResponse: function(response) {
+        console.log(response.detail.response);
+        if(response.detail.response.removed) {
+          console.log('Exercise removed');
+          this.router.go('/exercises');
+        } else {
+          console.log('Something went wrong');
+        }
+      }
+
+    });
+    
+    /**
+     * Source: 
+     * https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64.btoa
+     */
+    function utf8_to_b64(str) {
+      return window.btoa(unescape(encodeURIComponent(str)));
+    }
+    
+  </script>
+</polymer-element>

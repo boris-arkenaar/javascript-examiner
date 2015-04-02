@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 var connected = false;
 var Collections = require('./data/collections');
+var extend = require('extend');
 
 exports.connect = connect;
 exports.disconnect = disconnect;
-
 /**
 * Get the exercises
 * @param {filter} filter , an object with the properties to filter on
@@ -50,6 +50,32 @@ function getUser(filter, callback) {
 * @param {string} exerciseId the identifier of the exercise
 * @param {function} callback with the form callback(err, res)
 */
+exports.getTestSuite = getTestSuite;
+/**
+* Insert/Update an exercise in the database
+* @param {Object} exercise the exercise
+* @param {callback} callback the callback with form callback(err, res)
+*/
+exports.putExercise = putExercise;
+/**
+* Delete an exercise from the database
+* @param {String} exerciseId the Id of the exercise
+* @param {callback} callback the callback with form callback(err, res)
+*/
+exports.deleteExercise = deleteExercise;
+
+function deleteExercise(exerciseId, callback) {
+  findExerciseById(exerciseId, function(err, old) {
+    if (err) {
+      callback(err);
+    } else {
+      //gives error with id so remove it.
+      // delete exercise._id;
+      old.remove(callback);
+    }
+  });
+}
+
 function getTestSuite(exerciseId, callback) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
@@ -157,7 +183,7 @@ exports.putUser = function(user, callback) {
 * @param {Object} exercise the exercise
 * @param {callback} callback the callback with form callback(err, res)
 */
-exports.putExercise = function(exercise, callback) {
+function putExercise(exercise, callback) {
   if (exercise === null || (exercise && typeof exercise != 'object')) {
     return callback(new Error('An exercise is required'));
   }
@@ -169,6 +195,18 @@ exports.putExercise = function(exercise, callback) {
       putExercise(exercise, callback);
     });
   }
+  //determine if insert or update
+  if (exercise._id) {
+    //update
+    updateExercise(exercise, callback);
+  } else {
+    //insert
+    insertExercise(exercise, callback);
+  }
+
+}
+
+function insertExercise(exercise, callback) {
   var dbExercise = new Collections.Exercise(exercise);
   dbExercise.save(function(err, dbExercise) {
     if (err) {
@@ -176,7 +214,26 @@ exports.putExercise = function(exercise, callback) {
     }
     callback(null, dbExercise);
   });
-};
+}
+
+function updateExercise(exercise, callback) {
+  findExerciseById(exercise._id,
+    function(err, old) {
+      if (err) {
+        callback(err);
+      } else {
+        //gives error with id so remove it.
+        delete exercise._id;
+        extend(false, old, exercise);
+        old.save(callback);
+      }
+    }
+  );
+}
+
+function findExerciseById(id, callback) {
+  Collections.Exercise.findById(id, callback);
+}
 
 function connect(dbName, callback) {
   if (connected) {

@@ -1,27 +1,5 @@
 var database = require('../server/database');
 var assert = require('assert');
-
-// var exercise = {
-//  id: new Date().toString(),
-//  name: 'An Exercise'
-// };
-
-// database.putExercise(exercise, function(err, res) {
-//  if(err) {
-//    console.log(err);
-//  }
-//    console.log('Exercise:');
-//    console.log(res);
-//    database.getExercises(null, function(err,res) {
-//      if(err) {
-//        console.log(err);
-//      }
-//        console.log('Exercises:')
-//        console.log(res);
-//        process.exit();
-//    })
-// });
-
 describe('Database', function() {
   before(function(done) {
     database.connect('test', function() {
@@ -55,6 +33,9 @@ describe('Database', function() {
     it('should export a putExercise function', function() {
       assert.equal('function', typeof database.putExercise);
     });
+    it('should export a deleteExercise function', function() {
+      assert.equal('function', typeof database.deleteExercise);
+    });
   });
   describe('putExercise', function() {
     it('should call callback with an error if there is no param',
@@ -79,6 +60,48 @@ describe('Database', function() {
         assert.equal(exercise.name, res.name);
         assert.equal('object', typeof res._id);
         done();
+      });
+    });
+    it('should be able to update an exercise', function(done) {
+      var exercise = {name: 'BaraKi'};
+      database.putExercise(exercise, function(err, res) {
+        //assert.equal('string', JSON.stringify(err));
+        var newName = 'PlusKi';
+        res.name = newName;
+        var updated = {
+          functions: [{name: 'func1', params: []}],
+          name: newName,
+          ipsum: 'lorem',
+          number: 8,
+          _id: res._id.toString(),
+          testSuite: {
+            code: '\n' +
+              'var expect = require(\'chai\').expect;\n' +
+              '\n' +
+              'describe(\'the calcBMI function\', function() {\n' +
+              '  it(\'should have been defined\', function() {\n' +
+              '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
+              '  });\n' +
+              '});\n'
+          }
+        };
+        assert.equal('string', typeof res._id.toString());
+        res._id = res._id.toString();
+        database.getExercises(null, function(err, res2) {
+          var count = res2.length;
+          database.putExercise(updated, function(err, res3) {
+            assert.equal(null, err);
+            assert.equal(res3.name, newName);
+            //assert.equal(res._id, res3._id);
+            assert.equal(typeof res._id, 'object');
+            assert.equal(typeof res3._id, 'object');
+            assert.equal(String.valueOf(res._id), String.valueOf(res3._id));
+            database.getExercises(null, function(err, res4) {
+              assert.equal(count, res4.length);
+              done();
+            });
+          });
+        });
       });
     });
   });
@@ -124,6 +147,30 @@ describe('Database', function() {
               assert.equal(res.length, 1);
               assert.equal(res[0].name, exercise2.name);
               done();
+            });
+          });
+        });
+      });
+    });
+  });
+  describe('deleteExercise', function() {
+    it('should delete an exercise', function(done) {
+      //Get the current exercises
+      database.getExercises(null, function(err, res1) {
+        var count = res1.length;
+        var exercise = {name: 'Askie', id: new Date().toString()};
+        //Add an exercise
+        database.putExercise(exercise, function(err, res2) {
+          //Check if size has increased by one
+          database.getExercises(null, function(err, res3) {
+            assert.equal(count + 1, res3.length);
+            //Remove the exercise
+            database.deleteExercise(res2._id, function(err, res4) {
+              //Check if size has decreased by one
+              database.getExercises(null, function(err, res5) {
+                assert.equal(count, res5.length);
+                done();
+              });
             });
           });
         });

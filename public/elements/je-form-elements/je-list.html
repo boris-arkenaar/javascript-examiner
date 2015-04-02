@@ -1,0 +1,24 @@
+<!-- Inspired by: -->
+<!-- https://github.com/bstavroulakis/web-components/blob/master/
+form-creator/Components/wc-form/wc-choice/wc-choice.html -->
+<!-- check example app here: -->
+<!-- http://bstavroulakis.com/demos/webcomponents/form-creator/ -->
+<polymer-element name="je-list" attributes="items">
+	<script>
+		Polymer("je-list", {
+			items: [],
+      addItem: function(item) {
+      	this.items.push(item);
+      },
+      removeItem: function(event, detail, sender) {
+        var index;
+        var parent;
+        while(!index) {
+        	parent = (parent) ? parent.parentNode : sender.parentNode;
+        	index = parent.getAttribute("data-index");
+        }
+        this.items.splice(index, 1);
+      }
+    });
+	</script>
+</polymer-element>

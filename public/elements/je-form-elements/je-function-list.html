@@ -1,0 +1,64 @@
+<link rel="import" href="../../bower_components/core-label/core-label.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../../bower_components/core-icon/core-icon.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="./je-param-list.html">
+<link rel="import" href="./je-list.html">
+
+
+<polymer-element name="je-function-list" extends="je-list">
+  <template>
+    <link rel="stylesheet"  href="je-list.css">
+    <div horizontal layout>
+      <!-- label -->
+      <div class="label">
+        <core-label>Functions:</core-label>
+      </div> 
+      <!-- content -->
+      <div flex vertical layout class="content">
+        <template id="requiredFunction" 
+            repeat="{{function, index in items}}">
+          <div vertical layout data-index="{{index}}">
+            <div horizontal layout>
+              <div self-center class="label">
+                <core-label id="{{function.name}}">
+                  @function 
+                </core-label>
+              </div>
+              <paper-input value="{{function.name}}"></paper-input>
+              <div self-center>
+                <core-icon on-click="{{removeItem}}" icon="delete">
+                </core-icon>
+              </div>
+            </div>
+            <je-param-list items="{{function.params}}"></je-param-list>
+          </div>
+        </template>
+        <div>
+        <paper-button raised on-click="{{addItem}}">
+          Add function
+        </paper-button>
+      </div>
+      </div>
+    </div>
+    
+  </template>
+  <script>
+    Polymer('je-function-list', {
+      addItem: function() {
+
+        var newFunction = {
+          //this is necessary, don't know why, but otherwise the params
+          //may attach to multiple functions.
+          params: [],
+        };
+        this.super([newFunction]);
+      },
+      removeItem: function(event, detail, sender) {
+        this.super(arguments);
+      }
+    });
+  </script>
+</polymer-element>

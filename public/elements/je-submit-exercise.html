@@ -39,8 +39,8 @@
 
     <core-ajax id="functionalityRequest" url="/check/functionality"
                method="post" contentType="application/json"
-               handleAs="json"
-               body='{"code": "{{encoded}}", "exerciseId": "{{exerciseId}}"}'
+               handleAs="json" 
+               body='{"code": "{{encoded}}", "exerciseId": "{{exercise._id}}"}'
                on-core-response="{{onFunctionalityResponse}}"></core-ajax>
 
     <core-ajax id="maintainabilityRequest" url="/check/maintainability"

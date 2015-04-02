@@ -28,8 +28,10 @@ module.exports = function(submitted, callback) {
       feedback.line = err.lineNumber;
       feedback.column = err.column;
       feedback.addressee = 'student';
-      feedback = mapper('check-syntax', feedback);
-      callback(null, [feedback]);
+      mapper('check-syntax', feedback, function(value) {
+        feedback.description = value;
+        callback(null, [feedback]);
+      });
     } else {
       console.log('sucess: Check-syntax');
       callback(null, [], {
