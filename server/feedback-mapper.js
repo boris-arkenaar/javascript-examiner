@@ -69,7 +69,7 @@ function searchError(module, feedback, callback) {
         // append description to file
         var descr = feedback.description;
         fs.appendFile(fn, descr + ';' + descr + '\n', function(err) {
-        if (err) {
+          if (err) {
             return console.log(err);
           }
         });
