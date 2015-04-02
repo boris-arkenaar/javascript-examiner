@@ -68,7 +68,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/login', function(req, res, next) {
+app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) {
       return next(err);
@@ -80,7 +80,7 @@ app.get('/login', function(req, res, next) {
       if (err) {
         return next(err);
       }
-      return res.redirect('/secret');
+      return res.send(req.user);
     });
   })(req, res, next);
 });

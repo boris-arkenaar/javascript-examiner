@@ -10,6 +10,8 @@
 <link rel="import"
       href="../bower_components/core-animated-pages/transitions/slide-from-right.html">
 <link rel="import" href="../bower_components/app-router/app-router.html">
+<link rel="import" href="../elements/je-session.html">
+<link rel="import" href="../elements/je-login.html">
 <link rel="import" href="../elements/je-exercises.html">
 <link rel="import" href="../elements/je-submit-exercise.html">
 
@@ -45,7 +47,7 @@
       }
     </style>
 
-    <flatiron-director route="{{route}}" autoHash></flatiron-director>
+    <je-session session="{{session}}"></je-session>
 
     <core-scaffold>
       <nav>
@@ -65,10 +67,12 @@
       </core-toolbar>
 
       <div class="page" horizontal center-center fit>
-        <app-router>
+        <app-router id="router" on-state-change="{{onStateChangeAppRouter}}">
           <app-route path="/exercises" element="je-exercises"></app-route>
           <app-route path="/exercises/:exerciseId"
                      element="je-submit-exercise"></app-route>
+          <app-route path="/login" element="je-login" bindRouter
+                     on-before-data-binding="{{onBeforeDataBindingLoginRoute}}"></app-route>
           <app-route path="*" redirect="/exercises"></app-route>
         </app-router>
       </div>
@@ -83,6 +87,17 @@
             hash: 'exercises'
           }
         ];
+      },
+      onStateChangeAppRouter: function(event) {
+        // redirect to the login page if not signed in
+        if (!this.session.userId && event.detail.path !== '/login') {
+          event.preventDefault();
+          //this.$.router.go('/login');
+          this.querySelector('::shadow app-router').go('/login');
+        }
+      },
+      onBeforeDataBindingLoginRoute: function(event) {
+        event.detail.model.session = this.session;
       }
     });
   </script>

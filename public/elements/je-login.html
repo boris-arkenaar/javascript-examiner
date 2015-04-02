@@ -1,0 +1,52 @@
+<lnk rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import"
+      href="../bower_components/paper-input/paper-input-decorator.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+
+<polymer-element name="je-login" attributes="router session">
+  <template>
+    <h1>Log in</h1>
+
+    <p>
+      <paper-input-decorator label="User name or e-mail address">
+        <paper-input value="{{email}}"></paper-input>
+      </paper-input-decorator>
+      <paper-input-decorator label="Password">
+        <paper-input type="password" value="{{password}}"></paper-input>
+      </paper-input-decorator>
+      <paper-button raised on-click="{{onSubmitClick}}">
+        Log in
+      </paper-button>
+    </p>
+
+    <core-ajax id="loginRequest" url="/login"
+               method="post" contentType="application/json" handleAs="json"
+               body='{"email": "{{email}}", "password": "{{password}}"}'
+               on-core-response="{{onLoginResponse}}"></core-ajax>
+  </template>
+  <script>
+    Polymer({
+      created: function() {
+        email = '';
+        password = '';
+        user = {};
+      },
+
+      onSubmitClick: function() {
+        this.$.loginRequest.go();
+      },
+
+      onLoginResponse: function(response) {
+        this.user = response.detail.response;
+        if (this.user && this.user.email === this.email) {
+          this.session.userId = this.user._id;
+          this.session.userName = this.user.name;
+          this.session.userEmail = this.user.email;
+          this.router.go('/');
+        }
+      }
+    });
+  </script>
+</polymer-element>
