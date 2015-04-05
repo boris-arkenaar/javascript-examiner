@@ -47,8 +47,12 @@ function saveSolution(solution) {
 
 function addSolutionToTestSuite(testSuite, solutionFileId) {
   var solutionFilePath = tempPath + solutionFileId;
+  //require studentCode + several assertion styles.
   var requireStatement =
-      'var studentCode = require(\'' + solutionFilePath + '\');';
+      'var studentCode = require(\'' + solutionFilePath + '\');\n' +
+      'var expect = require(\'chai\').expect;\n' +
+      'var assert = require(\'chai\').assert;\n' +
+      'var should = require(\'chai\').should();\n';
   return requireStatement + '\n\n' + testSuite;
 }
 

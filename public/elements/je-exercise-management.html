@@ -21,6 +21,15 @@
         padding-top: 10px;
       }
 
+      .border {
+        border-style: solid;
+        border-color: #fdd;
+      }
+
+      li {
+        font-size: 75%;
+      }
+
       div {
         margin-top: 10px;
       }
@@ -65,22 +74,49 @@
         <div class="label">
           <core-label>Testsuite:</core-label>
         </div>
-        <div flex class="content">
-            <je-code-mirror value="{{exercise.testSuite.code}}" 
-                feedback="{{testSuitefeedback}}">
-            </je-code-mirror>
+        <div vertical layout flex class="content">
+          <div class="border">
+              <core-label>Available Keywords:</core-label>
+              <ul>
+                <li>studentCode: the submitted solution to be checked</li>
+                <li>
+                  assert: The 
+                  <a target="_blank" href="http://chaijs.com/api/assert/">
+                    Chai Assert
+                  </a> 
+                  style
+                </li>
+                <li>
+                  expect: The 
+                  <a target="_blank" href="http://chaijs.com/api/bdd/">
+                    Chai Expect
+                  </a> 
+                  style
+                </li>
+                <li>
+                  should: The 
+                  <a target="_blank" href="http://chaijs.com/api/bdd/">
+                    Chai Should
+                  </a>
+                  style
+                </li>
+              </ul>
+          </div>
+          <je-code-mirror value="{{exercise.testSuite.code}}" 
+            feedback="{{testSuitefeedback}}">
+          </je-code-mirror>
         </div>
       </div>
       <div horizontal layout flex>
         <paper-button raised on-click="{{saveExercise}}">
           Save
         </paper-button>
-        <paper-button raised on-click="{{deleteExercise}}">
-          Delete Exercise
-        </paper-button>
         <template if="{{globalFeedback.length}}">
           <je-feedback>{{globalFeedback}}</je-feedback>
         </template>  
+        <paper-button raised on-click="{{deleteExercise}}">
+          Delete Exercise
+        </paper-button>
         <a href="#/exercises">
           <paper-button raised>
             Back

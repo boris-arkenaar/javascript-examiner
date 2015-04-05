@@ -11,9 +11,71 @@ describe('check-functionality.js', function() {
   after(function(done) {
     database.disconnect(function() { done();});
   });
-
   it('should Export a single function', function() {
     assert.equal('function', typeof checkFunctionality);
+  });
+  it('should work with chai expect assertion style', function(done) {
+    // 1. create exercise
+    var code = 'describe(\'calcBMI function\', function() {\n' +
+        '  it(\'should have been defined\', function() {\n' +
+        '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
+        '  });\n' +
+        '});\n';
+    var exercise = createExercise(code);
+    database.putExercise(exercise, function(err, res) {
+      // 2. create submitted testdata
+      var submitted = {
+        exerciseId: res._id,
+        code: 'function askie(){return 20;}'
+      };
+      // 3. call check-functionality
+      checkFunctionality(submitted, function(err, feedback) {
+        assert.equal(null, err);
+        defaultChecks(feedback, done);
+      });
+    });
+  });
+  it('should work with chai assert assertion style', function(done) {
+    // 1. create exercise
+    var code = 'describe(\'calcBMI function\', function() {\n' +
+        '  it(\'should have been defined\', function() {\n' +
+        '    assert.isFunction(studentCode.calcBMI);\n' +
+        '  });\n' +
+        '});\n';
+    var exercise = createExercise(code);
+    database.putExercise(exercise, function(err, res) {
+      // 2. create submitted testdata
+      var submitted = {
+        exerciseId: res._id,
+        code: 'function askie(){return 20;}'
+      };
+      // 3. call check-functionality
+      checkFunctionality(submitted, function(err, feedback) {
+        assert.equal(null, err);
+        defaultChecks(feedback, done);
+      });
+    });
+  });
+  it('should work with chai should assertion style', function(done) {
+    // 1. create exercise
+    var code = 'describe(\'calcBMI function\', function() {\n' +
+        '  it(\'should have been defined\', function() {\n' +
+        '    studentCode.should.be.a(\'function\');\n' +
+        '  });\n' +
+        '});\n';
+    var exercise = createExercise(code);
+    database.putExercise(exercise, function(err, res) {
+      // 2. create submitted testdata
+      var submitted = {
+        exerciseId: res._id,
+        code: 'function askie(){return 20;}'
+      };
+      // 3. call check-functionality
+      checkFunctionality(submitted, function(err, feedback) {
+        assert.equal(null, err);
+        defaultChecks(feedback, done);
+      });
+    });
   });
   it('should Return error in case there is no testSuite present',
     function(done) {
@@ -37,16 +99,13 @@ describe('check-functionality.js', function() {
   it('should Return feedback in case 1 of 1 test fails',
     function(done) {
       // 1. create exercise
-      var code = 'var expect = require(\'chai\').expect;\n' +
-      '\n' +
-      'describe(\'calcBMI function\', function() {\n' +
-      '  it(\'should have been defined\', function() {\n' +
-      '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
-      '  });\n' +
-      '});\n';
+      var code = 'describe(\'calcBMI function\', function() {\n' +
+          '  it(\'should have been defined\', function() {\n' +
+          '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
+          '  });\n' +
+          '});\n';
       var exercise = createExercise(code);
       database.putExercise(exercise, function(err, res) {
-        assert.equal(exercise.name, res.name);
         // 2. create submitted testdata
         var submitted = {
           exerciseId: res._id,
@@ -67,19 +126,16 @@ describe('check-functionality.js', function() {
   it('should Return feedback in case all tests fails',
     function(done) {
       // 1. create exercise
-      var code = 'var expect = require(\'chai\').expect;\n' +
-      '\n' +
-      'describe(\'calcBMI function\', function() {\n' +
-      '  it(\'should have been defined\', function() {\n' +
-      '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
-      '  });\n' +
-      '  it(\'should calculate the BMI correctly\', function() {\n' +
-      '    expect(studentCode.calcBMI(50,40)).equal(40, "Askie Bara");\n' +
-      '  });\n' +
-      '});\n';
+      var code = 'describe(\'calcBMI function\', function() {\n' +
+          '  it(\'should have been defined\', function() {\n' +
+          '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
+          '  });\n' +
+          '  it(\'should calculate the BMI correctly\', function() {\n' +
+          '    expect(studentCode.calcBMI(50,40)).equal(40, "Askie Bara");\n' +
+          '  });\n' +
+          '});\n';
       var exercise = createExercise(code);
       database.putExercise(exercise, function(err, res) {
-        assert.equal(exercise.name, res.name);
         // 2. create submitted testdata
         var submitted = {
           exerciseId: res._id,
@@ -100,19 +156,16 @@ describe('check-functionality.js', function() {
   it('should Return feedback in case some tests fails',
     function(done) {
       // 1. create exercise
-      var code = 'var expect = require(\'chai\').expect;\n' +
-      '\n' +
-      'describe(\'calcBMI function\', function() {\n' +
-      '  it(\'should have been defined\', function() {\n' +
-      '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
-      '  });\n' +
-      '  it(\'should calculate the BMI correctly\', function() {\n' +
-      '    expect(studentCode.calcBMI(50,40)).equal(40, "Askie Bara");\n' +
-      '  });\n' +
-      '});\n';
+      var code = 'describe(\'calcBMI function\', function() {\n' +
+          '  it(\'should have been defined\', function() {\n' +
+          '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
+          '  });\n' +
+          '  it(\'should calculate the BMI correctly\', function() {\n' +
+          '    expect(studentCode.calcBMI(50,40)).equal(40, "Askie Bara");\n' +
+          '  });\n' +
+          '});\n';
       var exercise = createExercise(code);
       database.putExercise(exercise, function(err, res) {
-        assert.equal(exercise.name, res.name);
         // 2. create submitted testdata
         var submitted = {
           exerciseId: res._id,
@@ -135,19 +188,16 @@ describe('check-functionality.js', function() {
   it('should Return feedback in case all tests passes',
     function(done) {
       // 1. create exercise
-      var code = 'var expect = require(\'chai\').expect;\n' +
-      '\n' +
-      'describe(\'calcBMI function\', function() {\n' +
-      '  it(\'should have been defined\', function() {\n' +
-      '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
-      '  });\n' +
-      '  it(\'should calculate the BMI correctly\', function() {\n' +
-      '    expect(studentCode.calcBMI(50,40)).equal(20, "Askie Bara");\n' +
-      '  });\n' +
-      '});\n';
+      var code = 'describe(\'calcBMI function\', function() {\n' +
+          '  it(\'should have been defined\', function() {\n' +
+          '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
+          '  });\n' +
+          '  it(\'should calculate the BMI correctly\', function() {\n' +
+          '    expect(studentCode.calcBMI(50,40)).equal(20, "Askie Bara");\n' +
+          '  });\n' +
+          '});\n';
       var exercise = createExercise(code);
       database.putExercise(exercise, function(err, res) {
-        assert.equal(exercise.name, res.name);
         // 2. create submitted testdata
         var submitted = {
           exerciseId: res._id,
@@ -168,6 +218,14 @@ describe('check-functionality.js', function() {
     }
   );
 });
+
+function defaultChecks(feedback, done) {
+  assert.equal('object', typeof feedback);
+  assert.equal(feedback.stats.tests, 1);
+  assert.equal(feedback.stats.failures, 1);
+  assert.equal(1, feedback.failures.length);
+  done();
+}
 
 function createExercise(code) {
   var exercise = {
