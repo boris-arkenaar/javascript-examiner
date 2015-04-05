@@ -3,6 +3,13 @@ var loadConfigFile = require('jscs/lib/cli-config');
 var Objects = require('../objects');
 var mapper = require('../feedback-mapper');
 
+/**
+* @function check-syntax(exports)
+* @desc validates format of JS code
+* @param  {Object} submitted - the submitted data, with property code
+* @param  {Function} cb - the function(error, result) to call with result
+* as param.
+**/
 module.exports = function(submitted, cb) {
   //configure checker
   var checker = new Checker();
