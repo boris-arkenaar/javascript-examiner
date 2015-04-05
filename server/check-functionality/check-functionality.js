@@ -9,7 +9,6 @@ createTempDir(tempPath);
 
 module.exports = function(submitted, callback) {
   var solution = submitted.code;
-
   database.getExercise(submitted.exerciseId, function(err, exercise) {
     if (err) {
       callback(err);
@@ -21,21 +20,10 @@ module.exports = function(submitted, callback) {
       var extendedTestSuite = addSolutionToTestSuite(exercise.testSuite.code,
           solutionFileId);
       var testSuiteFileId = saveTestSuite(extendedTestSuite, solutionFileId);
-
       runTestSuite(testSuiteFileId, callback);
     }
   });
 };
-
-function getExercise(exerciseId) {
-  database.getExercise(exerciseId, function(err, exercise) {
-    if (err) {
-      callback(err);
-    } else {
-      callback(null, exercise);
-    }
-  });
-}
 
 function addExportsToSolution(solution, functions) {
   var exportsCode = 'module.exports = {\n';
@@ -47,7 +35,6 @@ function addExportsToSolution(solution, functions) {
         fn + ' : undefined,\n';
   });
   exportsCode += '};\n';
-  console.log(exportsCode);
   return solution  + '\n\n' + exportsCode;
 }
 
@@ -82,35 +69,23 @@ function runTestSuite(fileId, callback) {
   var ended = false;
 
   mocha.addFile(filePath);
-  try {
-    runner = mocha.run(function(failureCount) {
-      ended = true;
-      clearCache(cache);
-      //var result;
-      //if (failureCount > 0) {
-      //  result = 'Tests failed: ' + failureCount;
-      //} else {
-      //  result = 'All tests passed!';
-      //}
+  runner = mocha.run(function(failureCount) {
+    ended = true;
+    clearCache(cache);
+    if (runner && runner.testResults) {
       callback(null, runner.testResults);
-      //callback(null, [{
-      //  name: 'Test results',
-      //  description: result
-      //}]);
-    });
-
-    runner.on('end', function() {
-      if (!ended) {
-        clearCache(cache);
-        var err = new Error('Test runner failed unexpectedly');
-        console.log(err);
-        callback(err);
-      }
-    });
-  } catch (err) {
-    console.log('test failure', err);
-    callback(err);
-  }
+    } else {
+      var err = new Error('No test results available');
+      callback(err);
+    }
+  });
+  runner.on('end', function() {
+    if (!ended) {
+      clearCache(cache);
+      var err = new Error('Test runner failed unexpectedly');
+      callback(err);
+    }
+  });
 }
 
 function prepareCache() {
