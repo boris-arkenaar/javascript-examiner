@@ -17,6 +17,12 @@ gulp.task('serve', ['lint', 'unittest'], function() {
   gulp.watch('server/**/*.js', ['lint', 'unittest']);
 });
 
+gulp.task('unittest', function() {
+    gulp.src('server/**/*.test.js', {read: false})
+        .pipe(mocha({reporter: 'nyan'}))
+        .on("error", handleError);
+});
+
 gulp.task('lint', function() {
   return gulp.src('server/**/*.js')
       .pipe(jshint())
@@ -29,12 +35,6 @@ gulp.task('mongoDB', function() {
   setTimeout(function() {
     child_process.exec('node ./server/data/fixtures.js');
   }, 3000);
-});
-
-gulp.task('unittest', function() {
-    gulp.src('server/**/*.test.js', {read: false})
-        .pipe(mocha({reporter: 'nyan'}))
-        .on("error", handleError);
 });
 
 gulp.task('default', ['serve', 'mongoDB', 'unittest']);

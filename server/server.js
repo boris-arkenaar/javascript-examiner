@@ -203,3 +203,6 @@ function getCheckHandler(check) {
 function decode(encoded) {
   return new Buffer(encoded, 'base64').toString();
 }
+
+// Export required for supertest
+module.exports.app = app;
