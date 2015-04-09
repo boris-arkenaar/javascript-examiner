@@ -1,6 +1,11 @@
 var assert = require('assert');
 var checkFunctionality = require('./check-functionality');
 var database = require('../database');
+var sinon = require('sinon');
+
+var logSpy;
+var infoSpy;
+var stdoutWriteStub;
 
 describe('check-functionality.js', function() {
   before(function(done) {
@@ -10,6 +15,15 @@ describe('check-functionality.js', function() {
   });
   after(function(done) {
     database.disconnect(function() { done();});
+  });
+  beforeEach(function() {
+    //get rid of console output.
+    stdoutWriteStub = sinon.stub(process.stdout, 'write');
+    stdoutWriteStub.returns(null);
+  });
+  afterEach(function() {
+    //restore console output.
+    process.stdout.write.restore();
   });
   it('should Export a single function', function() {
     assert.equal('function', typeof checkFunctionality);
