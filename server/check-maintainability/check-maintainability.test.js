@@ -7,8 +7,6 @@ describe('check-maintainability.js', function() {
   });
   it('should return only artefacts', function(done) {
     var input = {
-      //code has trailing whitespace at end of line
-      //code has no empty line at end of file
       code: 'function calcBMI() {};  '
     };
     checkMaintainability(input, function(err, feedback, artefacts) {
