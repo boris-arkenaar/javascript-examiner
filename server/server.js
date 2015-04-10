@@ -113,7 +113,7 @@ app.delete('/exercise/:id', function(req, response) {
   });
 });
 
-app.post('/exercise', function(req, response) {
+app.post('/exercise', loggedIn, function(req, response) {
   var exercise = JSON.parse(decode(req.body.exercise));
   var upsertResponse = function(err, result) {
     if (err) {
@@ -140,7 +140,7 @@ app.post('/exercise', function(req, response) {
   }
 });
 
-app.get('/exercises/:id', function(req, res) {
+app.get('/exercises/:id', loggedIn, function(req, res) {
   var exerciseId = req.params.id;
   database.getExercise(exerciseId, function(err, exercise) {
     if (err) {
@@ -152,7 +152,7 @@ app.get('/exercises/:id', function(req, res) {
   });
 });
 
-app.get('/exercises', function(req, res) {
+app.get('/exercises', loggedIn, function(req, res) {
   //get the exercises:
   var filter = {};
   if (req.query.chapter) {
