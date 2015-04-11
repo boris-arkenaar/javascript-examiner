@@ -9,6 +9,12 @@ var collections = require('./collections');
 
 async.series(
   [
+    // Uncomment to add fixtures to testdatabase:
+    /*function(callback) {
+      database.connect('test', function() {
+        callback();
+      });
+    }, */
     function(callback) {
       database.getUsers(null, function(err, res) {
         if (err) {
@@ -56,7 +62,7 @@ async.series(
 /**
 * Add the exercises
 * @param {function} callback with form callback(err, res)
-*/
+
 function addUsers(callback) {
   var users = [
     {

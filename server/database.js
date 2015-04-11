@@ -97,7 +97,7 @@ function getTestSuite(exerciseId, callback) {
   });
 }
 
-function getExercises(filter, callback) {
+function getExercises(filter, callback, roles) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
   }
@@ -106,7 +106,11 @@ function getExercises(filter, callback) {
       getExercises(filter, callback);
     });
   }
-  Collections.Exercise.find(filter || {}, function(err, exercises) {
+  var exclude;
+  if (roles && roles.indexOf('tutor') === -1) {
+    exclude = '-testSuite';
+  }
+  Collections.Exercise.find(filter || {}, exclude, function(err, exercises) {
     if (err) {
       return callback(err);
     }
@@ -114,7 +118,7 @@ function getExercises(filter, callback) {
   });
 }
 
-function getExercise(exerciseId, callback) {
+function getExercise(exerciseId, callback, roles) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
   }
@@ -123,15 +127,22 @@ function getExercise(exerciseId, callback) {
       getExercise(exerciseId, callback);
     });
   }
-  Collections.Exercise.findOne({_id: exerciseId}, function(err, exercise) {
-    if (err) {
-      callback(err);
-    } else if (exercise) {
-      callback(null, exercise);
-    } else {
-      callback(new Error('Exercise does not exist with id: ' + exerciseId));
+  var exclude;
+  if (roles && roles.indexOf('tutor') === -1) {
+    exclude = '-testSuite';
+  }
+
+  Collections.Exercise.findOne({_id: exerciseId}, exclude,
+    function(err, exercise) {
+      if (err) {
+        callback(err);
+      } else if (exercise) {
+        callback(null, exercise);
+      } else {
+        callback(new Error('Exercise does not exist with id: ' + exerciseId));
+      }
     }
-  });
+  );
 }
 
 /**

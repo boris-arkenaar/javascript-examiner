@@ -14,6 +14,7 @@ var database = require('./database');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var _ = require('underscore');
 
 passport.serializeUser(function(user, done) {
   done(null, user._id);
@@ -96,6 +97,10 @@ function loggedIn(req, res, next) {
   }
 }
 
+function isTutor(user) {
+  return (user.roles.indexOf('tutor') > -1) ? true : false;
+}
+
 app.get('/secret', loggedIn, function(req, res) {
   res.send('secret');
 });
@@ -108,6 +113,9 @@ app.post('/check/maintainability', getCheckHandler(checkMaintainability));
 app.delete('/exercise/:id', loggedIn, function(req, response) {
   var exerciseId = req.params.id;
   if (!exerciseId || exerciseId === 'null') {
+    return response.status(403).end();
+  }
+  if (!isTutor(req.user)) {
     return response.status(403).end();
   }
   database.deleteExercise(exerciseId, function(err, exercise) {
@@ -123,7 +131,6 @@ app.delete('/exercise/:id', loggedIn, function(req, response) {
 });
 
 app.post('/exercise', loggedIn, function(req, response) {
-  console.log(req.user);
   var exercise = JSON.parse(decode(req.body.exercise));
   var exerciseId = exercise._id;
   var upsertResponse = function(err, result) {
@@ -137,6 +144,10 @@ app.post('/exercise', loggedIn, function(req, response) {
       response.send({exercise: result});
     }
   };
+
+  if (!isTutor(req.user)) {
+    return response.status(403).end();
+  }
 
   if (exercise.testSuite &&
       exercise.testSuite.code && exercise.testSuite.code !== '') {
@@ -164,7 +175,7 @@ app.get('/exercises/:id', loggedIn, function(req, res) {
     } else {
       res.send(exercise);
     }
-  });
+  }, req.user.roles);
 });
 
 app.get('/exercises', loggedIn, function(req, res) {
@@ -184,7 +195,7 @@ app.get('/exercises', loggedIn, function(req, res) {
     } else {
       res.send(exercises);
     }
-  });
+  }, req.user.roles);
 });
 
 var server = app.listen(3030, function() {

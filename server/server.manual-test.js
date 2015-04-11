@@ -42,7 +42,7 @@ describe('server.js', function() {
     it('should not be able to save an exercise if not logged in',
       function(done) {
         var exercise = {
-          name: 'testExercise'
+          name: 'testExercise',
         };
         postExercise(exercise, null, function(res) {
           // console.log(res);
@@ -52,9 +52,23 @@ describe('server.js', function() {
         });
       }
     );
-    it ('should be able to save an exercise when logged in', function(done) {
+    it('should not be able to save an exercise if not tutor',
+      function(done) {
+        var exercise = {
+          name: 'testExercise'
+        };
+        postExercise(exercise, studentCookie, function(res) {
+          // console.log(res);
+          assert.equal(res.status, 403);
+          assert.notProperty(res.body, 'exercise');
+          done();
+        });
+      }
+    );
+    it ('should be able to save an exercise when tutor', function(done) {
       var exercise = {
-        name: 'testExercise'
+        name: 'testExercise',
+        testSuite: {code: 'console.log(\'this is a test\');'}
       };
       postExercise(exercise, tutorCookie, function(res) {
         assert.equal(res.status, 201);
@@ -66,7 +80,7 @@ describe('server.js', function() {
         done();
       });
     });
-    it ('should be able to update an exercise', function(done) {
+    it ('should be able to update an exercise when tutor', function(done) {
       var exercise = {
         _id: exerciseId,
         name: 'testExercise_updated',
@@ -116,6 +130,10 @@ describe('server.js', function() {
       getExercises(null, tutorCookie, function(res) {
         assert.equal(res.status, 200);
         hasExercises(res);
+        var exposed = _.every(res.body, function(exercise) {
+          return (exercise.testSuite);
+        });
+        assert.isTrue(exposed, 'testSuite not Exposed');
         done();
       });
     });
@@ -124,6 +142,27 @@ describe('server.js', function() {
         assert.equal(res.status, 200);
         assert.isObject(res.body);
         assert.equal(res.body._id, exerciseId);
+        assert.property(res.body, 'testSuite');
+        done();
+      });
+    });
+    it ('should not expose testSuite to student 1/2', function(done) {
+      getExercises(null, studentCookie, function(res) {
+        assert.equal(res.status, 200);
+        hasExercises(res);
+        var exposed = _.every(res.body, function(exercise) {
+          return (exercise.testSuite);
+        });
+        assert.isFalse(exposed, 'testSuite Exposed');
+        //assert.notProperty(res.body, 'testSuite');
+
+        done();
+      });
+    });
+    it ('should not expose testSuite to student 2/2', function(done) {
+      getExercises(exerciseId, studentCookie, function(res) {
+        assert.equal(res.status, 200);
+        assert.notProperty(res.body, 'testSuite');
         done();
       });
     });
@@ -147,6 +186,12 @@ describe('server.js', function() {
     });
     it ('should not delete if no exerciseId is provided', function(done) {
       deleteExercise(null, tutorCookie, function(res) {
+        assert.equal(res.status, 403);
+        done();
+      });
+    });
+    it ('should not delete if not tutor', function(done) {
+      deleteExercise(exerciseId, studentCookie, function(res) {
         assert.equal(res.status, 403);
         done();
       });
