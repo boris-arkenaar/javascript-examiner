@@ -62,7 +62,7 @@ async.series(
 /**
 * Add the exercises
 * @param {function} callback with form callback(err, res)
-
+*/
 function addUsers(callback) {
   var users = [
     {
