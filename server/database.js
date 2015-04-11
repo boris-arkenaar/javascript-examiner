@@ -69,8 +69,9 @@ function deleteExercise(exerciseId, callback) {
     if (err) {
       callback(err);
     } else {
-      //gives error with id so remove it.
-      // delete exercise._id;
+      if (!old) {
+        return callback();
+      }
       old.remove(callback);
     }
   });

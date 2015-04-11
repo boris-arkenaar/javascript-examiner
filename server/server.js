@@ -88,7 +88,7 @@ function loggedIn(req, res, next) {
   if (req.user) {
     next();
   } else {
-    res.redirect('/login');
+    res.redirect(401, '/login');
   }
 }
 
@@ -101,13 +101,18 @@ app.post('/check/format', getCheckHandler(checkFormat));
 app.post('/check/functionality', getCheckHandler(checkFunctionality));
 app.post('/check/maintainability', getCheckHandler(checkMaintainability));
 
-app.delete('/exercise/:id', function(req, response) {
+app.delete('/exercise/:id', loggedIn, function(req, response) {
   var exerciseId = req.params.id;
+  if (!exerciseId || exerciseId === 'null') {
+    return response.status(403).end();
+  }
   database.deleteExercise(exerciseId, function(err, exercise) {
     if (err) {
-      //TODO: replace with 503 oid
       response.send(err);
     } else {
+      if (!exercise) {
+        return response.status(404).end();
+      }
       response.send({exercise: exercise, removed: true});
     }
   });
