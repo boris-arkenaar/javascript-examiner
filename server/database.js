@@ -171,6 +171,8 @@ exports.putUser = function(user, callback) {
     });
   }
   var dbUser = new Collections.User(user);
+  dbUser.password = dbUser.generateHash(user.password);
+
   dbUser.save(function(err, dbUser) {
     if (err) {
       return callback(err);

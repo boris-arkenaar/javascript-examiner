@@ -41,6 +41,7 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "gulp": "^3.8.11",
     "gulp-jscs": "^1.4.0",
     "gulp-jshint": "^1.9.2",

@@ -31,8 +31,7 @@ passport.use(new LocalStrategy({
   },
   function(email, password, done) {
     var userData = {
-      email: email,
-      password: password
+      email: email
     };
 
     database.getUser(userData, function(err, user) {
@@ -41,7 +40,12 @@ passport.use(new LocalStrategy({
       }
       if (!user) {
         return done(null, false, {
-          message: 'Incorrect credentials.'
+          message: 'Unknown user.'
+        });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, {
+          message: 'Incorrect password.'
         });
       }
       return done(null, user);
@@ -85,10 +89,10 @@ app.post('/login', function(req, res, next) {
 });
 
 function loggedIn(req, res, next) {
-  if (req.user) {
+  if (req.isAuthenticated()) {
     next();
   } else {
-    res.redirect(401, '/login');
+    res.redirect(401, '/#/login');
   }
 }
 
@@ -119,11 +123,17 @@ app.delete('/exercise/:id', loggedIn, function(req, response) {
 });
 
 app.post('/exercise', loggedIn, function(req, response) {
+  console.log(req.user);
   var exercise = JSON.parse(decode(req.body.exercise));
+  var exerciseId = exercise._id;
   var upsertResponse = function(err, result) {
     if (err) {
       response.send(err);
     } else {
+      if (!exerciseId && result._id) {
+        response.location('/exercises/' + result._id);
+        response.status(201);
+      }
       response.send({exercise: result});
     }
   };

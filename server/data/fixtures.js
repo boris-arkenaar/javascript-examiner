@@ -60,8 +60,14 @@ async.series(
 function addUsers(callback) {
   var users = [
     {
-      email: 'test',
-      password: 'test'
+      email: 'tutor',
+      password: 'tutor',
+      roles: ['tutor']
+    },
+    {
+      email: 'student',
+      password: 'student',
+      roles: ['student']
     }
   ];
   var processed = 0;

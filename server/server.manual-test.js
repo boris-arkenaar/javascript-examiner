@@ -5,16 +5,25 @@ var _ = require('underscore');
 
 describe('server.js', function() {
   var exerciseId;
-  var cookie;
+  var tutorCookie;
+  var studentCookie;
   before(function(done) {
     request(app)
       .post('/login')
-      .send({email: 'test', password: 'test'})
+      .send({email: 'tutor', password: 'tutor'})
       .expect(200)
       .end(function(err, res) {
         assert.property(res.headers, 'set-cookie');
-        cookie = res.headers['set-cookie'];
-        done();
+        tutorCookie = res.headers['set-cookie'];
+        request(app)
+          .post('/login')
+          .send({email: 'student', password: 'student'})
+          .expect(200)
+          .end(function(err, res) {
+            assert.property(res.headers, 'set-cookie');
+            studentCookie = res.headers['set-cookie'];
+            done();
+          });
       });
   });
   describe('POST /exercise', function() {
@@ -30,7 +39,6 @@ describe('server.js', function() {
           check(res);
         });
     }
-
     it('should not be able to save an exercise if not logged in',
       function(done) {
         var exercise = {
@@ -48,11 +56,13 @@ describe('server.js', function() {
       var exercise = {
         name: 'testExercise'
       };
-      postExercise(exercise, cookie, function(res) {
+      postExercise(exercise, tutorCookie, function(res) {
+        assert.equal(res.status, 201);
         assert.property(res.body, 'exercise');
         assert.equal(exercise.name, res.body.exercise.name);
         assert.property(res.body.exercise, '_id');
         exerciseId = res.body.exercise._id;
+        assert.equal(res.headers.location, '/exercises/' + exerciseId);
         done();
       });
     });
@@ -61,7 +71,8 @@ describe('server.js', function() {
         _id: exerciseId,
         name: 'testExercise_updated',
       };
-      postExercise(exercise, cookie, function(res) {
+      postExercise(exercise, tutorCookie, function(res) {
+        assert.equal(res.status, 200);
         assert.property(res.body, 'exercise');
         assert.equal(exercise.name, res.body.exercise.name);
         assert.property(res.body.exercise, '_id');
@@ -102,13 +113,15 @@ describe('server.js', function() {
       });
     });
     it ('should get at least 1 exercise', function(done) {
-      getExercises(null, cookie, function(res) {
+      getExercises(null, tutorCookie, function(res) {
+        assert.equal(res.status, 200);
         hasExercises(res);
         done();
       });
     });
     it ('should get the added exercise', function(done) {
-      getExercises(exerciseId, cookie, function(res) {
+      getExercises(exerciseId, tutorCookie, function(res) {
+        assert.equal(res.status, 200);
         assert.isObject(res.body);
         assert.equal(res.body._id, exerciseId);
         done();
@@ -133,20 +146,21 @@ describe('server.js', function() {
       });
     });
     it ('should not delete if no exerciseId is provided', function(done) {
-      deleteExercise(null, cookie, function(res) {
+      deleteExercise(null, tutorCookie, function(res) {
         assert.equal(res.status, 403);
         done();
       });
     });
     it ('should delete the added exercise', function(done) {
-      deleteExercise(exerciseId, cookie, function(res) {
+      deleteExercise(exerciseId, tutorCookie, function(res) {
+        assert.equal(res.status, 200);
         assert.property(res.body, 'removed');
         assert.isTrue(res.body.removed);
         done();
       });
     });
     it ('should not delete if provid exerciseId not in db', function(done) {
-      deleteExercise(exerciseId, cookie, function(res) {
+      deleteExercise(exerciseId, tutorCookie, function(res) {
         assert.equal(res.status, 404);
         done();
       });
