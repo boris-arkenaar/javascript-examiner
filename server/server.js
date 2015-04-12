@@ -149,7 +149,7 @@ app.delete('/exercise/:id', loggedIn, isTutor, function(req, response) {
   }
   database.deleteExercise(exerciseId, function(err, exercise) {
     if (err) {
-      response.send(err);
+      response.status(500).send(err);
     } else {
       if (!exercise) {
         return response.status(404).end();
@@ -165,7 +165,7 @@ app.post('/exercise', loggedIn, isTutor, function(req, response) {
   var exerciseId = exercise._id;
   var upsertResponse = function(err, result) {
     if (err) {
-      response.send(err);
+      response.status(500).send(err);
     } else {
       if (!exerciseId && result._id) {
         response.location('/exercises/' + result._id);
@@ -196,8 +196,7 @@ app.get('/exercises/:id', loggedIn, function(req, res) {
   var exerciseId = req.params.id;
   database.getExercise(exerciseId, function(err, exercise) {
     if (err) {
-      //TODO: replace with 503 oid
-      res.send(err);
+      res.status(500).send(err);
     } else {
       res.send(exercise);
     }
@@ -217,8 +216,7 @@ app.get('/exercises', loggedIn, function(req, res) {
 
   database.getExercises(filter, function(err, exercises) {
     if (err) {
-      //TODO: replace with 503 oid
-      res.send(err);
+      res.status(500).send(err);
     } else {
       res.send(exercises);
     }
