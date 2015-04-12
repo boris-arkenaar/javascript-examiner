@@ -26,12 +26,12 @@ describe('server.js', function() {
           });
       });
   });
-  describe('POST /exercise', function() {
+  describe('POST /exercises', function() {
 
     function postExercise(exercise, cookie, check) {
       var encoded = new Buffer(JSON.stringify(exercise)).toString('base64');
       request(app)
-        .post('/exercise')
+        .post('/exercises')
         .send({'exercise': encoded})
         .set('Accept', 'application/json')
         .set('cookie', cookie)
@@ -167,10 +167,10 @@ describe('server.js', function() {
       });
     });
   });
-  describe('DELETE /exercise/:id', function(done) {
+  describe('DELETE /exercises/:id', function(done) {
     function deleteExercise(exerciseId, cookie, check) {
       request(app)
-        .delete('/exercise/' + exerciseId || '')
+        .delete('/exercises/' + exerciseId || '')
         .set('Accept', 'application/json')
         .set('Cookie', cookie)
         .end(function(err, res) {

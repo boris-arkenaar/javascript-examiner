@@ -125,11 +125,11 @@
       </div>
 
 
-       <core-ajax id="upsertExercise" url="/exercise"
+       <core-ajax id="upsertExercise" url="/exercises"
                  method="post" contentType="application/json"
                  handleAs="json" body='{"exercise": "{{encoded}}"}'
                  on-core-response="{{onSaveResponse}}"></core-ajax>
-      <core-ajax id="deleteExercise" url="/exercise/{{exerciseId}}"
+      <core-ajax id="deleteExercise" url="/exercises/{{exerciseId}}"
                  method="delete" contentType="application/json"
                  handleAs="json" 
                  on-core-response="{{onDeleteResponse}}"></core-ajax>

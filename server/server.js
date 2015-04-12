@@ -142,7 +142,7 @@ function getCheckHandler(check) {
 
 //Exercise management
 //Delete an exercise
-app.delete('/exercise/:id', loggedIn, isTutor, function(req, response) {
+app.delete('/exercises/:id', loggedIn, isTutor, function(req, response) {
   var exerciseId = req.params.id;
   if (!exerciseId || exerciseId === 'null') {
     return response.status(403).end();
@@ -160,7 +160,7 @@ app.delete('/exercise/:id', loggedIn, isTutor, function(req, response) {
 });
 
 //Upsert an exercise
-app.post('/exercise', loggedIn, isTutor, function(req, response) {
+app.post('/exercises', loggedIn, isTutor, function(req, response) {
   var exercise = JSON.parse(decode(req.body.exercise));
   var exerciseId = exercise._id;
   var upsertResponse = function(err, result) {
