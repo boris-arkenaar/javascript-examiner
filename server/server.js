@@ -97,8 +97,13 @@ function loggedIn(req, res, next) {
   }
 }
 
-function isTutor(user) {
-  return (user.roles.indexOf('tutor') > -1) ? true : false;
+function isTutor(req, res, next) {
+  var user = req.user;
+  if(user.roles.indexOf('tutor') > -1) {
+    next();
+  } else {
+    res.status(403).end();
+  }
 }
 
 app.get('/secret', loggedIn, function(req, res) {
@@ -110,12 +115,9 @@ app.post('/check/format', getCheckHandler(checkFormat));
 app.post('/check/functionality', getCheckHandler(checkFunctionality));
 app.post('/check/maintainability', getCheckHandler(checkMaintainability));
 
-app.delete('/exercise/:id', loggedIn, function(req, response) {
+app.delete('/exercise/:id', loggedIn, isTutor, function(req, response) {
   var exerciseId = req.params.id;
   if (!exerciseId || exerciseId === 'null') {
-    return response.status(403).end();
-  }
-  if (!isTutor(req.user)) {
     return response.status(403).end();
   }
   database.deleteExercise(exerciseId, function(err, exercise) {
@@ -130,7 +132,7 @@ app.delete('/exercise/:id', loggedIn, function(req, response) {
   });
 });
 
-app.post('/exercise', loggedIn, function(req, response) {
+app.post('/exercise', loggedIn, isTutor, function(req, response) {
   var exercise = JSON.parse(decode(req.body.exercise));
   var exerciseId = exercise._id;
   var upsertResponse = function(err, result) {
@@ -144,11 +146,6 @@ app.post('/exercise', loggedIn, function(req, response) {
       response.send({exercise: result});
     }
   };
-
-  if (!isTutor(req.user)) {
-    return response.status(403).end();
-  }
-
   if (exercise.testSuite &&
       exercise.testSuite.code && exercise.testSuite.code !== '') {
     //Check if syntax test suite is ok
