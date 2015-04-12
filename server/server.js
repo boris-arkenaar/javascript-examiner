@@ -61,13 +61,9 @@ var app = express();
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../public'));
 
-// TODO: Create a real secret and store it separately.
-// TODO: Use an other store than the default
-//       (https://www.npmjs.com/package/express-session).
-//       After that, reconsider the resave option.
 app.use(session({
   secret: 'secret',
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   store: new MongoStore({mongooseConnection: database.getConnection()})
 }));
