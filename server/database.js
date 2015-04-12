@@ -15,6 +15,14 @@ exports.getUser = getUser;
 exports.getExercises = getExercises;
 exports.getExercise = getExercise;
 exports.getTestSuite = getTestSuite;
+exports.getConnection = getConnection;
+
+function getConnection() {
+  if (!connected) {
+    connect();
+  }
+  return mongoose.connection;
+}
 
 function getUsers(filter, callback) {
   if (!callback || typeof callback != 'function') {
@@ -263,18 +271,21 @@ function connect(dbName, callback) {
       'mongodb://localhost/examiner-dev';
   mongoose.connect(link,
     {server: {socketOptions:{keepAlive: 1}}});
+  connected = true;
   var db = mongoose.connection;
   //db.on('error', console.error.bind(console, 'MongoDB connection error:'));
   db.on('error', function(err) {
-    if (connected) {
-      callback();
+    if (connected && callback()) {
+      connected = false;
+      callback(err);
     } else {
       console.error('MongoDB connection error', err);
     }
   });
   db.once('open', function(cb) {
-    connected = true;
-    callback();
+    if (callback) {
+      callback();
+    }
   });
 }
 

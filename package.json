@@ -20,6 +20,7 @@
     "body-parser": "^1.11.0",
     "chai": "^2.1.2",
     "clone": "latest",
+    "connect-mongo": "^0.8.0",
     "ejs": "latest",
     "escomplex": "^1.1.0",
     "escomplex-ast-moz": "^0.1.6",

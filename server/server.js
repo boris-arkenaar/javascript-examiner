@@ -15,7 +15,9 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var _ = require('underscore');
+var MongoStore = require('connect-mongo')(session);
 
+//Authentication and Authorization
 passport.serializeUser(function(user, done) {
   done(null, user._id);
 });
@@ -54,24 +56,25 @@ passport.use(new LocalStrategy({
   }
 ));
 
+//Configuration routing
 var app = express();
-
 app.use(bodyParser.json());
-
 app.use(express.static(__dirname + '/../public'));
 
-// TODO: Create a real secret and store it seperatly.
+// TODO: Create a real secret and store it separately.
 // TODO: Use an other store than the default
 //       (https://www.npmjs.com/package/express-session).
 //       After that, reconsider the resave option.
 app.use(session({
   secret: 'secret',
   resave: true,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new MongoStore({mongooseConnection: database.getConnection()})
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Handles login attempt
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) {
@@ -89,6 +92,7 @@ app.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
+//Checks whether requester is logged in.
 function loggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     next();
@@ -97,24 +101,51 @@ function loggedIn(req, res, next) {
   }
 }
 
+//Checks whether user is tutor
 function isTutor(req, res, next) {
   var user = req.user;
-  if(user.roles.indexOf('tutor') > -1) {
+  if (user.roles.indexOf('tutor') > -1) {
     next();
   } else {
     res.status(403).end();
   }
 }
 
-app.get('/secret', loggedIn, function(req, res) {
-  res.send('secret');
-});
+//Routing to several checks
+app.post('/check/syntax', loggedIn,
+    getCheckHandler(checkSyntax));
+app.post('/check/format', loggedIn,
+    getCheckHandler(checkFormat));
+app.post('/check/functionality', loggedIn,
+    getCheckHandler(checkFunctionality));
+app.post('/check/maintainability', loggedIn,
+    getCheckHandler(checkMaintainability));
 
-app.post('/check/syntax', getCheckHandler(checkSyntax));
-app.post('/check/format', getCheckHandler(checkFormat));
-app.post('/check/functionality', getCheckHandler(checkFunctionality));
-app.post('/check/maintainability', getCheckHandler(checkMaintainability));
+function getCheckHandler(check) {
+  return function(request, response) {
+    var code = decode(request.body.code);
+    var submitted = {
+      code: code,
+      exerciseId: request.body.exerciseId
+    };
+    check(submitted, function(err, feedback, artifacts) {
+      var responseData;
 
+      if (err) {
+        responseData = err;
+      } else {
+        responseData = {
+          feedback: feedback || [],
+          artifacts: artifacts || {}
+        };
+      }
+      response.send(responseData);
+    });
+  };
+}
+
+//Exercise management
+//Delete an exercise
 app.delete('/exercise/:id', loggedIn, isTutor, function(req, response) {
   var exerciseId = req.params.id;
   if (!exerciseId || exerciseId === 'null') {
@@ -132,6 +163,7 @@ app.delete('/exercise/:id', loggedIn, isTutor, function(req, response) {
   });
 });
 
+//Upsert an exercise
 app.post('/exercise', loggedIn, isTutor, function(req, response) {
   var exercise = JSON.parse(decode(req.body.exercise));
   var exerciseId = exercise._id;
@@ -163,6 +195,7 @@ app.post('/exercise', loggedIn, isTutor, function(req, response) {
   }
 });
 
+//Get an exercise by id
 app.get('/exercises/:id', loggedIn, function(req, res) {
   var exerciseId = req.params.id;
   database.getExercise(exerciseId, function(err, exercise) {
@@ -175,6 +208,7 @@ app.get('/exercises/:id', loggedIn, function(req, res) {
   }, req.user.roles);
 });
 
+//Get exercise based on filter
 app.get('/exercises', loggedIn, function(req, res) {
   //get the exercises:
   var filter = {};
@@ -195,34 +229,13 @@ app.get('/exercises', loggedIn, function(req, res) {
   }, req.user.roles);
 });
 
+//Start server
 var server = app.listen(3030, function() {
   var host = server.address().address;
   var port = server.address().port;
 });
 
-function getCheckHandler(check) {
-  return function(request, response) {
-    var code = decode(request.body.code);
-    var submitted = {
-      code: code,
-      exerciseId: request.body.exerciseId
-    };
-    check(submitted, function(err, feedback, artifacts) {
-      var responseData;
-
-      if (err) {
-        responseData = err;
-      } else {
-        responseData = {
-          feedback: feedback || [],
-          artifacts: artifacts || {}
-        };
-      }
-      response.send(responseData);
-    });
-  };
-}
-
+//Utility: decode base64
 function decode(encoded) {
   return new Buffer(encoded, 'base64').toString();
 }
