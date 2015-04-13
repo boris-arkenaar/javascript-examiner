@@ -26,8 +26,13 @@ describe('server.js', function() {
           });
       });
   });
-  describe('POST /exercises', function() {
-
+  describe('GET /users', function() {
+    function getUsers(cookie, check) {
+      // request(app)
+      //   .get('/users')
+    }
+  })
+  describe('POST /exercise', function() {
     function postExercise(exercise, cookie, check) {
       var encoded = new Buffer(JSON.stringify(exercise)).toString('base64');
       request(app)
