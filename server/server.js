@@ -140,6 +140,19 @@ function getCheckHandler(check) {
   };
 }
 
+//User management
+app.get('/users', loggedIn, isTutor, function(req, response) {
+  database.getUsers(null, function(err, users) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(users);
+    }
+  });
+});
+// app.post
+// app.delete
+
 //Exercise management
 //Delete an exercise
 app.delete('/exercise/:id', loggedIn, isTutor, function(req, response) {
@@ -203,7 +216,7 @@ app.get('/exercises/:id', loggedIn, function(req, res) {
   }, req.user.roles);
 });
 
-//Get exercise based on filter
+Get exercise based on filter
 app.get('/exercises', loggedIn, function(req, res) {
   //get the exercises:
   var filter = {};

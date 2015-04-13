@@ -26,6 +26,12 @@ describe('server.js', function() {
           });
       });
   });
+  describe('GET /users', function() {
+    function getUsers(cookie, check) {
+      // request(app)
+      //   .get('/users')
+    }
+  })
   describe('POST /exercise', function() {
 
     function postExercise(exercise, cookie, check) {
