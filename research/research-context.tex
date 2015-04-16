@@ -26,8 +26,8 @@ prototype of the \gls{examiner}) in mind. Whereas the Design Recipe and
 Feedback papers are merely focused on some aspects of the domain, the 
 Semantics paper reveals a more fundamental question. In order to get beyond 
 the checking of rudimentary characteristics (like functionality, format and 
-syntax) it is necessary to reason on \gls{js}, or even on programming 
-languages in general, itself. Of course, it is way beyond our limits to pursue 
+syntax) it is necessary to reason on \gls{js} itself, or even on programming 
+languages in general. Of course, it is way beyond our limits to pursue 
 this reasoning to its foundations. Luckily, this is no unexplored domain.
 
 
@@ -64,8 +64,8 @@ project. Since our project has been presented as being the start of a new and
 autonomous project, the scope and aim for the consult is fairly general. 
 We are primarily interested in the conceptual considerations and scientific 
 foundations (in particular on semantic evaluation) rather than focusing on the 
-pure technical specifications. Eventually, this interest led to an, from our 
-experience, interesting and fruitful consult. 
+pure technical specifications. Eventually, from our
+experience, this interest led to an interesting and fruitful consult. 
 
 
 In what follows, the consult will be described. As will become apparent, some 
@@ -82,7 +82,7 @@ central topics, namely semantic evaluation and the usability of the reasoners
 from a tutor perspective. The meeting with Heeren was very open and fluent. We 
 did not strictly follow the order of our prepared questions during the 
 conversation. Still, at times the 
-conversation spirited away, we used the questions to get back to the main 
+conversation spirited away, and we used the questions to get back to the main 
 topic. Since we did not literally recorded the consult, the resume below is an 
 interpretation based on the prepared questions, the consult itself and the 
 keynotes taken.
@@ -92,9 +92,8 @@ After a short introduction on the IDEAS framework and our project, the
 discussion started with a demarcation posted by Heeren, in putting the 
 formative approach of the IDEAS related projects against the summative 
 approach of our project. This distinction is the result of the difference in 
-approach. The extent to which our project really is summative, is withheld by 
-the way it will be used eventually. %Work out argument 
-Still, it seems to be fruitful to keep this distinction alive for now, as the 
+approach.
+It seems to be fruitful to keep this distinction alive for now, as the 
 central point (no partial solution feedback functionality in our project) is 
 striking. 
 
@@ -160,7 +159,7 @@ quite quickly stress the reduction of the tutors labour intensity, which is one
 of our main goals. Therefore, it's quite important to keep this goal in mind
 while designing and developing the examiner, as new features might have 
 unwanted implications to the time and efforts required to successfully deploy 
-the \gls{examiner} or new \glspl{exercise}.
+the \gls{examiner} or create new \glspl{exercise}.
 
 \subsection{Implementation Pointers}
 During the consult, we recognized Heeren had gained a lot of research and 
@@ -209,9 +208,9 @@ approaches are:
 		\item Assertions
 		\item Processes
 	\end{itemize} 
-	\item[Specification to Specification] In these approach, the \gls{solution} 
+	\item[Specification to Specification] In this approach, the \gls{solution} 
 	itself is first converted to a specification, and this specification is 
-	compared with an model specification. According to the article, the usage
+	compared with a model specification. According to the article, the usage
 	of this approach is limited to only a few programming languages.
 	\item[Source to Source] This approach is the base for the \gls{spv}. It aims
 	at comparing the student \gls{solution} with one or more model \gls{solution}(s).
@@ -219,11 +218,11 @@ approaches are:
 	\glspl{ast} and program dependence graphs. These graphs are like formal 
 	dependence graphs, without being a formal specification.
 \end{description}
-According to the Source to Source approach, model solutions are used as 
+According to the Source to Source approach, model solutions are used as an
 instrument to examine student solutions. In order to be able to do so, both 
 solutions are transformed. In general, these transformations are the key to
 the success of this approach, so the article describes the distinct 
-transformations techniques in great detail. As we have no intention to implement
+transformation techniques in great detail. As we have no intention to implement
 these techniques in the current project, we will only focus here on the 
 conceptual results of these transformation. The actual results are the 
 elimination of distinctions in the solutions, while maintaining the semantic
@@ -288,57 +287,17 @@ correspond with \gls{js-code}.
 
 \subsection{Variations} %TODO: The code examples within this chapter should be
 % examined and put in 'blocks'.
-There are thirteen distinguished \gls{spv}. All variations will be mentioned and
+There are thirteen distinguished \gls{spv}. Most variations will be mentioned and
 briefly described, with reference to possible usage in \gls{js-code}. 
 The extent of a variation is not always clear. 
 \begin{description}
-	\item[Algorithms] This is alike within each programming language. For example,
-	when there is sorting required, there are several algorithms that can be 
-	applied.
-	\item[Source code formats] As \gls{js} is a very tolerant language, the
-	code formats can differ a many levels. For example, the usage of space can be
-	omitted at many places: if( or if ( does compute the same thing, another
-	striking example is the non-committal usage of ``\,;''\, to mark the end
-	of a statement. In our project we already implemented a code style checker, 
-	which enforces a particular code format. Another approach to bypass this 
-	variation is to parse an \gls{ast}.
-	\item[Syntax forms] The tolerance of \gls{js} is relevant for this variation
-	type as well. Writing a simple conditional assignment can be done in many 
-	ways:
-	\begin{itemize}
-		\item if(i) x = i; else x = 0;
-		\item if(i) { x = i;} else { x = 0;}
-		\item x = (i) ? x = i : x = 0;
-		\item x = i \textbar \textbar 0;
-	\end{itemize}
-	\item[Variable declarations] For the declaration of variables there are 
-	several options. Usage of the keyword ``\,var''\, or not (which declares a global 
-	var, declaring variables in a sequence (i.e var a, b, c), using the keyword 
-	``\,const''\, for constants.
-	\item[Temporary variables] Temporary variables can be declared when used, but
-	also in a \"parent\" block, and then reassigned when needed. As mentioned in
-	the former item, variables declared without the ``\,var''\, keyword, can be used
-	anywhere in the program, even if declared in a block.
-	\item[Algebraic expression forms] This is much alike for all programming
-	languages, in any case they share the same operators. A very simple example is
-	writing -- against +.
-	\item[Redundant statements] Statements that are identical have the same result
-	when executing the code.  
-	\item[Order statements] The order of statements is in many case arbitrary, for
-	as long they are not dependent on each other in between.
-	\item[Naming variables] As names of variables can be seen as labels, they do
-	not determine the execution. In case of \gls{js}, it's possible to use an
-	existing module called Uglify, which replaces variable names with externally
-	specified ones.
-	\item[Logical structure] %TODO: Add description + example
-	\item[Statements]	%TODO: Add description + example
   \item[Algorithms] This is alike within each programming language. For example,
   when there is sorting required, there are several algorithms that can be 
   applied.
   \item[Source code formats] As \gls{js} is a very tolerant language, the
   code formats can differ a many levels. For example, the usage of space can be
   omitted at many places: if( or if ( does compute the same thing, another
-  striking example is the non-committal usage of \";\" to mark the end
+  striking example is the non-committal usage of ``;'' to mark the end
   of a statement. In our project we already implemented a code style checker, 
   which enforces a particular code format. Another approach to bypass this 
   variation is to parse an \gls{ast}.
@@ -372,12 +331,12 @@ x = i || 0;
 
   \end{itemize}
   \item[Variable declarations] For the declaration of variables there are 
-  several options. Usage of the keyword \"var\" or not (which declares a global 
+  several options. Usage of the keyword ``var'' or not (which declares a global 
   var, declaring variables in a sequence (i.e var a, b, c), using the keyword 
-  \"const\" for constants.
+  ``const'' for constants.
   \item[Temporary variables] Temporary variables can be declared when used, but
-  also in a \"parent\" block, and then reassigned when needed. As mentioned in
-  the former item, variables declared without the \"var\" keyword, can be used
+  also in a ``parent'' block, and then reassigned when needed. As mentioned in
+  the former item, variables declared without the ``var'' keyword, can be used
   anywhere in the program, even if declared in a block.
   \item[Algebraic expression forms] This is much alike for all programming
   languages, in any case they share the same operators. A very simple example is
@@ -390,9 +349,6 @@ x = i || 0;
   not determine the execution. In case of \gls{js}, it's possible to use an
   existing module called Uglify, which replaces variable names with externally
   specified ones.
-  \item[Logical structure] %TODO: Add description + example
-  \item[Statements]	%TODO: Add description + example
->>>>>>> 10a0386f69bf74c9702c5c0f0c2ad0672d25f1b4
 \end{description}
 
 
@@ -403,7 +359,7 @@ is misleading. The variations are exhaustive, so it is by no means exceptional
 that some variations can be dealt with very easily. Besides, as long as there are
 variations that can't be recognized, it's quite hard or even impossible to make
 claims about the quality of a \gls{solution}. 
-	
+
 \section{Conclusion}
 When determining the research context, the primary stakeholder directed us 
 towards related projects that for great part deal with the semantics related
@@ -448,9 +404,9 @@ priority.
 
 Before developing functionality that is able to overcome the mentioned 
 variations, thorough research on the practical demand should be performed. 
-As we move towards a production ready state for the \gls{examiner} during
-this project, we hope to pave the way (in exposing the \gls{examiner} to 
-students) to get insight in the degree to which this demand exists, and to what 
+As we move towards a production ready state for the \gls{examiner},
+we hope to pave the way (in exposing the \gls{examiner} to 
+students) to get insight in the degree to which this demand exists, to what 
 extent this kind of examination actually benefits to the reduction of labour 
-insensitivity as to support of programming language education in general, and 
-learning \gls{js} in particular.
+intensity, and if it will support programming language education in general,
+and learning \gls{js} in particular.
