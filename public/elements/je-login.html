@@ -44,6 +44,7 @@
           this.session.userId = this.user._id;
           this.session.userName = this.user.name;
           this.session.userEmail = this.user.email;
+          this.session.userRoles = this.user.roles;
           this.router.go('/');
         }
       }

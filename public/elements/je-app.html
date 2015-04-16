@@ -68,7 +68,14 @@
       </core-toolbar>
 
       <div class="page" horizontal center-center fit>
-        <app-router id="router" on-state-change="{{onStateChangeAppRouter}}">
+        <app-router id="router" mode="hash"
+            on-state-change="{{onStateChangeAppRouter}}">
+          <app-route path="/forbidden">
+            <template>
+              <h1>Forbidden</h1>
+              <p>You are not allowed to enter this page. Please go back.</p>
+            </template>
+          </app-route>
           <app-route path="/exercises" element="je-exercises"></app-route>
           <app-route path="/exercises/:exerciseId"
                      element="je-submit-exercise"></app-route>
@@ -95,8 +102,14 @@
         // redirect to the login page if not signed in
         if (!this.session.userId && event.detail.path !== '/login') {
           event.preventDefault();
-          //this.$.router.go('/login');
           this.querySelector('::shadow app-router').go('/login');
+        } else if (this.session.userId) {
+          if (this.session.userRoles.indexOf('tutor') === -1 &&
+              /\/exercises\/[0-9a-z]+\/edit/.test(event.detail.path)) {
+            event.preventDefault();
+            console.log('not authorised', event);
+            this.querySelector('::shadow app-router').go('/forbidden', {replace: true});
+          }
         }
       },
       onBeforeDataBindingLoginRoute: function(event) {
