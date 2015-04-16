@@ -44,31 +44,29 @@ function searchError(module, feedback, callback) {
   var fn = generateFileName(module);
   description = feedback.description;
   fs.open(fn, 'a+', function() {
-    fs.readFile(fn, function(err, buf) {
+    fs.readFile(fn, 'utf8', function(err, buf) {
       if (err) {
         return console.log(err);
       }
       var found = false;
-      if (buf.toString().trim() !== '') {
-        var lines = buf.toString().split('\n');
-        // var found = false;
-        lines.map(function(e, i, a) {
-          if (e.trim() === '') {
-            lines.splice(i, 1);
-          }
-        });
-        lines.map(function(x) {
-          src = x.split(';');
-          if (description === src[0]) {
+      var jsonData = {};
+      var text = buf.toString().trim();
+      if (text !== '') {
+        jsonData = JSON.parse(text);
+        Object.keys(jsonData).map(function(value, index, key) {
+          if (key[index] === description) {
+            feedback.description = jsonData[value];
             found = true;
-            feedback.description = src[1];
           }
         });
       }
       if (found === false) {
         // append description to file
         var descr = feedback.description;
-        fs.appendFile(fn, descr + ';' + descr + '\n', function(err) {
+        if (descr !== '') {
+          jsonData[descr] = descr;
+        }
+        fs.writeFile(fn, JSON.stringify(jsonData), function(err) {
           if (err) {
             return console.log(err);
           }
