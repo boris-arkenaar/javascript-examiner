@@ -76,7 +76,8 @@
               <p>You are not allowed to enter this page. Please go back.</p>
             </template>
           </app-route>
-          <app-route path="/exercises" element="je-exercises"></app-route>
+          <app-route path="/exercises" element="je-exercises"
+                     on-before-data-binding="{{onBeforeDataBindingLoginRoute}}"></app-route>
           <app-route path="/exercises/:exerciseId"
                      element="je-submit-exercise"></app-route>
           <app-route path="/login" element="je-login" bindRouter

@@ -4,7 +4,7 @@
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="../bower_components/core-icons/core-icons.html">
 
-<polymer-element name="je-exercises">
+<polymer-element name="je-exercises" attributes="session">
   <template>
     <core-ajax id="exercisesRequest" url="/exercises"
                method="get" contentType="application/json"
@@ -18,9 +18,11 @@
         <template repeat="{{exercise in exercises}}">
           <li>
             <a href="#/exercises/{{exercise._id}}">{{exercise.name}}</a>
-            <a href="#/exercises/{{exercise._id}}/edit">
-              <paper-icon-button title="edit" icon="create"></paper-icon-button>
-            </a>
+            <template if="{{isTutor}}">
+              <a href="#/exercises/{{exercise._id}}/edit">
+                <paper-icon-button title="edit" icon="create"></paper-icon-button>
+              </a>
+            </template>
           </li>
         </template>
       </ul>
@@ -43,6 +45,10 @@
 
       ready: function() {
         this.$.exercisesRequest.go();
+      },
+
+      get isTutor() {
+        return this.session.userRoles.indexOf('tutor') !== -1;
       },
 
       onExercisesResponse: function(response) {
