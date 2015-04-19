@@ -159,7 +159,25 @@ function getExercise(exerciseId, callback, roles) {
 * @param {callback} callback with form callback(err, res, isNew)
 */
 exports.putSolution = function(solution, callback) {
-
+  if (solution === null || (solution && typeof solution != 'object')) {
+    return callback(new Error('An solution is required'));
+  }
+  if (!callback || typeof callback != 'function') {
+    throw new Error('A callback function is required as second param');
+  }
+  if (!connected) {
+    return connect(null, function() {
+      putExercise(solution, callback);
+    });
+  }
+  //insert
+  var dbSolution = new Collections.Solution(solution);
+  dbSolution.save(function(err, solution) {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, dbSolution);
+  });
 };
 
 /**

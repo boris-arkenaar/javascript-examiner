@@ -45,7 +45,9 @@ describe('check-functionality.js', function() {
       // 3. call check-functionality
       checkFunctionality(submitted, function(err, feedback) {
         assert.equal(null, err);
-        defaultChecks(feedback, done);
+        database.deleteExercise(res._id, function() {
+          defaultChecks(feedback, done);
+        });
       });
     });
   });
@@ -66,7 +68,9 @@ describe('check-functionality.js', function() {
       // 3. call check-functionality
       checkFunctionality(submitted, function(err, feedback) {
         assert.equal(null, err);
-        defaultChecks(feedback, done);
+        database.deleteExercise(res._id, function() {
+          defaultChecks(feedback, done);
+        });
       });
     });
   });
@@ -87,7 +91,9 @@ describe('check-functionality.js', function() {
       // 3. call check-functionality
       checkFunctionality(submitted, function(err, feedback) {
         assert.equal(null, err);
-        defaultChecks(feedback, done);
+        database.deleteExercise(res._id, function() {
+          defaultChecks(feedback, done);
+        });
       });
     });
   });
@@ -105,7 +111,7 @@ describe('check-functionality.js', function() {
         // 3. call check-functionality
         checkFunctionality(submitted, function(err, feedback) {
           assert.equal('object', typeof err);
-          done();
+          database.deleteExercise(res._id, done);
         });
       });
     }
@@ -132,7 +138,7 @@ describe('check-functionality.js', function() {
           assert.equal(feedback.stats.tests, 1);
           assert.equal(feedback.stats.failures, 1);
           assert.equal(1, feedback.failures.length);
-          done();
+          database.deleteExercise(res._id, done);
         });
       });
     }
@@ -162,7 +168,7 @@ describe('check-functionality.js', function() {
           assert.equal(feedback.stats.tests, 2);
           assert.equal(feedback.stats.failures, 2);
           assert.equal(2, feedback.failures.length);
-          done();
+          database.deleteExercise(res._id, done);
         });
       });
     }
@@ -194,7 +200,7 @@ describe('check-functionality.js', function() {
           assert.equal(feedback.stats.passes, 1);
           assert.equal(1, feedback.failures.length);
           assert.equal(1, feedback.passes.length);
-          done();
+          database.deleteExercise(res._id, done);
         });
       });
     }
@@ -226,7 +232,7 @@ describe('check-functionality.js', function() {
           assert.equal(feedback.stats.passes, 2);
           assert.equal(0, feedback.failures.length);
           assert.equal(2, feedback.passes.length);
-          done();
+          database.deleteExercise(res._id, done);
         });
       });
     }

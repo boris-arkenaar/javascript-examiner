@@ -59,7 +59,7 @@ describe('Database', function() {
         assert.equal('object', typeof res);
         assert.equal(exercise.name, res.name);
         assert.equal('object', typeof res._id);
-        done();
+        database.deleteExercise(res._id, done);
       });
     });
     it('should be able to update an exercise', function(done) {
@@ -98,7 +98,7 @@ describe('Database', function() {
             assert.equal(String.valueOf(res._id), String.valueOf(res3._id));
             database.getExercises(null, function(err, res4) {
               assert.equal(count, res4.length);
-              done();
+              database.deleteExercise(res._id, done);
             });
           });
         });
@@ -113,7 +113,7 @@ describe('Database', function() {
         database.putExercise(exercise, function(err, res) {
           database.getExercises(null, function(err, res2) {
             assert.equal(count + 1, res2.length);
-            done();
+            database.deleteExercise(res._id, done);
           });
         });
       });
@@ -125,7 +125,7 @@ describe('Database', function() {
     it('should get a particular exercise if a filter is applied',
         function(done) {
       var exercise = {name: new Date().toString() + Math.random()};
-      database.putExercise(exercise, function(err, res) {
+      database.putExercise(exercise, function(err, res0) {
         if (err) {
           throw err;
         }
@@ -146,7 +146,9 @@ describe('Database', function() {
               }
               assert.equal(res.length, 1);
               assert.equal(res[0].name, exercise2.name);
-              done();
+              database.deleteExercise(res0._id, function() {
+                database.deleteExercise(res[0]._id, done);
+              });
             });
           });
         });
@@ -174,6 +176,19 @@ describe('Database', function() {
             });
           });
         });
+      });
+    });
+  });
+  describe('putSolution', function() {
+    it('should save a solution', function(done) {
+      var solution = {
+        code: 'Boeja',
+        exerciseId: 'dummyId'
+      };
+      database.putSolution(solution, function(err, res) {
+        assert.equal(solution.code, res.code);
+        assert.equal(solution.exerciseId, res.exerciseId);
+        done();
       });
     });
   });
