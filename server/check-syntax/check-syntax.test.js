@@ -10,7 +10,7 @@ describe('check-syntax.js', function() {
       code: 'console.log("Flawless");'
     };
     checkSyntax(input, function(err, feedback) {
-      assert.equal(feedback.length, 0);
+      assert.equal(feedback, null);
       done();
     });
   });

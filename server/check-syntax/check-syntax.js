@@ -29,12 +29,12 @@ module.exports = function(submitted, cb) {
     feedback.line = err.lineNumber;
     feedback.column = err.column;
     feedback.addressee = 'student';
-    mapper('check-syntax', feedback, function(value) {
-      feedback.description = value;
-      cb(null, [feedback]);
-    });
+    // mapper('check-syntax', feedback, function(value) {
+      // feedback.description = value;
+    cb(null, [feedback]);
+    // });
   } else {
-    cb(null, [], {
+    cb(null, null, {
       ast: result.ast
     });
   }

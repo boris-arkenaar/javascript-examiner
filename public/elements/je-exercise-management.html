@@ -72,6 +72,16 @@
       <je-function-list items="{{exercise.functions}}"></je-function-list>
       <div horizontal layout>
         <div class="label">
+          <core-label>Model Solution:</core-label>
+        </div>
+        <div flex>
+          <je-code-mirror value="{{exercise.modelSolution.code}}" 
+            feedback="{{modelSolutionFeedback}}">
+          </je-code-mirror>
+        </div>
+      </div>
+      <div horizontal layout>
+        <div class="label">
           <core-label>Testsuite:</core-label>
         </div>
         <div vertical layout flex class="content">
@@ -147,9 +157,13 @@
           name: '',
           testSuite: {
             code: ''
+          },
+          modelSolution: {
+            code: ''
           }
         };
         this.testSuitefeedback = [];
+        this.modelSolutionFeedback = [];
         this.globalFeedback = [];
         this.encoded = '';
       },
@@ -180,18 +194,32 @@
 
       saveExercise: function() {
         this.globalFeedback = null;
+        this.testSuitefeedback = {};
+        this.modelSolutionFeedback = {};
         this.encoded = utf8_to_b64(JSON.stringify(this.exercise));
         this.$.upsertExercise.go();
       },
 
       onSaveResponse: function(response) {
-        if(response.detail.response.feedback) {
-          //Show syntax feedback, not saved
-          this.testSuitefeedback = response.detail.response.feedback;
-          this.globalFeedback = 'Not saved: Please fix Testsuite Errors';
-        } else if(response.detail.response.exercise) {
-          this.exercise = response.detail.response.exercise;
-          this.globalFeedback = 'Exercise Saved';
+        var feedback = response.detail.response.feedback;
+        var exercise = response.detail.response.exercise;
+        if (exercise) {
+          this.exercise = exercise;
+          this.globalFeedback = 'Exercise Saved.\n';
+          if(feedback && feedback.testResults){
+            var testResults = feedback.testResults;
+            this.globalFeedback += 'test results: \n' +
+                'tests: ' + testResults.tests.length + '\n' +
+                'passes: ' + testResults.passes.length + '\n' +
+                'failures: ' + testResults.failures.length + '\n';
+          }
+        } else if (feedback) {
+          this.testSuitefeedback = feedback.testSuite;
+          this.modelSolutionFeedback = feedback.modelSolution;
+          this.globalFeedback =
+              'Not saved: Please fix Testsuite / Model solution Errors first';
+        } else {
+          console.log('Something went wrong');
         }
       },
 
@@ -205,9 +233,7 @@
       },
 
       onDeleteResponse: function(response) {
-        console.log(response.detail.response);
         if(response.detail.response.removed) {
-          console.log('Exercise removed');
           this.router.go('/exercises');
         } else {
           console.log('Something went wrong');

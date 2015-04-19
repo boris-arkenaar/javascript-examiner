@@ -10,7 +10,7 @@ describe('check-format.js', function() {
       code: 'function calcBMI() {};\n'
     };
     checkFormat(input, function(err, feedback) {
-      assert.equal(0, feedback.length);
+      assert.equal(null, feedback);
     });
     done();
   });

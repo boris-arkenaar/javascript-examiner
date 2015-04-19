@@ -32,6 +32,9 @@ var exerciseSchema = mongoose.Schema({
   name: String,
   description: String,
   functions: [functionSchema],
+  modelSolution: {
+    code: String
+  },
   testSuite: {
     code: String
   }

@@ -110,6 +110,9 @@ function addExercises(callback) {
     functions: [{name: 'berekenOppervlakteCircle', params: [{name: 'straal'}]}],
     testSuite: {
       code: ''
+    },
+    modelSolution: {
+      code: ''
     }
   };
   var exercise2 = {
@@ -120,6 +123,9 @@ function addExercises(callback) {
       'parameter n waarmee getest kan worden of n een worel is van g',
     functions: [{name: 'isWortelVan', params: [{name: 'n'}]}],
     testSuite: {
+      code: ''
+    },
+    modelSolution: {
       code: ''
     }
   };
@@ -133,6 +139,9 @@ function addExercises(callback) {
       'value van property2", "propertyN" = "value van propertyN" ',
     functions: [{name: 'toString', params: [{name: 'obj'}]}],
     testSuite: {
+      code: ''
+    },
+    modelSolution: {
       code: ''
     }
   };
@@ -154,13 +163,14 @@ function addExercises(callback) {
     ],
     testSuite: {
       code: '\n' +
-        'var expect = require(\'chai\').expect;\n' +
-        '\n' +
         'describe(\'calcBMI function\', function() {\n' +
         '  it(\'should have been defined\', function() {\n' +
         '    expect(studentCode.calcBMI).to.be.a(\'function\');\n' +
         '  });\n' +
         '});\n'
+    },
+    modelSolution: {
+      code: ''
     }
   };
   var exercises = [exercise1, exercise2, exercise3, exercise4];

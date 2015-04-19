@@ -35,5 +35,6 @@ module.exports = function(submitted, cb) {
   } catch (err) {
     cb(err);
   }
+  feedbackList = (feedbackList.length > 0) ? feedbackList : null;
   cb(null, feedbackList);
 };
