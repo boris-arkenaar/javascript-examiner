@@ -40,8 +40,17 @@ var exerciseSchema = mongoose.Schema({
   }
 });
 
+var solutionSchema = mongoose.Schema({
+  code: String,
+  exerciseId: String,
+  userId: String
+});
+
 var testSuiteSchema = mongoose.Schema();
 
-exports.User = mongoose.model('User', userSchema);
+mongoose.model('User', userSchema);
+exports.User = mongoose.model('User');
 mongoose.model('Exercise', exerciseSchema);
 exports.Exercise = mongoose.model('Exercise');
+mongoose.model('Solution', solutionSchema);
+exports.Solution = mongoose.model('Solution');

@@ -27,27 +27,13 @@
 
     <je-code-mirror value="{{code}}" feedback="{{feedback}}"></je-code-mirror>
 
-    <core-ajax id="syntaxRequest" url="/check/syntax"
-               method="post" contentType="application/json"
-               handleAs="json" body='{"code": "{{encoded}}"}'
-               on-core-response="{{onSyntaxResponse}}"></core-ajax>
-
-    <core-ajax id="formatRequest" url="/check/format"
-               method="post" contentType="application/json"
-               handleAs="json" body='{"code": "{{encoded}}"}'
-               on-core-response="{{onFormatResponse}}"></core-ajax>
-
-    <core-ajax id="functionalityRequest" url="/check/functionality"
+    <core-ajax id="checkRequest" url="{{checkUrl}}"
                method="post" contentType="application/json"
                handleAs="json" 
-               body='{"code": "{{encoded}}", "exerciseId": "{{exercise._id}}"}'
-               on-core-response="{{onFunctionalityResponse}}"></core-ajax>
-
-    <core-ajax id="maintainabilityRequest" url="/check/maintainability"
-               method="post" contentType="application/json"
-               handleAs="json" body='{"code": "{{encoded}}"}'
-               on-core-response="{{onMaintainabilityResponse}}"></core-ajax>
-
+               body='{"code": "{{encoded}}", "exerciseId": "{{exercise._id}}",
+               "solutionId": "{{solutionId}}"}'
+               on-core-response="{{checkResponse}}"></core-ajax>
+               
     <template if="{{testResults.stats}}">
       <h1>Test results</h1>
       <p>{{testResults.stats.passes}} tests passed</p>
@@ -95,6 +81,12 @@
   <script>
     Polymer({
       exerciseId: 0,
+      checkUrl: '',
+      setSubmitResults: function(response) {
+        this.feedback = response.detail.response.feedback;
+        this.artifacts = response.detail.response.artifacts;
+        this.solutionId = response.detail.response.solutionId;
+      },
 
       created: function() {
         this.code = 'test test test\n';
@@ -104,6 +96,7 @@
         this.ast = '';
         this.artifacts = {};
         this.artifactsString = '';
+        this.solutionId = '';
       },
 
       attached: function() {
@@ -119,44 +112,49 @@
       },
 
       onSubmitClick: function() {
+        this.solutionId = '';
         this.feedback = [];
         this.ast = '';
         this.encoded = utf8_to_b64(this.code);
-        this.$.syntaxRequest.go();
+        this.checkUrl = '/check/syntax'
+        this.checkResponse = this.onSyntaxResponse;
+        this.$.checkRequest.go();
       },
 
       onSyntaxResponse: function(response) {
-        this.feedback = response.detail.response.feedback;
-        this.artifacts = response.detail.response.artifacts;
+        this.setSubmitResults(response);
         if (this.artifacts.ast) {
           this.ast = JSON.stringify(this.artifacts.ast, null, 2);
         }
         if (!this.feedback.length) {
-          this.$.formatRequest.go();
+          this.checkUrl = '/check/format'
+          this.checkResponse = this.onFormatResponse;
+          this.$.checkRequest.go();
         }
       },
 
       onFormatResponse: function(response) {
-        this.feedback = response.detail.response.feedback;
-        this.artifacts = response.detail.response.artifacts;
-
+        this.setSubmitResults(response);
         if (!this.feedback.length) {
-          this.$.functionalityRequest.go();
+          this.checkUrl = '/check/functionality'
+          this.checkResponse = this.onFunctionalityResponse;
+          this.$.checkRequest.go();
         }
       },
 
       onFunctionalityResponse: function(response) {
         this.testResults = response.detail.response.feedback;
         this.artifacts = response.detail.response.artifacts;
-
+        this.solutionId = response.detail.response.solutionId;
         if (!this.testResults.stats.failures) {
-          this.$.maintainabilityRequest.go();
+          this.checkUrl = '/check/maintainability'
+          this.checkResponse = this.onMaintainabilityResponse;
+          this.$.checkRequest.go();
         }
       },
 
       onMaintainabilityResponse: function(response) {
-        this.feedback = response.detail.response.feedback;
-        this.artifacts = response.detail.response.artifacts;
+        this.setSubmitResults(response);
       }
     });
 

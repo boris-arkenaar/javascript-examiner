@@ -120,22 +120,38 @@ app.post('/check/maintainability', loggedIn,
 function getCheckHandler(check) {
   return function(request, response) {
     var code = decode(request.body.code);
+    var userId = request.user._id;
+    var solutionId = request.body.solutionId;
+    var exerciseId = request.body.exerciseId;
     var submitted = {
       code: code,
-      exerciseId: request.body.exerciseId
+      exerciseId: exerciseId,
+      solutionId: solutionId,
+      userId: userId
     };
     check(submitted, function(err, feedback, artifacts) {
-      var responseData;
-
       if (err) {
-        responseData = err;
-      } else {
-        responseData = {
-          feedback: feedback || [],
-          artifacts: artifacts || {}
-        };
+        return response.status(500).send(err);
       }
-      response.send(responseData);
+
+      responseData = {
+        feedback: feedback || [],
+        artifacts: artifacts || {},
+        solutionId: solutionId
+      };
+
+      if (!solutionId || solutionId.length === 0) {
+        database.putSolution(submitted, function(err, result) {
+          if (err) {
+            return response.status(500).send(err);
+          }
+
+          responseData.solutionId = result._id;
+          response.send(responseData);
+        });
+      } else {
+        response.send(responseData);
+      }
     });
   };
 }
