@@ -284,7 +284,7 @@ app.get('/exercises/:id', loggedIn, function(req, res) {
   }, req.user.roles);
 });
 
-Get exercise based on filter
+// Get exercise based on filter
 app.get('/exercises', loggedIn, function(req, res) {
   //get the exercises:
   var filter = {};

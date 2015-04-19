@@ -31,7 +31,7 @@ describe('server.js', function() {
       // request(app)
       //   .get('/users')
     }
-  })
+  });
   describe('POST /exercise', function() {
     function postExercise(exercise, cookie, check) {
       var encoded = new Buffer(JSON.stringify(exercise)).toString('base64');
