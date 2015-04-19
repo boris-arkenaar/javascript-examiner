@@ -160,9 +160,20 @@ function getCheckHandler(check) {
 app.get('/users', loggedIn, isTutor, function(req, response) {
   database.getUsers(null, function(err, users) {
     if (err) {
-      res.status(500).send(err);
+      response.status(500).send(err);
     } else {
-      res.send(users);
+      response.send(users);
+    }
+  });
+});
+
+app.get('/users/:id', loggedIn, isTutor, function(req, response) {
+  var userId = req.params.id;
+  database.getUser({_id: userId}, function(err, user) {
+    if (err) {
+      response.status(500).send(err);
+    } else {
+      response.send(user);
     }
   });
 });
