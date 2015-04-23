@@ -16,6 +16,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var _ = require('underscore');
 var MongoStore = require('connect-mongo')(session);
+var crypto = require('crypto');
 
 //Authentication and Authorization
 passport.serializeUser(function(user, done) {
@@ -177,8 +178,80 @@ app.get('/users/:id', loggedIn, isTutor, function(req, response) {
     }
   });
 });
-// app.post
-// app.delete
+
+app.post('/users', loggedIn, isTutor, function(req, response) {
+  var user = req.body.user;
+  var resetPassword = req.body.resetPassword;
+  if (resetPassword) {
+    var token = crypto.randomBytes(20).toString('hex');
+    user.resetPasswordToken = token;
+    if (!user._id) {
+      //new user:
+      sendEnrollmentEmail(user.email, token);
+    } else {
+      //existing user:
+      sendResetPasswordEmail(user.email, token);
+    }
+  }
+  database.putUser(user, function(err, result) {
+    if (err) {
+      return response.status(500).end();
+    }
+    if (!user._id && result._id) {
+      response.location('/users/' + result._id);
+      response.status(201);
+    }
+    response.send({user: result});
+  });
+});
+
+function sendEnrollmentEmail(address, token) {
+  var subject = 'Welcome to javascript-examiner';
+  var text = 'http://' + req.headers.host + '/enroll/' + token;
+  sendEmail(address,  subject, text);
+}
+
+function sendResetPasswordEmail(address, token) {
+  var subject = 'Password reset';
+  var text = 'http://' + req.headers.host + '/reset/' + token;
+  sendEmail(address,  subject, text);
+}
+
+function sendEmail(address, subject, text) {
+  var smtpTransport = nodemailer.createTransport('SMTP', {
+    service: 'Gmail',
+    auth: {
+      user: 'javascript-examiner@gmail.com',
+      pass: 's*cr*tP@ssw0rd'
+    }
+  });
+  var mailOptions = {
+    to: address,
+    from: 'javascript-examiner@gmail.com',
+    subject: subject,
+    text: text
+  };
+  smtpTransport.sendMail(mailOptions, function(err) {
+    console.log('Email send');
+  });
+}
+
+app.delete('/users/:id', loggedIn, isTutor, function(req, response) {
+  var userId = req.params.id;
+  if (req.user._id === req.params.id) {
+    return response.status(403).end('can\'t delete currently logged in user');
+  }
+  database.deleteUser(userId, function(err, user) {
+    if (err) {
+      response.status(500).send(err);
+    } else {
+      if (!user) {
+        return response.status(404).end();
+      }
+      response.send({user: user, removed: true});
+    }
+  });
+});
 
 //Exercise management
 //Delete an exercise
@@ -231,6 +304,7 @@ app.post('/exercises', loggedIn, isTutor, function(req, response) {
       }
     }
   };
+
   var feedback = {};
   var hasFeedback;
   syntaxFormatCheck(exercise.testSuite, function(err, tSFeedback) {
@@ -252,6 +326,7 @@ app.post('/exercises', loggedIn, isTutor, function(req, response) {
       if (hasFeedback) {
         return response.send({feedback: feedback});
       } else {
+        console.log(exercise);
         database.putExercise(exercise, upsertResponse);
       }
     });

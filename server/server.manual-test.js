@@ -73,7 +73,8 @@ describe('server.js', function() {
     it ('should be able to save an exercise when tutor', function(done) {
       var exercise = {
         name: 'testExercise',
-        testSuite: {code: 'console.log(\'this is a test\');'}
+        testSuite: {code: 'console.log(\'this is a test\');\n'},
+        modelSolution: {code: ''}
       };
       postExercise(exercise, tutorCookie, function(res) {
         assert.equal(res.status, 201);
@@ -86,17 +87,19 @@ describe('server.js', function() {
       });
     });
     it ('should be able to update an exercise when tutor', function(done) {
-      var exercise = {
+      var exercise2 = {
+        name: 'updatedName',
         _id: exerciseId,
-        name: 'testExercise_updated',
+        testSuite: {code: 'console.log(\'this is a test\');\n'},
+        modelSolution: {code: ''}
       };
-      postExercise(exercise, tutorCookie, function(res) {
+      postExercise(exercise2, tutorCookie, function(res) {
         assert.equal(res.status, 200);
         assert.property(res.body, 'exercise');
-        assert.equal(exercise.name, res.body.exercise.name);
+        console.log(res.body.exercise.name);
+        assert.equal(exercise2.name, res.body.exercise.name);
         assert.property(res.body.exercise, '_id');
-        assert.equal(res.body.exercise._id, exercise._id);
-        assert.equal(res.body.exercise.name, exercise.name);
+        assert.equal(res.body.exercise._id, exercise2._id);
         done();
       });
     });
