@@ -42,37 +42,63 @@ function searchError(module, feedback, callback) {
   // if found, replace feedback with entrance
   // otherwise, add feedback to file
   var fn = generateFileName(module);
-  description = feedback.description;
   fs.open(fn, 'a+', function() {
-    fs.readFile(fn, 'utf8', function(err, buf) {
+    fs.readFile(fn, function(err, buf) {
       if (err) {
         return console.log(err);
       }
-      var found = false;
+      var fbList = [];
+      var eui; // element under investigation
       var jsonData = {};
       var text = buf.toString().trim();
       if (text !== '') {
         jsonData = JSON.parse(text);
-        Object.keys(jsonData).map(function(value, index, key) {
-          if (key[index] === description) {
-            feedback.description = jsonData[value];
-            found = true;
-          }
-        });
       }
-      if (found === false) {
-        // append description to file
-        var descr = feedback.description;
-        if (descr !== '') {
-          jsonData[descr] = descr;
+      feedback.forEach(function(fb) {
+        switch (module) {
+          case 'check-syntax':
+            eui = fb.description;
+            break;
+          case 'check-format':
+            eui = fb.name;
+            break;
         }
-        fs.writeFile(fn, JSON.stringify(jsonData), function(err) {
-          if (err) {
-            return console.log(err);
+        var found = false;
+        Object.keys(jsonData).map(function(value, index, key) {
+          if (key[index] === eui) {
+            eui = jsonData[value];
+            found = true;
+            switch (module) {
+              case 'check-syntax':
+                fb.description = eui;
+                break;
+              case 'check-format':
+                fb.description = eui;
+                break;
+            }
           }
         });
-      }
-      callback(feedback.description);
+        if (found === false) {
+          // append description to file
+          if (eui !== '') {
+            switch (module) {
+              case 'check-syntax':
+                jsonData[eui] = fb.description;
+                break;
+              case 'check-format':
+                jsonData[fb.name] = fb.description;
+                break;
+            }
+          }
+        }
+        fbList.push(fb);
+      });
+      fs.writeFile(fn, JSON.stringify(jsonData), function(err) {
+        if (err) {
+          return console.log(err);
+        }
+      });
+      callback(fbList);
     });
   });
 }

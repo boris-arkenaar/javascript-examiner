@@ -16,6 +16,7 @@ module.exports = function(submitted, cb) {
   checker.registerDefaultRules();
   checker.configure(loadConfigFile.load(__dirname + '/jscs-config.json'));
   var feedbackList = [];
+  var returnList = [];
   try {
     var errors = checker.checkString(submitted.code);
     //loop over errors
@@ -26,15 +27,13 @@ module.exports = function(submitted, cb) {
       feedback.description = err.message;
       feedback.line = err.line;
       feedback.column = err.column;
-      //This should be fixed, see comment #14
-      //mapper('check-syntax', feedback, function(value) {
-        // feedback.description = value;
       feedbackList.push(feedback);
-      //});
+    });
+    mapper('check-format', feedbackList, function(value) {
+      returnList = (value.length > 0) ? value : null;
+      cb(null, returnList);
     });
   } catch (err) {
     cb(err);
   }
-  feedbackList = (feedbackList.length > 0) ? feedbackList : null;
-  cb(null, feedbackList);
 };

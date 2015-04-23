@@ -22,6 +22,7 @@ var options = {
 module.exports = function(submitted, cb) {
   //parse the code
   var result = parse(submitted.code);
+  var feedbackList = [];
   if (result.err) {
     var err = result.err;
     var feedback = new Objects.Feedback();
@@ -29,8 +30,10 @@ module.exports = function(submitted, cb) {
     feedback.line = err.lineNumber;
     feedback.column = err.column;
     feedback.addressee = 'student';
-    mapper('check-syntax', feedback, function(value) {
-      feedback.description = value;
+    feedback.description = err.message;
+    feedbackList.push(feedback);
+    mapper('check-syntax', feedbackList, function(value) {
+      feedbackList = value;
       cb(null, [feedback]);
     });
   } else {
