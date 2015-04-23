@@ -181,6 +181,7 @@ app.get('/users/:id', loggedIn, isTutor, function(req, response) {
 
 app.post('/users', loggedIn, isTutor, function(req, response) {
   var user = req.body.user;
+  var userId = user._id;
   var resetPassword = req.body.resetPassword;
   if (resetPassword) {
     var token = crypto.randomBytes(20).toString('hex');
@@ -197,7 +198,7 @@ app.post('/users', loggedIn, isTutor, function(req, response) {
     if (err) {
       return response.status(500).end();
     }
-    if (!user._id && result._id) {
+    if (!userId && result._id) {
       response.location('/users/' + result._id);
       response.status(201);
     }
@@ -326,7 +327,6 @@ app.post('/exercises', loggedIn, isTutor, function(req, response) {
       if (hasFeedback) {
         return response.send({feedback: feedback});
       } else {
-        console.log(exercise);
         database.putExercise(exercise, upsertResponse);
       }
     });
