@@ -102,7 +102,8 @@
 
        <core-ajax id="upsertUser" url="/users"
                  method="post" contentType="application/json"
-                 handleAs="json" body='{"user": "{{encoded}}"}'
+                 handleAs="json" 
+                 body='{"user": "{{encoded}}", "resetPassword":"{{resetPassword}}"}'
                  on-core-response="{{onSaveResponse}}"></core-ajax>
       <core-ajax id="deleteUser" url="/users/{{userId}}"
                  method="delete" contentType="application/json"
@@ -126,8 +127,6 @@
       },
 
       attached: function() {
-        console.log(this.userId, this.session);
-
         if(this.userId && this.userId.length > 0) {
           this.$.userRequest.go();  
         } else {
@@ -145,11 +144,26 @@
 
       saveUser: function() {
         this.globalFeedback = null;
+        var roles = [];
+        if(this.isStudent) {
+          roles.push('student');
+        } 
+        if (this.isTutor) {
+          roles.push('tutor');
+        }
+        this.user.roles = roles;
+        this.encoded = utf8_to_b64(JSON.stringify(this.user));
         this.$.upsertUser.go();
       },
 
       onSaveResponse: function(response) {
-        console.log(response.detail.response);
+        var user = response.detail.response.user
+        if(user) {
+          this.user = response.detail.response.user;
+          this.resetPasswordDisabled = false;
+          this.resetPassword = false
+          this.globalFeedback = 'User Saved.\n';
+        }
       },
 
       deleteUser: function() {
@@ -172,6 +186,14 @@
         }
       }
 
-    });    
+    }); 
+
+    /**
+     * Source: 
+     * https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64.btoa
+     */
+    function utf8_to_b64(str) {
+      return window.btoa(unescape(encodeURIComponent(str)));
+    }   
   </script>
 </polymer-element>

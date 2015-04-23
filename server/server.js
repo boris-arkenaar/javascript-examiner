@@ -17,6 +17,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var _ = require('underscore');
 var MongoStore = require('connect-mongo')(session);
 var crypto = require('crypto');
+var nodemailer = require('nodemailer');
 
 //Authentication and Authorization
 passport.serializeUser(function(user, done) {
@@ -180,18 +181,18 @@ app.get('/users/:id', loggedIn, isTutor, function(req, response) {
 });
 
 app.post('/users', loggedIn, isTutor, function(req, response) {
-  var user = req.body.user;
+  var user = JSON.parse(decode(req.body.user));
   var userId = user._id;
-  var resetPassword = req.body.resetPassword;
+  var resetPassword = JSON.parse(req.body.resetPassword);
   if (resetPassword) {
     var token = crypto.randomBytes(20).toString('hex');
     user.resetPasswordToken = token;
-    if (!user._id) {
+    if (!userId) {
       //new user:
-      sendEnrollmentEmail(user.email, token);
+      sendEnrollmentEmail(user.email, token, req.headers.host);
     } else {
       //existing user:
-      sendResetPasswordEmail(user.email, token);
+      sendResetPasswordEmail(user.email, token, req.headers.host);
     }
   }
   database.putUser(user, function(err, result) {
@@ -206,23 +207,23 @@ app.post('/users', loggedIn, isTutor, function(req, response) {
   });
 });
 
-function sendEnrollmentEmail(address, token) {
+function sendEnrollmentEmail(address, token, host) {
   var subject = 'Welcome to javascript-examiner';
-  var text = 'http://' + req.headers.host + '/enroll/' + token;
+  var text = 'http://' + host + '/enroll/' + token;
   sendEmail(address,  subject, text);
 }
 
-function sendResetPasswordEmail(address, token) {
+function sendResetPasswordEmail(address, token, host) {
   var subject = 'Password reset';
-  var text = 'http://' + req.headers.host + '/reset/' + token;
+  var text = 'http://' + host + '/reset/' + token;
   sendEmail(address,  subject, text);
 }
 
 function sendEmail(address, subject, text) {
-  var smtpTransport = nodemailer.createTransport('SMTP', {
+  var smtpTransport = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-      user: 'javascript-examiner@gmail.com',
+      user: 'javascript.examiner@gmail.com',
       pass: 's*cr*tP@ssw0rd'
     }
   });
@@ -232,8 +233,9 @@ function sendEmail(address, subject, text) {
     subject: subject,
     text: text
   };
-  smtpTransport.sendMail(mailOptions, function(err) {
-    console.log('Email send');
+  smtpTransport.sendMail(mailOptions, function(err, info) {
+    console.log(err);
+    console.log('Email send', info);
   });
 }
 

@@ -80,10 +80,10 @@
           </app-route>
           <app-route path="/users"
                      on-before-data-binding="{{onBeforeDataBindingLoginRoute}}" 
-                     element="je-users"></app-route>
+                     element="je-users" bindRouter></app-route>
           <app-route path="/users/:userId/edit"
                      on-before-data-binding="{{onBeforeDataBindingLoginRoute}}" 
-                     element="je-user"></app-route>
+                     element="je-user" bindRouter></app-route>
           <app-route path="/exercises" element="je-exercises"
                      on-before-data-binding="{{onBeforeDataBindingLoginRoute}}"></app-route>
           <app-route path="/exercises/:exerciseId"
