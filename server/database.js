@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
+var mongodbUri = require('mongodb-uri');
 var connected = false;
 var Collections = require('./data/collections');
 var extend = require('extend');
-var mongodbUri = require('mongodb-uri');
 
 exports.connect = connect;
 exports.disconnect = disconnect;
@@ -286,8 +286,8 @@ function connect(dbName, callback) {
   //Keep connection alive:
   //based on http://mongoosejs.com/docs/connections.html
   //based on http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html
-  var mongodbUri = process.env.MONGOLAB_URI;
-  var mongooseUri = mongodbUri.formatMongoose(mongodbUri);
+  var uri = process.env.MONGOLAB_URI;
+  var mongooseUri = mongodbUri.formatMongoose(uri);
   var options = {server: {socketOptions:{keepAlive: 1}}};
   mongoose.connect(mongooseUri, options);
   connected = true;
