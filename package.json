@@ -4,7 +4,7 @@
   "description": "Javascript Examiner",
   "main": "server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -14,6 +14,10 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/Slotkenov/javascript-examiner/issues"
+  },
+  "engines": {
+    "node": "0.12.2",
+    "npm": "2.7.4"
   },
   "dependencies": {
     "async": "^0.9.0",
