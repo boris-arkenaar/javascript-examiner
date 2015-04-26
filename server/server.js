@@ -292,7 +292,7 @@ app.get('/exercises', loggedIn, function(req, res) {
 });
 
 //Start server
-var server = app.listen(3030, function() {
+var server = app.listen(process.env.port || 3030, function() {
   var host = server.address().address;
   var port = server.address().port;
 });
