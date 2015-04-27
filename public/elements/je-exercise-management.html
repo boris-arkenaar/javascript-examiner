@@ -177,25 +177,26 @@
 
       onExerciseResponse: function(response) {
         this.exercise = response.detail.response;
-        this.exercise.functions.forEach(function(func) {
-          var description = '/*\n';
-          description += '\t@function\t'+func.name+'\n\t@desc\t'+
-              (func.description || '<description>')+'\n';
-          func.params.forEach(function(param) {
-            description += '\t@param {'+
-                (param.type || '<type>')+'} '+
-                (param.name || '<name> ')+'\t'+'- '+
-                (param.description || '<description>')+'\n'
-          });
-          description +='*/\n'
-          func.description = description;
-        });
+
+        // this.exercise.functions.forEach(function(func) {
+        //   var description = '/*\n';
+        //   description += '\t@function\t'+func.name+'\n\t@desc\t'+
+        //       (func.description || '<description>')+'\n';
+        //   func.params.forEach(function(param) {
+        //     description += '\t@param {'+
+        //         (param.type || '<type>')+'} '+
+        //         (param.name || '<name> ')+'\t'+'- '+
+        //         (param.description || '<description>')+'\n'
+        //   });
+        //   description +='*/\n'
+        //   func.description = description;
+        // });
       },
 
       saveExercise: function() {
         this.globalFeedback = null;
-        this.testSuitefeedback = {};
-        this.modelSolutionFeedback = {};
+        this.testSuitefeedback = [];
+        this.modelSolutionFeedback = [];
         this.encoded = utf8_to_b64(JSON.stringify(this.exercise));
         this.$.upsertExercise.go();
       },
