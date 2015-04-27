@@ -105,7 +105,8 @@
                   "email":"{{email}}",
                   "password":"{{password}}"
                }'
-               on-core-response="{{onResetResponse}}">
+               on-core-response="{{onResetResponse}}"
+               on-core-error="{{onResetError}}">
     </core-ajax>
 
   </template>
@@ -142,6 +143,7 @@
             this.email = '';
             this.token = '';
           }
+          //END TODO: replace with proper solution:
           event.preventDefault();
           this.querySelector('::shadow app-router').go('/login');
         } else if (this.session.userId) {
@@ -165,8 +167,14 @@
         event.detail.model.session = this.session;
       },
       onResetResponse: function(response) {
-        alert('response geroepen');
+        console.log(response);
+        alert(response.detail.response.message);
+      },
+      onResetError: function(error) {
+        console.log(error);
+        alert(error.detail.response.response.message);
       }
+
     });
   </script>
 </polymer-element>
