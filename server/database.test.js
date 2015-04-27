@@ -1,5 +1,6 @@
 var database = require('../server/database');
-var assert = require('assert');
+var assert = require('chai').assert;
+var _ = require('underscore');
 describe('Database', function() {
   before(function(done) {
     database.connect('test', function() {
@@ -35,6 +36,112 @@ describe('Database', function() {
     });
     it('should export a deleteExercise function', function() {
       assert.equal('function', typeof database.deleteExercise);
+    });
+    it('should export a putUser function', function() {
+      assert.equal('function', typeof database.putUser);
+    });
+    it('should export a getUser function', function() {
+      assert.equal('function', typeof database.getUser);
+    });
+    it('should export a getUsers function', function() {
+      assert.equal('function', typeof database.getUsers);
+    });
+    it('should export a deleteUser function', function() {
+      assert.equal('function', typeof database.deleteUser);
+    });
+  });
+  describe('getUser', function(done) {
+    it('should return the user by id', function(done) {
+      var user1 = {
+        email: 'user1' + Math.random() + '@mail.dot',
+        password: 'p@ssword'
+      };
+      var user2 = {
+        email: 'user2' + Math.random() + '@mail.dot',
+        password: 'p@ssword'
+      };
+      database.putUser(user1, function(err, res1) {
+        database.putUser(user2, function(err, res2) {
+          database.getUser(res1._id, function(err, res3) {
+            assert.equal(user1.email, res3.email);
+            database.getUser(res2._id, function(err, res4) {
+              assert.equal(user2.email, res4.email);
+              database.deleteUser(res1._id, function() {
+                database.deleteUser(res2._id, done);
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+  describe('getUsers', function(done) {
+    it('should return the users in the database', function(done) {
+      var user1 = {
+        email: 'user1' + Math.random() + '@mail.dot',
+        password: 'p@ssword'
+      };
+      var user2 = {
+        email: 'user2' + Math.random() + '@mail.dot',
+        password: 'p@ssword'
+      };
+      database.putUser(user1, function(err, res1) {
+        database.putUser(user2, function(err, res2) {
+          database.getUsers(null, function(err, res3) {
+            assert.equal(res3.length, 2);
+            assert.isDefined(_.find(res3, function(r) {
+              return r.email === user1.email;
+            }));
+            assert.isDefined(_.find(res3, function(r) {
+              return r.email === user2.email;
+            }));
+            database.deleteUser(res1._id, function() {
+              database.deleteUser(res2._id, done);
+            });
+          });
+        });
+      });
+    });
+  });
+  describe('putUser', function(done) {
+    it('should return the user in the callback', function(done) {
+      var user = {
+        email: 'test' + Math.random() + '@mail.dot',
+        password: 'p@ssword'
+      };
+      database.putUser(user, function(err, res) {
+        assert.equal('object', typeof res);
+        assert.equal(user.email, res.email);
+        assert.equal('object', typeof res._id);
+        assert.notEqual(user.password, res.password);
+        database.deleteUser(res._id, done);
+      });
+    });
+    it('should be able to update a user', function(done) {
+      var user = {
+        email: 'test' + Math.random() + '@mail.dot',
+        password: 'p@ssword'
+      };
+      database.putUser(user, function(err, res) {
+        res.email = 'newEmail@mailNew.com';
+        res._id = res._id.toString();
+        database.putUser(res, function(err, res2) {
+          assert.equal(res2.email, res.email);
+          assert.notEqual(res2.email, user.email);
+          database.deleteUser(res2._id, done);
+        });
+      });
+    });
+  });
+  describe('deleteUser', function(done) {
+    it('should delete a user', function(done) {
+      var user = {
+        email: 'test' + Math.random() + '@mail.dot',
+        password: 'p@ssword'
+      };
+      database.putUser(user, function(err, res) {
+        database.deleteUser(res._id, done);
+      });
     });
   });
   describe('putExercise', function() {

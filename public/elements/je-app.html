@@ -15,6 +15,8 @@
 <link rel="import" href="../elements/je-exercises.html">
 <link rel="import" href="../elements/je-submit-exercise.html">
 <link rel="import" href="../elements/je-exercise-management.html">
+<link rel="import" href="../elements/je-users.html">
+<link rel="import" href="../elements/je-user.html">
 
 <polymer-element name="je-app">
   <template>
@@ -76,6 +78,12 @@
               <p>You are not allowed to enter this page. Please go back.</p>
             </template>
           </app-route>
+          <app-route path="/users"
+                     on-before-data-binding="{{onBeforeDataBindingLoginRoute}}" 
+                     element="je-users" bindRouter></app-route>
+          <app-route path="/users/:userId/edit"
+                     on-before-data-binding="{{onBeforeDataBindingLoginRoute}}" 
+                     element="je-user" bindRouter></app-route>
           <app-route path="/exercises" element="je-exercises"
                      on-before-data-binding="{{onBeforeDataBindingLoginRoute}}"></app-route>
           <app-route path="/exercises/:exerciseId"
@@ -88,34 +96,85 @@
         </app-router>
       </div>
     </core-scaffold>
+
+    <core-ajax id="resetPassword" url="/resetPassword"
+               method="post" contentType="application/json"
+               handleAs="json" 
+               body='{
+                  "resetPasswordToken": "{{token}}", 
+                  "email":"{{email}}",
+                  "password":"{{password}}"
+               }'
+               on-core-response="{{onResetResponse}}"
+               on-core-error="{{onResetError}}">
+    </core-ajax>
+
   </template>
   <script>
     Polymer({
+      token: '',
       ready: function() {
         this.pages = [
-          {
-            name: 'Exercises',
-            hash: 'exercises'
-          }
         ];
       },
       onStateChangeAppRouter: function(event) {
         // redirect to the login page if not signed in
-        if (!this.session.userId && event.detail.path !== '/login') {
+        if (!this.session.userId) {
+          this.pages = [];
+        }
+        var path = event.detail.path;
+        if (!this.session.userId && path !== '/login') {
+          //TODO: replace with proper solution:
+          console.log(event.detail.path);
+
+          if (this.$ && (path.indexOf('enroll') > -1 ||
+              path.indexOf('reset') > -1)) {
+            console.log('call reset function');
+            this.token = path.substring(path.lastIndexOf('/')+1);
+            console.log(this.token);
+            this.email = prompt('Enter your emailadress');
+            var same = false;
+            while(!same) {
+              this.password = prompt('Enter your password');
+              if(this.password === prompt('Repeat password')) same = true;  
+            }
+            this.$.resetPassword.go();
+            this.password = '';
+            this.email = '';
+            this.token = '';
+          }
+          //END TODO: replace with proper solution:
           event.preventDefault();
           this.querySelector('::shadow app-router').go('/login');
         } else if (this.session.userId) {
+          if(this.pages.length < 1) {
+            this.pages.push({ name: 'Exercises', hash: 'exercises'});
+          }
           if (this.session.userRoles.indexOf('tutor') === -1 &&
               /\/exercises\/[0-9a-z]+\/edit/.test(event.detail.path)) {
             event.preventDefault();
             console.log('not authorised', event);
             this.querySelector('::shadow app-router').go('/forbidden', {replace: true});
+          } 
+          if (this.session.userRoles.indexOf('tutor') > -1) {
+            if(this.pages.length < 2) {
+              this.pages.push({name: 'Users', hash: 'users'});  
+            }
           }
         }
       },
       onBeforeDataBindingLoginRoute: function(event) {
         event.detail.model.session = this.session;
+      },
+      onResetResponse: function(response) {
+        console.log(response);
+        alert(response.detail.response.message);
+      },
+      onResetError: function(error) {
+        console.log(error);
+        alert(error.detail.response.response.message);
       }
+
     });
   </script>
 </polymer-element>
