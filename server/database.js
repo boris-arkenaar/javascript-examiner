@@ -286,7 +286,7 @@ function connect(dbName, callback) {
   //Keep connection alive:
   //based on http://mongoosejs.com/docs/connections.html
   //based on http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html
-  var uri = process.env.MONGOLAB_URI;
+  var uri = process.env.MONGOLAB_URI || 'mongodb://localhost/examiner-dev';
   var mongooseUri = mongodbUri.formatMongoose(uri);
   var options = {server: {socketOptions:{keepAlive: 1}}};
   mongoose.connect(mongooseUri, options);
