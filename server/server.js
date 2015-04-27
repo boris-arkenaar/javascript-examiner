@@ -209,13 +209,13 @@ app.post('/users', loggedIn, isTutor, function(req, response) {
 
 function sendEnrollmentEmail(address, token, host) {
   var subject = 'Welcome to javascript-examiner';
-  var text = 'http://' + host + '/enroll/' + token;
+  var text = 'http://' + host + '/#/enroll/' + token;
   sendEmail(address,  subject, text);
 }
 
 function sendResetPasswordEmail(address, token, host) {
   var subject = 'Password reset';
-  var text = 'http://' + host + '/reset/' + token;
+  var text = 'http://' + host + '/#/reset/' + token;
   sendEmail(address,  subject, text);
 }
 
@@ -252,6 +252,30 @@ app.delete('/users/:id', loggedIn, isTutor, function(req, response) {
         return response.status(404).end();
       }
       response.send({user: user, removed: true});
+    }
+  });
+});
+
+app.post('/resetPassword', function(req, response) {
+  console.log(req.body);
+  var password = req.body.password;
+  delete req.body.password;
+  database.getUser(req.body, function(err, user) {
+    if (err) {
+      response.status(500).end(err);
+    } else if (!user) {
+      response.status(403).end('Token not valid for this email');
+    } else {
+      console.log(user);
+      user.password = user.generateHash(password);
+      user.resetPasswordToken = undefined;
+      database.putUser(user, function(err, user) {
+        if (err || !user) {
+          response.status(500).end(err || 'Something went wrong, try again');
+        } else {
+          response.send({sucess: true});
+        }
+      });
     }
   });
 });

@@ -13,6 +13,10 @@ userSchema.methods.generateHash = function(password) {
 };
 
 userSchema.methods.validPassword = function(password) {
+  if (password === null || password === '' ||
+      this.password === null || this.password === '') {
+    return false;
+  }
   return bcrypt.compareSync(password, this.password);
 };
 

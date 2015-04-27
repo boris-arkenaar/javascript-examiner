@@ -96,9 +96,22 @@
         </app-router>
       </div>
     </core-scaffold>
+
+    <core-ajax id="resetPassword" url="/resetPassword"
+               method="post" contentType="application/json"
+               handleAs="json" 
+               body='{
+                  "resetPasswordToken": "{{token}}", 
+                  "email":"{{email}}",
+                  "password":"{{password}}"
+               }'
+               on-core-response="{{onResetResponse}}">
+    </core-ajax>
+
   </template>
   <script>
     Polymer({
+      token: '',
       ready: function() {
         this.pages = [
         ];
@@ -108,7 +121,27 @@
         if (!this.session.userId) {
           this.pages = [];
         }
-        if (!this.session.userId && event.detail.path !== '/login') {
+        var path = event.detail.path;
+        if (!this.session.userId && path !== '/login') {
+          //TODO: replace with proper solution:
+          console.log(event.detail.path);
+
+          if (this.$ && (path.indexOf('enroll') > -1 ||
+              path.indexOf('reset') > -1)) {
+            console.log('call reset function');
+            this.token = path.substring(path.lastIndexOf('/')+1);
+            console.log(this.token);
+            this.email = prompt('Enter your emailadress');
+            var same = false;
+            while(!same) {
+              this.password = prompt('Enter your password');
+              if(this.password === prompt('Repeat password')) same = true;  
+            }
+            this.$.resetPassword.go();
+            this.password = '';
+            this.email = '';
+            this.token = '';
+          }
           event.preventDefault();
           this.querySelector('::shadow app-router').go('/login');
         } else if (this.session.userId) {
@@ -130,6 +163,9 @@
       },
       onBeforeDataBindingLoginRoute: function(event) {
         event.detail.model.session = this.session;
+      },
+      onResetResponse: function(response) {
+        alert('response geroepen');
       }
     });
   </script>
