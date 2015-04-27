@@ -1,0 +1,54 @@
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../../bower_components/core-icon/core-icon.html">
+
+<polymer-element name="je-test-results" attributes="results">
+  <template>
+    <style>
+      .icon {
+        margin-right: 10px;
+        width: 24px;
+        height: 24px;
+        min-height: 24px;
+        min-width: 24px;
+      }
+    </style>
+    <div vertical layout>
+      <!-- content -->
+      <p>
+        {{results.stats.passes}} out of 
+            {{results.stats.tests}} tests passed
+      </p>
+      <template if="{{results.stats.passes}}">
+        <h3>Passed tests:</h3>
+        <template repeat="{{result in results.passes}}">
+          <div horizontal layout>
+            <div self-center class="icon">
+              <core-icon class="icon" icon="check"></core-icon>
+            </div>
+            <div self-center>
+              <p>{{result.fullTitle}}</p>
+            </div>
+          </div>
+        </template>
+      </template>
+      <template if="{{results.stats.failures}}">
+        <h3>Failed tests:</h3>
+        <template repeat="{{result in results.failures}}">
+          <div horizontal layout>
+            <div self-center class="icon">
+              <core-icon icon="close"></core-icon>
+            </div>
+            <div self-center>
+              <p>
+                {{result.fullTitle}}: <br> {{result.err.message}}
+              </p>
+            </div>
+          </div>
+        </template>
+      </template>
+    </div>
+  </template>
+  <script>
+    Polymer({});
+  </script>
+</polymer-element>

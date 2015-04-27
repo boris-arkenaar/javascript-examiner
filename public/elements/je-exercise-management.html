@@ -4,7 +4,9 @@
 <link rel="import"
       href="../bower_components/paper-input/paper-autogrow-textarea.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
-<link rel="import" href="./je-form-elements/je-function-list.html">
+<link rel="import" href="../bower_components/core-label/core-label.html">
+<link rel="import" href="je-form-elements/je-function-list.html">
+<link rel="import" href="je-test-results.html">
 <link rel="import" href="je-feedback.html">
 
 <polymer-element name="je-exercise-management" attributes="exerciseId, router">
@@ -117,7 +119,20 @@
           </je-code-mirror>
         </div>
       </div>
-      <div horizontal layout flex>
+      <!-- section -->
+      <div horizontal layout>
+        <template if="{{testResults.stats}}">
+          <!-- label -->
+          <div class="label">
+            <core-label>Test Results:</core-label>  
+          </div>
+          <!-- content -->
+          <div flex class="content">
+            <je-test-results results="{{testResults}}"></je-test-results>
+          </div>
+        </template>
+      </div>
+      <div horizontal layout>
         <paper-button raised on-click="{{saveExercise}}">
           Save
         </paper-button>
@@ -133,8 +148,7 @@
           </paper-button> 
         </a>    
       </div>
-
-
+      
        <core-ajax id="upsertExercise" url="/exercises"
                  method="post" contentType="application/json"
                  handleAs="json" body='{"exercise": "{{encoded}}"}'
@@ -162,7 +176,6 @@
             code: ''
           }
         };
-        this.testSuitefeedback = [];
         this.modelSolutionFeedback = [];
         this.globalFeedback = [];
         this.encoded = '';
@@ -197,6 +210,7 @@
         this.globalFeedback = null;
         this.testSuitefeedback = [];
         this.modelSolutionFeedback = [];
+        this.testResults = undefined;
         this.encoded = utf8_to_b64(JSON.stringify(this.exercise));
         this.$.upsertExercise.go();
       },
@@ -206,13 +220,10 @@
         var exercise = response.detail.response.exercise;
         if (exercise) {
           this.exercise = exercise;
-          this.globalFeedback = 'Exercise Saved.\n';
+          this.globalFeedback = 'Exercise Saved.';
+          console.log(feedback);
           if(feedback && feedback.testResults){
-            var testResults = feedback.testResults;
-            this.globalFeedback += 'test results: \n' +
-                'tests: ' + testResults.tests.length + '\n' +
-                'passes: ' + testResults.passes.length + '\n' +
-                'failures: ' + testResults.failures.length + '\n';
+            this.testResults = feedback.testResults;
           }
         } else if (feedback) {
           this.testSuitefeedback = feedback.testSuite;

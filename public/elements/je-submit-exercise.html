@@ -8,6 +8,7 @@
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="je-code-mirror.html">
 <link rel="import" href="je-exercises.html">
+<link rel="import" href="je-test-results.html">
 
 <polymer-element name="je-submit-exercise" attributes="exerciseId">
   <template>
@@ -36,14 +37,7 @@
                
     <template if="{{testResults.stats}}">
       <h1>Test results</h1>
-      <p>{{testResults.stats.passes}} tests passed</p>
-      <template if="{{testResults.stats.failures}}">
-        <p>{{testResults.stats.failures}} tests failded</p>
-        <template repeat="{{test in testResults.failures}}">
-          <h2>{{test.fullTitle}}</h2>
-          <p>{{test.err.message}}</p>
-        </template>
-      </template>
+      <je-test-results results="{{testResults}}"></je-test-results>
     </template>
 
     <template if="{{feedback.length}}">
