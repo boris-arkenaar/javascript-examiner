@@ -5,6 +5,8 @@ var getRawBody = require('raw-body');
 var typer = require('media-typer');
 var multer = require('multer');
 var Objects = require('./objects');
+var helper = require('./helper');
+var exercises = require('./exercises');
 var checkSyntax = require('./check-syntax/check-syntax');
 var checkFormat = require('./check-format/check-format');
 var checkFunctionality = require('./check-functionality/check-functionality');
@@ -119,7 +121,7 @@ app.post('/check/maintainability', loggedIn,
 
 function getCheckHandler(check) {
   return function(request, response) {
-    var code = decode(request.body.code);
+    var code = helper.decode(request.body.code);
     var userId = request.user._id;
     var solutionId = request.body.solutionId;
     var exerciseId = request.body.exerciseId;
@@ -157,139 +159,10 @@ function getCheckHandler(check) {
 }
 
 //Exercise management
-//Delete an exercise
-app.delete('/exercises/:id', loggedIn, isTutor, function(req, response) {
-  var exerciseId = req.params.id;
-  if (!exerciseId || exerciseId === 'null') {
-    return response.status(403).end();
-  }
-  database.deleteExercise(exerciseId, function(err, exercise) {
-    if (err) {
-      response.status(500).send(err);
-    } else {
-      if (!exercise) {
-        return response.status(404).end();
-      }
-      response.send({exercise: exercise, removed: true});
-    }
-  });
-});
-
-//Upsert an exercise
-app.post('/exercises', loggedIn, isTutor, function(req, response) {
-  var exercise = JSON.parse(decode(req.body.exercise));
-  var exerciseId = exercise._id;
-  var upsertResponse = function(err, result) {
-    if (err) {
-      return response.status(500).send(err);
-    } else {
-      if (!exerciseId && result._id) {
-        response.location('/exercises/' + result._id);
-        response.status(201);
-      }
-      //Run functionality test with model solution
-      if (result.modelSolution.code.length > 0) {
-        checkFunctionality({
-          code: result.modelSolution.code,
-          exerciseId: result._id
-        }, function(err, feedback) {
-          response.send({
-            exercise: result,
-            feedback: {
-              testResults: feedback
-            }
-          });
-        });
-      } else {
-        response.send({
-          exercise: result
-        });
-      }
-    }
-  };
-  var feedback = {};
-  var hasFeedback;
-  syntaxFormatCheck(exercise.testSuite, function(err, tSFeedback) {
-    if (err) {
-      return response.status(500).send(err);
-    }
-    if (tSFeedback) {
-      hasFeedback = true;
-      feedback.testSuite = tSFeedback;
-    }
-    syntaxFormatCheck(exercise.modelSolution, function(err, mSFeedback) {
-      if (err) {
-        return response.status(500).send(err);
-      }
-      if (mSFeedback) {
-        hasFeedback = true;
-        feedback.modelSolution = mSFeedback;
-      }
-      if (hasFeedback) {
-        return response.send({feedback: feedback});
-      } else {
-        database.putExercise(exercise, upsertResponse);
-      }
-    });
-  });
-});
-
-//Checks if syntax or format checks return feedback
-function syntaxFormatCheck(submitted, callback) {
-  //check syntax
-  if (submitted.code && submitted.code !== '') {
-    checkSyntax(submitted, function(syntaxErr, syntaxFeedback) {
-      //check format
-      checkFormat(submitted, function(formatErr, formatFeedback) {
-        var feedback;
-        if (syntaxFeedback && formatFeedback) {
-          feedback = syntaxFeedback.concat(formatFeedback);
-        }
-        callback(
-            syntaxErr ||
-            formatErr,
-            feedback ||
-            syntaxFeedback ||
-            formatFeedback
-            );
-      });
-    });
-  } else {
-    callback();
-  }
-}
-
-//Get an exercise by id
-app.get('/exercises/:id', loggedIn, function(req, res) {
-  var exerciseId = req.params.id;
-  database.getExercise(exerciseId, function(err, exercise) {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.send(exercise);
-    }
-  }, req.user.roles);
-});
-
-//Get exercise based on filter
-app.get('/exercises', loggedIn, function(req, res) {
-  //get the exercises:
-  var filter = {};
-  if (req.query.chapter) {
-    filter.chapter = req.query.chapter;
-  }
-  if (req.query.number) {
-    filter.number = req.query.number;
-  }
-
-  database.getExercises(filter, function(err, exercises) {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.send(exercises);
-    }
-  }, req.user.roles);
-});
+app.get('/exercises', loggedIn, exercises.query);
+app.get('/exercises/:id', loggedIn, exercises.get);
+app.post('/exercises', loggedIn, isTutor, exercises.upsert);
+app.delete('/exercises/:id', loggedIn, isTutor, exercises.delete);
 
 //Start server
 app.set('port', process.env.PORT || 3030);
@@ -298,11 +171,6 @@ var server = app.listen(app.get('port'), function() {
   var host = server.address().address;
   var port = server.address().port;
 });
-
-//Utility: decode base64
-function decode(encoded) {
-  return new Buffer(encoded, 'base64').toString();
-}
 
 // Export required for supertest
 module.exports.app = app;
