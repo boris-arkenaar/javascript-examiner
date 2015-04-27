@@ -5,7 +5,6 @@ var _ = require('underscore');
 
 describe('server.js', function() {
   var exerciseId;
-  var userId;
   var tutorCookie;
   var studentCookie;
   before(function(done) {
@@ -27,160 +26,8 @@ describe('server.js', function() {
           });
       });
   });
-  describe('POST /user', function() {
-    function postUser(user, cookie, check) {
-      // var encoded = JSON.stringify(user);
-      request(app)
-        .post('/users')
-        .send({'user': user})
-        .set('Accept', 'application/json')
-        .set('cookie', cookie)
-        .end(function(err, res) {
-          check(res);
-        });
-    }
-    it('should not be able to save an user if not logged in',
-      function(done) {
-        var user = {
-          email: 'testUser',
-        };
-        postUser(user, null, function(res) {
-          assert.equal(res.status, 401);
-          assert.notProperty(res.body, 'user');
-          done();
-        });
-      }
-    );
-    it('should not be able to save an user if not tutor',
-      function(done) {
-        var user = {
-          name: 'testUser'
-        };
-        postUser(user, studentCookie, function(res) {
-          assert.equal(res.status, 403);
-          assert.notProperty(res.body, 'user');
-          done();
-        });
-      }
-    );
-    it ('should be able to save an user when tutor', function(done) {
-      var user = {
-        email: 'testUser',
-      };
-      postUser(user, tutorCookie, function(res) {
-        assert.equal(res.status, 201);
-        assert.property(res.body, 'user');
-        assert.equal(user.name, res.body.user.name);
-        assert.property(res.body.user, '_id');
-        userId = res.body.user._id;
-        assert.equal(res.headers.location, '/users/' + userId);
-        done();
-      });
-    });
-    it ('should be able to update an user when tutor', function(done) {
-      var user2 = {
-        email: 'updatedName',
-        _id: userId
-      };
-      postUser(user2, tutorCookie, function(res) {
-        assert.equal(res.status, 200);
-        assert.property(res.body, 'user');
-        assert.equal(user2.name, res.body.user.name);
-        assert.property(res.body.user, '_id');
-        assert.equal(res.body.user._id, user2._id);
-        done();
-      });
-    });
-  });
-  describe('GET /users', function() {
-    function getUsers(userId, cookie, check) {
-      var url = '/users';
-      if (userId) {
-        url += '/' + userId;
-      }
-      request(app)
-        .get(url)
-        .set('Accept', 'application/json')
-        .set('cookie', cookie)
-        .end(function(err, res) {
-          check(res);
-        });
-    }
-    function hasUsers(res) {
-      //check if the added user is present
-      var getUser = _.find(res.body, function(user) {
-        return user._id === userId;
-      });
-      assert.isDefined(getUser);
-    }
-    it ('should not get users when not logged in', function(done) {
-      getUsers(null, null, function(res) {
-        assert.equal(res.status, 401);
-        assert.notProperty(res.body, 'length');
-        done();
-      });
-    });
-    it ('should get at least 1 user', function(done) {
-      getUsers(null, tutorCookie, function(res) {
-        assert.equal(res.status, 200);
-        hasUsers(res);
-        done();
-      });
-    });
-    it ('should get the added user', function(done) {
-      getUsers(userId, tutorCookie, function(res) {
-        assert.equal(res.status, 200);
-        assert.isObject(res.body);
-        assert.equal(res.body._id, userId);
-        done();
-      });
-    });
-  });
-  describe('DELETE /users/:id', function(done) {
-    function deleteUser(userId, cookie, check) {
-      request(app)
-        .delete('/users/' + userId || '')
-        .set('Accept', 'application/json')
-        .set('Cookie', cookie)
-        .end(function(err, res) {
-          check(res);
-        });
-    }
-    it ('should not delete if not logged in', function(done) {
-      deleteUser(userId, null, function(res) {
-        assert.equal(res.status, 401);
-        assert.notProperty(res.body, 'removed');
-        done();
-      });
-    });
-    it ('should not delete if no userId is provided', function(done) {
-      deleteUser(null, tutorCookie, function(res) {
-        assert.equal(res.status, 500);
-        done();
-      });
-    });
-    it ('should not delete if not tutor', function(done) {
-      deleteUser(userId, studentCookie, function(res) {
-        assert.equal(res.status, 403);
-        done();
-      });
-    });
-    it ('should delete the added user', function(done) {
-      deleteUser(userId, tutorCookie, function(res) {
-        assert.equal(res.status, 200);
-        assert.property(res.body, 'removed');
-        assert.isTrue(res.body.removed);
-        done();
-      });
-    });
-    it ('should not delete if provid userId not in db', function(done) {
-      deleteUser(userId, tutorCookie, function(res) {
-        assert.equal(res.status, 404);
-        done();
-      });
-    });
-  });
-  describe('POST /exercise', function() {
+  describe('POST /exercises', function() {
+
     function postExercise(exercise, cookie, check) {
       var encoded = new Buffer(JSON.stringify(exercise)).toString('base64');
       request(app)
@@ -198,6 +45,7 @@ describe('server.js', function() {
           name: 'testExercise',
         };
         postExercise(exercise, null, function(res) {
+          // console.log(res);
           assert.equal(res.status, 401);
           assert.notProperty(res.body, 'exercise');
           done();
@@ -210,6 +58,7 @@ describe('server.js', function() {
           name: 'testExercise'
         };
         postExercise(exercise, studentCookie, function(res) {
+          // console.log(res);
           assert.equal(res.status, 403);
           assert.notProperty(res.body, 'exercise');
           done();
@@ -219,8 +68,7 @@ describe('server.js', function() {
     it ('should be able to save an exercise when tutor', function(done) {
       var exercise = {
         name: 'testExercise',
-        testSuite: {code: 'console.log(\'this is a test\');\n'},
-        modelSolution: {code: ''}
+        testSuite: {code: 'console.log(\'this is a test\');'}
       };
       postExercise(exercise, tutorCookie, function(res) {
         assert.equal(res.status, 201);
@@ -233,18 +81,17 @@ describe('server.js', function() {
       });
     });
     it ('should be able to update an exercise when tutor', function(done) {
-      var exercise2 = {
-        name: 'updatedName',
+      var exercise = {
         _id: exerciseId,
-        testSuite: {code: 'console.log(\'this is a test\');\n'},
-        modelSolution: {code: ''}
+        name: 'testExercise_updated',
       };
-      postExercise(exercise2, tutorCookie, function(res) {
+      postExercise(exercise, tutorCookie, function(res) {
         assert.equal(res.status, 200);
         assert.property(res.body, 'exercise');
-        assert.equal(exercise2.name, res.body.exercise.name);
+        assert.equal(exercise.name, res.body.exercise.name);
         assert.property(res.body.exercise, '_id');
-        assert.equal(res.body.exercise._id, exercise2._id);
+        assert.equal(res.body.exercise._id, exercise._id);
+        assert.equal(res.body.exercise.name, exercise.name);
         done();
       });
     });
