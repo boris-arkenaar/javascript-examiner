@@ -26,6 +26,37 @@ var functionSchema = mongoose.Schema({
   params: [paramSchema]
 });
 
+var metricsFunctionSchema = mongoose.Schema({
+  name: String,
+  sloc: {
+    logical: Number,
+    physical: Number
+  },
+  cyclomatic: Number,
+  halstead: {
+    operators: {
+      distinct: Number,
+      total: Number,
+      identifiers: [String]
+    },
+    operands: {
+      distinct: Number,
+      total: Number,
+      identifiers: [String]
+    },
+    length: Number,
+    vocabulary: Number,
+    difficulty: Number,
+    volume: Number,
+    effort: Number,
+    bugs: Number,
+    time: Number
+  },
+  params: Number,
+  line: Number,
+  cyclomaticDensity: Number
+});
+
 var exerciseSchema = mongoose.Schema({
   chapter: Number,
   number: Number,
@@ -37,6 +68,44 @@ var exerciseSchema = mongoose.Schema({
   },
   testSuite: {
     code: String
+  },
+  metrics: {
+    aggregate: {
+      sloc: {
+        logical: Number,
+        physical: Number
+      },
+      cyclomatic: Number,
+      halstead: {
+        operators: {
+          distinct: Number,
+          total: Number,
+          identifiers: [String]
+        },
+        operands: {
+          distinct: Number,
+          total: Number,
+          identifiers: [String]
+        },
+        length: Number,
+        vocabulary: Number,
+        difficulty: Number,
+        volume: Number,
+        effort: Number,
+        bugs: Number,
+        time: Number
+      },
+      params: Number,
+      line: Number,
+      cyclomaticDensity: Number
+    },
+    functions: [metricsFunctionSchema],
+    dependencies: [String],
+    maintainability: Number,
+    loc: Number,
+    cyclomatic: Number,
+    effort: Number,
+    params: Number
   }
 });
 

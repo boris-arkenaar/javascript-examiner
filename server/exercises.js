@@ -1,5 +1,10 @@
 var database = require('./database');
 var helper = require('./helper');
+var checkSyntax = require('./check-syntax/check-syntax');
+var checkFormat = require('./check-format/check-format');
+var checkFunctionality = require('./check-functionality/check-functionality');
+var checkMaintainability =
+    require('./check-maintainability/check-maintainability');
 
 //Exercise management
 
@@ -53,6 +58,10 @@ exports.upsert = function(req, response) {
           code: result.modelSolution.code,
           exerciseId: result._id
         }, function(err, feedback) {
+          console.log('functionality feedback', feedback);
+          if (!feedback.failure || !feedback.failures.length) {
+            calculateMaintainability(result);
+          }
           response.send({
             exercise: result,
             feedback: {
@@ -111,6 +120,25 @@ exports.delete = function(req, response) {
     }
   });
 };
+
+// Calculates and saves maintainability metrics for the model solution
+function calculateMaintainability(exercise) {
+  var submitted = {
+    code: exercise.modelSolution.code,
+    exerciseId: exercise._id
+  };
+  checkMaintainability(submitted, function(err, feedback, metrics) {
+    if (err) {
+      return response.status(500).send(err);
+    }
+    exercise.metrics = metrics;
+    database.putExercise(exercise, function(err) {
+      if (err) {
+        return response.status(500).send(err);
+      }
+    });
+  });
+}
 
 //Checks if syntax or format checks return feedback
 function syntaxFormatCheck(submitted, callback) {

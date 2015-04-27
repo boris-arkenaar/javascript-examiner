@@ -244,7 +244,6 @@ function putExercise(exercise, callback) {
     //insert
     insertExercise(exercise, callback);
   }
-
 }
 
 function insertExercise(exercise, callback) {
