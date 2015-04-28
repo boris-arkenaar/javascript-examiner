@@ -10,8 +10,8 @@ describe('check-maintainability.js', function() {
       code: 'function calcBMI() {};  '
     };
     checkMaintainability(input, function(err, feedback, artefacts) {
-      assert.isNull(feedback);
       assert.isNull(err);
+      assert.isNull(feedback);
       assert.isObject(artefacts);
       done();
     });

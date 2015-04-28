@@ -29,11 +29,11 @@
 
     <core-ajax id="checkRequest" url="{{checkUrl}}"
                method="post" contentType="application/json"
-               handleAs="json" 
+               handleAs="json"
                body='{"code": "{{encoded}}", "exerciseId": "{{exercise._id}}",
                "solutionId": "{{solutionId}}"}'
                on-core-response="{{checkResponse}}"></core-ajax>
-               
+
     <template if="{{testResults.stats}}">
       <h1>Test results</h1>
       <p>{{testResults.stats.passes}} tests passed</p>
@@ -55,6 +55,51 @@
           <span>column: {{item.column}}</span>
         </div>
         <p>{{item.description}}</p>
+      </template>
+    </template>
+
+    <template if="{{metrics.studentMetrics}}" id="metrics">
+      <h1>Maintainability metrics</h1>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Your code</th>
+            <th>Model solution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Maintainability score</th>
+            <td>{{metrics.studentMetrics.maintainability}}</td>
+            <td>{{metrics.modelMetrics.maintainability}}</td>
+          </tr>
+          <tr>
+            <th>Cyclomatic density</th>
+            <td>{{metrics.studentMetrics.aggregate.cyclomaticDensity}}</td>
+            <td>{{metrics.modelMetrics.aggregate.cyclomaticDensity}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <template repeat="{{function, i in metrics.studentMetrics.functions}}">
+        <h2>{{function.name}}</h2>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Your code</th>
+              <th>Model solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Cyclomatic density</th>
+              <td>{{function.cyclomaticDensity}}</td>
+              <td>{{metrics.modelMetrics.functions[i].cyclomaticDensity}}</td>
+            </tr>
+          </tbody>
+        </table>
       </template>
     </template>
 
@@ -93,6 +138,7 @@
         this.encoded = '';
         this.feedback = [];
         this.testResults = {};
+        this.metrics = {};
         this.ast = '';
         this.artifacts = {};
         this.artifactsString = '';
@@ -114,6 +160,7 @@
       onSubmitClick: function() {
         this.solutionId = '';
         this.feedback = [];
+        this.metrics = {};
         this.ast = '';
         this.encoded = utf8_to_b64(this.code);
         this.checkUrl = '/check/syntax'
@@ -155,6 +202,7 @@
 
       onMaintainabilityResponse: function(response) {
         this.setSubmitResults(response);
+        this.metrics = this.artifacts;
       }
     });
 
