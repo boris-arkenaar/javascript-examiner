@@ -58,7 +58,6 @@ exports.upsert = function(req, response) {
           code: result.modelSolution.code,
           exerciseId: result._id
         }, function(err, feedback) {
-          console.log('functionality feedback', feedback);
           if (!feedback.failure || !feedback.failures.length) {
             calculateMaintainability(result);
           }
