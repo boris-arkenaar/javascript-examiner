@@ -1,11 +1,19 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="../bower_components/core-icons/core-icons.html">
 
+<link rel="import" href="je-user-feedback.html">
+
 <polymer-element name="je-exercises" attributes="session">
   <template>
+    <style>
+      a {
+        max-width: 40px;
+      }
+    </style>
     <core-ajax id="exercisesRequest" url="/exercises"
                method="get" contentType="application/json"
                handleAs="json"
@@ -19,9 +27,16 @@
           <li>
             <a href="#/exercises/{{exercise._id}}">{{exercise.name}}</a>
             <template if="{{isTutor}}">
-              <a href="#/exercises/{{exercise._id}}/edit">
-                <paper-icon-button title="edit" icon="create"></paper-icon-button>
-              </a>
+              <span>
+                <a href="#/exercises/{{exercise._id}}/edit">
+                  <paper-icon-button title="edit" icon="create"></paper-icon-button>
+                </a>
+              </span>
+            </template>
+            <template if="{{isStudent}}">
+              <paper-icon-button data-exercise-id="{{exercise._id}}" on-click="{{openFeedbackDialog}}" 
+                  title="edit" icon="question-answer">
+              </paper-icon-button>
             </template>
           </li>
         </template>
@@ -36,9 +51,12 @@
       <p>There are no exercises available.</p>
     </template>
 
+    <je-user-feedback id="feedbackDialog" context="{{feedbackContext}}"></je-user-feedback>
+
   </template>
   <script>
     Polymer({
+      feedbackContext: {},
       created: function() {
         this.exercises = [];
       },
@@ -51,9 +69,22 @@
         return this.session.userRoles.indexOf('tutor') !== -1;
       },
 
+      get isStudent() {
+        return this.session.userRoles.indexOf('student') !== -1;
+      },
       onExercisesResponse: function(response) {
         this.exercises = response.detail.response;
       },
+      openFeedbackDialog: function(event, index, element){
+        console.log('kommaarop', event);
+        this.feedbackContext = {
+          exerciseId: element.dataset.exerciseId
+        }
+        console.log('element', element.dataset.exerciseId);
+        console.log(this.$.feedbackDialog.$.modal);
+        this.$.feedbackDialog.$.modal.toggle();
+        
+      }
     });
   </script>
 </polymer-element>
