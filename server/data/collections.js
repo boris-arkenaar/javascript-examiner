@@ -1,6 +1,15 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 
+var feedbackSchema = mongoose.Schema({
+  subject: String,
+  feedback: String,
+  context: {
+    exerciseId: String,
+    userId: String
+  }
+});
+
 var userSchema = mongoose.Schema({
   email: String,
   password: String,
@@ -54,3 +63,5 @@ mongoose.model('Exercise', exerciseSchema);
 exports.Exercise = mongoose.model('Exercise');
 mongoose.model('Solution', solutionSchema);
 exports.Solution = mongoose.model('Solution');
+mongoose.model('Feedback', feedbackSchema);
+exports.Feedback = mongoose.model('Feedback');

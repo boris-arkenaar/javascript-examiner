@@ -9,6 +9,7 @@
 <link rel="import" href="je-code-mirror.html">
 <link rel="import" href="je-exercises.html">
 <link rel="import" href="je-test-results.html">
+<link rel="import" href="je-user-feedback.html">
 
 <polymer-element name="je-submit-exercise" attributes="exerciseId">
   <template>
@@ -20,11 +21,16 @@
     <h1>{{exercise.name}}</h1>
     <p>{{exercise.description}}</p>
 
-    <p>
-      <paper-button raised on-click="{{onSubmitClick}}">
-        Submit your solution
-      </paper-button>
-    </p>
+    <div horizontal layout>
+      <p>
+        <paper-button raised on-click="{{onSubmitClick}}">
+          Submit your solution
+        </paper-button>
+      </p>
+      <paper-icon-button data-exercise-id="{{exercise._id}}" on-click="{{openFeedbackDialog}}" 
+      title="feedback" icon="question-answer">
+      </paper-icon-button>
+    </div>
 
     <je-code-mirror value="{{code}}" feedback="{{feedback}}"></je-code-mirror>
 
@@ -71,6 +77,9 @@
         </paper-autogrow-textarea>
       </paper-input-decorator>
     </template>
+
+    <je-user-feedback id="feedbackDialog" context="{{feedbackContext}}"></je-user-feedback>
+
   </template>
   <script>
     Polymer({
@@ -149,6 +158,12 @@
 
       onMaintainabilityResponse: function(response) {
         this.setSubmitResults(response);
+      },
+      openFeedbackDialog: function(event, index, element){
+        this.feedbackContext = {
+          exerciseId: this.exerciseId
+        }
+        this.$.feedbackDialog.$.modal.toggle();
       }
     });
 

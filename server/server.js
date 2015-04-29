@@ -18,6 +18,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var _ = require('underscore');
 var MongoStore = require('connect-mongo')(session);
+var Collections = require('./data/collections');
 
 //Authentication and Authorization
 passport.serializeUser(function(user, done) {
@@ -157,6 +158,30 @@ function getCheckHandler(check) {
     });
   };
 }
+
+//Feedback management
+app.post('/feedback', function(request, response) {
+  console.log(request.body);
+  var feedback = JSON.parse(helper.decode(request.body.data));
+  console.log(feedback);
+  if (request.user) {
+    feedback.context.userId = request.user._id;
+  }
+  //1. Email feedback to subscribed users
+  Collections.User.find({roles: 'tutor'}, function(err, tutors) {
+    //TODO: email subscribed tutors after gh-36 is merged
+  });
+
+  //2. Store feedback in Mongo
+  feedback = new Collections.Feedback(feedback);
+  feedback.save(function(err) {
+    if (err) {
+      return response.status(500).send(err);
+    } else {
+      return response.send({saved: true});
+    }
+  });
+});
 
 //Exercise management
 app.get('/exercises', loggedIn, exercises.query);

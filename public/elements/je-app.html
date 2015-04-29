@@ -16,6 +16,8 @@
 <link rel="import" href="../elements/je-submit-exercise.html">
 <link rel="import" href="../elements/je-exercise-management.html">
 
+<link rel="import" href="je-user-feedback.html">
+
 <polymer-element name="je-app">
   <template>
     <style>
@@ -65,6 +67,9 @@
 
       <core-toolbar tool flex>
         <div flex>Application</div>
+        <paper-icon-button data-exercise-id="{{exercise._id}}" on-click="{{openFeedbackDialog}}"
+            title="feedback" icon="question-answer">
+        </paper-icon-button>
       </core-toolbar>
 
       <div class="page" horizontal center-center fit>
@@ -88,6 +93,8 @@
         </app-router>
       </div>
     </core-scaffold>
+
+    <je-user-feedback id="feedbackDialog" context="{{feedbackContext}}"></je-user-feedback>
   </template>
   <script>
     Polymer({
@@ -115,6 +122,9 @@
       },
       onBeforeDataBindingLoginRoute: function(event) {
         event.detail.model.session = this.session;
+      },
+      openFeedbackDialog: function(event, index, element){
+        this.$.feedbackDialog.$.modal.toggle();
       }
     });
   </script>

@@ -35,7 +35,7 @@
             </template>
             <template if="{{isStudent}}">
               <paper-icon-button data-exercise-id="{{exercise._id}}" on-click="{{openFeedbackDialog}}" 
-                  title="edit" icon="question-answer">
+                  title="feedback" icon="question-answer">
               </paper-icon-button>
             </template>
           </li>
@@ -76,14 +76,10 @@
         this.exercises = response.detail.response;
       },
       openFeedbackDialog: function(event, index, element){
-        console.log('kommaarop', event);
         this.feedbackContext = {
           exerciseId: element.dataset.exerciseId
         }
-        console.log('element', element.dataset.exerciseId);
-        console.log(this.$.feedbackDialog.$.modal);
         this.$.feedbackDialog.$.modal.toggle();
-        
       }
     });
   </script>
