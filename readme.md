@@ -17,3 +17,14 @@
 
 ## Running
 Run `gulp` to start the server.
+
+## Configure
+
+### JSCS
+Formatting of the code is checked using JSCS.
+You can configure the formatting you would like the student code to adhere to
+using the configuration file `server/check-format/jscs-config.json`.
+There is [an overview of the possible rules](http://jscs.info/rules.html)
+available on the JSCS website.
+You can also choose from
+[a range of presets](https://github.com/jscs-dev/node-jscs/tree/master/presets).
