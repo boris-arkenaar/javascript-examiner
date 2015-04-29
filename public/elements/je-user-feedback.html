@@ -1,0 +1,75 @@
+<link rel="import" href="../bower_components/core-label/core-label.html">
+<link rel="import"
+      href="../bower_components/paper-input/paper-autogrow-textarea.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<polymer-element name="je-user-feedback" attributes="context">
+	<template>
+		
+		<paper-dialog backdrop id="modal" heading="Feedback">
+      <div vertical layout>
+      	<!-- section -->
+	      <div horizontal layout center>
+          <!-- label -->
+          <div class="label" style="margin-right: 15px; width: 80px">
+            <core-label>Subject:</core-label>  
+          </div>
+          <!-- content -->
+          <div flex class="content">
+            <paper-input value="{{subject}}"></paper-input>
+          </div>
+	      </div>
+	      <!-- section -->
+	      <div horizontal layout center>
+	        <!-- label -->
+	        <div class="label" style="margin-right: 15px; width: 80px">
+	          <core-label>Feedback:</core-label>
+	        </div> 
+	        <!-- content -->
+	        <div flex class="content">
+	          <paper-autogrow-textarea id="excercise-description-area" rows="5">
+	            <textarea style="font-size: large;" value="{{feedback}}">
+	            </textarea>
+	          </paper-autogrow-textarea>
+	        </div>
+	      </div>
+	      <div horizontal layout>
+        <paper-button raised on-click="{{sendFeedback}}">
+          Send
+        </paper-button>
+        <paper-button raised on-click="{{closeModal}}">
+        	Back
+        </paper-button>   
+      </div>
+      </div>
+
+    </paper-dialog>
+
+
+
+	</template>
+	<script>
+		Polymer({
+			context: {},
+			subject: '',
+			feedback: '',
+			closeModal: function() {
+				console.log(this.context);
+				this.$.modal.toggle();
+			},
+			sendFeedback: function() {
+
+			}
+
+		});
+
+		/**
+     * Source: 
+     * https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64.btoa
+     */
+    function utf8_to_b64(str) {
+      return window.btoa(unescape(encodeURIComponent(str)));
+    }
+	</script>
+</polymer-element>
