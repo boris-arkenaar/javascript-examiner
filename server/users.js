@@ -1,6 +1,7 @@
 var database = require('./database');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
+var helper = require('./helper');
 
 //User management
 
