@@ -4,6 +4,7 @@ var assert = require('chai').assert;
 var _ = require('underscore');
 
 describe('server.js', function() {
+  // process.env.MONGOLAB_URI = 'mongodb://localhost/test';
   var exerciseId;
   var userId;
   var tutorCookie;
@@ -27,12 +28,16 @@ describe('server.js', function() {
           });
       });
   });
+  after(function() {
+    // process.env.MONGOLAB_URI = 'mongodb://localhost/examiner-dev';
+  });
   describe('POST /user', function() {
     function postUser(user, cookie, check) {
       // var encoded = JSON.stringify(user);
+      var encoded = new Buffer(JSON.stringify(user)).toString('base64');
       request(app)
         .post('/users')
-        .send({'user': user})
+        .send({'user': encoded, resetPassword: false})
         .set('Accept', 'application/json')
         .set('cookie', cookie)
         .end(function(err, res) {
@@ -42,7 +47,7 @@ describe('server.js', function() {
     it('should not be able to save an user if not logged in',
       function(done) {
         var user = {
-          email: 'testUser',
+          email: 'testUser'
         };
         postUser(user, null, function(res) {
           assert.equal(res.status, 401);
@@ -65,7 +70,7 @@ describe('server.js', function() {
     );
     it ('should be able to save an user when tutor', function(done) {
       var user = {
-        email: 'testUser',
+        email: 'testUser'
       };
       postUser(user, tutorCookie, function(res) {
         assert.equal(res.status, 201);

@@ -3,12 +3,14 @@ var assert = require('chai').assert;
 var _ = require('underscore');
 describe('Database', function() {
   before(function(done) {
+    process.env.MONGOLAB_URI = 'mongodb://localhost/test';
     database.connect('test', function() {
       done();
     });
   });
 
   after(function(done) {
+    process.env.MONGOLAB_URI = 'mongodb://localhost/examiner-dev';
     database.disconnect(function() { done();});
   });
 
@@ -78,11 +80,11 @@ describe('Database', function() {
   describe('getUsers', function(done) {
     it('should return the users in the database', function(done) {
       var user1 = {
-        email: 'user1' + Math.random() + '@mail.dot',
+        email: 'user3' + Math.random() + '@mail.dot',
         password: 'p@ssword'
       };
       var user2 = {
-        email: 'user2' + Math.random() + '@mail.dot',
+        email: 'user4' + Math.random() + '@mail.dot',
         password: 'p@ssword'
       };
       database.putUser(user1, function(err, res1) {
@@ -106,7 +108,7 @@ describe('Database', function() {
   describe('putUser', function(done) {
     it('should return the user in the callback', function(done) {
       var user = {
-        email: 'test' + Math.random() + '@mail.dot',
+        email: 'test5' + Math.random() + '@mail.dot',
         password: 'p@ssword'
       };
       database.putUser(user, function(err, res) {
@@ -119,7 +121,7 @@ describe('Database', function() {
     });
     it('should be able to update a user', function(done) {
       var user = {
-        email: 'test' + Math.random() + '@mail.dot',
+        email: 'test6' + Math.random() + '@mail.dot',
         password: 'p@ssword'
       };
       database.putUser(user, function(err, res) {
@@ -136,7 +138,7 @@ describe('Database', function() {
   describe('deleteUser', function(done) {
     it('should delete a user', function(done) {
       var user = {
-        email: 'test' + Math.random() + '@mail.dot',
+        email: 'test7' + Math.random() + '@mail.dot',
         password: 'p@ssword'
       };
       database.putUser(user, function(err, res) {

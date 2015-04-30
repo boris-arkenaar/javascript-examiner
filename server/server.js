@@ -234,7 +234,7 @@ app.post('/users', loggedIn, isTutor, function(req, response) {
 
 function sendEnrollmentEmail(address, token, host) {
   var subject = 'Welcome to javascript-examiner';
-  var text = 'http://' + host + '/#/enroll/' + token;
+  var text = 'http://' + host + '/#/reset/' + token;
   sendEmail(address,  subject, text);
 }
 
