@@ -36,10 +36,12 @@
 			this.users = [];
 		},
 		ready: function() {
+			console.log('Go');
 			this.$.usersRequest.go();
 		},
 		onUsersResponse: function(response) {
 			this.users = response.detail.response;
+			console.log(this.users);
 		}
 	});
 	</script>

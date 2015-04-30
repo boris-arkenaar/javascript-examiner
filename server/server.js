@@ -161,7 +161,6 @@ function getCheckHandler(check) {
   };
 }
 
-
 //User Feedback management
 app.post('/user-feedback', function(request, response) {
   var userFeedback = JSON.parse(helper.decode(request.body.data));
@@ -207,7 +206,7 @@ app.get('/users/:id', loggedIn, isTutor, function(req, response) {
 });
 
 app.post('/users', loggedIn, isTutor, function(req, response) {
-  var user = JSON.parse(decode(req.body.user));
+  var user = JSON.parse(helper.decode(req.body.user));
   var userId = user._id;
   var resetPassword = JSON.parse(req.body.resetPassword);
   if (resetPassword) {
@@ -305,13 +304,6 @@ app.post('/resetPassword', function(req, response) {
   });
 });
 
-//Exercise management
-//Delete an exercise
-app.delete('/exercises/:id', loggedIn, isTutor, function(req, response) {
-  var exerciseId = req.params.id;
-  if (!exerciseId || exerciseId === 'null') {
-    return response.status(403).end();
-
 //User management
 app.get('/users', loggedIn, isTutor, function(req, response) {
   database.getUsers(null, function(err, users) {
@@ -335,7 +327,7 @@ app.get('/users/:id', loggedIn, isTutor, function(req, response) {
 });
 
 app.post('/users', loggedIn, isTutor, function(req, response) {
-  var user = JSON.parse(decode(req.body.user));
+  var user = JSON.parse(helper.decode(req.body.user));
   var userId = user._id;
   var resetPassword = JSON.parse(req.body.resetPassword);
   if (resetPassword) {
@@ -350,19 +342,12 @@ app.post('/users', loggedIn, isTutor, function(req, response) {
     }
   }
   database.putUser(user, function(err, result) {
-  };
-
-  var feedback = {};
-  var hasFeedback;
-  syntaxFormatCheck(exercise.testSuite, function(err, tSFeedback) {
-    if (err) {
-      return response.status(500).end();
-    }
     if (!userId && result._id) {
       response.location('/users/' + result._id);
       response.status(201);
+    } else {
+      response.send({user: result});
     }
-    response.send({user: result});
   });
 });
 
