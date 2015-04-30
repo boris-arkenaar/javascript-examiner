@@ -28,3 +28,8 @@ There is [an overview of the possible rules](http://jscs.info/rules.html)
 available on the JSCS website.
 You can also choose from
 [a range of presets](https://github.com/jscs-dev/node-jscs/tree/master/presets).
+
+### MongoDB
+You need to set a node.js environment variable 'MONGOLAB_URI' containing the
+URI to the MongoDB store. For instance you can place that variable in a .env
+file in the root of the project.
