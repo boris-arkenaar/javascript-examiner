@@ -4,3 +4,4 @@ tmp
 views
 npm-debug.log
 server/check-*-feedback
+.env
