@@ -19,13 +19,22 @@ exports.getExercise = getExercise;
 exports.getTestSuite = getTestSuite;
 exports.getConnection = getConnection;
 
+function getConnection() {
+  if (!connected) {
+    connect();
+  }
+  return mongoose.connection;
+}
+
 function getUsers(filter, callback) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
   }
-  checkConnection(null, function() {
-    getUsers(filter, callback);
-  });
+  if (!connected) {
+    return connect(null, function() {
+      getUsers(filter, callback);
+    });
+  }
   Collections.User.find(filter || {}, function(err, users) {
     if (err) {
       return callback(err);
@@ -156,9 +165,11 @@ function getTestSuite(exerciseId, callback) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
   }
-  checkConnection(null, function() {
-    getTestSuite(exerciseId, callback);
-  });
+  if (!connected) {
+    return connect(null, function() {
+      getTestSuite(exerciseId, callback);
+    });
+  }
   getExercise(exerciseId, function(err, exercise) {
     if (err) {
       callback(err);
@@ -174,9 +185,11 @@ function getExercises(filter, callback, roles) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
   }
-  checkConnection(null, function() {
-    getExercises(filter, callback, roles);
-  });
+  if (!connected) {
+    return connect(null, function() {
+      getExercises(filter, callback);
+    });
+  }
   var exclude;
   if (roles && roles.indexOf('tutor') === -1) {
     exclude = '-testSuite';
@@ -193,9 +206,11 @@ function getExercise(exerciseId, callback, roles) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
   }
-  checkConnection(null, function() {
-    getExercise(exerciseId, callback, roles);
-  });
+  if (!connected) {
+    return connect(null, function() {
+      getExercise(exerciseId, callback);
+    });
+  }
   var exclude;
   if (roles && roles.indexOf('tutor') === -1) {
     exclude = '-testSuite';
@@ -226,9 +241,11 @@ exports.putSolution = function(solution, callback) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
   }
-  checkConnection(null, function() {
-    putExercise(solution, callback);
-  });
+  if (!connected) {
+    return connect(null, function() {
+      putExercise(solution, callback);
+    });
+  }
   //insert
   var dbSolution = new Collections.Solution(solution);
   dbSolution.save(function(err, solution) {
@@ -237,6 +254,16 @@ exports.putSolution = function(solution, callback) {
     }
     callback(null, dbSolution);
   });
+};
+
+/**
+* Insert the feedback in the database
+* @param {Object} solution the related solution
+* @param {Object} feedback the feedback
+* @param {callback} callback the callback with form callback(err, res)
+*/
+exports.putFeedback = function(solution, feedback, callback) {
+
 };
 
 /**
@@ -251,9 +278,11 @@ function putExercise(exercise, callback) {
   if (!callback || typeof callback != 'function') {
     throw new Error('A callback function is required as second param');
   }
-  checkConnection(null, function() {
-    putExercise(exercise, callback);
-  });
+  if (!connected) {
+    return connect(null, function() {
+      putExercise(exercise, callback);
+    });
+  }
   //determine if insert or update
   if (exercise._id) {
     //update
@@ -307,7 +336,9 @@ function connect(dbName, callback) {
   //Keep connection alive:
   //based on http://mongoosejs.com/docs/connections.html
   //based on http://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html
-  var uri = process.env.MONGOLAB_URI || 'mongodb://localhost/examiner-dev';
+  dbName = dbName || 'examiner-dev';
+  var uri = process.env.MONGOLAB_URI ||
+      'mongodb://localhost/' + dbName;
   var mongooseUri = mongodbUri.formatMongoose(uri);
   var options = {server: {socketOptions:{keepAlive: 1}}};
   mongoose.connect(mongooseUri, options);
@@ -336,18 +367,4 @@ function disconnect(callback) {
   if (callback) {
     callback();
   }
-}
-
-function getConnection() {
-  if (!connected) {
-    connect();
-  }
-  return mongoose.connection;
-}
-
-function checkConnection(dbName, callback) {
-  if (!connected) {
-    return connect(dbName, callback);
-  }
-  return;
 }

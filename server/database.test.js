@@ -3,14 +3,14 @@ var assert = require('chai').assert;
 var _ = require('underscore');
 describe('Database', function() {
   before(function(done) {
-    process.env.MONGOLAB_URI = 'mongodb://localhost/test';
+    // process.env.MONGOLAB_URI = 'mongodb://localhost/test';
     database.connect('test', function() {
       done();
     });
   });
 
   after(function(done) {
-    process.env.MONGOLAB_URI = 'mongodb://localhost/examiner-dev';
+    // process.env.MONGOLAB_URI = 'mongodb://localhost/examiner-dev';
     database.disconnect(function() { done();});
   });
 
