@@ -159,13 +159,11 @@ function getCheckHandler(check) {
   };
 }
 
-//Feedback management
-app.post('/feedback', function(request, response) {
-  console.log(request.body);
-  var feedback = JSON.parse(helper.decode(request.body.data));
-  console.log(feedback);
+//User Feedback management
+app.post('/user-feedback', function(request, response) {
+  var userFeedback = JSON.parse(helper.decode(request.body.data));
   if (request.user) {
-    feedback.context.userId = request.user._id;
+    userFeedback.context.userId = request.user._id;
   }
   //1. Email feedback to subscribed users
   Collections.User.find({roles: 'tutor'}, function(err, tutors) {
@@ -173,8 +171,8 @@ app.post('/feedback', function(request, response) {
   });
 
   //2. Store feedback in Mongo
-  feedback = new Collections.Feedback(feedback);
-  feedback.save(function(err) {
+  userFeedback = new Collections.UserFeedback(userFeedback);
+  userFeedback.save(function(err) {
     if (err) {
       return response.status(500).send(err);
     } else {

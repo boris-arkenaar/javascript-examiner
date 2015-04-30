@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 
-var feedbackSchema = mongoose.Schema({
+var userFeedbackSchema = mongoose.Schema({
   subject: String,
   feedback: String,
   context: {
@@ -63,5 +63,5 @@ mongoose.model('Exercise', exerciseSchema);
 exports.Exercise = mongoose.model('Exercise');
 mongoose.model('Solution', solutionSchema);
 exports.Solution = mongoose.model('Solution');
-mongoose.model('Feedback', feedbackSchema);
-exports.Feedback = mongoose.model('Feedback');
+mongoose.model('UserFeedback', userFeedbackSchema);
+exports.UserFeedback = mongoose.model('UserFeedback');
