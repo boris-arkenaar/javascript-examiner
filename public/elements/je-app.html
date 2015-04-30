@@ -42,6 +42,13 @@
       core-menu > paper-item.core-selected {
         background: #e1f5fe;
       }
+      .version {
+        padding: .5em;
+        position: absolute;
+        bottom: 1em;
+        font-size: smaller;
+        color: #ccc;
+      }
       @media all and (max-width: 480px) {
         core-animated-pages {
           width: 100%;
@@ -63,6 +70,7 @@
             </paper-item>
           </template>
         </core-menu>
+        <div class="version">Version: 0.0.5</div>
       </nav>
 
       <core-toolbar tool flex>
