@@ -183,8 +183,6 @@ function getTestSuite(exerciseId, callback) {
   //    getTestSuite(exerciseId, callback);
   //  });
   //}
-  
-  
   getExercise(exerciseId, function(err, exercise) {
     if (err) {
       callback(err);
@@ -208,8 +206,6 @@ function getExercises(filter, callback, roles) {
   //    getExercises(filter, callback);
   //  });
   //}
-
-
   var exclude;
   if (roles && roles.indexOf('tutor') === -1) {
     exclude = '-testSuite';
@@ -234,8 +230,6 @@ function getExercise(exerciseId, callback, roles) {
   //    getExercise(exerciseId, callback);
   //  });
   //}
-
-
   var exclude;
   if (roles && roles.indexOf('tutor') === -1) {
     exclude = '-testSuite';
@@ -274,8 +268,6 @@ exports.putSolution = function(solution, callback) {
   //    putExercise(solution, callback);
   //  });
   //}
-  
-  
   //insert
   var dbSolution = new Collections.Solution(solution);
   dbSolution.save(function(err, solution) {
@@ -316,7 +308,6 @@ function putExercise(exercise, callback) {
   //    putExercise(exercise, callback);
   //  });
   //}
-
 
   //determine if insert or update
   if (exercise._id) {
