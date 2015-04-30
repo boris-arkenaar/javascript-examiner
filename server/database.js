@@ -315,7 +315,7 @@ function connect(dbName, callback) {
   var db = mongoose.connection;
   //db.on('error', console.error.bind(console, 'MongoDB connection error:'));
   db.on('error', function(err) {
-    if (connected && callback()) {
+    if (connected && callback) {
       connected = false;
       callback(err);
     } else {
