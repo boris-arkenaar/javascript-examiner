@@ -7,7 +7,19 @@
 
 <polymer-element name="je-login" attributes="router session">
   <template>
+    <style>
+      .error {
+        font-seize: bigger;
+        font-weight: bold;
+        color: red;
+      }
+    </style>
+
     <h1>Log in</h1>
+
+    <template if="{{showError}}">
+      <p class="error">{{error}}</p>
+    </template>
 
     <p>
       <paper-input-decorator label="User name or e-mail address">
@@ -32,9 +44,12 @@
         this.email = '';
         this.password = '';
         this.user = {};
+        this.error = '';
+        this.showError = false;
       },
 
       onSubmitClick: function() {
+        this.showError = false;
         this.$.loginRequest.go();
       },
 
@@ -46,6 +61,9 @@
           this.session.userEmail = this.user.email;
           this.session.userRoles = this.user.roles;
           this.router.go('/');
+        } else {
+          this.error = this.user.message || 'Could not log in';
+          this.showError = true;
         }
       }
     });
