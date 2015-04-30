@@ -130,7 +130,7 @@ function calculateMaintainability(exercise) {
     if (err) {
       return response.status(500).send(err);
     }
-    exercise.metrics = metrics;
+    exercise.modelSolution.metrics = metrics.studentMetrics;
     database.putExercise(exercise, function(err) {
       if (err) {
         return response.status(500).send(err);

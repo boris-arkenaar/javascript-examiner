@@ -24,10 +24,9 @@ module.exports = function(submitted, callback) {
       }
 
       var modelMetrics = null;
-      if (exercise && exercise.metrics) {
-        modelMetrics = exercise.metrics;
+      if (exercise && exercise.modelSolution.metrics) {
+        modelMetrics = exercise.modelSolution.metrics;
       }
-
       callback(null, null, combine(modelMetrics, studentMetrics));
     });
   } else {

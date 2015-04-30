@@ -66,18 +66,10 @@ var metricsFunctionSchema = mongoose.Schema({
   cyclomaticDensity: Number
 });
 
-var exerciseSchema = mongoose.Schema({
-  chapter: Number,
-  number: Number,
-  name: String,
-  description: String,
-  functions: [functionSchema],
-  modelSolution: {
-    code: String
-  },
-  testSuite: {
-    code: String
-  },
+var solution = {
+  code: String,
+  exerciseId: String,
+  userId: String,
   metrics: {
     aggregate: {
       sloc: {
@@ -116,12 +108,20 @@ var exerciseSchema = mongoose.Schema({
     effort: Number,
     params: Number
   }
-});
+};
 
-var solutionSchema = mongoose.Schema({
-  code: String,
-  exerciseId: String,
-  userId: String
+var solutionSchema = mongoose.Schema(solution);
+
+var exerciseSchema = mongoose.Schema({
+  chapter: Number,
+  number: Number,
+  name: String,
+  description: String,
+  functions: [functionSchema],
+  modelSolution: solution,
+  testSuite: {
+    code: String
+  }
 });
 
 var testSuiteSchema = mongoose.Schema();
