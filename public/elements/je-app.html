@@ -120,33 +120,32 @@
   <script>
     Polymer({
       ready: function() {
-        this.pages = [
-          {
-            name: 'Exercises',
-            hash: 'exercises'
-          }
-        ];
+        this.pages = [];
       },
       onStateChangeAppRouter: function(event) {
         if (!this.session.userId) {
           this.pages = [];
-        }
-        // redirect to the login page if not signed in (unless going to the
-        // reset password page)
-        var path = event.detail.path;
-        if (!this.session.userId && path !== '/login' &&
-              !/\/reset\/[0-9a-z]+/.test(path)) {
-          event.preventDefault();
-          this.querySelector('::shadow app-router').go('/login');
-        } else if (this.session.userId) {
-          if (this.session.userRoles.indexOf('tutor') === -1 &&
+          // redirect to the login page if not signed in (unless going to the
+          // reset password page)
+          var path = event.detail.path;
+          if (path !== '/login' && !/\/reset\/[0-9a-z]+/.test(path)) {
+            event.preventDefault();
+            this.querySelector('::shadow app-router').go('/login');
+          }
+        } else {
+          var isTutor = this.session.userRoles.indexOf('tutor') > -1;
+
+          // Not allowed to go to exercises/:id/edit if not a tutor
+          if (!isTutor &&
               /\/exercises\/[0-9a-z]+\/edit/.test(event.detail.path)) {
             event.preventDefault();
-            console.log('not authorised', event);
-            this.querySelector('::shadow app-router').go('/forbidden', {replace: true});
+            this.querySelector('::shadow app-router')
+                .go('/forbidden', {replace: true});
           }
-          if (this.session.userRoles.indexOf('tutor') > -1) {
-            if(this.pages.length < 2) {
+
+          if(!this.pages.length) {
+            this.pages.push({name: 'Exercises', hash: 'exercises'});
+            if (isTutor) {
               this.pages.push({name: 'Users', hash: 'users'});
             }
           }
