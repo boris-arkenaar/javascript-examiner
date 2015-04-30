@@ -107,7 +107,7 @@
     </core-scaffold>
 
     <je-user-feedback id="feedbackDialog" context="{{feedbackContext}}"></je-user-feedback>
-
+    
   </template>
   <script>
     Polymer({
@@ -120,7 +120,6 @@
         ];
       },
       onStateChangeAppRouter: function(event) {
-        // redirect to the login page if not signed in
         if (!this.session.userId) {
           this.pages = [];
         }

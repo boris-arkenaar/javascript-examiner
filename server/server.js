@@ -281,7 +281,7 @@ app.delete('/users/:id', loggedIn, isTutor, function(req, response) {
   });
 });
 
-app.post('/resetPassword', function(req, response) {
+app.post('/reset-password', function(req, response) {
   var password = req.body.password;
   delete req.body.password;
   database.getUser(req.body, function(err, user) {
@@ -297,7 +297,7 @@ app.post('/resetPassword', function(req, response) {
           response.status(500).end(err ||
               {message: 'Something went wrong, try again'});
         } else {
-          response.send({sucess: true, message:'Password has been resetted'});
+          response.send({sucess: true, message:'Password has been reset'});
         }
       });
     }
