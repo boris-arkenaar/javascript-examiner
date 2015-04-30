@@ -30,9 +30,6 @@ describe('Database', function() {
     it('should export a putSolution function', function() {
       assert.equal('function', typeof database.putSolution);
     });
-    it('should export a putFeedback function', function() {
-      assert.equal('function', typeof database.putFeedback);
-    });
     it('should export a putExercise function', function() {
       assert.equal('function', typeof database.putExercise);
     });
