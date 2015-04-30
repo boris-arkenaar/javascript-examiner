@@ -1,0 +1,199 @@
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+
+<polymer-element name="je-user" attributes="userId, router">
+
+  <template>
+    <style>
+      .label {
+        width: 80px;
+        margin-right: 10px;
+      }
+
+      .param {
+        padding-bottom: 14px;
+        padding-top: 10px;
+      }
+
+      .border {
+        border-style: solid;
+        border-color: #fdd;
+      }
+
+      div {
+        margin-top: 10px;
+      }
+    </style>
+    <core-ajax id="userRequest" url="/users/{{userId}}"
+               method="get" contentType="application/json"
+               handleAs="json"
+               on-core-response="{{onUserResponse}}"></core-ajax>
+    <div>
+      <!-- sections in here -->
+      <div vertical layout wrap>
+      <!-- section -->
+      <div horizontal layout>
+        <!-- label -->
+        <div self-center class="label">
+          <core-label>Email:</core-label>  
+        </div>
+        <!-- content -->
+        <div flex class="content">
+          <paper-input value="{{user.email}}"></paper-input>
+        </div>
+      </div>
+      <!-- section -->
+      <div horizontal layout>
+        <!-- label -->
+        <div self-center class="label">
+          <core-label>Reset Password:</core-label>
+        </div> 
+        <!-- content -->
+        <div flex class="content">
+          <paper-checkbox checked="{{resetPassword}}" 
+              disabled="{{resetPasswordDisabled}}">
+          </paper-checkbox>
+        </div>
+      </div>
+      <!-- section -->
+      <div horizontal layout>
+        <!-- label -->
+        <div self-center class="label">
+          <core-label>Roles:</core-label>
+        </div> 
+        <!-- content -->
+        <div vertical layout class="content">
+          <div horizontal layout>
+            <div flex class>
+              <paper-checkbox checked="{{isTutor}}" 
+              disabled?="{{userId === session.userId}}">
+              </paper-checkbox>
+              <core-label>tutor</core-label>
+            </div>
+          </div>
+          <div horizontal layout>
+            <div flex class>
+              <paper-checkbox checked="{{isStudent}}">
+              </paper-checkbox>
+              <core-label>student</core-label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div horizontal layout flex>
+        <paper-button raised on-click="{{saveUser}}">
+          Save
+        </paper-button>
+        <template if="{{globalFeedback.length}}">
+          <je-feedback>{{globalFeedback}}</je-feedback>
+        </template>  
+        <paper-button id='deleteButton' disabled?="{{userId === session.userId}}"
+            raised on-click="{{deleteUser}}">
+          Delete User
+        </paper-button>
+        <a href="#/users">
+          <paper-button raised>
+            Back
+          </paper-button> 
+        </a>    
+      </div>
+
+
+       <core-ajax id="upsertUser" url="/users"
+                 method="post" contentType="application/json"
+                 handleAs="json" 
+                 body='{"user": "{{encoded}}", "resetPassword":"{{resetPassword}}"}'
+                 on-core-response="{{onSaveResponse}}"></core-ajax>
+      <core-ajax id="deleteUser" url="/users/{{userId}}"
+                 method="delete" contentType="application/json"
+                 handleAs="json" 
+                 on-core-response="{{onDeleteResponse}}"></core-ajax>
+
+    </div>
+  </template>
+  <script>
+    Polymer({
+      
+      userId: 0,
+      currentUser: false,
+      created: function() {
+        this.user = {
+          email: '',
+          password: ''
+        };
+        this.globalFeedback = [];
+        this.encoded = '';
+      },
+
+      attached: function() {
+        if(this.userId && this.userId.length > 0) {
+          this.$.userRequest.go();  
+        } else {
+          this.isStudent = true;
+          this.resetPassword = true;
+          this.resetPasswordDisabled = true;
+        }
+      },
+
+      onUserResponse: function(response) {
+        this.user = response.detail.response;
+        this.isStudent = this.user.roles.indexOf('student') > -1;
+        this.isTutor = this.user.roles.indexOf('tutor') > -1;
+      },
+
+      saveUser: function() {
+        this.globalFeedback = null;
+        var roles = [];
+        if(this.isStudent) {
+          roles.push('student');
+        } 
+        if (this.isTutor) {
+          roles.push('tutor');
+        }
+        this.user.roles = roles;
+        this.encoded = utf8_to_b64(JSON.stringify(this.user));
+        this.$.upsertUser.go();
+      },
+
+      onSaveResponse: function(response) {
+        var user = response.detail.response.user
+        if(user) {
+          this.user = response.detail.response.user;
+          this.resetPasswordDisabled = false;
+          this.resetPassword = false
+          this.globalFeedback = 'User Saved.\n';
+        }
+      },
+
+      deleteUser: function() {
+        if (this.userId === this.session.userId) {
+          return alert('Can\'t delete logged in user');
+        }
+        if(this.userId && 
+          this.userId.length > 0 &&
+          confirm('Do you really want to delete this User?')) {
+          //Delete user
+          this.$.deleteUser.go();
+        }
+      },
+
+      onDeleteResponse: function(response) {
+        if(response.detail.response.removed) {
+          this.router.go('/users');
+        } else {
+          console.log('Something went wrong');
+        }
+      }
+
+    }); 
+
+    /**
+     * Source: 
+     * https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64.btoa
+     */
+    function utf8_to_b64(str) {
+      return window.btoa(unescape(encodeURIComponent(str)));
+    }   
+  </script>
+</polymer-element>

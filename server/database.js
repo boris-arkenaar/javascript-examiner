@@ -13,6 +13,7 @@ exports.disconnect = disconnect;
 */
 exports.getUsers = getUsers;
 exports.getUser = getUser;
+exports.putUser = putUser;
 exports.getExercises = getExercises;
 exports.getExercise = getExercise;
 exports.getTestSuite = getTestSuite;
@@ -50,6 +51,80 @@ function getUser(filter, callback) {
       callback();
     } else {
       callback(null, users[0]);
+    }
+  });
+}
+
+/**
+* Insert/Update an user in the database
+* @param {Object} user the user
+* @param {callback} callback the callback with form callback(err, res)
+*/
+function putUser(user, callback) {
+  if (user === null || (user && typeof user != 'object')) {
+    return callback(new Error('An user is required'));
+  }
+  if (!callback || typeof callback != 'function') {
+    throw new Error('A callback function is required as second param');
+  }
+  if (!connected) {
+    return connect(null, function() {
+      putUser(user, callback);
+    });
+  }
+  //determine if insert or update
+  if (user._id) {
+    //update
+    updateUser(user, callback);
+  } else {
+    //insert
+    insertUser(user, callback);
+  }
+}
+
+function insertUser(user, callback) {
+
+  var dbUser = new Collections.User(user);
+  if (user.password) {
+    dbUser.password = dbUser.generateHash(user.password);
+  }
+  dbUser.save(function(err, dbUser) {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, dbUser);
+  });
+}
+
+function updateUser(user, callback) {
+  findUserById(user._id,
+    function(err, dbUser) {
+      if (err) {
+        return callback(err);
+      }
+      delete user._id;
+      extend(false, dbUser, user);
+      dbUser.save(callback);
+    }
+  );
+}
+
+/**
+* Delete an user from the database
+* @param {String} userId the Id of the user
+* @param {callback} callback the callback with form callback(err, res)
+*/
+exports.deleteUser = deleteUser;
+
+function deleteUser(userId, callback) {
+  findUserById(userId, function(err, old) {
+    if (err) {
+      callback(err);
+    } else {
+      if (!old) {
+        return callback();
+      }
+      old.remove(callback);
     }
   });
 }
@@ -192,34 +267,6 @@ exports.putFeedback = function(solution, feedback, callback) {
 };
 
 /**
-* Insert/Update a user in the database
-* @param {Object} user the exercise
-* @param {callback} callback the callback with form callback(err, res)
-*/
-exports.putUser = function(user, callback) {
-  if (user === null || (user && typeof user != 'object')) {
-    return callback(new Error('A user is required'));
-  }
-  if (!callback || typeof callback != 'function') {
-    throw new Error('A callback function is required as second param');
-  }
-  if (!connected) {
-    return connect(null, function() {
-      putUser(user, callback);
-    });
-  }
-  var dbUser = new Collections.User(user);
-  dbUser.password = dbUser.generateHash(user.password);
-
-  dbUser.save(function(err, dbUser) {
-    if (err) {
-      return callback(err);
-    }
-    callback(null, dbUser);
-  });
-};
-
-/**
 * Insert/Update an exercise in the database
 * @param {Object} exercise the exercise
 * @param {callback} callback the callback with form callback(err, res)
@@ -273,6 +320,10 @@ function updateExercise(exercise, callback) {
 
 function findExerciseById(id, callback) {
   Collections.Exercise.findById(id, callback);
+}
+
+function findUserById(id, callback) {
+  Collections.User.findById(id, callback);
 }
 
 function connect(dbName, callback) {
