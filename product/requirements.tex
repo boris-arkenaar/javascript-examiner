@@ -25,39 +25,18 @@
     definition of a code layout to be used in code checks.
   \item[Code layout check] The JavaScript-examiner should be able to check if 
     the submitted JavaScript code adheres to a defined code layout.
-  \item[Programming guidelines definition] The JavaScript-examiner should have
-    a definition of a set of programming guidelines to be used in code checks.
-  \item[Programming guidelines check] The JavaScript-examiner should be able to
-    check if the submitted JavaScript code conforms to a defined set of
-    programming guidelines.
   \item[Maintainability metrics calculation] The JavaScript-examiner should be 
     able to calculate the cyclomatic complexity, Halstead complexity and the 
     logical lines of code (LLOC) from the submitted JavaScript code.
-  \item[Metric results comparison] The JavaScript-examiner should be able to
-    compare the results from the maintainability metrics of the student's
-    submitted JavaScript code with the results of the tutor's solution.
   \item[Feedback generation] The JavaScript-examiner should generate feedback
     according to the results from the various checks and metrics calculations
     performed, and show these to the student.
-  \item[Code saving] The JavaScript-examiner should save the JavaScript code
-    from the students, for future examination.
-  \item[Results logging] The JavaScript-examiner should log the results from
-    the various checks and metrics calculations performed, for future
-    generation of statistics for the tutor.
-  \item[Progress logging] The JavaScript-examiner should log the progress for each
-    student (while maintaining anonymity).
   \item[Feedback on platform and exercises] Students should be able to provide
     feedback on JavaScript-examiner in general and exercises in particular.
 \end{description}
 
 \subsection{Non-functional Requirements}
 \begin{description}
-  \item[Anonymity] The student should be anonymous while using the
-    JavaScript-examiner: the submitted JavaScript code may not be traced back
-    to a student.
-  \item[Security in executing submitted code] Sufficient measures should be
-    taken to guarantee the integrity of the system while executing submitted
-    code.
   \item[Extensible exercises] The JavaScript-examiner should be designed in a
     way it's possible to extend the scope of exercises and even add support for
     other programming languages in the future. 
@@ -71,7 +50,6 @@
     manner that it motivates the student to continue.
   \item[Elegance] The JavaScript-examiner should return useful and well written 
     feedback, or at least encourage the tutor to write well written feedback.
-  \item[Format] The format of the returned feedback should be easily printable.
 \end{description}
 
 \section{Requirements for future development}
@@ -99,4 +77,27 @@
   \item[Statistics] The tutor should be able to retrieve statistics about the
     results of the various metrics and checks performed in the past on the
     JavaScript code of (any or some of) the students.
+  \item[Security in executing submitted code] Sufficient measures should be
+    taken to guarantee the integrity of the system while executing submitted
+    code.
+  \item[Format] The format of the returned feedback should be easily printable.
+\end{description}
+
+\subsubsection{Examination}
+\begin{description}
+  \item[Programming guidelines definition] The JavaScript-examiner should have
+    a definition of a set of programming guidelines to be used in code checks.
+  \item[Programming guidelines check] The JavaScript-examiner should be able to
+    check if the submitted JavaScript code conforms to a defined set of
+    programming guidelines.
+  \item[Metric results comparison] The JavaScript-examiner should be able to
+    compare the results from the maintainability metrics of the student's
+    submitted JavaScript code with the results of the tutor's solution.
+  \item[Code saving] The JavaScript-examiner should save the JavaScript code
+    from the students, for future examination.
+  \item[Results logging] The JavaScript-examiner should log the results from
+    the various checks and metrics calculations performed, for future
+    generation of statistics for the tutor.
+  \item[Progress logging] The JavaScript-examiner should log the progress for each
+    student (while maintaining anonymity).
 \end{description}
