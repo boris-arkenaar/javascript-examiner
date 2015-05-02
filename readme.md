@@ -1,3 +1,6 @@
+See the [wiki pages](https://github.com/Slotkenov/javascript-examiner/wiki)
+for a manual of the Javascript Examiner.
+
 # Development
 
 ## Prerequisits
