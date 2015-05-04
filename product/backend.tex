@@ -1,2 +1,107 @@
 % Backend #62
-\section{Backend}
+In this chapter the backend of the \gls{examiner} will be revealed in more 
+detail. With the structure of the backend already revealed in the Architecture 
+chapter, we can move immediately towards the server side logic.
+
+Before listing and explaining the used packages, it makes sense to spend a few 
+words on npm\footnote{\url{https://www.npmjs.com/}}. Using Node.js requires
+making use of external packages quite frequently, due to the limited
+features contained within the platform itself. This is where npm steps in. npm
+is the default package manager for Node.JS, and since version 0.6.3 even bundled
+\footnote{\url{http://en.wikipedia.org/wiki/Npm_%28software%29}} with Node.js.
+in order to organize, manage and easily distribute the used packages, it's
+common to keep a file named ``package.json'' in the root of the project. All 
+relevant information concerning the used packages (like (upper) version number,
+whether it's a dependency for the application itself or development only
+) should be kept here, ideally together with information of the application 
+itself (like name, repository location, license).
+\footnote{\url{https://docs.npmjs.com/files/package.json}}
+
+As just describing the used packages
+\footnote{\url{https://github.com/Slotkenov/javascript-examiner/blob/master/package.json}} is insufficient when it comes to grasp the way the \gls{examiner} works, the 
+packages will be grouped and described from the function they fulfill. In
+addition, not every package will be explained, because some are added for client
+side purpose, will be mentioned in the Checks chapter, or are used for utility
+purposes only.
+
+\section{Routing}
+An important feature in the application is routing. To realize the intended
+flexibility and scalability when it comes to adding examination checks even from
+external sources, the routing is an importance aspect. To meet this requirement,
+Express \footnote{\url{https://docs.npmjs.com/files/package.json}} is used for
+this purpose. This choice happened to turn out quite nice. It both made the
+realization of a quite moderate webserver very easy, as it provided all
+necessary features to create proper RESTful services.
+\footnote{\url{http://en.wikipedia.org/wiki/Representational_state_transfer}}
+
+\section{Authentication}
+Initially, the scope of the current project was limited to the development of a
+prototype. However, in a later stadium the expectations somewhat shifted to a
+more production ready version, or at least a testable version in a production
+environment. To make this possible, proper authentication would be necessary to
+enable user management for both students and tutors. Once again, our choice of 
+Node.js proved to be a good one, as we were able to create basic authentication
+functionality relatively easy. 
+
+Initially, we implemented Passport\footnote{\url{http://passportjs.org/}} 
+with Local Authentication Strategy
+\footnote{\url{https://github.com/jaredhanson/passport-local}}
+, which enabled server side authentication based on users stored in the local
+database. The passwords are encrypted before saved to the database, using
+bcrypt-nodejs\footnote{\url{https://www.npmjs.com/package/bcrypt-nodejs}}
+
+A nice feature of Passport is the --- nowadays commonly used --- 
+possibility to add external authentication mechanisms to the application as 
+well, like the ones from Google and Facebook. Express-session
+\footnote{\url{https://github.com/expressjs/session}} has been added to keep
+track of sessions. The session IDs are stored in MongoDB using connect-mongo.
+\footnote{\url{http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/}}. 
+
+Later, while implementing user management, it became clear there was no plan for
+user enrollment -like password distribution- for new users. We were able to
+implement enrollment functionality based on this tutorial
+\footnote{\url{http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/}},
+in using Nodemailer\footnote{\url{http://www.nodemailer.com/}} to send tokens
+which enables a password reset.
+
+\section{Persistence}
+To enable communication between the Node.js server and MongoDB, the Mongoose
+\footnote{\url{http://mongoosejs.com/}} package is used. Until now, this section
+did not show much of criticism towards the packages of choice, or even about the
+choice it self. When it comes to the decision Mongoose, it is wise to reflect a
+moment, especially when considering the current implementation.
+
+Exploring the available packages for a given functionality, can take some time,
+simple because there are a lot packages, and it can take some time to get an
+idea about the quality and usability for the particular usage. Sometimes it's
+tempting to start building functionality for the application based on a package
+while in fact still deciding whether the package suites well. In retrospective,
+this somewhat happened here. Grasping the working of Mongoose became getting it
+to work in the application. As a result, Mongoose is implemented through an 
+extra module (```database.js''). This resulted in a lot of additional 
+unit-tests, as the usage of the module diverted from the regular approach. 
+Furthermore, we were required to use the Models from Mongoose, but did not
+refactor earlier and for the same purpose created objects. Finally, after 
+recognizing the proper implementation of Mongoose, the adapter is being bypassed
+for some database operations (like for saving feedback).
+
+It's not a forgone conclusion whether Mongoose would have been used if the
+research had been more thoroughly. However, it's sure there is much to improve
+in the current implementation when considering this area. One way is to refactor
+the application and replace the inital data Objects with Mongoose models and
+getting rid of the adapter. There are alternative packages available too, like 
+the core MongoDB driver, optionally in combination with a wrapper such as 
+mongoskin. 
+
+On the upside, thx to the surplus of related unit-tests, refactoring might be 
+relatively easy, as breaking the application will very likely be reflected in 
+the test result.
+
+\section{Future work}
+In the last paragraph it became clear the logic that is concerned with the 
+database interaction should be re-factored. With regards to the other 
+functionality, possible improvements and added functionality might be enabling
+authentication with a chosen username (for now using the email address 
+mandatory), or even through third parties 
+(as mentioned, like Google or Facebook).
+
