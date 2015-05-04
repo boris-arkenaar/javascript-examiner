@@ -3,4 +3,70 @@
 % - Polymer
 %   - Isolated elements
 %   - Core and paper elements
-\section{Frontend}
+% - Code Mirror
+
+The frontend handles the interaction with the user of the application.
+It rendes the user interface with data fetched from the backend,
+and watches for user interaction with that interface.
+We wanted to make the user experience as much unobtrusive as possible,
+in order for the student to be able to put all his attention
+to the exercise, submitting his sulution and receiving feedback.
+Therefore we opted for a single page application
+in which there are no page loads
+and all communication with the backend is done through XHR requests.
+This makes it possible
+to use a relative simple RESTful interface on the backend,
+but alse means more logit is needed on the frontend.
+We choose to use Polymer as a framework on the frontend
+to help us build a solid foundation and structure or application.
+
+\section{Polymer}
+Polymer is a project backed by Google which promotes the use of standards.
+The philosophy behind the framework is to make use of existing standards
+concerning HTML, \gls{js} and the browser.
+Where such a standard does not exist,
+try to propose a standard which will be useful to the framework
+and to other frameworks and developers.
+In order to make use of standards
+that have not been implemented by browsers yet,
+polyfills are provided.
+Polyfills are \gls{js} modules
+who simulate a certain functionality documented by a standard,
+which is not supported within a specific browser yet.
+
+With this philosophy Polymer is an innovative framework,
+while making sure it will be(come) compatible with browsers
+and other frameworks.
+And while it needs polyfills to run on (most of) todays browsers,
+as soon as a browser implements a certain standard
+Polymer switches from the polyfill to the native code automatically.
+No need to make any changes or release a new version of your frontend code.
+
+\subsection{Web components}
+One very interesting standard the Polymer framework builds upon
+is web components.
+This standard comprises of several aspects;
+custom elements, HTML imports, templates and the shadow DOM.
+This standard gives you the ability
+to extend the standard set of HTML elements with custom elements.
+With the HTML import functionality you can load these custom elements
+in an easy manner.
+And you could load custom elemnts created by others just as well.
+When creating a custom element you can make use of one or more templates.
+And behind the scenes custom elements make use of the shadow DOM.
+
+\subsubsection{Isolation}
+A great feature of these custom elements is that they live in isolation.
+The \gls{js-code} you write within a component is private to that component.
+Any CSS styles you write are for that component only,
+which means there is no interferance with CSS styles of the application
+or other components, no name clashes.
+The same goes for the ID's you define
+on HTML elements in a component's template.
+The template is private to the component, and so are the ID's you define.
+They won't bleed into the final HTML document they will be part of.
+
+These aspacts make for a great architecture,
+to keep the frontend modularized with self contained components.
+And they improve on writing frontend applications
+compared to previous frameworks and architectures.
