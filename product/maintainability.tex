@@ -1,2 +1,62 @@
 % (product 4) Maintainability #69
 \section{Maintainability}
+One of the challenges is the awareness of possible purposes
+and functionality beyond the current project. In creating an application from
+scratch, there is great freedom when choosing the platform and designing the
+architecture. This comes with great responsibility too. It's impossible too
+foresee how the \gls{examiner} will evolve or too enforce code- and developing 
+conventions, but it is nevertheless possible to realize
+conditions that help preserve the maintainability.
+
+The usage of Node.js as central platform resulted almost naturally in an application 
+created out of small, one purpose modules. Of course, it was still possible to create
+extensive modules, packed with a lot of functionality, the similarities  
+between including external packages (which are nothing more then modules themselves) 
+and custom modules written for a particular project, directed us towards
+well structured modules with low coupling and high cohesion. A nice side effect
+is the easy one can write unit tests for these one purpose modules. These tests
+in their turn contribute to the maintainability as well, in being indicators of 
+malfunctions whenever the code has been modified. 
+
+The modular approach is not limited to the modules. The server itself can only
+be reached in a
+RESTful\footnote{\url{http://en.wikipedia.org/wiki/Representational_state_transfer}}
+manner. This resulted in a well defined interface, where
+distinct functionality can be invoked through it's own endpoint. Another
+advantage of this approach is the possibility to include external 
+services to the application in the same manner. Another great advantage is the
+way clientside and server-side are separated. It may be --- probably 
+correctly ---
+argued that many applications nowadays tend to blend server- and clientside, and
+it's certainly not ruled out this will count for some future version of this
+application too. Still, while intermixing is currently still possible without
+big structural refactoring, this would not have been true the other way around.
+
+In using MongoDB for persistence, it was not required to design a sophisticated
+and future proof schema. The benefits of flexibility and scalability 
+--- compared to traditional relational databases ---
+makes  perfect sense as we can't foresee the required data model when new 
+functionality is added.
+
+On top of the already mentioned unit-tests, integration tests have been created
+to test the RESTful interface, both for the content of the responses, as for the
+HTTP status codes. In enabling starting the application while developing using 
+Gulp http://gulpjs.com/, 
+the tests will run each time the code is mutated, immediately alerting
+when a test fail. Likewise, the code is being checked with both 
+JSHint \footnote{\url{http://jshint.com/}}
+and JSCS \footnote{\url{http://jscs.info/}}, 
+ensuring well readable and consistent code styling.
+
+As already mentioned in the Backend section, Node.js is shipped with npm. As a
+result, both the core application information as the used external packages are 
+well defined in a widely used manner, through the inclusion of a 
+```package.json''' file.
+
+Lastly, choosing Github as the storage location, the \gls{source-code} is easily
+accessible by anyone, and welcomes third parties to contribute to the project, 
+while still remaining control (through the pull request 
+mechanism\footnote{\url{https://help.github.com/articles/using-pull-requests/}}). 
+It unleashes the version control power of GIT\footnote{\url{http://git-scm.com/}}
+as well as offering really accessible issue 
+management\footnote{\url{https://github.com/blog/831-issues-2-0-the-next-generation}}.
