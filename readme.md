@@ -31,7 +31,7 @@ There is [an overview of the possible rules](http://jscs.info/rules.html)
 available on the JSCS website.
 You can also choose from
 [a range of presets](https://github.com/jscs-dev/node-jscs/tree/master/presets).
-by default, 
+By default, 
 [Googles preset](https://github.com/jscs-dev/node-jscs/blob/master/presets/google.json)
 is used.
 
