@@ -1,18 +1,3 @@
-\documentclass{article} 
-\usepackage{thesis-config}
-
-\include{front-back/glossary}
-
-\begin{document} 
-
-\title{Using a design recipe to teach JavaScript code}
-\author{Ronald Kluft (838812818)} 
-\date{\today \\version 1.0} \maketitle 
-
-
-\bibliographystyle{apalike}
-\bibliography{bibliography}
-
 \section{Introduction}
 
 This paper is the result of a short but intensive domain study on the  structure
@@ -40,14 +25,15 @@ JavaScript-examiner.
 
 I will conclude with recommendations how to expand the usage of the recipe in
 the [WAC], for instance with the use of comment.
-The checking of elegant JavaScript is discussed in [Arkenaar, 2014], and will
-not be part of this paper.
-Also I will not deepening the feedback on solution [Nieuwenhuize, 2014], although
+The checking of elegant JavaScript is discussed in another domain study within
+this project and will not be part of this paper.
+For the same reason I will not deepen the feedback on a solution, although
 it will be mentioned where appropriate.
 
 I will also look into the way the recipe is included in the code files.
 
-The study of [Bieniusa et.al., 2008] also mentions the fact that their students often copy code from
+The study of \citet{bieniusa2008htdp} also mentions the fact that their students
+often copy code from
 each other, thus making them guilty of plagiarism.
 In this paper I won't go deeper into this subject.
 
@@ -74,7 +60,8 @@ recipe to design harder functions.
 
 The JavaScript-examiner accepts complete solutions from the students and gives proper
 feedback on the submitted code, if necessary, to help the student gain the
-required skills. It is not an interactive tool, like for instance Ask-Elle [].
+required skills. It is not an interactive tool, like for instance ASK-Elle as
+described in \citet{jeuring2012ask}.
 To promote the usage of the design recipe, the steps it contains should be part
 of the solution the student submits.
 
@@ -123,7 +110,7 @@ I will take the 6 steps of the [HtDP] version to elaborate them.
 This step is merely a one sentence summary of the exercise. It has no
 extra usage to the explanation of the students work. It will only lead to more
 logic on checking this text, because there can be a great number of varieties.
-[Ramsey, 2014] splits this step into two parts: Data definition and Data example.
+\citet{Ramsey:2014TDP} splits this step into two parts: Data definition and Data example.
 His students often forgot to write data examples, and he states that
 "Data examples enjoy no comparable support."
 One possibility could be the check on a single line, but examination of the
@@ -149,7 +136,7 @@ function is, in terms of the input. This should be a single line, and can be
 matched to the standard line supplied by the tutor.
 The student solution could be saved to match with other students submissions,
 thus enhancing the tool.
-Writing good purpose statements is very hard [Ramsey, 2014].
+Writing good purpose statements is very hard \citet{Ramsey:2014TDP}.
 To test this in an automated way can be hard as well, and can be subject of
 another study. The JavaScript-examiner should test for the fact that it is only
 one statement, and check it to the tutors standard solution. The students
@@ -251,59 +238,3 @@ A requirement should be that the tool generates proper feedback,
 
 This way, it can be an enhancement of learning the recipe, and thus, learning
 the student to program better/make better functions.
-
-
-\subsection{References}
-[1]	Felleissen,
-www.css.neu.edu/home/matthias/HtDP2e/
-
-[2]	Coursera
-
-www.htdp.org (septeber 2003 version)
-second edition (a completely revised version, with writing in progress)
-
-
-[3] Ramsey, Norman - [On teaching how to design programs]
-To appear in Proceedings of the 2014 ACM SIGPLAN International Conference on Functional Programming (ICFP'14)
-On Teaching How to Design Programs
-Observations from a Newcomer
-Department of Computer Science, Tufts University
-nr@cs.tufts.edu
-
-
-[4]	HtDP and DMdA in the Battlefield
-A Case Study in First-year Programming Instruction
-Annette Bieniusa
-Markus Degen
-Phillip Heidegger
-Peter Thiemann
-Stefan Wehr
-Albert-Ludwigs-Universitat Freiburg
-{bieniusa,degen,heidegger,thiemann,wehr}
-@informatik.uni-freiburg.de
-Martin Gasbichler
-Zuhlke Engineering AG
-martin.gasbichler@zuehlke.com
-Marcus Crestani
-Herbert Klaeren
-Eric Knauel
-Eberhard-Karls-Universitat Tubingen
-{knauel,crestani,klaeren}
-@informatik.uni-tuebingen.de
-Michael Sperber
-DeinProgramm
-sperber@deinprogramm.de
-
-FDPE’08, September 21, 2008, Victoria, BC, Canada.
-Copyright 
-c 2008 ACM 978-1-60558-068-5/08/09. . .
-
-
-Introduction to Systematic Program Design
-https://www.coursera.org/course/programdesign
-
-
-
-\printglossaries
-
-\end{document} 
