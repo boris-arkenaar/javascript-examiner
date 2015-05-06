@@ -22,13 +22,13 @@ packages\footnote{\url{https://github.com/Slotkenov/javascript-examiner/blob/mas
 is insufficient when it comes to grasp the way the \gls{examiner} works, the 
 packages will be grouped and described from the function they fulfill. In
 addition, not every package will be explained, because some are added for client
-side purpose ---these are mentioned in the Checks chapter---, 
-or are used for utility purpose ---see maintainablility chapter--- only .
+side purpose --- these are mentioned in the Checks chapter ---, 
+or are used for utility purpose --- see maintainablility chapter --- only .
 
 \section{Routing}
 An important feature in the application is routing. To realize the intended
 flexibility and scalability when it comes to adding examination checks even from
-external sources, the routing is an importance aspect. To meet this requirement,
+external sources, the routing is an important aspect. To meet this requirement,
 Express \footnote{\url{https://docs.npmjs.com/files/package.json}} is used for
 this purpose. This choice happened to turn out quite nice. It both made the
 realization of a quite moderate webserver very easy, as it provided all
@@ -59,7 +59,7 @@ has been added to keep track of sessions. The session IDs are stored in MongoDB 
 connect-mongo\footnote{\url{https://github.com/kcbanner/connect-mongo}}. 
 
 Later, while implementing user management, it became clear there was no plan for
-user enrollment -like password distribution- for new users. We were able to
+user enrollment --- like password distribution --- for new users. We were able to
 implement enrollment functionality based on this
 tutorial\footnote{\url{http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/}},
 using Nodemailer\footnote{\url{http://www.nodemailer.com/}} to send tokens
@@ -80,7 +80,7 @@ tempting to start building functionality for the application based on a package
 while in fact still deciding whether the package suites well. In retrospective,
 this somewhat happened here. Grasping the working of Mongoose became getting it
 to work in the application. As a result, Mongoose is implemented through an 
-extra module (```database.js''). This resulted in a lot of additional 
+extra module (``database.js''). This resulted in a lot of additional 
 unit-tests, as the usage of the package diverted from the regular approach. 
 Furthermore, we were required to use the Models from Mongoose, but did not
 refactor earlier and for the same purpose created objects. Finally, after 
@@ -95,15 +95,15 @@ getting rid of the adapter. There are alternative packages available too, like
 the core MongoDB driver for Node.js, optionally in combination with a wrapper 
 such as mongoskin. 
 
-On the upside, thx to the surplus of related unit-tests, refactoring might be 
+On the upside, thanks to the surplus of related unit-tests, refactoring might be 
 relatively easy, as breaking the application will very likely be reflected in 
 the test result.
 
 \section{Future work}
-In the last paragraph it became clear the logic that is concerned with the 
-database interaction should be refactored. With regards to the other 
-functionality, possible improvements and added functionality might be enabling
-authentication with a chosen username (for now using the email address 
+In the last iteration it became clear that the logic concerned with the 
+database interaction should be refactored. With regards to other 
+functionality, possible improvements might be enabling
+authentication with a chosen username (for now using the email address is
 mandatory), or even through third parties 
 (as mentioned, like Google or Facebook).
 

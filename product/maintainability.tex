@@ -3,8 +3,8 @@
 One of the challenges is the awareness of possible purposes
 and functionality beyond the current project. In creating an application from
 scratch, there is great freedom when choosing the platform and designing the
-architecture. This comes with great responsibility too. It's impossible too
-foresee how the \gls{examiner} will evolve or too enforce code- and developing 
+architecture. This comes with great responsibility too. It's impossible to
+foresee how the \gls{examiner} will evolve or to enforce code- and developing 
 conventions, but it is nevertheless possible to realize
 conditions that help preserve the maintainability.
 
@@ -14,7 +14,7 @@ extensive modules, packed with a lot of functionality, the similarities
 between including external packages (which are nothing more then modules themselves) 
 and custom modules written for a particular project, directed us towards
 well structured modules with low coupling and high cohesion. A nice side effect
-is the easy one can write unit tests for these one purpose modules. These tests
+is the ease with which one can write unit tests for these one purpose modules. These tests
 in their turn contribute to the maintainability as well, in being indicators of 
 malfunctions whenever the code has been modified. 
 
@@ -29,7 +29,7 @@ way clientside and server-side are separated. It may be --- probably
 correctly ---
 argued that many applications nowadays tend to blend server- and clientside, and
 it's certainly not ruled out this will count for some future version of this
-application too. Still, while intermixing is currently still possible without
+application too. Still, while intermixing is currently possible without
 big structural refactoring, this would not have been true the other way around.
 
 In using MongoDB for persistence, it was not required to design a sophisticated
@@ -41,17 +41,17 @@ functionality is added.
 On top of the already mentioned unit-tests, integration tests have been created
 to test the RESTful interface, both for the content of the responses, as for the
 HTTP status codes. In enabling starting the application while developing using 
-Gulp http://gulpjs.com/, 
+Gulp\footnote{\url{http://gulpjs.com/}}, 
 the tests will run each time the code is mutated, immediately alerting
 when a test fail. Likewise, the code is being checked with both 
-JSHint \footnote{\url{http://jshint.com/}}
-and JSCS \footnote{\url{http://jscs.info/}}, 
+JSHint\footnote{\url{http://jshint.com/}}
+and JSCS\footnote{\url{http://jscs.info/}}, 
 ensuring well readable and consistent code styling.
 
 As already mentioned in the Backend section, Node.js is shipped with npm. As a
 result, both the core application information as the used external packages are 
 well defined in a widely used manner, through the inclusion of a 
-```package.json''' file.
+``package.json'' file.
 
 Lastly, choosing Github as the storage location, the \gls{source-code} is easily
 accessible by anyone, and welcomes third parties to contribute to the project, 
