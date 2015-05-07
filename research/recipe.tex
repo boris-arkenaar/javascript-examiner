@@ -1,0 +1,327 @@
+\section{Introduction}
+
+Can a structured action plan be used to teach a \gls{student} the \gls{js}
+programming language in a distance learning environment?
+
+In this paper the result of a short domain study on the usage of a recipe to
+teach a \gls{student} how to design a program or function is presented.
+It is part of the \gls{examiner}\footnote{\url{https://github.com/Slotkenov/JavaScript-examiner/}} project.
+This project is intended to create a web-based learning environment for a \gls{student}
+to learn the \gls{js} language, the subject of the course {\em \gls{wac}} of the Open Universiteit (OU).
+In this course, the \gls{student} is encouraged to use a design recipe which is mainly
+borrowed from the online course 'Introduction to Systematic Program Design - Part 1'
+of the University of British Colombia, by prof. Gregor Kiczales
+\citep{kiczales_introduction_2015},
+and based on chapter 3.1 of the book Designing Functions of the 2nd edition of the book
+'How to Design Programs' by Felleisen, Findler, Flatt and Krishnamurthi
+\citep{felleisen_how_2015}.
+In this paper the second version of the book has been chosen, with writing
+in progress. References to the OU course, the online course and the book, will
+be noted, for brevity, as [WAC], [Coursera] and [HtDP] respectively.
+
+In the description mainly the term function will be used, because this is mostly
+the structure that will be described, but the recipe isn't restricted to this
+structure.
+
+In this paper the steps the recipe consist of will be described, and the
+possibility of usage of these steps in the \gls{examiner}.
+The methodology of writing functional examples before writing the body of the function has also been looked into more deeply.
+This is called Test first Development (TfD) \citep{langr_evolution_2001}, Test Driven Development
+\citep{edwards_rethinking_2003}, \citep{janzen_test-driven_2008}, \citep{sommerville_software_2011} or Test Driven Design (TDD) \citep{proulx_test-driven_2009}.
+In the context of learning, also the term Test Driven Learning (TDL) \citep{janzen_test-driven_2006},
+\citep{proulx_test-driven_2009}, \citep{janzen_test-driven_2008} is used.
+
+The checking of elegant \gls{js} is discussed in [Arkenaar, 2014], and will
+not be part of this paper.
+A study on the feedback that will be given to the \gls{student} has been performed by
+[Nieuwenhuize, 2014].
+
+The study of \citep{bieniusa_htdp_2008} also mentions the fact that their students
+often copy \gls{code} from each other, thus making them guilty of plagiarism.
+This paper won't go deeper into this, but may be subject of a later study,
+possibly after a fair amount of solutions have been submitted. The solutions can
+then be evaluated and a conclusion can be drawn.
+
+
+
+\subsection{Context}
+
+The \gls{examiner} is a tool to examine submitted exercises from a \gls{student}
+of the OU who participates in the course [WAC].
+The purpose of the tool is two-folded : it will  reduce the workload of the
+\gls{tutor}, and let the \gls{student} anonymously submit a \gls{solution} to remove possible
+fear of having degraded by submitting wrong answers.
+
+In chapter 6 of [WAC] the use of a design recipe is introduced. Here, a number
+of rules are given to which the \gls{student} should apply, in order to use the
+recipe to learn to program in a stepwise manner, where the previous step is used
+in the following. Where [HtDP] and [Coursera] are focussing on the Beginning 
+Student Language (BSL) of the Dr.Racket programming environment, [WAC] is focussing
+on \gls{js}.
+
+In the subsequent steps, the general concept will be explained and, if applicable,
+be matched with \gls{js}.
+The intention is to learn the recipe with simple functions, and then use the
+recipe to design harder functions.
+
+The \gls{examiner} is not an interactive tool, that supplies feedback after every
+step. Rather, it accepts a complete \gls{solution} from the \gls{student} and,
+if necessary, gives proper feedback on the submitted \gls{code} to help the
+\gls{student} gain the required skills.
+
+
+
+\section{Recipe}
+The design recipe discussed in [HtDP] consists of 6 steps, where the version of
+[Coursera] has 5 steps.
+
+There is a difference between the various recipes, which will be named if they occur.
+The recipe is like a top-down structure. The step at hand is helped by the step
+before, and helps with the step after it.
+This can be helpful in checking the recipe, because for instance, the names of
+the function has to be the same, and also the number of arguments.
+This can also help in determining the feedback given back to the \gls{student}.
+
+
+There is a difference between version 1 and version 2 of [HtDP].
+In the first version the text mentions 5 phases, and in the accompanying table
+of that text, there are even as much as 4 phases (with Contract, Purpose and Header combined).
+In the second version of [HtDP], there are 6 phases.
+Here the 2nd version will be exemplified, because this is the latest.
+
+\begin{enumerate}
+ \item Express how you wish to represent information as data.
+ \item Write down a signature, a purpose statement, and a function header.
+ \item Illustrate the signature and the purpose statement with some functional examples.
+ \item Take inventory, to understand what are givens and what we do need to compute.
+ \item Write executable expressions and function definitions.
+ \item Test the function on the examples that you worked out before.
+\end{enumerate}
+ 
+ The first item is not included in the [Coursera] version of the recipe \footnote{\url{https://class.coursera.org/programdesign-002/wiki/view?page=HtDFunctions}}, that consist of these five steps :
+ 
+\begin{enumerate}
+  \item Signature, purpose and stub.
+  \item Define examples, wrap each in check-expect.
+  \item Template and inventory.
+  \item Code the function body.
+  \item Test and debug until correct.
+\end{enumerate}
+
+In the following, the 6 steps of the [HtDP] version will be elaborated.
+
+
+
+\subsection{Express how you wish to represent information as data}
+This step is merely a one sentence summary of the exercise.
+
+\citep{ramsey_teaching_2015} splits this step into two parts: Data definition
+and Data example. His students often forgot to write data examples, and he states that
+"Data examples enjoy no comparable support."
+
+ Though it has no extra usage to the explanation of work of the \gls{student},
+one possibility of the \gls{examiner} could be to check if it is a single sentence,
+but examination of the content could be overhead, and very hard to do, because
+there can be a great number of varieties.
+
+
+
+\subsection{Write down a signature, a purpose statement, and a function header}
+In this step the \gls{student} has to give the data types that is consumed and produced
+by the function.
+It should reflect the number of arguments the function expects and what type it
+returns.
+In the first, simple functions, the data types will be the standard built-in
+data types. But as the functions get more complex, the data types can get more
+complex as well.
+In [WAC] (LE6, 1.6) the construction of more complex types is explained.
+The \gls{examiner} could check the number of arguments and names of the
+data types. 
+It should then be mentioned explicitly in the question that the arguments and 
+return type should be given, because in \gls{js} these can be omitted.
+
+The exact names of the arguments don't have to match, but a check can be done on
+the number and the location in the signature. 
+
+
+The purpose statement should be a single line which states what the output of the
+function is, in terms of the input.
+Writing good purpose statements is very hard \citep{ramsey_teaching_2015}.
+It is important that only a single sentence is given. Otherwise the function will
+have too much functionality and should be split into more functions.
+The \gls{examiner} should test for the fact that it is only a single line.
+The submission of the \gls{student} can also be saved, for checking against an
+other \gls{student}'s submissions, thus enhancing the tool. Reviewing the saved
+purpose statements may be a task of the tutor, to ensure that they are relevant.
+The saved statements may also be used later for the aforementioned plagiarism check.
+The purpose statement can be compared with the standard \gls{solution} of the
+\gls{tutor}. Although it can be very hard to give a detailed evaluation of the
+statement, because it is given in natural text.
+
+The function header [HtDP] or stub [Coursera] is the actual header of the
+function to write. This should be exactly the same as the function header in the
+submitted \gls{code}.
+This can be checked and saved by the \gls{examiner}, to give feedback about
+the consistency of the header.
+Its purpose is to give the name of the function, as well as the type of data it
+expects as its input.
+
+The \gls{tutor} can supply a standard header for an exercise, but it can be hard to
+match it exactly, because the \gls{student} may not use the exact same names for
+the function and its parameters. Again, only the presence of the names can be checked.
+Another option is to state in the exercise that the exact names given should be used.
+Then the checking of these names can be automated.
+
+
+
+\subsection{Illustrate the signature and the purpose statement with some functional examples}
+
+The use of functional examples is to uniquely identify the purpose of the
+function.
+It is a good idea to let the students give some functional examples in a way
+they can also be used to test the function.
+This is in [HtDP] clarified with givens and expects. If you have the function
+and you input the given value, you want the returned value to be the expect.
+In [Coursera] the examples are already wrapped in check-expect statements.
+These check-expect statements should be written so that they fail at first.
+Then \gls{code} is written to make the test pass.
+
+When you first write the expectations of the function, you are already thinking
+about what the function should do, and what the results should be. This is also
+an important part of the test driven development framework. In a number of articles
+about this subject in the learning environment, it is called Test Driven Learning.
+There is a style which is called test-first and one that is called test-last.
+
+
+According to \citep{janzen_test-driven_2006}, it is valuable for \glspl{student} 
+to learn how to construct programs in a test-driven manner, because initial
+evidence indicates that TDL can improve \gls{student} comprehension of new
+concepts while improving their testing skills with no additional instruction time. 
+
+In addition, by learning to construct programs in a test-driven manner,
+students are expected to be more likely to develop their
+own \gls{code} with a test-driven approach, likely resulting in
+improved software designs and quality.
+
+Both \citep{sommerville_software_2011} and \citep{langr_evolution_2001} mentions
+beside better problem understanding four other positive effects of TfD/TDD. This
+better understanding is due to the fact that you’ve already written the test for it.
+This first (hopefully obvious) effect of TfD, is that the \gls{code} ends up being testable \citep{langr_evolution_2001}. In contrast, it is often extremely difficult, if not impossible, to write effective
+unit tests for \gls{code} that has already been written without consideration
+for testing.
+
+According to \citep{proulx_test-driven_2009} the professional programming community has realized that designing tests after the program has been written often leads to tailoring the tests to the \gls{code}, rather than the original problem statement.
+Results from the research of \citep{janzen_test-driven_2008} indicate that a test-first approach can
+increase \gls{student} testing and programmer performance, but that early programmers are very reluctant to
+adopt a test-first approach, even after having positive experiences using TDD.
+
+According to \citep{edwards_rethinking_2003} TDD is attractive for use in education for many reasons.
+The \gls{student} should be given the responsibility of demonstrating
+the correctness of his or her own \gls{code} from the very first programming activities.
+
+The instructors of upper level courses uniformly comment on students' better preparation \citep{proulx_test-driven_2009}.
+
+
+[WAC] uses the libraries Mocha\footnote{\url{http://mochajs.org/}} and
+Chai\footnote{\url{http://chaijs.com/}} to test the software.
+The students have to write their tests in the assert style of Mocha. 
+The \gls{student} can test his work before submitting his \gls{solution} to the
+\gls{examiner} to reduce the possibility of submitting \gls{code} that will cause
+test performed by the \gls{examiner} to fail.
+
+
+
+\subsection{Take inventory, to understand what are givens and what we do need to compute}
+
+The purpose of this step is to take the signature, and create a simple body,
+where only the return value is given.
+It doesn't compute anything, but gives the framework for the actual
+implementation of the function.
+In the \gls{examiner}, this can also be checked against the signature. It
+can determine whether the function needs a return value or not. And it can check
+if it has the right return value. The body of the function is simplified, and
+can be filled with pseudo \gls{code}.
+To check this can be a challenge, because of the diversity of statements. Another
+important thing is to distillate the return type.
+Again, this could generate useful feedback for the \gls{student}.
+
+
+
+\subsection{Replace the body of the function with an expression that attempts to compute from the pieces in the template what the purpose statement promises}
+
+This is the actual implementation of the function.
+This should not be part of the recipe section in the submitted \gls{code}, but be the
+actual submitted \gls{solution}.
+The checking of this \gls{code} in this section is the main function of the
+\gls{examiner}.
+
+
+
+\subsection{Test the function on the examples that you worked out before}
+
+The submitted \gls{code} should pass all the tests that are part of the \gls{solution}.
+It should also pass the tests that are submitted by other students and have been
+evaluated as useful.
+
+If there is a test that fails, an appropriate feedback should be returned.
+Then the \gls{student} can adjust his code, which is known as refactoring, and
+submit his solution again. 
+
+The tests that are submitted by the \gls{student} can also be used to test the 
+submissions of other students. This way the library with available tests for a
+given exercise can be enriched.
+The \gls{tutor} can supply standard tests. He can also keep track of the tests
+submitted by other students to look for duplicates.
+Also the \gls{tutor} has to supply a standard \gls{solution} to run the tests against,
+to check whether the test written by the students are correct.
+Tests that do not have the correct outcome against the standard \gls{solution}, are
+not added to the test set.
+
+The test that is part of the submission should have been created in an earlier step.
+Then this can be regarded as test-first development. However, if the tests are
+created within this step, after implementing the body, then this is test-last
+development. Because the solution is submitted as a whole, it will be very difficult
+to determine when the \gls{student} has written his test.
+
+Learning how to write tests is part of [WAC], but is not further discussed in
+this paper.
+
+
+
+\section{Conclusion}
+
+[HtDP] and {Coursera] are examples of courses that use a design recipe for teaching
+how to learn to program in a structured manner, but they use it as a guide line
+in the Dr. Racket environment.
+
+To promote the usage of the design recipe, the steps it contains should be part
+of the \gls{solution} the \gls{student} submits.
+
+The \gls{examiner} should have the recipe, commented out, as part of the
+submitted \gls{solution}. Because the comment is not part of the Abstract Syntax Tree,
+it will have to be checked in an other way.
+If it can be included, this could be a requirement to pass the exercise.
+Both have to be analysed further, because it can also lead to reluctance to use
+the \gls{examiner}, but this can be subject of an other study.
+
+It will require some effort of the \gls{tutor}, to keep the list of tests free
+from duplicates, but as he manages to do this, it will be a great enhancement of
+the \gls{examiner}.
+
+At first, a \gls{student} may feel that they are doing a lot of work, for relatively
+small function. But the goal should be learning the design recipe.
+The \gls{examiner} is a good means to do this.
+A requirement should be that the \gls{examiner} generates proper feedback, 
+
+This way, it can be a great aid in learning the recipe, and thus, learning
+the \gls{student} to program better/make better functions.
+
+The use of the recipe also pushes the \gls{student} to use a TDD style.
+
+It is also recommended to enhance the \gls{examiner} to collect data out of the submitted solutions. This way future solutions can be compared and tested against already available data
+
+Part of a following study could be how to determine when a test was written and
+so investigate the difference between test-first and test-last development.\\
+
+Taken all this into account, it can be concluded that the use of a design recipe
+can be a very valuable extension of the \gls{examiner}.
