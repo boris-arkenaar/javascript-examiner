@@ -7,13 +7,63 @@
 % maar een manier om de opdrachtgever en de examinator te laten begrijpen
 % waarom dit een goed product is gegeven de kaders en doelstellingen
 %
-% - Backend Node.js or other language
-% - Backend Seed project or from scratch
+% + Modular approach for the checks
+% + Backend Node.js or other language
+% + Backend Seed project or from scratch
+% + Frontend Polymer, AngularJS or from scratch/Twitter Bootstrap
 % - Unit testing Jasmine or Mocha/Chai
-% - Frontend Polymer, AngularJS or from scratch/Twitter Bootstrap
 
-To structure or own \gls{source-code}
-we looked into using a so called ``seed project''.
+This chapter will be a discussion about the choises we made
+during the process of developing the \gls{examiner}.
+The choises regarding modeling and development decissions will be discussed.
+The decision made will be pointed out,
+including arguments as to why we thought
+that to be the best decision for this product.
+
+\section{Checks}
+The \gls{examiner} consits of various checks for examining \gls{js-code}.
+We built a couple of these checks.
+Other teams will pobably continue this project after us
+and will add checks to the \gls{examiner}.
+A modular approach for the checks seemed mandatory
+for other teams to continue working on the project.
+As explained in the Architecture chapter
+the checks have direct access to the database
+and the frontend has direct access to the checks via HTTP.
+There is no coupling with other backend logic.
+The frontend coupling is one way
+and via HTTP a clean interface is provided.
+Only the direct coupling with the database could be discussed.
+The checks have complete access to all data in the database
+and could read and write anything they want.
+Another option would be to provide a RESTful interface ---
+like we have for the frontend ---
+which serves as the interface for the checks to communicate with the database.
+We choose the approach of direct access to the database
+to not be to restrictive on the checks on one hand,
+and to save time for other requirements on the other hand.
+And while making this choise it is not set in stone,
+it would be easy to implement an interface
+between the checks and the database later on if deemed necessary.
+
+\section{Backend}
+When determining what backend server and language we would use
+we quickly found out about Node.js.
+This seemed to be a good approach for the prototypical nature of the project.
+And, while not necessary, nicely integrates with the \gls{examiner}
+because \gls{js} is used to write code in Node.js.
+You can easily set something up in Node.js in minutes,
+there are modules available for anything
+--- we found some modules which could be of great use to us, ---
+And there is no problem in setting up a light weight server in Node.js as well.
+With all these advantages we did not see the need
+to dive into other possible options for a backend.
+
+While it is so easy to start working in Node.js
+you can get lost quickly in the determining a good structure
+for your code and files,
+and which module you should pick for a certain tast.
+To remedy this we looked into using a so called ``seed project''.
 This is a default template code base and file and folder structure
 to get started quickly and relieving you from developing your own architecture.
 We found the project
@@ -28,3 +78,77 @@ This way we know exactly what we have,
 and we only add code and dependencies when we really need them.
 Our code base will be kept clean, small and organized.
 And everything will be documented for future teams to get started easily.
+
+\section{Frontend}
+At the very beginning we started out
+just writing some standalone HTML and \gls{js} for our frontend needs.
+But soon we saw the need for a more structured way at the frontend as well,
+especially since we wanted to develop a single page app.
+We looked at a few different possibilities.
+Namely: AngularJS, Polymer or starting from scratch.
+To address the styling of our application we could use Twitter Bootstrap.
+
+AngularJS is a fairly new framework which makes creating templates a breeze.
+It can be combined with Twitter Bootstrap for a good looking app.
+The downside of AngularJS is that when your needs grow more specific
+and you need to create your own custom elements
+(called directives in AngularJS)
+AngularJS tends to get very complicated very fast.
+
+Polymer is even newer than AngularJS
+and has been dicussed at length in the Frontent chapter.
+While not used much and not documented very well yet,
+Polymer has a great way of creating custom HTML elements
+making use of web standards.
+Therefor it is future proof
+and becomes more stable automatically as browsers implement these standards.
+Besides that it comes with a set of custom elements
+complete with styling,
+which makes it not necessary to bring in another styling package
+like Twitter Bootstrap.
+
+Starting from scratch is also an option
+and seems a good choise because we also made that choise for the backend.
+It would meen not using any framework and write everything ourselves.
+We could make use of existing small modules with specific functionality
+like we do on the backend.
+Add Twitter Bootstrap and you get a great frontend.
+The only problem is that the frontend tends to get more complex
+in the setup of a single page application.
+A lot of logic is on the frontend side,
+specific code is needed to create the speceficities of a singe page app
+and then you have to worry about cross browser complience
+for all that code as well.
+These reasons made us choose a framework over this option.
+
+Nobody of us had experience with Polymer
+and we thought this a good oportunity to get to konw it.
+Polymer seems to be framework with a lot of potentiol.
+With documentation that could be better
+and not much to find about it on the internet
+it is a bit tough to start with.
+But that might pay of very well in a few years
+when Polymer has gained some traction.
+It remains a guess and you always have to find a balance
+between savety and innovation,
+but in the still so young, and quickly shifting area of web development
+you have to think ahead a few steps all the time.
+
+\section{Maintainability}
+To keep our code maintainable, it is good to write unit tests.
+There are actually two great modules for running and writing unit tests:
+Jasmine and Mocha (combined with Chai).
+Jasmine is an all in one package with a testrunner,
+logic for creating a test suite and the possibility to create spies.
+Mocha is a testrunner only
+and you want to combine it with Chai for writing your testsuite
+and maybe you need to include Sinon as well for writing spies.
+It does not realy matter that much if you choose for an all in one package
+or use the separate packages; you include them once, and you're done.
+We chose to use Mocha with Chai over using Jasmine.
+Jasmine is a great package for creating and running unit tests for the frontend
+but has not much focus on the backend.
+Mocha and Chai however are targeted at both frontend and backend.
+This fact and the fact that \gls{wac} uses Mocha and Chai as well
+was enough for us to decide to use Mocha and Chai
+for writing an running unit tests for the \gls{examiner}.
