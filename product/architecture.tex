@@ -7,7 +7,6 @@
 % - Checks as separated modules, but with the option to contact the domain.
 % - Frontend with isolated elements and option to contact RESTful server and
 %   checks.
-% - Domain model.
 
 The \gls{examiner} consits of four parts.
 First of we have the domain we are working on.
@@ -22,10 +21,7 @@ We will go into the details of each part in the sections below,
 where we will discuss their part in the global architecture of the system,
 and how the communication flows between each part.
 
-\includegraphics[scale=0.75] {diagrams-images/architecture}
-
-\section{Domain}
-\includegraphics[scale=0.8]{diagrams-images/domain-model}
+\includegraphics[scale=0.75]{diagrams-images/architecture}
 
 \section{Control layer}
 The control layer is the server side
@@ -69,7 +65,7 @@ and its implementation
 which improves the ability to write,
 and change the checks for the \gls{examiner}
 
-\includegraphics[scale=0.8]{diagrams-images/code-submission-activity-diagram}
+\includegraphics[scale=0.75]{diagrams-images/code-submission-activity-diagram}
 
 \section{Client side}
 Because we are building a web application
@@ -86,7 +82,7 @@ the client side will contact the control layer on the server side.
 As well as for performing the various \gls{js-code} checks
 the client side will contact the checks.
 
-\section{Conclusion}
+\section{Discussion}
 We will be laying the groundwork for this project
 with just a few of the functionalities it requires.
 Other teams will pick up where we left and complement this software project.
@@ -108,5 +104,3 @@ and services can be added
 without the need to make complex changed to the existing code base.
 Only the backend \gls{source-code} needs change
 to make use of the added domain data and services.
-
-\input{use-cases}
