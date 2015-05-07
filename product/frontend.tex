@@ -70,3 +70,37 @@ These aspacts make for a great architecture,
 to keep the frontend modularized with self contained components.
 And they improve on writing frontend applications
 compared to previous frameworks and architectures.
+
+\section{Code Mirror}
+Because the \gls{student} needs to enter \gls{js-code}
+for his solution to an exercise
+and be able to receive feedback on that code
+we needed to implement a text editor to display the code
+and let the \gls{student} be able to alter the code easily.
+We started of with a simple HTML textarea field
+which is not very suitable for displaying code though.
+It has no syntax highlighting
+and tabs have an indentation size of eight spaces.
+It would be very difficult to show feedback
+next to the line of code it is concerned with.
+
+We thought the must be an editor out the which had all the features we needed.
+And there was: Code Mirror.
+It has syntax highlighting,
+is well suited for \gls{js}
+and has automatic indentation.
+With code mirror you can also make use of a so called gutter,
+a vertical bar next to the editor.
+We used the gutter to display a warning icon next to the line of code
+on which feedback was received.
+When hovering such icon an information message is displayed
+pointing, not only to the line in question,
+but also to the column the feedback message wants to point out
+(another feature of Code Mirror).
+
+Code Mirror is also used in other important projects,
+like the developer tools in Google Chrome.
+It is also well documented and therefore a good choise for the \gls{examiner}.
+Following teams working on the \gls{examiner}
+can easily add more functionality of Code Mirror where needed,
+for it is very flexible.
