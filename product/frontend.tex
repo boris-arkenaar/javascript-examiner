@@ -11,24 +11,32 @@ thus facilitating user interaction.
 We wanted to make the user experience as much unobtrusive as possible,
 in order for the student to be able to put all his attention
 to the exercise, submitting his solution and receiving feedback.
-Therefore we opted for a single page application
+Therefore we opted for a \gls{spa}
 in which there are no page loads
-and all communication with the backend is done through XHR requests.
+and all communication with the backend is done through
+XHR requests\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest?redirectlocale=en-US&redirectslug=DOM\%2FXMLHttpRequest}}.
 This makes it possible
-to use a relative simple RESTful interface on the backend,
-but also means more logic is needed on the frontend.
-We choose to use Polymer as a framework on the frontend
-to help us build a solid foundation and structure or application.
+to use a relatively simple
+RESTful\footnote{\url{https://en.wikipedia.org/wiki/Representational_state_transfer}}
+interface on the backend,
+but alse means more logic is needed on the frontend.
+We choose to use
+Polymer\footnote{\url{https://www.polymer-project.org/0.5/}}
+as a framework on the frontend
+to help us build a solid foundation, and structure or application.
 
 \section{Polymer}
 Polymer is a project backed by Google which promotes the use of standards.
-The philosophy behind the framework is to make use of existing standards
+The philosophy\footnote{\url{https://www.polymer-project.org/0.5/docs/start/everything.html}}
+behind the framework is to make use of existing standards
 concerning HTML, \gls{js} and the browser.
 Where such a standard does not exist,
-try to propose a standard which will be useful to the framework
+it tries to propose a standard which will be useful to the framework
 and to other frameworks and developers.
 In order to make use of standards
-that have not been implemented by browsers yet, polyfills are provided.
+that have not been implemented by browsers yet,
+polyfills\footnote{\url{https://www.polymer-project.org/0.5/docs/start/platform.html}}
+are provided.
 Polyfills are \gls{js} modules
 which simulate a certain functionality documented by a standard
 not supported within a specific browser yet.
@@ -43,8 +51,8 @@ In this way there is no need to make any changes or release a new version of
 your frontend code.
 
 \subsection{Web components}
-One very interesting standard the Polymer framework builds upon
-is web components.
+One very interesting standard the Polymer framework builds upon is
+web components\footnote{\url{https://www.polymer-project.org/0.5/platform/custom-elements.html}}.
 This standard comprises of several aspects;
 custom elements, HTML imports, templates and the shadow DOM.
 This standard gives you the ability
@@ -85,24 +93,30 @@ and tabs have an indentation size of eight spaces.
 Furthermore, it would be very difficult to show feedback
 next to the line of code it is concerned with.
 
-We thought there must be an editor out the which had all the features we needed.
-% Link toevoegen in voetnoot
-And there was: Code Mirror.
+We thought there must be an editor out there
+which would have all the features we needed.
+And there was: Code Mirror\footnote{\url{http://codemirror.net/}}.
 It has syntax highlighting,
 is well suited for \gls{js}
 and has automatic indentation.
-With code mirror you can also make use of a so called gutter,
+With code mirror you can also make use of a so called
+gutter\footnote{\url{http://codemirror.net/doc/manual.html#api_decoration}},
 a vertical bar next to the editor.
 We used the gutter to display a warning icon next to the line of code
 on which feedback was received.
-When hovering such icon an information message is displayed
-pointing, not only to the line in question,
-but also to the column the feedback message wants to point out
+When hovering such an icon an information message is displayed,
+pointing not only to the line in question,
+but also to the very character the feedback message wants to point out
 (another feature of Code Mirror).
 
 Code Mirror is also used in other important projects,
-like the developer tools in Google Chrome.
-It is also well documented and therefore a good choise for the \gls{examiner}.
+like the developer tools in
+Google Chrome\footnote{\url{https://developer.chrome.com/devtools}} and
+Mozilla Firefox\footnote{\url{https://developer.mozilla.org/en-US/docs/Tools}}.
+It is also
+well documented\footnote{\url{http://codemirror.net/doc/manual.html}}
+and therefore a good choise for the \gls{examiner}.
 Successive teams working on the \gls{examiner}
-can easily add more functionality to the Code Mirror if needed,
+can easily make use of many more of
+the functionalities provided by theCode Mirror if needed,
 for it is very flexible.
