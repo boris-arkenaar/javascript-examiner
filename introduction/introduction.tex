@@ -3,10 +3,30 @@
 \chapter{Introduction}
 
 
-\section{ABI}
+% - tools
+% -- Github
+% -- Latex
+% -- Google Hangouts
+% -- Skype
+% -- Subversion
+% -- Node.js
+% -- 
+% --
+% --
+% - server
+% -- subversion
+% -- production
+
+% 'Context' might be a better heading
+\section{ABI} 
+
 % a general part about ABI
 The Afstudeerproject Bachelor Informatica (ABI) is the last part of the Bachelor curriculum.
+% Dit is meer iets voor het proces verslag, probeer niet proces georienteerd te schrijven, maar
+% product georienteerd (research is in deze ook product). Doelgroep is iemand die wil weten wat 
+% de Javascript Examiner is en wat de context van het onderzoek is etc.
 In the introduction meeting of the ABI, we were attracted to the \gls{examiner} project.
+
 The initial goal of this project was to create a prototype to automatically examine
 software code consint of \gls{js} an HTML.
 
@@ -65,3 +85,90 @@ It talks about the routing, authentication and persistence.
 
 % - conclusion/conclusion
 
+
+The initial description of the project stated that it was the goal to create,
+at least making a start, of a software tool to check the validity
+of \gls{js-code}.
+
+% Procesverslag
+It is not only about creating a product, but also a chance to work in a team and write an academic article/thesis.
+This involves planning and communication.
+
+
+% an introduction of the team
+\section{Team}
+% Procesverslag
+At the beginning, a face-to-face meeting had already been planned, to work out the initial ideas we had.
+A positive coincidence was that we are geographically not far apart.
+
+
+\section{Javascript-examiner}
+The course \gls{wac} is a part of the curriculum of the Open University to give
+a student an introductory course about web programming.
+HTML5, CSS and \gls{js} are part of this course.
+The \gls{examiner} is a tool to be used as part of the chapters about the JavaScript language.
+It is supposed to validate a submission of a given exercise of a student.
+
+% Zou hier geen apart hoofstuk van maken, maar gewoon noemen bij de context
+\section{Product-owner}
+
+The product-owner himself, Dr.ir Harrie Passier, is a tutor of the aforementioned course.
+Together with another tutor, they have supplied structural information about
+what we were expected to create.
+
+
+\section{Goal}
+The initial goal of the project was to create a prototype to automatically examine
+software code consisting of \gls{js} and HTML.
+
+% TODO: vertalen naar Engels
+Doel van dit project is om een prototype te realiseren voor het automatisch nakijken van programmatuur bestaande uit Javascript en HTML. Geïnventariseerd moet worden op welke eigenschappen code kan worden nagekeken. Vandaaruit kan iteratief/incrementeel een prototype worden gerealiseerd, waarbij , als dat zinvol is, van bestaande systemen gebruik kan worden gemaakt.
+De user interface wordt bij JavaScript gedeclareerd in HTML. Het uiteindelijke doel is om ook JavaScriptcode die van een user interface gebruik maakt automatisch van feedback te kunnen voorzien, maar de eerste stap is automatische feedback op stand-alone JavaScriptcode.
+
+Aanvullend – Voor diversie onderdelen van het nakijken bestaan tools, zoals Mocha/Chai voor testen, JSLint en JSHint voor controle op codekwaliteit en JSFormat voor het controle op codeformat. Verder kan in Node.js Javascript code worden uitgevoerd. Een belangrijke stap in dit project is deze tools en hun specificaties in kaart te brengen zodat weloverwogen wel/niet van deze tools gebruik kan worden gemaakt.
+De opdracht kent zowel een grote praktische component, d.w.z. het onderzoeken van bestaande tools en het realiseren van een prototype, als een grote theoretische component, d.w.z. automatische controle op diverse kwaliteitsaspecten vereist een diepgaande kennis van bijvoorbeeld diverse software-engineeringconcepten.
+Een gedegen kennis van o.a. clientside webapplicaties en concepten van goed programmeren is een must voor een goede uitvoer van dit project.
+
+\section{Expectation}
+
+The expectation of the product-owner was to deliver a prototype to examine \gls{js-code}.
+Along the way, it became clear that the expectations had been shifted towards a working environment, which could be used in the upcoming session of the \gls{wac} course.
+
+\section{Tools}
+
+Right from the start there was an idea about which tools we would start to use, to create the examiner. We were free to write it in any programming language, and
+at first we were also thinking about Haskell.			
+But as it was supposed to be used with \gls{js}, and the knowledge within our
+team was better 
+, we decided to use a platform based on \gls{js} for the construction of the tool. 
+at first we were also thinking about Haskell.
+But as it was supposed to be used with \gls{js}, and because the knowledge about \gls{js} within our
+team was better % Dit deel van de zin is onduidelijk, wat bedoel je? (Oizor)
+% Ik denk dat wat ik er nu van gemaakt heb (Slotkenov).
+, we decided to use \gls{js} as well for the construction of the tool.
+
+% Probeer in een verhaal te schrijven, dus niet tool 1, en tool2 en tool3 etc, maar
+% Meer de verhouding tot elkaar; hoe het samen een geheel vormt.
+% Node.js is het platform.
+Along the way we have discovered a number of tools that helped us in creating the various parts of the project.
+There is Node.js, which offers an environment to run \gls{js-code}.
+% Onderstaande zin loopt niet.
+Npm, part of Node.js, which is a package manager, so you don't have to install
+all the dependent packages by hand.
+
+Gulp is used to make a server and restart after every change in a text file.
+Latex to create the reports and thesis.
+
+% Probeer hier de lezer te motiveren om deze stukken te gaan lezen, wat staat er in,
+% waarom is het interessant voor het onderzoek en wat zijn de belangrijkste bevindingen.
+\section{Domain research}
+Part of the project was also a personal domain research. At first, we thought of
+three domains to divide between us.
+Semantics, Feedback and tools.
+% Onderstaande is meer iets voor het procesverslag. Je kan wel vermelden dat we naast
+% de content van de 3 papers nog onderzoek hebben gedaan naar de te gebruikte tools
+After the research of the tools, it became clear that this wasn't a good domain
+to research.
+The research wasn't obsolete, but it had not sufficient academic content to be
+part of the project.
+There was use for it later in the actual development phase of the \gls{examiner}.

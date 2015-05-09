@@ -6,67 +6,76 @@
 % - Code Mirror
 
 The frontend handles the interaction with the user of the application.
-It rendes the user interface with data fetched from the backend,
-and watches for user interaction with that interface.
+It renders the user interface with data fetched from the backend,
+thus facilitating user interaction.
 We wanted to make the user experience as much unobtrusive as possible,
 in order for the student to be able to put all his attention
-to the exercise, submitting his sulution and receiving feedback.
-Therefore we opted for a single page application
+to the exercise, submitting his solution and receiving feedback.
+Therefore we opted for a \gls{spa}
 in which there are no page loads
-and all communication with the backend is done through XHR requests.
+and all communication with the backend is done through
+XHR requests\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest?redirectlocale=en-US&redirectslug=DOM\%2FXMLHttpRequest}}.
 This makes it possible
-to use a relative simple RESTful interface on the backend,
-but alse means more logit is needed on the frontend.
-We choose to use Polymer as a framework on the frontend
-to help us build a solid foundation and structure or application.
+to use a relatively simple
+RESTful\footnote{\url{https://en.wikipedia.org/wiki/Representational_state_transfer}}
+interface on the backend,
+but alse means more logic is needed on the frontend.
+We choose to use
+Polymer\footnote{\url{https://www.polymer-project.org/0.5/}}
+as a framework on the frontend
+to help us build a solid foundation, and structure or application.
 
 \section{Polymer}
 Polymer is a project backed by Google which promotes the use of standards.
-The philosophy behind the framework is to make use of existing standards
+The philosophy\footnote{\url{https://www.polymer-project.org/0.5/docs/start/everything.html}}
+behind the framework is to make use of existing standards
 concerning HTML, \gls{js} and the browser.
 Where such a standard does not exist,
-try to propose a standard which will be useful to the framework
+it tries to propose a standard which will be useful to the framework
 and to other frameworks and developers.
 In order to make use of standards
 that have not been implemented by browsers yet,
-polyfills are provided.
+polyfills\footnote{\url{https://www.polymer-project.org/0.5/docs/start/platform.html}}
+are provided.
 Polyfills are \gls{js} modules
-who simulate a certain functionality documented by a standard,
-which is not supported within a specific browser yet.
+which simulate a certain functionality documented by a standard
+not supported within a specific browser yet.
 
-With this philosophy Polymer is an innovative framework,
-while making sure it will be(come) compatible with browsers
+With this philosophy, Polymer is an innovative framework,
+while making sure it's compatible with both browsers
 and other frameworks.
-And while it needs polyfills to run on (most of) todays browsers,
+While it needs polyfills to run on (most of) todays browsers,
 as soon as a browser implements a certain standard
 Polymer switches from the polyfill to the native code automatically.
-No need to make any changes or release a new version of your frontend code.
+In this way there is no need to make any changes or release a new version of 
+your frontend code.
 
 \subsection{Web components}
-One very interesting standard the Polymer framework builds upon
-is web components.
+One very interesting standard the Polymer framework builds upon is
+web components\footnote{\url{https://www.polymer-project.org/0.5/platform/custom-elements.html}}.
 This standard comprises of several aspects;
 custom elements, HTML imports, templates and the shadow DOM.
 This standard gives you the ability
 to extend the standard set of HTML elements with custom elements.
 With the HTML import functionality you can load these custom elements
-in an easy manner.
-And you could load custom elemnts created by others just as well.
-When creating a custom element you can make use of one or more templates.
-And behind the scenes custom elements make use of the shadow DOM.
+in an convenient manner.
+On top of this it's possible to load custom elements created by others as well.
+When creating a custom element you can make use of one or more templates,
+and behind the scenes custom elements make use of the shadow DOM.
 
 \subsubsection{Isolation}
 A great feature of these custom elements is that they live in isolation.
 The \gls{js-code} you write within a component is private to that component.
 Any CSS styles you write are for that component only,
-which means there is no interferance with CSS styles of the application
-or other components, no name clashes.
+which means there is no interference with CSS styles of the application
+or other components; this way the danger of, in example, name clashes is 
+reduced to a minimum.
 The same goes for the ID's you define
 on HTML elements in a component's template.
 The template is private to the component, and so are the ID's you define.
 They won't bleed into the final HTML document they will be part of.
 
-These aspacts make for a great architecture,
+These aspects make for a great architecture,
 to keep the frontend modularized with self contained components.
 And they improve on writing frontend applications
 compared to previous frameworks and architectures.
@@ -78,29 +87,36 @@ and be able to receive feedback on that code
 we needed to implement a text editor to display the code
 and let the \gls{student} be able to alter the code easily.
 We started of with a simple HTML textarea field
-which is not very suitable for displaying code though.
+which is not very suitable for displaying code though:
 It has no syntax highlighting
 and tabs have an indentation size of eight spaces.
-It would be very difficult to show feedback
+Furthermore, it would be very difficult to show feedback
 next to the line of code it is concerned with.
 
-We thought the must be an editor out the which had all the features we needed.
-And there was: Code Mirror.
+We thought there must be an editor out there
+which would have all the features we needed.
+And there was: Code Mirror\footnote{\url{http://codemirror.net/}}.
 It has syntax highlighting,
 is well suited for \gls{js}
 and has automatic indentation.
-With code mirror you can also make use of a so called gutter,
+With code mirror you can also make use of a so called
+gutter\footnote{\url{http://codemirror.net/doc/manual.html\#api_decoration}},
 a vertical bar next to the editor.
 We used the gutter to display a warning icon next to the line of code
 on which feedback was received.
-When hovering such icon an information message is displayed
-pointing, not only to the line in question,
-but also to the column the feedback message wants to point out
+When hovering such an icon an information message is displayed,
+pointing not only to the line in question,
+but also to the very character the feedback message wants to point out
 (another feature of Code Mirror).
 
 Code Mirror is also used in other important projects,
-like the developer tools in Google Chrome.
-It is also well documented and therefore a good choise for the \gls{examiner}.
-Following teams working on the \gls{examiner}
-can easily add more functionality of Code Mirror where needed,
+like the developer tools in
+Google Chrome\footnote{\url{https://developer.chrome.com/devtools}} and
+Mozilla Firefox\footnote{\url{https://developer.mozilla.org/en-US/docs/Tools}}.
+It is also
+well documented\footnote{\url{http://codemirror.net/doc/manual.html}}
+and therefore a good choise for the \gls{examiner}.
+Successive teams working on the \gls{examiner}
+can easily make use of many more of
+the functionalities provided by theCode Mirror if needed,
 for it is very flexible.
