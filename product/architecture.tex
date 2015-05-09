@@ -8,15 +8,16 @@
 % - Frontend with isolated elements and option to contact RESTful server and
 %   checks.
 
-The \gls{examiner} consits of four parts.
-First of we have the domain we are working on.
-Like the tutors and students, the exercises and solutions
+The \gls{examiner} consists of four parts.
+First of we have the domain we are working on, consisting of, among others,
+% Hier verwijzen naar het domain model
+tutors and students, the exercises, solutions
 and the data that comprises these entities.
-Secondly we have a control layer
+Secondly we have a control layer,
 which acts as a separation between the domain layer and the application.
 Then there are the various checks for investigating \gls{js-code}.
 And finally, since we are dealing with a web application,
-we have a client side.
+we have a distinct client side.
 We will go into the details of each part in the sections below,
 where we will discuss their part in the global architecture of the system,
 and how the communication flows between each part.
@@ -24,10 +25,10 @@ and how the communication flows between each part.
 \includegraphics[scale=0.75]{diagrams-images/architecture}
 
 \section{Control layer}
-The control layer is the server side
+The control layer is the server side,
 in the client-server architecture common to web applications.
-It handles requests from the client
-for retrieving or updating a part of the domain.
+It handles clientside requests
+for retrieving or modifying a part of the domain.
 Besides facilitating communication between the client side and the domain
 it also does other things, like sending an email.
 

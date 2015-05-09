@@ -25,9 +25,9 @@ The \gls{examiner} consits of various checks for examining \gls{js-code}.
 We built a couple of these checks.
 Other teams will pobably continue this project after us
 and will add checks to the \gls{examiner}.
-A modular approach for the checks seemed mandatory
-for other teams to continue working on the project.
-As explained in the Architecture chapter
+A modular approach for the checks seemed mandatory to enable
+subsequent teams in working on the project.
+As explained in the Architecture chapter,
 the checks have direct access to the database
 and the frontend has direct access to the checks via HTTP.
 There is no coupling with other backend logic.
@@ -53,31 +53,31 @@ This seemed to be a good approach for the prototypical nature of the project.
 And, while not necessary, nicely integrates with the \gls{examiner}
 because \gls{js} is used to write code in Node.js.
 You can easily set something up in Node.js in minutes,
-there are modules available for anything
---- we found some modules which could be of great use to us, ---
-And there is no problem in setting up a light weight server in Node.js as well.
+there are modules available for sheer anything
+--- we found some modules which could be of great use to us ---
+And it is no problem to create a lightweight webserver in Node.js as well.
 With all these advantages we did not see the need
-to dive into other possible options for a backend.
+to dive deeper into other possible options for a backend.
 
 While it is so easy to start working in Node.js
 you can get lost quickly in the determining a good structure
 for your code and files,
-and which module you should pick for a certain tast.
+and which module you should pick for a certain task.
 To remedy this we looked into using a so called ``seed project''.
-This is a default template code base and file and folder structure
-to get started quickly and relieving you from developing your own architecture.
+This is a default template code base and file / folder structure which enbables
+to get started quickly and relieving you from developing your own structure.
 We found the project
 Ultimate-Seed\footnote{\url{https://github.com/pilwon/ultimate-seed}}
-which looked promising.
-But after a closer examination we concluded it was outdated
-and would require to much effort to get to know the full workings,
-update and use for the \gls{project}.
-So we decided to start from scratch,
-concerning the architecture of our own code base.
-This way we know exactly what we have,
-and we only add code and dependencies when we really need them.
-Our code base will be kept clean, small and organized.
-And everything will be documented for future teams to get started easily.
+which looked promising at first.
+Unfortunately, after a closer examination we concluded it was outdated
+and would require to much effort to grasp the full workings,
+update the seed project and use it for the \gls{project}.
+As a result we decided to start from scratch,
+developing our own structural and architectural code base.
+This way there is no overhead, as the dependencies were added when actualy 
+needed. Hence, our code base will be kept clean, small and organized.
+Furthermore it was easy to keep everything documented for the ease of future 
+teams.
 
 \section{Frontend}
 At the very beginning we started out
@@ -92,11 +92,11 @@ AngularJS is a fairly new framework which makes creating templates a breeze.
 It can be combined with Twitter Bootstrap for a good looking app.
 The downside of AngularJS is that when your needs grow more specific
 and you need to create your own custom elements
-(called directives in AngularJS)
-AngularJS tends to get very complicated very fast.
+(called directives in AngularJS),
+AngularJS tends to get very complicated.
 
 Polymer is even newer than AngularJS
-and has been dicussed at length in the Frontent chapter.
+and has been discussed at length in the Frontend chapter.
 While not used much and not documented very well yet,
 Polymer has a great way of creating custom HTML elements
 making use of web standards.
@@ -108,29 +108,29 @@ which makes it not necessary to bring in another styling package
 like Twitter Bootstrap.
 
 Starting from scratch is also an option
-and seems a good choise because we also made that choise for the backend.
-It would meen not using any framework and write everything ourselves.
+and seems a good choice because we also made that choice for the backend.
+It would mean not using any framework and write everything ourselves.
 We could make use of existing small modules with specific functionality
 like we do on the backend.
 Add Twitter Bootstrap and you get a great frontend.
 The only problem is that the frontend tends to get more complex
 in the setup of a single page application.
 A lot of logic is on the frontend side,
-specific code is needed to create the speceficities of a singe page app
-and then you have to worry about cross browser complience
+specific code is needed to create the specificities of a singe page application
+and then you have to worry about cross browser compliance
 for all that code as well.
 These reasons made us choose a framework over this option.
 
 Nobody of us had experience with Polymer
-and we thought this a good oportunity to get to konw it.
-Polymer seems to be framework with a lot of potentiol.
+and we thought this a good opportunity to get to know it.
+Polymer seems to be framework with a lot of potential.
 With documentation that could be better
-and not much to find about it on the internet
+and not much to find about it on the Internet
 it is a bit tough to start with.
 But that might pay of very well in a few years
 when Polymer has gained some traction.
 It remains a guess and you always have to find a balance
-between savety and innovation,
+between safety and innovation,
 but in the still so young, and quickly shifting area of web development
 you have to think ahead a few steps all the time.
 
@@ -143,7 +143,7 @@ logic for creating a test suite and the possibility to create spies.
 Mocha is a testrunner only
 and you want to combine it with Chai for writing your testsuite
 and maybe you need to include Sinon as well for writing spies.
-It does not realy matter that much if you choose for an all in one package
+It does not really matter that much if you choose for an all in one package
 or use the separate packages; you include them once, and you're done.
 We chose to use Mocha with Chai over using Jasmine.
 Jasmine is a great package for creating and running unit tests for the frontend
