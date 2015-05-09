@@ -72,9 +72,10 @@ and change the checks for the \gls{examiner}
 Because we are building a web application
 we have to deal with the browser side of things.
 Thus we have a client side to our application.
-To create a rich user experience we will a single page application.
+To provide a rich user experience we will create a single page application.
 No page reloads will occur
-and communication with the server will be done through XHR requests.
+and communication with the server will be done through
+XHR requests\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest?redirectlocale=en-US&redirectslug=DOM\%2FXMLHttpRequest}}.
 The client will be responsible for the user interface
 and the interaction with the user.
 It will also carry out the logic directly coupled to the user interface.
@@ -90,18 +91,20 @@ Other teams will pick up where we left and complement this software project.
 Because of this we chose to use a service oriented approach.
 Each functional requirement for examining \gls{js-code}
 will be encapsulated in a service.
-The backend \gls{source-code} has the ability to use these services.
-It can call them in any order, use their responses
+They form the checks of the \gls{examiner}
+and will be separated from the other backend logic
+The frontend \gls{source-code} has the ability to use these services,
+and can call them in any order, use their responses
 and supply responses from one service to another.
-The frontend \gls{source-code} displays the user interface to the end user
+It also \gls{source-code} displays the user interface to the end user
 and contacts the backend for sending and receiving the necessary information.
 Persistence of data is managed through some kind of database system
 containing the domain.
-The backend has access to this domain.
+The backend and the checks have access to this domain.
 
 For any future development of this project
 the domain can be expanded
 and services can be added
-without the need to make complex changed to the existing code base.
-Only the backend \gls{source-code} needs change
-to make use of the added domain data and services.
+without the need to make complex changes to the existing code base.
+Only the frontend \gls{source-code} needs to be changed
+to make use of the added services.
