@@ -38,14 +38,14 @@ The \glspl{check} are the modules that perform the examination of \gls{js-code}.
 In order to make it easy to extend the system with more \glspl{check} in the future
 we placed the \glspl{check} in relative isolation to the other parts of the system.
 In the same way that the client communicates with the control layer,
-the client can also communicate directly with each \glspl{check}.
-Each \glspl{check} in its turn communicates back to the client
+the client can also communicate directly with one of the \glspl{check}.
+Each \gls{check} in its turn communicates back to the client
 and can reach out to the domain if necessary.
 
 As for the flow of the communication
 the \glspl{check} have the same place as the control layer.
 In that manner they each are a specialized mini control layer on their own.
-We deliberately pulled them apart from the cortrol layer though
+We deliberately pulled them apart from the control layer though
 in order to keep them as much plug-and-play as possible.
 This way the \glspl{check} are not limited
 to the implementation we choose for the control layer.
@@ -69,8 +69,8 @@ the \glspl{check} for the \gls{examiner}.
 \section{Client side}
 Because we are building a web application
 we have to deal with the browser side of things.
-Thus we have a client side to our application.
-To provide a rich user experience we will create a single page application.
+Thus we have a client side in our application.
+To provide a rich user experience we created a single page application.
 No page reloads will occur
 and communication with the server will be done through
 XHR requests\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest?redirectlocale=en-US&redirectslug=DOM\%2FXMLHttpRequest}}.
@@ -86,7 +86,7 @@ the client side will contact the \glspl{check}.
 We will be laying the groundwork for this project
 with just a few of the functionalities it requires.
 Other teams will pick up where we left and complement this software project.
-Because of this we chose to use a service oriented approach.
+Because of this we decided to use a service oriented approach.
 Each functional requirement for examining \gls{js-code}
 will be encapsulated in a service.
 They form the \glspl{check} of the \gls{examiner}
