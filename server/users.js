@@ -3,8 +3,11 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var helper = require('./helper');
 
-//User management
+// User management
 
+/**
+ * Gets a list of users.
+ */
 exports.query = function(req, response) {
   database.getUsers(null, function(err, users) {
     if (err) {
@@ -15,6 +18,9 @@ exports.query = function(req, response) {
   });
 };
 
+/**
+ * Gets one user by ID.
+ */
 exports.get = function(req, response) {
   var userId = req.params.id;
   database.getUser({_id: userId}, function(err, user) {
@@ -26,6 +32,9 @@ exports.get = function(req, response) {
   });
 };
 
+/**
+ * Updates an existing user by ID, or creates a new user.
+ */
 exports.upsert = function(req, response) {
   var user = JSON.parse(helper.decode(req.body.user));
   var userId = user._id;
@@ -34,10 +43,10 @@ exports.upsert = function(req, response) {
     var token = crypto.randomBytes(20).toString('hex');
     user.resetPasswordToken = token;
     if (!userId) {
-      //new user:
+      // New user
       sendEnrollmentEmail(user.email, token, req.headers.host);
     } else {
-      //existing user:
+      // Existing user
       sendResetPasswordEmail(user.email, token, req.headers.host);
     }
   }
@@ -53,6 +62,9 @@ exports.upsert = function(req, response) {
   });
 };
 
+/**
+ * Deletes a user by ID.
+ */
 exports.delete = function(req, response) {
   var userId = req.params.id;
   if (req.user._id === req.params.id) {
@@ -70,6 +82,10 @@ exports.delete = function(req, response) {
   });
 };
 
+/**
+ * Generates a token for resetting a user's password
+ * and sends an email to that user with a link to reset his password.
+ */
 exports.resetPassword = function(req, response) {
   var password = req.body.password;
   delete req.body.password;
@@ -93,18 +109,41 @@ exports.resetPassword = function(req, response) {
   });
 };
 
+/**
+ * Sends a user a welcome email with a link to set his password.
+ *
+ * @param {string} address The email address to send the mail to.
+ * @param {string} token The token to validate a request
+ *                 for setting his password.
+ * @param {string} host The host of the app to use in the link.
+ */
 function sendEnrollmentEmail(address, token, host) {
   var subject = 'Welcome to javascript-examiner';
   var text = 'http://' + host + '/#/reset/' + token;
   sendEmail(address,  subject, text);
 }
 
+/**
+ * Sends a user an email with a link to reset his password.
+ *
+ * @param {string} address The email address to send the mail to.
+ * @param {string} token The token to validate a request
+ *                 for resetting his password.
+ * @param {string} host The host of the app to use in the link.
+ */
 function sendResetPasswordEmail(address, token, host) {
   var subject = 'Password reset';
   var text = 'http://' + host + '/#/reset/' + token;
   sendEmail(address,  subject, text);
 }
 
+/**
+ * Sends an email to a user.
+ *
+ * @param {string} address The email address to send the mail to.
+ * @param {string} subject The subject of the mail.
+ * @param {string} text The body of the mail.
+ */
 function sendEmail(address, subject, text) {
   var smtpTransport = nodemailer.createTransport({
     service: 'Gmail',

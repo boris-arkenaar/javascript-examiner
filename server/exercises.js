@@ -6,9 +6,11 @@ var checkFunctionality = require('./check-functionality/check-functionality');
 var checkMaintainability =
     require('./check-maintainability/check-maintainability');
 
-//Exercise management
+// Exercise management
 
-//Get exercise based on filter
+/**
+ * Gets a list of exercises based on filter.
+ */
 exports.query = function(req, res) {
   //get the exercises:
   var filter = {};
@@ -28,7 +30,9 @@ exports.query = function(req, res) {
   }, req.user.roles);
 };
 
-//Get an exercise by id
+/**
+ * Gets an exercise by ID.
+ */
 exports.get = function(req, res) {
   var exerciseId = req.params.id;
   database.getExercise(exerciseId, function(err, exercise) {
@@ -40,7 +44,9 @@ exports.get = function(req, res) {
   }, req.user.roles);
 };
 
-//Upsert an exercise
+/**
+ * Updates an existing exercise by ID, or creates a new exercise.
+ */
 exports.upsert = function(req, response) {
   var exercise = JSON.parse(helper.decode(req.body.exercise));
   var exerciseId = exercise._id;
@@ -102,7 +108,9 @@ exports.upsert = function(req, response) {
   });
 };
 
-//Delete an exercise
+/**
+ * Delete an exercise by ID.
+ */
 exports.delete = function(req, response) {
   var exerciseId = req.params.id;
   if (!exerciseId || exerciseId === 'null') {
@@ -120,7 +128,11 @@ exports.delete = function(req, response) {
   });
 };
 
-// Calculates and saves maintainability metrics for the model solution
+/**
+ * Calculates and saves maintainability metrics for the model solution.
+ *
+ * @param {object} exercise The exercise in question.
+ */
 function calculateMaintainability(exercise) {
   var submitted = {
     code: exercise.modelSolution.code,
@@ -139,7 +151,12 @@ function calculateMaintainability(exercise) {
   });
 }
 
-//Checks if syntax or format checks return feedback
+/**
+ * Checks if syntax or format checks return feedback.
+ *
+ * @param {Object} submitted The data of the submitted code.
+ * @param {function} callback
+ */
 function syntaxFormatCheck(submitted, callback) {
   //check syntax
   if (submitted.code && submitted.code !== '') {

@@ -22,7 +22,7 @@ var MongoStore = require('connect-mongo')(session);
 var Collections = require('./data/collections');
 var crypto = require('crypto');
 
-//Authentication and Authorization
+// Authentication and Authorization
 passport.serializeUser(function(user, done) {
   done(null, user._id);
 });
@@ -61,7 +61,7 @@ passport.use(new LocalStrategy({
   }
 ));
 
-//Configuration routing
+// Configuration routing
 var app = express();
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../public'));
@@ -75,7 +75,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Handles login attempt
+// Handles login attempt
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) {
@@ -93,7 +93,7 @@ app.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
-//Checks whether requester is logged in.
+// Checks whether requester is logged in.
 function loggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     next();
@@ -102,7 +102,7 @@ function loggedIn(req, res, next) {
   }
 }
 
-//Checks whether user is tutor
+// Checks whether user is tutor
 function isTutor(req, res, next) {
   var user = req.user;
   if (user.roles.indexOf('tutor') > -1) {
@@ -112,7 +112,7 @@ function isTutor(req, res, next) {
   }
 }
 
-//Routing to several checks
+// Routing to several checks
 app.post('/check/syntax', loggedIn,
     getCheckHandler(checkSyntax));
 app.post('/check/format', loggedIn,
@@ -122,6 +122,15 @@ app.post('/check/functionality', loggedIn,
 app.post('/check/maintainability', loggedIn,
     getCheckHandler(checkMaintainability));
 
+/**
+ * Returns a function which can be used to handle a request that needs to call
+ * an examination check. This way all examination checks are called in the same
+ * general maner and consistent feedback is supplied as a response.
+ *
+ * @param {function(Object, function(Object, Object, Object))} check
+ *        The examination check to be called.
+ * @return {function(Object, Object)} A middleware function.
+ */
 function getCheckHandler(check) {
   return function(request, response) {
     var code = helper.decode(request.body.code);
@@ -161,18 +170,18 @@ function getCheckHandler(check) {
   };
 }
 
-//User Feedback management
+// User Feedback management
 app.post('/user-feedback', function(request, response) {
   var userFeedback = JSON.parse(helper.decode(request.body.data));
   if (request.user) {
     userFeedback.context.userId = request.user._id;
   }
-  //1. Email feedback to subscribed users
+  // 1. Email feedback to subscribed users
   Collections.User.find({roles: 'tutor'}, function(err, tutors) {
-    //TODO: email subscribed tutors after gh-36 is merged
+    // TODO: email subscribed tutors
   });
 
-  //2. Store feedback in Mongo
+  // 2. Store feedback in Mongo
   userFeedback = new Collections.UserFeedback(userFeedback);
   userFeedback.save(function(err) {
     if (err) {
@@ -190,13 +199,13 @@ app.post('/users', loggedIn, isTutor, users.upsert);
 app.delete('/users/:id', loggedIn, isTutor, users.delete);
 app.post('/reset-password', users.resetPassword);
 
-//Exercise management
+// Exercise management
 app.get('/exercises', loggedIn, exercises.query);
 app.get('/exercises/:id', loggedIn, exercises.get);
 app.post('/exercises', loggedIn, isTutor, exercises.upsert);
 app.delete('/exercises/:id', loggedIn, isTutor, exercises.delete);
 
-//Start server
+// Start server
 app.set('port', process.env.PORT || 3030);
 var server = app.listen(app.get('port'), function() {
   console.log('App runs at localhost:' + app.get('port'));

@@ -2,6 +2,15 @@ var fs = require('fs');
 var description;
 var module;
 
+/**
+ * Replaces raw feedback messages with customized text messages
+ * defined in a separate file for each check.
+ *
+ * @param {string} check The check the feedback came from.
+ * @param {Array.<Object>} feedback The feedback received
+ *                                  from running the check.
+ * @param {function} cb
+ */
 module.exports = function(check, feedback, cb) {
   var src;
   var trg;
@@ -12,6 +21,12 @@ module.exports = function(check, feedback, cb) {
   searchError(check, feedback, callback);
 };
 
+/**
+ * Builds the name and path of the file
+ * that contains the custom feedback messages for the given check.
+ *
+ * @param {string} check The name of the check.
+ */
 function generateFileName(name) {
   var localName = './server/';
   localName = localName.concat(name);
@@ -27,6 +42,12 @@ function createFile(filename, callback) {
   });
 }
 
+/**
+ * Checks if the file, containing the feedback messages for the given check,
+ * exists.
+ *
+ * @param {string} name The name of the check.
+ */
 function checkFile(name) {
   var fn = generateFileName(name);
   fs.exists(fn, function(err) {
@@ -34,6 +55,15 @@ function checkFile(name) {
   });
 }
 
+/**
+ * Replaces raw feedback messages with customized text messages
+ * defined in a separate file for each check.
+ *
+ * @param {string} check The check the feedback came from.
+ * @param {Array.<Object>} feedback The feedback received
+ *                                  from running the check.
+ * @param {function} callback
+ */
 function searchError(module, feedback, callback) {
   // search for error,
   // if not found create error with description is equal to error
