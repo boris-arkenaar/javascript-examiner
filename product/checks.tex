@@ -32,6 +32,14 @@ We have choosen this preset because ...
 \section{Functionality}
 % Onveiligheid beschrijven van executen (ongeveriefierde code)
 
+This check uses the Mocha framework \footnote{} to test the submitted code.
+To do this, the lines of code that were entered have to be executed.
+This could be a threat.
+Because the code is taken from the text field on the UI, there is no check
+on the lines of code whether these are valid \{js-code}.
+
+
+Within this check the submitted code is executed to 
 The functionality check is a check which 
 var fs = require('fs');
 var database = require('../database');
@@ -49,7 +57,7 @@ var esprima = require('esprima');
 var escomplex = require('escomplex');
 var walker = require('escomplex-ast-moz');
 This check returns an Abstract Syntax Tree if that can be produced.
-
+http://en.wikipedia.org/wiki/Abstract_syntax_tree
 
 \section{Syntax}
 var esprima = require('esprima');

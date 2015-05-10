@@ -18,17 +18,12 @@
 % -- production
 
 % 'Context' might be a better heading
-\section{ABI} 
+\section{Context} 
 
-% a general part about ABI
-The Afstudeerproject Bachelor Informatica (ABI) is the last part of the Bachelor curriculum.
-% Dit is meer iets voor het proces verslag, probeer niet proces georienteerd te schrijven, maar
-% product georienteerd (research is in deze ook product). Doelgroep is iemand die wil weten wat 
-% de Javascript Examiner is en wat de context van het onderzoek is etc.
 In the introduction meeting of the ABI, we were attracted to the \gls{examiner} project.
 
 The initial goal of this project was to create a prototype to automatically examine
-software code consint of \gls{js} an HTML.
+software code consi'st of \gls{js} and HTML.
 
 The project is not only about creating a product, but also a chance to work in a team, write an academic article/thesis, and to work in a team. This involves planning, communication etc.
 
@@ -36,18 +31,43 @@ The product-owner, Dr.ir Harrie Passier, is a tutor of the \gls{wac} course.
 
 
 % - introduction/introduction}
+This document is divided into three main parts, Research, Product and Process.
 
 % - Research
 \section{Research}
 % -  research/research
 % -    Domain research
 % -      Introduction
+This part is about the domain and the researches that has been done to broaden our knowledge about the subject.
+It is about the actors and what their purpose with the \gls{examiner} is to be.
+And a main part of the product, which is the feedback to the student.
+
+Other subject, that may be not so obvious, like didactics and the programming language are described as well.
+Also the talks about the different researches each one of the contributors have done.
+They are an extensible part of the section, and describe in detail the subjects at hand.
+
+The research context places the product in perspective. Other studies have been conducted by various researchers and also there are products that are alike.
+But the \gls{examiner} is at the moment one-of-its-kind.
+The subject has been explored, but not for the \gsl{js} language.
+Other studies are examined and placed in the context of our study.
+
 % -       research/domain-research-introduction
 % -       research/domain-research
 % -    Research Context}
 % -       research/research-context
 
 % - Product
+\section{Product}
+This section gives an insight into the requirements that have been set up for the product.
+It gives the requirements for the various parts, functional and non-functional.
+These requirements are for the examination and the feedback.
+Also the possible requirements for future development are described.
+
+The architecture of the product is also part of this section. 
+It discusses the global architecture of the whole app.
+It does not go into detail or implementation specifics.
+Its clearifies the separation between domain, checks, RESTful server and frontend.
+
 % -  product/product
 % -    Requirements
 % -      product/requirements
@@ -56,8 +76,9 @@ The product-owner, Dr.ir Harrie Passier, is a tutor of the \gls{wac} course.
 % -    Checks
 % -      product/checks
 
+
 % -    Frontend
-\section{Frontend}
+% - \section{Frontend}
 The frontend section explains what modules have been chosen and why.
 It handles the UI framework Polymer (with a part about Web components and
 Isolation), and the module Code Mirror.
@@ -65,16 +86,34 @@ It is used to give
 the user an easy to use interface to submit their code.
 
 % -    Backend
-\section{Backend}
+% - \section{Backend}
 This part is about the server side logic. It gives a detailed analysis of the
 package manager and the individual packages that are used.
 in the development. It also is about the structure of the backend.
-It talks about the routing, authentication and persistence.
+
+%   checks.
+Checks are separated modules which are called to make a statement
+about the validity and structure of the submitted \gls{js-code}.
+
 
 % -    Maintainability
 % -      product/maintainability}
- 
+The maintainability part discusses the possibility to extend the tool with other modules.
+This will imply that the tool has to be maintained, and this should be done in a way that this is easy to to by developers or users. This way, the tool can be of gereat (and later maybe even greater) asset to the development os students.
+It gives a detailed description of what to keep in mind when preserving this maintainability.
+
+
 % - Process
+\section{Process}
+This part holds a discussion about the choises we made
+during the process of developing the \gls{examiner}.
+The choises regarding modeling and development decissions will be discussed.
+The decision made will be pointed out,
+including arguments as to why we thought
+that to be the best decision for this product.
+
+The section also holds a description of how we have experienced this project,
+both individual as wel as a team.
 % -  process/process
 % -    Process Report
 % -      process/process-report
@@ -120,14 +159,6 @@ what we were expected to create.
 \section{Goal}
 The initial goal of the project was to create a prototype to automatically examine
 software code consisting of \gls{js} and HTML.
-
-% TODO: vertalen naar Engels
-Doel van dit project is om een prototype te realiseren voor het automatisch nakijken van programmatuur bestaande uit Javascript en HTML. Geïnventariseerd moet worden op welke eigenschappen code kan worden nagekeken. Vandaaruit kan iteratief/incrementeel een prototype worden gerealiseerd, waarbij , als dat zinvol is, van bestaande systemen gebruik kan worden gemaakt.
-De user interface wordt bij JavaScript gedeclareerd in HTML. Het uiteindelijke doel is om ook JavaScriptcode die van een user interface gebruik maakt automatisch van feedback te kunnen voorzien, maar de eerste stap is automatische feedback op stand-alone JavaScriptcode.
-
-Aanvullend – Voor diversie onderdelen van het nakijken bestaan tools, zoals Mocha/Chai voor testen, JSLint en JSHint voor controle op codekwaliteit en JSFormat voor het controle op codeformat. Verder kan in Node.js Javascript code worden uitgevoerd. Een belangrijke stap in dit project is deze tools en hun specificaties in kaart te brengen zodat weloverwogen wel/niet van deze tools gebruik kan worden gemaakt.
-De opdracht kent zowel een grote praktische component, d.w.z. het onderzoeken van bestaande tools en het realiseren van een prototype, als een grote theoretische component, d.w.z. automatische controle op diverse kwaliteitsaspecten vereist een diepgaande kennis van bijvoorbeeld diverse software-engineeringconcepten.
-Een gedegen kennis van o.a. clientside webapplicaties en concepten van goed programmeren is een must voor een goede uitvoer van dit project.
 
 \section{Expectation}
 
