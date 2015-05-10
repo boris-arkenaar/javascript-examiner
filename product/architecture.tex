@@ -20,9 +20,10 @@ And finally, since we are dealing with a web application,
 we have a distinct client side.
 We will go into the details of each part in the sections below,
 where we will discuss their part in the global architecture of the system,
-and how the communication flows between each part.
-
-\includegraphics[scale=0.75]{diagrams-images/architecture}
+and how the communication flows between each part. For a graphical 
+representation of the architecture, see appendix \ref{app:architecture}. A 
+domain model can be found in \ref{app:domain-model} whereas an activity diagram 
+that visualizes the code submission is presented in \ref{app:activity-diagram}
 
 \section{Control layer}
 The control layer is the server side,
@@ -62,11 +63,8 @@ and need to be able to access
 the specific data storage implementation we choose for the domain.
 The domain only needs to be altered if a \gls{check} expands on the domain model.
 This way the \glspl{check} are decoupled from the control layer
-and its implementation
-which improves the ability to write,
-and change the \glspl{check} for the \gls{examiner}
-
-\includegraphics[scale=0.75]{diagrams-images/code-submission-activity-diagram}
+and its implementation which improves the ability to write, and change 
+the \glspl{check} for the \gls{examiner}. 
 
 \section{Client side}
 Because we are building a web application
