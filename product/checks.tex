@@ -6,6 +6,11 @@
 % - maintainability
 % - syntax
 
+% Algemeen
+As it stands, we have 4 checks that are used in the \gls{examiner}.
+These check are called from within the server.js file.
+The number of checks can easily be extended by adding more endpoints to the list
+of allready available \glspl{check}
 
 \section{Format}
 
@@ -36,19 +41,20 @@ This way possible malicious code can be intercepted.
 
 
 \section{Maintainability}
-var esprima = require('esprima');
-var escomplex = require('escomplex');
-var walker = require('escomplex-ast-moz');
-This \gls{check} returns an Abstract Syntax Tree if that can be produced.
-\footnote{\url{http://en.wikipedia.org/wiki/Abstract_syntax_tree}}
-This is the representation of the submitted code, and can be input to various other tools.
+
+The maintainability \gls{check} uses esprima\footnote{\url{http://esprima.org/}},
+escomplex\footnote{\url{https://github.com/philbooth/escomplex}} and
+escomplex-ast-moz\footnote{\url{https://github.com/philbooth/escomplex-ast-moz}}.
+The first module generates output that is used as input for the next module.
+Its output is send to the third and the total output is the software
+complexity analysis of the submitted code described in a number of metrics.
 
 \section{Syntax}
-var esprima = require('esprima');
-var UglifyJS = require('uglify-js');
 
-//configuration for esprima parsing are included in the check-syntax.js file.
-
+Checking the syntax is done by calling the Esprima parser\footnote{\url{http://esprima.org/}}.
+This is a light and fast parser, which returns an abstract syntax tree if there
+is no error, otherwise it returns the error.
+The configuration of the parser can be set within the check.
 
 \section{Future work}
 An extention of the \glspl{check} could be the validation of
