@@ -1,4 +1,7 @@
 *.pdf
+!domain-research-feedback-stand-alone.pdf
+!domain-research-recipe-stand-alone.pdf
+!domain-research-semantics-stand-alone.pdf
 *.log
 *.aux
 *.fls
