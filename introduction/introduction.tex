@@ -17,56 +17,62 @@
 % -- subversion
 % -- production
 
-% 'Context' might be a better heading
 \section{Context} 
 
-In the introduction meeting of the ABI, we were attracted to the \gls{examiner} project.
+In the introduction meeting of the ABI, we were attached to a project that aims 
+at creating a prototype that enables automatic
+examination of \gls{js} and HTML. The initial description of the project stated 
+that it was the goal to create a prototype for a software tool to 
+check the validity of \gls{js-code}. This tool should initially be able to
+facilitate the tutors and student of a course of the Open University.
+The course \gls{wac} is a part of the curriculum in the Computer Science faculty, that aims at providing students an introductory course about web programming.
+HTML5, CSS and mostly \gls{js} are the main parts of this course.
+The product-owner, Dr.ir Harrie Passier, is a tutor of the aforementioned course.
+The expectation of the product-owner was to deliver a prototype to examine 
+\gls{js-code}. Along the way, it became clear that the expectations
+shifted from a prototype towards a working environment, which was ready to be used in the upcoming session of the \gls{wac} course.
 
-The initial goal of this project was to create a prototype to automatically examine
-software code consi'st of \gls{js} and HTML.
 
-The project is not only about creating a product, but also a chance to work in a team, write an academic article/thesis, and to work in a team. This involves planning, communication etc.
-
-The product-owner, Dr.ir Harrie Passier, is a tutor of the \gls{wac} course.
-
-
-% - introduction/introduction}
-This document is divided into three main parts, Research, Product and Process.
+The project is not only about creating the tool, but also a means to 
+improve academic research skills and to work in a team. This introduction will 
+outline the structure of the thesis, by introducing each part and compelling the 
+role of this part within the project. There are three main parts: Research, 
+Product and Process. The Research part bundles all academic research artifacts, 
+whereas the Product related chapters are merely a practical outline of the 
+developed tool, which will be referred to as \gls{examiner} from now on. The 
+process of the project is described in the last part.
 
 % - Research
 \section{Research}
 % -  research/research
 % -    Domain research
 % -      Introduction
-This part is about the domain and the researches that has been done to broaden our knowledge about the subject.
-It is about the actors and what their purpose with the \gls{examiner} is to be.
-And a main part of the product, which is the feedback to the student.
-
-Other subject, that may be not so obvious, like didactics and the programming language are described as well.
-Also the talks about the different researches each one of the contributors have done.
-They are an extensible part of the section, and describe in detail the subjects at hand.
-
-The research context places the product in perspective. Other studies have been conducted by various researchers and also there are products that are alike.
-But the \gls{examiner} is at the moment one-of-its-kind.
-The subject has been explored, but not for the \gsl{js} language.
-Other studies are examined and placed in the context of our study.
+This part is about the context and domains wherein this project takes place, 
+shaped by the produced research artifacts.
+It is about the actors and their eventual purposes with the \gls{examiner}. One
+of the domain studies researches the domain of Feedback from several distinct
+perspectives. A didactic method on learning a programming language and
+analysis of the programming language itself, are researched too. The research 
+context section places the product in perspective. Related studies and efforts have been analyzed. A closely related and matured academic project has been analyzed more closely through a consult with one the main stakeholders.
 
 % -       research/domain-research-introduction
 % -       research/domain-research
 % -    Research Context}
 % -       research/research-context
+The researches resulted into a set of requirements, which enabled the transition
+from research to the actual implementation. These extracted requirement have
+been divided in two ways, namely the separation between functional and 
+non-functional, and the separation of requirements that are met during this
+project, and possible requirements for subsequent projects.
 
 % - Product
 \section{Product}
-This section gives an insight into the requirements that have been set up for the product.
-It gives the requirements for the various parts, functional and non-functional.
-These requirements are for the examination and the feedback.
-Also the possible requirements for future development are described.
-
-The architecture of the product is also part of this section. 
-It discusses the global architecture of the whole app.
-It does not go into detail or implementation specifics.
-Its clearifies the separation between domain, checks, RESTful server and frontend.
+Based on the requirements, it became possible to grasp the general conditions 
+to which the tool must apply. Based on these conditions, a general architecture
+was deduced. The related chapter clarifies the architectural structure, 
+containing the relation between domain, checks, RESTful server and frontend.
+From this overview, the several components are described to great detail, in
+order to facilitate succeeding contributions like subsequent projects.
 
 % -  product/product
 % -    Requirements
@@ -76,44 +82,82 @@ Its clearifies the separation between domain, checks, RESTful server and fronten
 % -    Checks
 % -      product/checks
 
-
 % -    Frontend
 % - \section{Frontend}
 The frontend section explains what modules have been chosen and why.
-It handles the UI framework Polymer (with a part about Web components and
-Isolation), and the module Code Mirror.
-It is used to give
-the user an easy to use interface to submit their code.
-
+It handles about the UI framework Polymer (with a part about Web components and
+Isolation), and the module Code Mirror. This module enables an easy to use 
+interface for code submission and providing feedback.
 % -    Backend
 % - \section{Backend}
-This part is about the server side logic. It gives a detailed analysis of the
-package manager and the individual packages that are used.
-in the development. It also is about the structure of the backend.
-
+The backend is about the server side logic. It gives a detailed analysis of the
+package manager and the individual packages that are used
+in the development. It also explains the structure of the backend.
 %   checks.
 Checks are separated modules which are called to make a statement
 about the validity and structure of the submitted \gls{js-code}.
-
-
 % -    Maintainability
 % -      product/maintainability}
-The maintainability part discusses the possibility to extend the tool with other modules.
-This will imply that the tool has to be maintained, and this should be done in a way that this is easy to to by developers or users. This way, the tool can be of gereat (and later maybe even greater) asset to the development os students.
-It gives a detailed description of what to keep in mind when preserving this maintainability.
+The maintainability part discusses the possibility to extend the tool with other 
+modules. One implication of extendibility is a demand for maintainability. 
+Through explicit definition and assigning high priority to this requirement from 
+the start, a detailed description of what to keep in mind when 
+preserving this maintainability could be concluded.
 
+
+% TODO FIX THIS transfer to Process section or to product section, discuss tomorrow:
+
+% \section{Tools}
+
+% Right from the start there was an idea about which tools we would start to use, to create the examiner. We were free to write it in any programming language, and
+% at first we were also thinking about Haskell.			
+% But as it was supposed to be used with \gls{js}, and the knowledge within our
+% team was better 
+% , we decided to use a platform based on \gls{js} for the construction of the tool. 
+% at first we were also thinking about Haskell.
+% But as it was supposed to be used with \gls{js}, and because the knowledge about \gls{js} within our
+% team was better % Dit deel van de zin is onduidelijk, wat bedoel je? (Oizor)
+% % Ik denk dat wat ik er nu van gemaakt heb (Slotkenov).
+% , we decided to use \gls{js} as well for the construction of the tool.
+
+% % Probeer in een verhaal te schrijven, dus niet tool 1, en tool2 en tool3 etc, maar
+% % Meer de verhouding tot elkaar; hoe het samen een geheel vormt.
+% % Node.js is het platform.
+% Along the way we have discovered a number of tools that helped us in creating the various parts of the project.
+% There is Node.js, which offers an environment to run \gls{js-code}.
+% % Onderstaande zin loopt niet.
+% Npm, part of Node.js, which is a package manager, so you don't have to install
+% all the dependent packages by hand.
+
+% Gulp is used to make a server and restart after every change in a text file.
+% Latex to create the reports and thesis.
+
+% % Probeer hier de lezer te motiveren om deze stukken te gaan lezen, wat staat er in,
+% % waarom is het interessant voor het onderzoek en wat zijn de belangrijkste bevindingen.
+
+% END TODO
 
 % - Process
 \section{Process}
-This part holds a discussion about the choises we made
-during the process of developing the \gls{examiner}.
-The choises regarding modeling and development decissions will be discussed.
-The decision made will be pointed out,
-including arguments as to why we thought
-that to be the best decision for this product.
 
-The section also holds a description of how we have experienced this project,
-both individual as wel as a team.
+
+% TODO: dit meer aankleden of helemaal weglaten
+
+% % an introduction of the team
+% \section{Team}
+% % Procesverslag
+% At the beginning, a face-to-face meeting had already been planned, to work out 
+% the initial ideas we had. A positive coincidence was that we are geographically 
+% not far apart.
+
+% End todo
+
+This part holds a discussion about the choices we made
+during the process of developing the \gls{examiner}. The choices regarding 
+modeling and development decisions are discussed, enlightening the choices made
+on research, product and the process itself. The section also holds a description of how we have experienced this project, both in a team reflection
+as an individual experience report.
+
 % -  process/process
 % -    Process Report
 % -      process/process-report
@@ -124,82 +168,3 @@ both individual as wel as a team.
 
 % - conclusion/conclusion
 
-
-The initial description of the project stated that it was the goal to create,
-at least making a start, of a software tool to check the validity
-of \gls{js-code}.
-
-% Procesverslag
-It is not only about creating a product, but also a chance to work in a team and write an academic article/thesis.
-This involves planning and communication.
-
-
-% an introduction of the team
-\section{Team}
-% Procesverslag
-At the beginning, a face-to-face meeting had already been planned, to work out the initial ideas we had.
-A positive coincidence was that we are geographically not far apart.
-
-
-\section{Javascript-examiner}
-The course \gls{wac} is a part of the curriculum of the Open University to give
-a student an introductory course about web programming.
-HTML5, CSS and \gls{js} are part of this course.
-The \gls{examiner} is a tool to be used as part of the chapters about the JavaScript language.
-It is supposed to validate a submission of a given exercise of a student.
-
-% Zou hier geen apart hoofstuk van maken, maar gewoon noemen bij de context
-\section{Product-owner}
-
-The product-owner himself, Dr.ir Harrie Passier, is a tutor of the aforementioned course.
-Together with another tutor, they have supplied structural information about
-what we were expected to create.
-
-
-\section{Goal}
-The initial goal of the project was to create a prototype to automatically examine
-software code consisting of \gls{js} and HTML.
-
-\section{Expectation}
-
-The expectation of the product-owner was to deliver a prototype to examine \gls{js-code}.
-Along the way, it became clear that the expectations had been shifted towards a working environment, which could be used in the upcoming session of the \gls{wac} course.
-
-\section{Tools}
-
-Right from the start there was an idea about which tools we would start to use, to create the examiner. We were free to write it in any programming language, and
-at first we were also thinking about Haskell.			
-But as it was supposed to be used with \gls{js}, and the knowledge within our
-team was better 
-, we decided to use a platform based on \gls{js} for the construction of the tool. 
-at first we were also thinking about Haskell.
-But as it was supposed to be used with \gls{js}, and because the knowledge about \gls{js} within our
-team was better % Dit deel van de zin is onduidelijk, wat bedoel je? (Oizor)
-% Ik denk dat wat ik er nu van gemaakt heb (Slotkenov).
-, we decided to use \gls{js} as well for the construction of the tool.
-
-% Probeer in een verhaal te schrijven, dus niet tool 1, en tool2 en tool3 etc, maar
-% Meer de verhouding tot elkaar; hoe het samen een geheel vormt.
-% Node.js is het platform.
-Along the way we have discovered a number of tools that helped us in creating the various parts of the project.
-There is Node.js, which offers an environment to run \gls{js-code}.
-% Onderstaande zin loopt niet.
-Npm, part of Node.js, which is a package manager, so you don't have to install
-all the dependent packages by hand.
-
-Gulp is used to make a server and restart after every change in a text file.
-Latex to create the reports and thesis.
-
-% Probeer hier de lezer te motiveren om deze stukken te gaan lezen, wat staat er in,
-% waarom is het interessant voor het onderzoek en wat zijn de belangrijkste bevindingen.
-\section{Domain research}
-Part of the project was also a personal domain research. At first, we thought of
-three domains to divide between us.
-Semantics, Feedback and tools.
-% Onderstaande is meer iets voor het procesverslag. Je kan wel vermelden dat we naast
-% de content van de 3 papers nog onderzoek hebben gedaan naar de te gebruikte tools
-After the research of the tools, it became clear that this wasn't a good domain
-to research.
-The research wasn't obsolete, but it had not sufficient academic content to be
-part of the project.
-There was use for it later in the actual development phase of the \gls{examiner}.
