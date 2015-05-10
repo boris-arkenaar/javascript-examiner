@@ -21,30 +21,30 @@ including arguments as to why we thought
 that to be the best decision for this product.
 
 \section{Checks}
-The \gls{examiner} consits of various checks for examining \gls{js-code}.
-We built a couple of these checks.
+The \gls{examiner} consits of various glspl{check} for examining \gls{js-code}.
+We built a couple of these glspl{check}.
 Other teams will pobably continue this project after us
-and will add checks to the \gls{examiner}.
-A modular approach for the checks seemed mandatory to enable
+and will add glspl{check} to the \gls{examiner}.
+A modular approach for the glspl{check} seemed mandatory to enable
 subsequent teams in working on the project.
 As explained in the Architecture chapter,
-the checks have direct access to the database
-and the frontend has direct access to the checks via HTTP.
+the glspl{check} have direct access to the database
+and the frontend has direct access to the glspl{check} via HTTP.
 There is no coupling with other backend logic.
 The frontend coupling is one way
 and via HTTP a clean interface is provided.
 Only the direct coupling with the database could be discussed.
-The checks have complete access to all data in the database
+The glspl{check} have complete access to all data in the database
 and could read and write anything they want.
 Another option would be to provide a RESTful interface ---
 like we have for the frontend ---
-which serves as the interface for the checks to communicate with the database.
+which serves as the interface for the glspl{check} to communicate with the database.
 We choose the approach of direct access to the database
-to not be to restrictive on the checks on one hand,
+to not be to restrictive on the glspl{check} on one hand,
 and to save time for other requirements on the other hand.
 And while making this choise it is not set in stone,
 it would be easy to implement an interface
-between the checks and the database later on if deemed necessary.
+between the glspl{check} and the database later on if deemed necessary.
 
 \section{Backend}
 When determining what backend server and language we would use

@@ -15,7 +15,7 @@ tutors and students, the exercises, solutions
 and the data that comprises these entities.
 Secondly we have a control layer,
 which acts as a separation between the domain layer and the application.
-Then there are the various checks for investigating \gls{js-code}.
+Then there are the various \glspl{check} for investigating \gls{js-code}.
 And finally, since we are dealing with a web application,
 we have a distinct client side.
 We will go into the details of each part in the sections below,
@@ -33,38 +33,38 @@ Besides facilitating communication between the client side and the domain
 it also does other things, like sending an email.
 
 \section{Checks}
-The checks are the modules that perform the examination of \gls{js-code}.
-In order to make it easy to extend the system with more checks in the future
-we placed the checks in relative isolation to the other parts of the system.
+The \glspl{check} are the modules that perform the examination of \gls{js-code}.
+In order to make it easy to extend the system with more \glspl{check} in the future
+we placed the \glspl{check} in relative isolation to the other parts of the system.
 In the same way that the client communicates with the control layer,
-the client can also communicate directly with each check.
-Each check in its turn communicates back to the client
+the client can also communicate directly with each \glspl{check}.
+Each \glspl{check} in its turn communicates back to the client
 and can reach out to the domain if necessary.
 
 As for the flow of the communication
-the checks have the same place as the control layer.
+the \glspl{check} have the same place as the control layer.
 In that manner they each are a specialized mini control layer on their own.
 We deliberately pulled them apart from the cortrol layer though
 in order to keep them as much plug-and-play as possible.
-This way the checks are not limited
+This way the \glspl{check} are not limited
 to the implementation we choose for the control layer.
-While it is possible to place a check on the same server,
+While it is possible to place a \glspl{check} on the same server,
 and write it in the same language as we choose for the control layer.
 With this architecture it is certainly possible as well
-to write the check in an other language
+to write the \glspl{check} in an other language
 and even run it on a different server.
 
-The only coupling the checks have is with the client and the domain.
-The client controls the logic for contacting the various checks.
-That logic would need to be updated when a check is added.
-The checks also need access to the domain
+The only coupling the \glspl{check} have is with the client and the domain.
+The client controls the logic for contacting the various \glspl{check}.
+That logic would need to be updated when a \gls{check} is added.
+The \glspl{check} also need access to the domain
 and need to be able to access
 the specific data storage implementation we choose for the domain.
-The domain only needs to be altered if a check expands on the domain model.
-This way the checks are decoupled from the control layer
+The domain only needs to be altered if a \gls{check} expands on the domain model.
+This way the \glspl{check} are decoupled from the control layer
 and its implementation
 which improves the ability to write,
-and change the checks for the \gls{examiner}
+and change the \glspl{check} for the \gls{examiner}
 
 \includegraphics[scale=0.75]{diagrams-images/code-submission-activity-diagram}
 
@@ -81,8 +81,8 @@ and the interaction with the user.
 It will also carry out the logic directly coupled to the user interface.
 For more domain specific logic
 the client side will contact the control layer on the server side.
-As well as for performing the various \gls{js-code} checks
-the client side will contact the checks.
+As well as for performing the various \gls{js-code} \glspl{check}
+the client side will contact the \glspl{check}.
 
 \section{Discussion}
 We will be laying the groundwork for this project
@@ -91,7 +91,7 @@ Other teams will pick up where we left and complement this software project.
 Because of this we chose to use a service oriented approach.
 Each functional requirement for examining \gls{js-code}
 will be encapsulated in a service.
-They form the checks of the \gls{examiner}
+They form the \glspl{check} of the \gls{examiner}
 and will be separated from the other backend logic
 The frontend \gls{source-code} has the ability to use these services,
 and can call them in any order, use their responses
@@ -100,7 +100,7 @@ It also \gls{source-code} displays the user interface to the end user
 and contacts the backend for sending and receiving the necessary information.
 Persistence of data is managed through some kind of database system
 containing the domain.
-The backend and the checks have access to this domain.
+The backend and the \glspl{check} have access to this domain.
 
 For any future development of this project
 the domain can be expanded
