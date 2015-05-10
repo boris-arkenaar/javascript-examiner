@@ -7,10 +7,9 @@
 % - syntax
 
 % Algemeen
-As it stands, we have 4 checks that are used in the \gls{examiner}.
-These check are called from within the server.js file.
-The number of checks can easily be extended by adding more endpoints to the list
-of allready available \glspl{check}
+As it stands, four checks are part of the \gls{examiner}.
+The number of checks can easily be extended due to the loose coupling as already
+in the Architecture section.
 
 \section{Format}
 
@@ -22,9 +21,8 @@ It's configuration can be set through a configuration file, jscs-config.json.
 Currently the content of this file is {"preset": "google"} which sets the checker
 to the Google preset.
 This can be configured at will, depending on the wishes of the tutor.
-The Google preset is a reflection of the style guide and is a list of dos and
-don'ts for JavaScript
-programs\footnote{\url{https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml}}.
+The Google preset is a reflection of the style guide and is a list of restrictions
+for \gls{js-code}\footnote{\url{https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml}}.
 JavaScript is the main client-side scripting language used by many of Google's
 open-source projects.
 
@@ -32,13 +30,33 @@ open-source projects.
 \section{Functionality}
 % Onveiligheid beschrijven van executen (ongeveriefierde code)
 
-This \gls{check} uses the Mocha framework \footnote{\url{http://mochajs.org/}} to run tests on the submitted code.
-To do this, the lines of code that were entered have to be executed.
-This could be a threat.
-Because the code is taken from the text field on the UI, there is no check
-on the lines of code whether these are valid \gls{js-code}.
-This way possible malicious code can be intercepted.
+This \gls{check} uses the Mocha framework \footnote{\url{http://mochajs.org/}} 
+to run tests on the submitted code. The \gls{tutor} adds a testsuite to the
+exercise. When the \gls{student} submits a \gls{solution}, the \gls{examiner}
+checks whether there is a testsuite available for the relating \gls{exercise}.
+If this is the case, the \gls{solution} will be transformed to a module, and
+included in the ``in place'' generated testsuite module. This way, we can test
+the functionality of the \gls{solution} server side. The \gls{solution} is
+actually being executed. As this code is in no way controllable, it might be
+possible to crash the tool by submitting a \gls{solution} consisting of 
+malicious \gls{js-code}. This has been recognized as a serious threat early on,
+and thoroughly discussed with the product owner. After addressing this threat 
+explicitly, it was agreed to implement it this way.
 
+While designing this \gls{check}, other and saver approaches passed. They where
+to complicated to implement during our project, but may be useful when improving
+the safety of this check, or extending it's features. Moving the executing of the
+testsuite to the client side, resolves the risk of application failure due to
+malicious code submitted by students. On the downside of this solution, it would
+no longer be possible to guarantee the authenticity of the results, when
+transmitted back to the server for the purpose of student progress logging. 
+A more robust implementation can be achieved alike the approach described in a
+blog of remoteinterview.io.\footnote{\url{http://blog.remoteinterview.io/post/89639823776/how-we-used-docker-to-compile-and-run-untrusted/}}
+Their approach is using docker\footnote{\url{http://www.docker.com/}}, a tool to
+run virtual server sandboxes, to create a failsafe environment wherein the 
+potentially malicious can be run without the risk of harming the main server or
+even the executing application. This approach seems to overcome the safety risk,
+without losing functionality. 
 
 \section{Maintainability}
 
@@ -51,13 +69,20 @@ complexity analysis of the submitted code described in a number of metrics.
 
 \section{Syntax}
 
-Checking the syntax is done by calling the Esprima parser\footnote{\url{http://esprima.org/}}.
-This is a light and fast parser, which returns an abstract syntax tree if there
-is no error, otherwise it returns the error.
-The configuration of the parser can be set within the check.
+Checking the syntax is done by calling the Esprima 
+parser\footnote{\url{http://esprima.org/}}. This is a light and fast parser, 
+which returns an abstract syntax tree if there is no error, otherwise it returns
+the error. The configuration of the parser can be set within the check.
 
 \section{Future work}
 An extention of the \glspl{check} could be the validation of
 every single line of code to confirm that it is valid \gls{js-code}.
 Also the AST can be used to do more \glspl{check} and say something about the
-equality of the submitted code and the standard solution.
+equality of the submitted code and the standard solution. Based on the domain 
+research article about the Recipe, it could be fruitful to create a \gls{check} 
+that is able to determine whether the prescribed recipe for code construction 
+has been followed. This might involve an multistage submission approach, where 
+each step of the recipe is followed by an examination. Whether this is desirable
+might be best answered by the product owners, but the architecture is very well
+suited for such kind of interim feedback.
+
