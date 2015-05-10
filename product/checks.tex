@@ -27,7 +27,7 @@ open-source projects.
 \section{Functionality}
 % Onveiligheid beschrijven van executen (ongeveriefierde code)
 
-This check uses the Mocha framework \footnote{\url{http://mochajs.org/}} to run tests on the submitted code.
+This \gls{check} uses the Mocha framework \footnote{\url{http://mochajs.org/}} to run tests on the submitted code.
 To do this, the lines of code that were entered have to be executed.
 This could be a threat.
 Because the code is taken from the text field on the UI, there is no check
@@ -39,8 +39,8 @@ This way possible malicious code can be intercepted.
 var esprima = require('esprima');
 var escomplex = require('escomplex');
 var walker = require('escomplex-ast-moz');
-This check returns an Abstract Syntax Tree if that can be produced.
-http://en.wikipedia.org/wiki/Abstract_syntax_tree
+This \gls{check} returns an Abstract Syntax Tree if that can be produced.
+\footnote{\url{http://en.wikipedia.org/wiki/Abstract_syntax_tree}}
 This is the representation of the submitted code, and can be input to various other tools.
 
 \section{Syntax}
@@ -51,7 +51,7 @@ var UglifyJS = require('uglify-js');
 
 
 \section{Future work}
-An extention of the checks could be the validation of
+An extention of the \glspl{check} could be the validation of
 every single line of code to confirm that it is valid \gls{js-code}.
-Also the AST can be used to do more checks and say something about the
+Also the AST can be used to do more \glspl{check} and say something about the
 equality of the submitted code and the standard solution.
