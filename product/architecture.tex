@@ -100,9 +100,22 @@ Persistence of data is managed through some kind of database system
 containing the domain.
 The backend and the \glspl{check} have access to this domain.
 
+\section{Future work}
 For any future development of this project
 the domain can be expanded
 and services can be added
 without the need to make complex changes to the existing code base.
 Only the frontend \gls{source-code} needs to be changed
 to make use of the added services.
+
+As discussed, when it seems necessary,
+it is possible to decouple the \glspl{check} domain directly
+and let all domain requests go through the control layer.
+This makes the \glspl{check} a bit less flexible,
+but it might be better for the maintainability of the domain
+when only the control layer has direct access to it.
+All other parts of the application have to go through the RESTful interface
+of the control layer.
+When a new \gls{check} expands on the domain,
+the control layer needs to expand its RESTful interface as well though
+using this change of architecture.
