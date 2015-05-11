@@ -120,3 +120,42 @@ Successive teams working on the \gls{examiner}
 can easily make use of many more of
 the functionalities provided by theCode Mirror if needed,
 for it is very flexible.
+
+\section{Future work}
+
+\subsection{Polymer}
+Since Polymer is a very new framework
+you need to keep a close look at its progress.
+We are currently using version 0.5.
+At the time of this writing there is an alpha release of version 0.8 out.
+For a next team it might be wise to look into
+migrating to a newer version of Polymer
+in order to keep the \gls{examiner} up to date.
+Waiting to long to migrate might make it difficult to migrate,
+it is better to do it a couple of times while its relatively easy,
+than having to do a major migration.
+
+\subsection{Unit testing}
+We did not succeed in writing unit tests for the frontend code.
+We looked into
+an article\footnote{\url{https://www.polymer-project.org/0.5/articles/unit-testing-elements.html}}
+about writing unit tests
+for elements written in Polymer,
+but it did not seem to work for most of our elements.
+With most of our elements there is not much interaction
+between the element and javascript outside of the element.
+Many of our elements are pages
+and they are simply pulled into the template when needed,
+And the elements only interect with the user and the backend,
+not so much with the rest of the application.
+This does not leave much to test for a unit test either.
+And the functions used in an element are internal to that element,
+thus not reachable by a unit test.
+
+The best way to go about this is making the elements as small as possible,
+with as little logic as possible,
+only logic needed directly for interaction with the user interface.
+Most of the logic can then be written outside of the elements in a generic way.
+This also makes it easy to share logic between elements.
+And that logic can easily be unit tested
+for it would be written in vanilla \gls{js}.
