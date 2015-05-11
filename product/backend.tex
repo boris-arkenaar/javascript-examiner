@@ -105,9 +105,10 @@ Here a more detailed explanation is given about the feedback-mapper.
 In every \gls{check} that is called by the \gls{examiner}, a call is made to the
 feedback-mapper.
 The input of the mapper function is the possible feedback of the \gls{check}.
-The mapper functions looks for a file that is called ``check-<check>-feedback'',
-where ``<check>'' is the name of the \gls{check} the mapper is called by.
-If the file exists, the content of the file, which is in JSON,
+The mapper functions looks for a file that is called 
+``check-\textless check\textgreater'-feedback'',
+where ``\textless check\textgreater'' is the name of the \gls{check} the mapper 
+is called from. If the file exists, the content of the file, which is in JSON,
 is stored in memory as a key-value pair.
 Otherwise, a new JSON object is created.
 The mapper function determines which \gls{check} it is called by.
