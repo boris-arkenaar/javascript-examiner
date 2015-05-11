@@ -1,16 +1,85 @@
-% conclusies en aanbevelingen, plusminus 2 pagina's, gezamenlijke tekst
+Commencing a project is complex. Only a few decisions are yet taken, while
+the direction and scope is still vague and undefined. This section reflects in a 
+glance on the journey that led to the genesis of the \gls{examiner}, pointing 
+out the main aspects and key decisions. Apart from the \gls{examiner}, the from 
+research derived conclusions and recommendations are gathered here as well. 
+While the the thesis up to now has been presented from a more or less chronological
+narrative, this conclusion will start with the current state. From
+here, shuttling back and forth in time, will denote and elucidate this state,
+shaping perspective and context.
 
-\chapter{Conclusion}
 
-At the beginning we thought our "mission" was to design a tool for examining \gls{js-code} and to
-possibly create a prototype.
-But along the way, it became appereant that the product owner had a full working
-system in mind, which could be used in
-the next following session of the \gls{wac} course.
-Eventually, we have succeeded to deliver a fully operational system.
+When considering this current state, a first indicator is the \gls{examiner}
+itself. While writing this section, the product owner is actually in power to
+test the application in a production environment. When considering the
+initial goal was creating a prototype, this achievement deserves some attention.
+During the research and elaboration phases, the main focus was directed towards 
+the functionalities in examining the \gls{js-code} and producing \gls{feedback}
+as a result of this examination. In demonstrating the application at the
+first iteration, this started to change. The product owner hinted the desire of
+a more or less production ready version at the end of the project. The 
+importance of enabling an early release of the \gls{application} came across
+during the Research Context related consult as well. Whereas a main goal of the
+studied project (IDEAS) was supporting the \gls{tutor}, there were no actual
+results available to determine whether this was achieved. According to the
+consulted stakeholder, they did not manage to test the application in a 
+production environment yet. This endorsed the importance of the desire to 
+develop towards a production release early on.
 
 
-\section{Recommendation}
+The initial approach for developing the \gls{examiner} targeted at a flexible
+and highly maintainable architecture and implementation, as it is not clear
+what the eventual usage will be. This requirement was immediately stressed
+when shifting from prototyping to production orientation. It turned out as
+expected, as we where able to add functionality like user management without 
+altering the structure of the application.
 
-Throughout the document we have given various recommendations of future work
-that can be done by following teams.
+
+As we speak, it is actually possible to deploy the \gls{examiner} and use it in 
+the \gls{wac} course. The extent to which this actual benefits to the achieve 
+the main goals
+--- reduce the labor intensity while maintaining or improving feedback to 
+students --- can only be determined afterwards. Still, the results from 
+\gls{tutor} and \gls{student} usage probably will be of great guidance when 
+determining the way to go from here (This immediately give rise to the need of
+creating a way for presenting the user feedback. It is already possible to
+address feedback to the \gls{examiner} and individual \glspl{exercise} as well,
+but this feedback is only be accessible through querying the database).
+Besides the deducible indicator through feedback from users, this 
+thesis issues quite some recommendations. Research revealed
+features which could not be developed within the given time. Striking
+examples are conclusions derived from the domain researches, like the possibility
+to enforce the usage of a design recipe like ``Felleisen''. The research itself
+leaded to new research questions as well. Whereas the paper on writing elegant
+\gls{js-code} elucidated the importance of more research on semantics, the
+consult directed towards helpful research that seem to be a fruitful approach
+to actually deal with this semantics related complexity.
+
+
+Developing software is a constant deliberation between refactoring and adding
+functionality. While the logic can be deduced over and over again, a pragmatic
+approach is demanded to reach functional goals. The Product part describes these
+considerations, leaving suggestions for improvement too. The possibilities to
+extend the program, mainly arisen from research, be at odds with the urge of
+refactoring the current code. In particular, the security issue in the 
+functionality check should be dealt with, possibly by using one of the offered
+resolutions. Another addressed concern, that is the database adapter, should be
+refactored, as the difficulty and time intensity to do so will grow when extending
+the \gls{examiner} with features that depend on persistence.
+
+
+The recommendations addressed is this section is only a subset. A more 
+comprehensive overview can be found at Github. Both the \gls{source-code}, 
+installation instructions, user manual (wiki) as the recommendations and known 
+bugs (issues) are published here. The clustering of relevant data and assignment
+of issues was very helpful to keep track of the progress.
+
+
+In defining the achievements reached with this project, it becomes clear there
+is
+
+
+
+
+
+
