@@ -21,77 +21,51 @@ including arguments as to why we thought
 that to be the best decision for this product.
 
 \section{Checks}
-The \gls{examiner} consits of various glspl{check} for examining \gls{js-code}.
-We built a couple of these glspl{check}.
+The \gls{examiner} consits of various \glspl{check} for examining \gls{js-code}.
+We built a couple of these \glspl{check}.
 Other teams will pobably continue this project after us
-and will add glspl{check} to the \gls{examiner}.
-A modular approach for the glspl{check} seemed mandatory to enable
+and will add \glspl{check} to the \gls{examiner}.
+A modular approach for the \glspl{check} seemed mandatory to enable
 subsequent teams in working on the project.
 As explained in the Architecture chapter,
-the glspl{check} have direct access to the database
-and the frontend has direct access to the glspl{check} via HTTP.
+the \glspl{check} have direct access to the database
+and the frontend has direct access to the \glspl{check} via HTTP.
 There is no coupling with other backend logic.
 The frontend coupling is one way
 and via HTTP a clean interface is provided.
 Only the direct coupling with the database could be discussed.
-The glspl{check} have complete access to all data in the database
+The \glspl{check} have complete access to all data in the database
 and could read and write anything they want.
 Another option would be to provide a RESTful interface ---
 like we have for the frontend ---
-which serves as the interface for the glspl{check} to communicate with the database.
+which serves as the interface for the \glspl{check} to communicate with the database.
 We choose the approach of direct access to the database
-to not be to restrictive on the glspl{check} on one hand,
+to not be to restrictive on the \glspl{check} on one hand,
 and to save time for other requirements on the other hand.
 And while making this choise it is not set in stone,
 it would be easy to implement an interface
-between the glspl{check} and the database later on if deemed necessary.
+between the \glspl{check} and the database later on if deemed necessary.
 
 \section{Backend}
 
- % TODO FIX THIS transfer to Process section or to product section, discuss tomorrow:
-
-% \section{Tools}
-
-% Right from the start there was an idea about which tools we would start to use, 
-% to create the examiner. We were free to write it in any programming language, and
-% at first we were also thinking about Haskell.			
-% But as it was supposed to be used with \gls{js}, and the knowledge within our
-% team was better 
-% , we decided to use a platform based on \gls{js} for the construction of the tool. 
-% at first we were also thinking about Haskell.
-% But as it was supposed to be used with \gls{js}, and because the knowledge about \gls{js} within our
-% team was better % Dit deel van de zin is onduidelijk, wat bedoel je? (Oizor)
-% % Ik denk dat wat ik er nu van gemaakt heb (Slotkenov).
-% , we decided to use \gls{js} as well for the construction of the tool.
-
-% % Probeer in een verhaal te schrijven, dus niet tool 1, en tool2 en tool3 etc, maar
-% % Meer de verhouding tot elkaar; hoe het samen een geheel vormt.
-% % Node.js is het platform.
-% Along the way we have discovered a number of tools that helped us in creating the various parts of the project.
-% There is Node.js, which offers an environment to run \gls{js-code}.
-% % Onderstaande zin loopt niet.
-% Npm, part of Node.js, which is a package manager, so you don't have to install
-% all the dependent packages by hand.
-
-% Gulp is used to make a server and restart after every change in a text file.
-% Latex to create the reports and thesis.
-
-% % Probeer hier de lezer te motiveren om deze stukken te gaan lezen, wat staat er in,
-% % waarom is het interessant voor het onderzoek en wat zijn de belangrijkste bevindingen.
-
-% END TODO
-
-
 When determining what backend server and language we would use
-we quickly found out about Node.js.
+we quickly found out about
+Node.js\footnote{\url{https://nodejs.org/}}.
 This seemed to be a good approach for the prototypical nature of the project.
 And, while not necessary, nicely integrates with the \gls{examiner}
 because \gls{js} is used to write code in Node.js.
 You can easily set something up in Node.js in minutes,
 there are modules available for sheer anything
 --- we found some modules which could be of great use to us ---
-And it is no problem to create a lightweight webserver in Node.js as well.
-With all these advantages we did not see the need
+and it is no problem to create a lightweight webserver in Node.js as well.
+At the very start of the project we also briefly thought of using
+Haskell\footnote{\url{https://www.haskell.org/}}.
+Being a functional programming language
+it might lend itself well for complex analisis of \gls{js-code}.
+However, none of us had (much) experience with Haskell.
+To be able to write code in the same language we were examining,
+and with all of the other advantages of using Node.js
+we did not see the need
 to dive deeper into other possible options for a backend.
 
 While it is so easy to start working in Node.js
