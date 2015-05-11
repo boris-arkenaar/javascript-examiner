@@ -4,14 +4,13 @@ var Objects = require('../objects');
 var mapper = require('../feedback-mapper');
 
 /**
-* @function check-syntax(exports)
-* @desc validates format of JS code
-* @param  {Object} submitted - the submitted data, with property code
-* @param  {Function} cb - the function(error, result) to call with result
-* as param.
-**/
+ * Checks the format of a solution by runnig jscs.
+ *
+ * @param {Object} submitted Information of the submitted solution.
+ * @param {function} cb
+ */
 module.exports = function(submitted, cb) {
-  //configure checker
+  // Configure checker
   var checker = new Checker();
   checker.registerDefaultRules();
   checker.configure(loadConfigFile.load(__dirname + '/jscs-config.json'));
@@ -19,7 +18,7 @@ module.exports = function(submitted, cb) {
   var returnList = [];
   try {
     var errors = checker.checkString(submitted.code);
-    //loop over errors
+    // Loop over errors
     errors.getErrorList().forEach(function(err) {
       var feedback = new Objects.Feedback();
       feedback.addressee = 'student';

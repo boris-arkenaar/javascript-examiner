@@ -3,7 +3,10 @@ var mapper = require('../feedback-mapper');
 var esprima = require('esprima');
 var UglifyJS = require('uglify-js');
 
-//configuration for esprima parsing
+/**
+ * Configuration for esprima parsing.
+ * @type {Object}
+ */
 var options = {
   tolerant:false,
   loc: true,
@@ -13,14 +16,12 @@ var options = {
 };
 
 /**
-* @function check-syntax(exports)
-* @desc validates syntax of JS code
-* @param  {Object} submitted - the submitted data, with property code
-* @param  {Function} cb - the function(error, result) to call with result
-* as param.
-**/
+ * Checks the syntax of a solution by parsing the code with esprima.
+ *
+ * @param {Object} submitted Information of the submitted solution.
+ * @param {function} cb
+ */
 module.exports = function(submitted, cb) {
-  //parse the code
   var result = parse(submitted.code);
   var feedbackList = [];
   if (result.err) {
@@ -44,17 +45,17 @@ module.exports = function(submitted, cb) {
 };
 
 /**
-* @function parse
-* @desc Tries to parse JS code
-* @param {String} code - the JS code to parse
-* @return {Object} with property ast if ok, and with err if error.
-**/
+ * Tries to parse JS code using esprima.
+ *
+ * @param {string} code The JS code to parse.
+ * @return {Object} With property ast if ok, and with err if error.
+ */
 function parse(code) {
   var result = {};
   try {
-    //try to parse with esprima
+    // Try to parse with esprima
     var abSynTree = esprima.parse(code, options);
-    //try to parse with uglify as well for double check
+    // Try to parse with uglify as well for double check
     var abSynTree2 = UglifyJS.parse(code);
     result.ast = abSynTree2;
   } catch (err) {
