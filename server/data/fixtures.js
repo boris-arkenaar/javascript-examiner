@@ -1,12 +1,13 @@
-var async = require('async');
-
 /**
-* Check if there are exercises present, and in case there are not, add some
-* example exercises.
-**/
+ * Checks if there are exercises present, and in case there are not, add some
+ * example exercises.
+ */
+
+var async = require('async');
 var database = require('../database.js');
 var collections = require('./collections');
 
+// Asynchronously adds users and exercises to the database
 async.series(
   [
     // Uncomment to add fixtures to testdatabase:
@@ -60,9 +61,9 @@ async.series(
 );
 
 /**
-* Add the exercises
-* @param {function} callback with form callback(err, res)
-*/
+ * Adds the users.
+ * @param {function} callback
+ */
 function addUsers(callback) {
   var users = [
     {
@@ -97,9 +98,9 @@ function addUsers(callback) {
 }
 
 /**
-* Add the exercises
-* @param {function} callback with form callback(err, res)
-*/
+ * Adds the exercises.
+ * @param {function} callback
+ */
 function addExercises(callback) {
   var exercise1 = {
     chapter: 5,

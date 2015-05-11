@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 
+// Information about feedback a user can provide on the platform.
 var userFeedbackSchema = mongoose.Schema({
   subject: String,
   feedback: String,
@@ -17,10 +18,23 @@ var userSchema = mongoose.Schema({
   resetPasswordToken: String
 });
 
+/**
+ * Generates a hashed version of a password, using salt.
+ *
+ * @param {string} The password to hash.
+ * @return {string} The hashed password.
+ */
 userSchema.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
+/**
+ * Checks if the password is the same as the one stored.
+ *
+ * @param {string} password The password to check.
+ * @return {boolean} True if the supplied password is the same as the password
+ *                   stored with the user, false otherwise.
+ */
 userSchema.methods.validPassword = function(password) {
   if (password === null || password === '' ||
       this.password === null || this.password === '') {
@@ -29,17 +43,20 @@ userSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.password);
 };
 
+// A function parameter for a function definition for an exercise
 var paramSchema = mongoose.Schema({
   name: String,
   type: String,
   description: String
 });
 
+// A function definition for an exercise
 var functionSchema = mongoose.Schema({
   name: String,
   params: [paramSchema]
 });
 
+// Metrics of a specific function in the solution
 var metricsFunctionSchema = mongoose.Schema({
   name: String,
   sloc: {
@@ -71,6 +88,7 @@ var metricsFunctionSchema = mongoose.Schema({
   cyclomaticDensity: Number
 });
 
+// A solution to an exercise
 var solution = {
   code: String,
   exerciseId: String,
