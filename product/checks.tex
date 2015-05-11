@@ -83,11 +83,8 @@ Currently the metrics the library reports on are :
 \end{enumerate}
 
 As stated by the author : ``It is important to note that none of these metrics can compete with the insight of a competent developer. At best, they are an automatable warning system, which can help to identify areas of code that warrant closer inspection by a human being.''
-
 If these metrics are persisted along with the submitted code, it can be used for
-analyzation purposes.
-
-The module can be called with a number of options set.
+analyzation purposes. The module can be called with a number of options set.
 Default these options are set to false.
 In the \gls{check} module, the options are manually set.
 The tolerant option is set to false. This means it break on the first error.
@@ -110,14 +107,14 @@ thus have no meaning of the content of the code.
 \section{Syntax}
 
 Checking the syntax is done by calling the Esprima 
-parser\footnote{\url{http://esprima.org/}}. This is a light and fast parser, 
+parser\footnote{\url{http://esprima.org/doc/}}. This is a light and fast parser, 
 which returns an abstract syntax tree (AST) if there is no error, otherwise it returns
 the error. The configuration of the parser can be set within the check.
 The AST that is produced is returned to the GUI, thus giving the \gls{student} a
 graphical representation of the code he submitted.
 For a detailed summary of the options, see the Maintainability section.
 In this \gls{check} the options are set as follows : tolerant:false, loc:true,
-range:true, raw:true, tokens:true.
+range:true, raw:true, tokens:true.\footnote{\url{http://esprima.org/doc/}}
 The other options have the default value of false.
 
 
