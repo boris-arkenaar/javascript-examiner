@@ -95,8 +95,10 @@ Option loc is set to true, which means that the nodes have a line and column-bas
 This way, when an error occurs, the linenumber and position on that line are properties of the returned object.
 Range is an option to supply the nodes with an index-based location range. It is set to true.
 The raw option is set to true. This means that literals have extra property which stores the verbatim source
-There is an extra array created in the returning object that contains all found tokens. This is et by the option tokens, and is set to true.
-Comment is not set, so default to false. This an extra array containing all line and block comments.
+There is an extra array created in the returning object that contains all found tokens.
+This is set by the option ``tokens'', and is set to true.
+Comment is not set, so default to false.
+This an extra array containing all line and block comments.
 
 Although there are a lot of metrics calculated, the use of them are beyond the
 use in our project.
