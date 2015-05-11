@@ -9,14 +9,14 @@
 % Algemeen
 As it stands, four checks are part of the \gls{examiner}.
 The number of checks can easily be extended due to the loose coupling as already
-in the Architecture section.
+described in the Architecture section.
 
 \section{Format}
 
 The format of the JavaScript within the solution is checked with the standard
 % Voetnoot link naar JSCS website
 JavaScript Code Style (JSCS) code style checker\footnote{\url{http://jscs.info/}}.
-It's configuration can be set through a configuration file, jscs-config.json.
+Its configuration can be set through a configuration file, jscs-config.json.
 % Linken naar de google preset config file
 Currently the content of this file is {"preset": "google"} which sets the checker
 to the Google preset.
@@ -33,7 +33,7 @@ open-source projects.
 This \gls{check} uses the Mocha framework \footnote{\url{http://mochajs.org/}} 
 to run tests on the submitted code. The \gls{tutor} adds a testsuite to the
 exercise. When the \gls{student} submits a \gls{solution}, the \gls{examiner}
-checks whether there is a testsuite available for the relating \gls{exercise}.
+checks whether there is a testsuite available for the related \gls{exercise}.
 If this is the case, the \gls{solution} will be transformed to a module, and
 included in the ``in place'' generated testsuite module. This way, we can test
 the functionality of the \gls{solution} server side. The \gls{solution} is
@@ -44,8 +44,8 @@ and thoroughly discussed with the product owner. After addressing this threat
 explicitly, it was agreed to implement it this way.
 
 While designing this \gls{check}, other and saver approaches passed. They where
-to complicated to implement during our project, but may be useful when improving
-the safety of this check, or extending it's features. Moving the executing of the
+too complicated to implement during our project, but may be useful when improving
+the safety of this check, or extending its features. Moving the executing of the
 testsuite to the client side, resolves the risk of application failure due to
 malicious code submitted by \glspl{student}. On the downside of this solution, it would
 no longer be possible to guarantee the authenticity of the results, when
@@ -54,7 +54,7 @@ A more robust implementation can be achieved alike the approach described in a
 blog of remoteinterview.io.\footnote{\url{http://blog.remoteinterview.io/post/89639823776/how-we-used-docker-to-compile-and-run-untrusted/}}
 Their approach is using docker\footnote{\url{http://www.docker.com/}}, a tool to
 run virtual server sandboxes, to create a failsafe environment wherein the 
-potentially malicious can be run without the risk of harming the main server or
+potentially malicious code can be run without the risk of harming the main server or
 even the executing application. This approach seems to overcome the safety risk,
 without losing functionality. 
 
