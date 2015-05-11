@@ -47,7 +47,7 @@ While designing this \gls{check}, other and saver approaches passed. They where
 to complicated to implement during our project, but may be useful when improving
 the safety of this check, or extending it's features. Moving the executing of the
 testsuite to the client side, resolves the risk of application failure due to
-malicious code submitted by students. On the downside of this solution, it would
+malicious code submitted by \glspl{student}. On the downside of this solution, it would
 no longer be possible to guarantee the authenticity of the results, when
 transmitted back to the server for the purpose of student progress logging. 
 A more robust implementation can be achieved alike the approach described in a
@@ -98,13 +98,25 @@ The raw option is set to true. This means that literals have extra property whic
 There is an extra array created in the returning object that contains all found tokens. This is et by the option tokens, and is set to true.
 Comment is not set, so default to false. This An extra array containing all line and block comments.
 
+Although there are a lot of metrics calculated, the use of them are beyond the
+use in our project.
+Because the metrics of two fully different programs can be the same.
+The metrics can be a calculation of found lines and statements, 
+thus have no meaning of the content of the code.
+
 
 \section{Syntax}
 
 Checking the syntax is done by calling the Esprima 
 parser\footnote{\url{http://esprima.org/}}. This is a light and fast parser, 
-which returns an abstract syntax tree if there is no error, otherwise it returns
+which returns an abstract syntax tree (AST) if there is no error, otherwise it returns
 the error. The configuration of the parser can be set within the check.
+The AST that is produced is returned to the GUI, thus giving the \gls{student} a
+graphical representation of the code he submitted.
+For a detailed summary of the options, see the Maintainability section.
+In this \gls{check} the options are set as follows : tolerant:false, loc: true, range: true, raw: true, tokens: true.
+The other options have the default value of false.
+
 
 \section{Future work}
 An extention of the \glspl{check} could be the validation of
