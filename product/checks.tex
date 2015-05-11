@@ -97,15 +97,11 @@ This is set by the option ``tokens'', and is set to true.
 Comment is not set, so default to false.
 This an extra array containing all line and block comments.
 
-Although there are a lot of metrics calculated, the use of them are beyond the
-use in our project.
-The metrics of two fully different programs can be the same.
-This because that metric can be a mathematical calculation of lines and statements,
-thus have no meaning of the content of the code.
-
+Although there are a lot of metrics calculated, the interpretation is mostly
+beyond the scope of this project. Currently, the only result from this check is
+a basic comparison of the \gls{student} \gls{solution} and model \gls{solution}.
 
 \section{Syntax}
-
 Checking the syntax is done by calling the Esprima 
 parser\footnote{\url{http://esprima.org/doc/}}. This is a light and fast parser, 
 which returns an abstract syntax tree (AST) if there is no error, otherwise it returns
@@ -117,13 +113,14 @@ In this \gls{check} the options are set as follows : tolerant:false, loc:true,
 range:true, raw:true, tokens:true.\footnote{\url{http://esprima.org/doc/}}
 The other options have the default value of false.
 
-
 \section{Future work}
-An extention of the \glspl{check} could be the validation of
-every single line of code to confirm that it is valid \gls{js-code}.
-Also the AST can be used to do more \glspl{check} and say something about the
-equality of the submitted code and the standard solution. Based on the domain 
-research article about the Recipe, it could be fruitful to create a \gls{check} 
+An possible extention of the \glspl{check} could be improvement of the
+maintainability check.
+Also the AST may be used to do more \glspl{check} and say something about the
+equality of the submitted code and the standard solution, in using extracting it
+as proposes in the Research Context section (Semantic Preserving Variations). 
+Based on the domain research article about the Recipe, it could be fruitful to 
+create a \gls{check} 
 that is able to determine whether the prescribed recipe for code construction 
 has been followed. This might involve an multistage submission approach, where 
 each step of the recipe is followed by an examination. Whether this is desirable
