@@ -36,7 +36,7 @@
       <div horizontal layout>
         <!-- label -->
         <div self-center class="label">
-          <core-label>Email:</core-label>  
+          <core-label>Email:</core-label>
         </div>
         <!-- content -->
         <div flex class="content">
@@ -48,10 +48,10 @@
         <!-- label -->
         <div self-center class="label">
           <core-label>Reset Password:</core-label>
-        </div> 
+        </div>
         <!-- content -->
         <div flex class="content">
-          <paper-checkbox checked="{{resetPassword}}" 
+          <paper-checkbox checked="{{resetPassword}}"
               disabled="{{resetPasswordDisabled}}">
           </paper-checkbox>
         </div>
@@ -61,12 +61,12 @@
         <!-- label -->
         <div self-center class="label">
           <core-label>Roles:</core-label>
-        </div> 
+        </div>
         <!-- content -->
         <div vertical layout class="content">
           <div horizontal layout>
             <div flex class>
-              <paper-checkbox checked="{{isTutor}}" 
+              <paper-checkbox checked="{{isTutor}}"
               disabled?="{{userId === session.userId}}">
               </paper-checkbox>
               <core-label>tutor</core-label>
@@ -87,7 +87,7 @@
         </paper-button>
         <template if="{{globalFeedback.length}}">
           <je-feedback>{{globalFeedback}}</je-feedback>
-        </template>  
+        </template>
         <paper-button id='deleteButton' disabled?="{{userId === session.userId}}"
             raised on-click="{{deleteUser}}">
           Delete User
@@ -95,26 +95,25 @@
         <a href="#/users">
           <paper-button raised>
             Back
-          </paper-button> 
-        </a>    
+          </paper-button>
+        </a>
       </div>
 
 
        <core-ajax id="upsertUser" url="/users"
                  method="post" contentType="application/json"
-                 handleAs="json" 
+                 handleAs="json"
                  body='{"user": "{{encoded}}", "resetPassword":"{{resetPassword}}"}'
                  on-core-response="{{onSaveResponse}}"></core-ajax>
       <core-ajax id="deleteUser" url="/users/{{userId}}"
                  method="delete" contentType="application/json"
-                 handleAs="json" 
+                 handleAs="json"
                  on-core-response="{{onDeleteResponse}}"></core-ajax>
 
     </div>
   </template>
   <script>
     Polymer({
-      
       userId: 0,
       currentUser: false,
       created: function() {
@@ -128,7 +127,7 @@
 
       attached: function() {
         if(this.userId && this.userId.length > 0) {
-          this.$.userRequest.go();  
+          this.$.userRequest.go();
         } else {
           this.isStudent = true;
           this.resetPassword = true;
@@ -147,7 +146,7 @@
         var roles = [];
         if(this.isStudent) {
           roles.push('student');
-        } 
+        }
         if (this.isTutor) {
           roles.push('tutor');
         }
@@ -170,7 +169,7 @@
         if (this.userId === this.session.userId) {
           return alert('Can\'t delete logged in user');
         }
-        if(this.userId && 
+        if(this.userId &&
           this.userId.length > 0 &&
           confirm('Do you really want to delete this User?')) {
           //Delete user
@@ -185,15 +184,14 @@
           console.log('Something went wrong');
         }
       }
-
-    }); 
+    });
 
     /**
-     * Source: 
+     * Source:
      * https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64.btoa
      */
     function utf8_to_b64(str) {
       return window.btoa(unescape(encodeURIComponent(str)));
-    }   
+    }
   </script>
 </polymer-element>

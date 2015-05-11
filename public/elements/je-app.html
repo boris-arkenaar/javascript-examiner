@@ -143,6 +143,7 @@
                 .go('/forbidden', {replace: true});
           }
 
+          // Build the navigation menu, based on the user roles
           if(!this.pages.length) {
             this.pages.push({name: 'Exercises', hash: 'exercises'});
             if (isTutor) {
@@ -152,6 +153,7 @@
         }
       },
       onBeforeDataBindingRoute: function(event) {
+        // Add the session object to the page element
         event.detail.model.session = this.session;
       },
       openFeedbackDialog: function(event, index, element){

@@ -39,6 +39,7 @@
       },
 
       domReady: function() {
+        // Initialize code mirror
         this.editor = CodeMirror.fromTextArea(this.$.inputField, {
           lineNumbers: true,
           mode: 'javascript',
@@ -50,6 +51,8 @@
       },
 
       valueChanged: function() {
+        // Make sure the code mirror value reflects the value attribute of
+        // this element
         if(this.editor && this.value && this.editor.getValue() !== this.value) {
           this.editor.setValue(this.value);
         }
@@ -60,6 +63,7 @@
           return;
         }
 
+        // Update the feedback displayed in the editor
         this.removeVisualFeedback();
 
         newValue.forEach(function(item) {
@@ -80,6 +84,15 @@
         }.bind(this));
       },
 
+      /**
+       * Creates a feedback widget for the specified feedback at a specific
+       * location in the editor.
+       *
+       * @param {Object} feedback The feedback information.
+       * @param {Object} pos A position object with line and character
+       *     position.
+       * @return {Element} The feedback widget.
+       */
       createFeedbackWidget: function(feedback, pos) {
         var element = document.createElement('je-feedback');
         element.innerHTML = feedback.description;
@@ -88,10 +101,25 @@
         return element;
       },
 
+      /**
+       * Creates a global feedback widget which will be displayed above the
+       * editor.
+       *
+       * @param {Object} feedback The feedback information.
+       */
       createGlobalFeedbackWidget: function(feedback) {
         this.globalFeedback = feedback.description;
       },
 
+      /**
+       * Creates an icon in the gutter for a specific feedback message.
+       * The corresponding feedback widget will be displayed upon hovering
+       * this gutter icon.
+       *
+       * @param {Object} widget The feedback widget.
+       * @param {Object} pos A position object with line and character
+       *     position.
+       */
       createFeedbackGutterIcon: function(widget, pos) {
         var gutterIcon = document.createElement('core-icon');
         gutterIcon.dataWidget = widget;
@@ -114,6 +142,12 @@
         return gutterIcon;
       },
 
+      /**
+       * Highlights the character in the editor at the givin position.
+       *
+       * @param {Object} pos A position object with line and character
+       *     position.
+       */
       markText: function(pos) {
         var start = {
           line: pos.line,
@@ -128,6 +162,10 @@
         });
       },
 
+      /**
+       * Removes all visual feedback (i.e. global feedback messages,
+       * feedback widgets, feedback gutter icons and highlighted characters.
+       */
       removeVisualFeedback: function() {
         this.removeGlobalFeedback.apply(this);
         this.removeFeedbackWidgets();
@@ -135,10 +173,16 @@
         this.removeTextMarkings();
       },
 
+      /**
+       * Removes the global feedback message.
+       */
       removeGlobalFeedback: function() {
         this.globalFeedback = '';
       },
 
+      /**
+       * Removes the feedback widgets.
+       */
       removeFeedbackWidgets: function() {
         this.widgets.forEach(function(widget) {
           var parent = widget.parentNode;
@@ -151,10 +195,16 @@
         this.widgets = [];
       },
 
+      /**
+       * Removes the feedback gutter icons.
+       */
       removeFeedbackGutterIcons: function() {
         this.editor.clearGutter('feedback');
       },
 
+      /**
+       * Removes the highlighting of highlighted characters.
+       */
       removeTextMarkings: function() {
         this.markings.forEach(function(marking) {
           marking.clear();
@@ -162,6 +212,13 @@
         this.markings = [];
       },
 
+      /**
+       * Toggles the display of a feedback widget
+       * corresponding to the given gutter icon.
+       *
+       * @param {Element} element The gutter icon corresponding to the
+       *     feedback widget to toggle.
+       */
       toggleFeedbackWidgets: function(element) {
         var node = element.dataWidget;
         var parentElement = element.dataParent;

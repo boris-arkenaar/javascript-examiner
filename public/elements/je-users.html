@@ -4,18 +4,18 @@
 <link rel="import" href="../bower_components/core-icons/core-icons.html">
 
 <polymer-element name="je-users" attributes="router">
-	<template>
-		<core-ajax id="usersRequest" url="/users"
+  <template>
+    <core-ajax id="usersRequest" url="/users"
                method="get" contentType="application/json"
                handleAs="json"
                on-core-response="{{onUsersResponse}}"></core-ajax>
-		<h1>Users</h1>
+    <h1>Users</h1>
 
-		<template if="{{users.length}}">
+    <template if="{{users.length}}">
       <ul>
         <template repeat="{{user in users}}">
           <li>
-          	{{user.email}}
+            {{user.email}}
             <a href="#/users/{{user._id}}/edit">
               <paper-icon-button title="edit" icon="create"></paper-icon-button>
             </a>
@@ -28,21 +28,21 @@
         </paper-button>
       </a>
     </template>
-			
-	</template>
-	<script>
-	Polymer({
-		created: function() {
-			this.users = [];
-		},
-		ready: function() {
-			console.log('Go');
-			this.$.usersRequest.go();
-		},
-		onUsersResponse: function(response) {
-			this.users = response.detail.response;
-			console.log(this.users);
-		}
-	});
-	</script>
+
+  </template>
+  <script>
+  Polymer({
+    created: function() {
+      this.users = [];
+    },
+    ready: function() {
+      console.log('Go');
+      this.$.usersRequest.go();
+    },
+    onUsersResponse: function(response) {
+      this.users = response.detail.response;
+      console.log(this.users);
+    }
+  });
+  </script>
 </polymer-element>

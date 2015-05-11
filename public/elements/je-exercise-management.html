@@ -51,7 +51,7 @@
       <div horizontal layout>
         <!-- label -->
         <div self-center class="label">
-          <core-label>Name:</core-label>  
+          <core-label>Name:</core-label>
         </div>
         <!-- content -->
         <div flex class="content">
@@ -63,7 +63,7 @@
         <!-- label -->
         <div class="label">
           <core-label>Description:</core-label>
-        </div> 
+        </div>
         <!-- content -->
         <div flex class="content">
           <paper-autogrow-textarea id="excercise-description-area" rows="3">
@@ -78,7 +78,7 @@
           <core-label>Model Solution:</core-label>
         </div>
         <div flex>
-          <je-code-mirror value="{{exercise.modelSolution.code}}" 
+          <je-code-mirror value="{{exercise.modelSolution.code}}"
             feedback="{{modelSolutionFeedback}}">
           </je-code-mirror>
         </div>
@@ -93,21 +93,21 @@
               <ul>
                 <li>studentCode: the submitted solution to be checked</li>
                 <li>
-                  assert: The 
+                  assert: The
                   <a target="_blank" href="http://chaijs.com/api/assert/">
                     Chai Assert
-                  </a> 
+                  </a>
                   style
                 </li>
                 <li>
-                  expect: The 
+                  expect: The
                   <a target="_blank" href="http://chaijs.com/api/bdd/">
                     Chai Expect
-                  </a> 
+                  </a>
                   style
                 </li>
                 <li>
-                  should: The 
+                  should: The
                   <a target="_blank" href="http://chaijs.com/api/bdd/">
                     Chai Should
                   </a>
@@ -115,7 +115,7 @@
                 </li>
               </ul>
           </div>
-          <je-code-mirror value="{{exercise.testSuite.code}}" 
+          <je-code-mirror value="{{exercise.testSuite.code}}"
             feedback="{{testSuitefeedback}}">
           </je-code-mirror>
         </div>
@@ -125,7 +125,7 @@
         <template if="{{testResults.stats}}">
           <!-- label -->
           <div class="label">
-            <core-label>Test Results:</core-label>  
+            <core-label>Test Results:</core-label>
           </div>
           <!-- content -->
           <div flex class="content">
@@ -139,31 +139,30 @@
         </paper-button>
         <template if="{{globalFeedback.length}}">
           <je-feedback>{{globalFeedback}}</je-feedback>
-        </template>  
+        </template>
         <paper-button raised on-click="{{deleteExercise}}">
           Delete Exercise
         </paper-button>
         <a href="#/exercises">
           <paper-button raised>
             Back
-          </paper-button> 
-        </a>    
+          </paper-button>
+        </a>
       </div>
-      
+
        <core-ajax id="upsertExercise" url="/exercises"
                  method="post" contentType="application/json"
                  handleAs="json" body='{"exercise": "{{encoded}}"}'
                  on-core-response="{{onSaveResponse}}"></core-ajax>
       <core-ajax id="deleteExercise" url="/exercises/{{exerciseId}}"
                  method="delete" contentType="application/json"
-                 handleAs="json" 
+                 handleAs="json"
                  on-core-response="{{onDeleteResponse}}"></core-ajax>
 
     </div>
   </template>
   <script>
     Polymer("je-exercise-management", {
-      
       exerciseId: 0,
 
       created: function() {
@@ -184,27 +183,12 @@
 
       attached: function() {
         if(this.exerciseId && this.exerciseId.length > 0) {
-          this.$.exerciseRequest.go();  
+          this.$.exerciseRequest.go();
         }
-        
       },
 
       onExerciseResponse: function(response) {
         this.exercise = response.detail.response;
-
-        // this.exercise.functions.forEach(function(func) {
-        //   var description = '/*\n';
-        //   description += '\t@function\t'+func.name+'\n\t@desc\t'+
-        //       (func.description || '<description>')+'\n';
-        //   func.params.forEach(function(param) {
-        //     description += '\t@param {'+
-        //         (param.type || '<type>')+'} '+
-        //         (param.name || '<name> ')+'\t'+'- '+
-        //         (param.description || '<description>')+'\n'
-        //   });
-        //   description +='*/\n'
-        //   func.description = description;
-        // });
       },
 
       saveExercise: function() {
@@ -237,7 +221,7 @@
       },
 
       deleteExercise: function() {
-        if(this.exerciseId && 
+        if(this.exerciseId &&
           this.exerciseId.length > 0 &&
           confirm('Do you really want to delete this Exercise?')) {
           //Delete exercise
@@ -254,14 +238,14 @@
       }
 
     });
-    
+
     /**
-     * Source: 
+     * Source:
      * https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64.btoa
      */
     function utf8_to_b64(str) {
       return window.btoa(unescape(encodeURIComponent(str)));
     }
-    
+
   </script>
 </polymer-element>
