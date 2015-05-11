@@ -10,12 +10,10 @@ narrative, this conclusion will start with the current state (which can be best
 experienced through actually 
 examining \footnote{installation instruction can be found at
 \url{https://github.com/Slotkenov/javascript-examiner\#installing}}
-
- the \gls{examiner}, but for a visual glance,
+the \gls{examiner}, but for a visual glance,
 please checkout the user manual ingredients appendix \ref{app:user-manual}). From
-here, shuttling back and forth in time, will denote and elucidate this state,
+here, shuttling back and forth in time, it will denote and elucidate this state,
 shaping perspective and context.
-
 
 When considering this current state, a first indicator is the \gls{examiner}
 itself. While writing this section, the product owner is actually in power to
@@ -34,7 +32,6 @@ consulted stakeholder, they did not manage to test the application in a
 production environment yet. This endorsed the importance of the desire to 
 develop towards a production release early on.
 
-
 The initial approach for developing the \gls{examiner} targeted at a flexible
 and highly maintainable architecture and implementation, as it is not clear
 what the eventual usage will be. This requirement was immediately stressed
@@ -42,17 +39,16 @@ when shifting from prototyping to production orientation. It turned out as
 expected, as we where able to add functionality like user management without 
 altering the structure of the application.
 
-
 As we speak, it is actually possible to deploy the \gls{examiner} and use it in 
 the \gls{wac} course. The extent to which this actual benefits to achieve 
 the main goals
 --- reduce the labor intensity while maintaining or improving feedback to 
 students --- can only be determined afterwards. Still, the results from 
 \gls{tutor} and \gls{student} usage probably will be of great guidance when 
-determining the way to go from here (This immediately give rise to the need of
+determining the way to go from here. (This immediately gives rise to the need of
 creating a way for presenting the user feedback. It is already possible to
-address feedback to the \gls{examiner} and individual \glspl{exercise} as well,
-but this feedback is only accessible through querying the database).
+address feedback on the \gls{examiner} and individual \glspl{exercise},
+but this user feedback is only accessible through querying the database.)
 Besides the deducible indicator through feedback from users, this 
 thesis issues quite some recommendations. Research revealed
 features which could not be developed within the given time. Striking
@@ -60,9 +56,8 @@ examples are conclusions derived from the domain researches, like the possibilit
 to enforce the usage of a design recipe like ``Felleisen''. The research itself
 led to new research questions as well. Whereas the paper on writing elegant
 \gls{js-code} elucidated the importance of more research on semantics, the
-consult directed towards helpful research that seem to be a fruitful approach
+consult directed towards helpful research that seems to be a fruitful approach
 to actually deal with this semantics related complexity.
-
 
 Developing software is a constant deliberation between refactoring and adding
 functionality. While the logic can be deduced over and over again, a pragmatic
@@ -75,9 +70,8 @@ resolutions. Another addressed concern, that is the database adapter, should be
 refactored, as the difficulty and time intensity to do so will grow when extending
 the \gls{examiner} with features that depend on persistence.
 
-
 The recommendations addressed is this section are only a subset. A more 
-comprehensive overview can be found at GitHub. As already mentioned in the 
+comprehensive overview can be found on GitHub. As already mentioned in the 
 introduction, both the \gls{source-code}, 
 installation instructions, user manual (wiki) as the recommendations and known 
 bugs (issues) are published with 
@@ -87,7 +81,6 @@ of issues has been very helpful to keep track of the progress. Another benefit
 is the ease of transmission to a new team. Not only are they able to ``fork'' 
 the current version of the code, it is possible to check the list of 
 remaining open issues as well.
-
 
 Elaborating this project has been challenging in a positive way. In the beginning
 it took some time to get the process going, in the end it was hard to stop developing
