@@ -64,11 +64,11 @@ The maintainability \gls{check} uses esprima\footnote{\url{http://esprima.org/}}
 escomplex\footnote{\url{https://github.com/philbooth/escomplex}} and
 escomplex-ast-moz\footnote{\url{https://github.com/philbooth/escomplex-ast-moz}} module.
 The first module generates output that is used as input for the next module.
-Its output is send to the third and the total output is the software
+Its output is sent to the third and the total output is the software
 complexity analysis of the submitted code described in a number of metrics.
 
 The maintainability check is a check to generate metrics about the submitted code.
-Currently the metrics the library reports on are :
+Currently the metrics the library reports on are:
 \begin{enumerate}
  \item Lines of code: Both physical (the number of lines in a module or function) and logical (a count of the imperative statements). A crude measure.
  \item Number of parameters: Analysed statically from the function signature, so no accounting is made for functions that rely on the arguments object. Lower is better.
@@ -82,19 +82,19 @@ Currently the metrics the library reports on are :
  \item Core size: The percentage of modules that are both widely depended on and themselves depend on other modules. Lower is better.
 \end{enumerate}
 
-As stated by the author : ``It is important to note that none of these metrics can compete with the insight of a competent developer. At best, they are an automatable warning system, which can help to identify areas of code that warrant closer inspection by a human being.''
+As stated by the author: ``It is important to note that none of these metrics can compete with the insight of a competent developer. At best, they are an automatable warning system, which can help to identify areas of code that warrant closer inspection by a human being.''
 If these metrics are persisted along with the submitted code, it can be used for
 analyzation purposes. The module can be called with a number of options set.
-Default these options are set to false.
+By default these options are set to false.
 In the \gls{check} module, the options are manually set.
-The tolerant option is set to false. This means it break on the first error.
-Option loc is set to true, which means that the nodes have a line and column-based location info.
-This way, when an error occurs, the linenumber and position on that line are properties of the returned object.
-Range is an option to supply the nodes with an index-based location range. It is set to true.
+The tolerant option is set to false. This means it breaks on the first error.
+Option loc is set to true, which means that the nodes have a line and column based location info.
+This way, when an error occurs, the line number and position on that line are properties of the returned object.
+Range is an option to supply the nodes with an index based location range. It is set to true.
 The raw option is set to true. This means that literals have extra property which stores the verbatim source
-There is an extra array created in the returning object that contains all found tokens.
+There is an extra array created in the returning object that contains all tokens found.
 This is set by the option ``tokens'', and is set to true.
-Comment is not set, so default to false.
+Comment is not set, so defaults to false.
 This an extra array containing all line and block comments.
 
 Although there are a lot of metrics calculated, the interpretation is mostly
@@ -109,18 +109,18 @@ the error. The configuration of the parser can be set within the check.
 The AST that is produced is returned to the GUI, thus giving the \gls{student} a
 graphical representation of the code he submitted.
 For a detailed summary of the options, see the Maintainability section.
-In this \gls{check} the options are set as follows : tolerant:false, loc:true,
+In this \gls{check} the options are set as follows: tolerant:false, loc:true,
 range:true, raw:true, tokens:true.\footnote{\url{http://esprima.org/doc/}}
 The other options have the default value of false.
 
 \section{Future work}
-An possible extention of the \glspl{check} could be improvement of the
+A possible extension of the \glspl{check} could be improvement of the
 maintainability check.
 Also the AST may be used to do more \glspl{check} and say something about the
 equality of the submitted code and the standard solution, in using extracting it
-as proposes in the Research Context section (Semantic Preserving Variations). 
+as proposed in the Research Context section (Semantic Preserving Variations). 
 Based on the domain research article about the Recipe, it could be fruitful to 
-create a \gls{check} 
+create an \gls{check} 
 that is able to determine whether the prescribed recipe for code construction 
 has been followed. This might involve an multistage submission approach, where 
 each step of the recipe is followed by an examination. Whether this is desirable
