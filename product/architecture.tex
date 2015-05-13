@@ -10,77 +10,77 @@
 
 The \gls{examiner} consists of four parts.
 First of we have the domain we are working on, consisting of, among others,
-% Hier verwijzen naar het domain model
 tutors and students, the exercises, solutions
 and the data that comprises these entities.
 Secondly we have a control layer,
 which acts as a separation between the domain layer and the application.
 Then there are the various \glspl{check} for investigating \gls{js-code}.
 And finally, since we are dealing with a web application,
-we have a distinct client side.
+we have a distinct client side which we call frontend from now on.
 We will go into the details of each part in the sections below,
 where we will discuss their part in the global architecture of the system,
-and how the communication flows between each part. For a graphical 
-representation of the architecture, see appendix \ref{app:architecture}. A 
-domain model can be found in \ref{app:domain-model} whereas an activity diagram 
+and how the communication flows between each part. For a graphical
+representation of the architecture, see appendix \ref{app:architecture}. A
+domain model can be found in \ref{app:domain-model} whereas an activity diagram
 that visualizes the code submission is presented in \ref{app:activity-diagram}
 
 \section{Control layer}
-The control layer is the server side,
+The control layer is the server side (which we call backend from now on)
 in the client-server architecture common to web applications.
-It handles clientside requests
+It handles requests from the frontend
 for retrieving or modifying a part of the domain.
-Besides facilitating communication between the client side and the domain
-it also does other things, like sending an email.
+Besides facilitating communication between the frontend and the domain
+it also does other things, like sending emails for (re)setting passwords.
 
 \section{Checks}
-The \glspl{check} are the modules that perform the examination of \gls{js-code}.
+The \glspl{check} are the modules that perform the examination of \gls{js-code},
+like checking on syntax, format, functionality and maintainability.
 In order to make it easy to extend the system with more \glspl{check} in the future
 we placed the \glspl{check} in relative isolation to the other parts of the system.
-In the same way that the client communicates with the control layer,
-the client can also communicate directly with one of the \glspl{check}.
-Each \gls{check} in its turn communicates back to the client
+In the same way that the frontend communicates with the control layer,
+the frontend can also communicate directly with one of the \glspl{check}.
+Each \gls{check} in its turn communicates back to the frontend
 and can reach out to the domain if necessary.
 
 As for the flow of the communication
 the \glspl{check} have the same place as the control layer.
-In that manner they each are a specialized mini control layer on their own.
+In that manner each \gls{check} is a specialized mini control layer on its own.
 We deliberately pulled them apart from the control layer though
 in order to keep them as much plug-and-play as possible.
 This way the \glspl{check} are not limited
 to the implementation we choose for the control layer.
-While it is possible to place a \glspl{check} on the same server,
+While it is possible to place an \gls{check} on the same server,
 and write it in the same language as we choose for the control layer.
 With this architecture it is certainly possible as well
 to write the \glspl{check} in an other language
 and even run it on a different server.
 
-The only coupling the \glspl{check} have is with the client and the domain.
-The client controls the logic for contacting the various \glspl{check}.
+The only coupling the \glspl{check} have is with the frontend and the domain.
+The frontend controls the logic for contacting the various \glspl{check}.
 That logic would need to be updated when a \gls{check} is added.
 The \glspl{check} also need access to the domain
 and need to be able to access
 the specific data storage implementation we choose for the domain.
 The domain only needs to be altered if a \gls{check} expands on the domain model.
 This way the \glspl{check} are decoupled from the control layer
-and its implementation which improves the ability to write, and change 
-the \glspl{check} for the \gls{examiner}. 
+and its implementation which improves the ability to write, and change
+the \glspl{check} for the \gls{examiner}.
 
-\section{Client side}
+\section{Frontend}
 Because we are building a web application
 we have to deal with the browser side of things.
-Thus we have a client side in our application.
+Thus we have a frontend in our application.
 To provide a rich user experience we created a single page application.
 No page reloads will occur
-and communication with the server will be done through
+and communication with the backend will be done through
 XHR requests\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest?redirectlocale=en-US&redirectslug=DOM\%2FXMLHttpRequest}}.
-The client will be responsible for the user interface
+The frontend will be responsible for the user interface
 and the interaction with the user.
 It will also carry out the logic directly coupled to the user interface.
 For more domain specific logic
-the client side will contact the control layer on the server side.
+the frontend will contact the control layer on the backend.
 As well as for performing the various \gls{js-code} \glspl{check}
-the client side will contact the \glspl{check}.
+the frontend will contact the \glspl{check}.
 
 \section{Discussion}
 We will be laying the groundwork for this project
@@ -94,7 +94,7 @@ and will be separated from the other backend logic
 The frontend \gls{source-code} has the ability to use these services,
 and can call them in any order, use their responses
 and supply responses from one service to another.
-It also \gls{source-code} displays the user interface to the end user
+It also displays the user interface to the end user
 and contacts the backend for sending and receiving the necessary information.
 Persistence of data is managed through some kind of database system
 containing the domain.

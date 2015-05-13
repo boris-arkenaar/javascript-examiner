@@ -11,8 +11,19 @@ As it stands, four checks are part of the \gls{examiner}.
 The number of checks can easily be extended due to the loose coupling as already
 described in the Architecture section.
 
-\section{Format}
+\section{Syntax}
+Checking the syntax is done by calling the Esprima 
+parser\footnote{\url{http://esprima.org/doc/}}. This is a light and fast parser, 
+which returns an abstract syntax tree (AST) if there is no error, otherwise it returns
+the error. The configuration of the parser can be set within the check.
+The AST that is produced is returned to the GUI, thus giving the \gls{student} a
+graphical representation of the code he submitted.
+For a detailed summary of the options, see the Maintainability section.
+In this \gls{check} the options are set as follows: tolerant:false, loc:true,
+range:true, raw:true, tokens:true.\footnote{\url{http://esprima.org/doc/}}
+The other options have the default value of false.
 
+\section{Format}
 The format of the JavaScript within the solution is checked with the standard
 % Voetnoot link naar JSCS website
 JavaScript Code Style (JSCS) code style checker\footnote{\url{http://jscs.info/}}.
@@ -23,7 +34,7 @@ to the Google preset.
 This can be configured at will, depending on the wishes of the tutor.
 The Google preset is a reflection of the style guide and is a list of restrictions
 for \gls{js-code}\footnote{\url{https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml}}.
-JavaScript is the main client-side scripting language used by many of Google's
+JavaScript is the main frontend scripting language used by many of Google's
 open-source projects.
 
 
@@ -36,7 +47,7 @@ exercise. When the \gls{student} submits a \gls{solution}, the \gls{examiner}
 checks whether there is a testsuite available for the related \gls{exercise}.
 If this is the case, the \gls{solution} will be transformed to a module, and
 included in the ``in place'' generated testsuite module. This way, we can test
-the functionality of the \gls{solution} server side. The \gls{solution} is
+the functionality of the \gls{solution} on the backend. The \gls{solution} is
 actually being executed. As this code is in no way controllable, it might be
 possible to crash the tool by submitting a \gls{solution} consisting of 
 malicious \gls{js-code}. This has been recognized as a serious threat early on,
@@ -46,7 +57,7 @@ explicitly, it was agreed to implement it this way.
 While designing this \gls{check}, other and saver approaches passed. They where
 too complicated to implement during our project, but may be useful when improving
 the safety of this check, or extending its features. Moving the executing of the
-testsuite to the client side, resolves the risk of application failure due to
+testsuite to the frontend, resolves the risk of application failure due to
 malicious code submitted by \glspl{student}. On the downside of this solution, it would
 no longer be possible to guarantee the authenticity of the results, when
 transmitted back to the server for the purpose of student progress logging. 
@@ -100,18 +111,6 @@ This an extra array containing all line and block comments.
 Although there are a lot of metrics calculated, the interpretation is mostly
 beyond the scope of this project. Currently, the only result from this check is
 a basic comparison of the \gls{student} \gls{solution} and model \gls{solution}.
-
-\section{Syntax}
-Checking the syntax is done by calling the Esprima 
-parser\footnote{\url{http://esprima.org/doc/}}. This is a light and fast parser, 
-which returns an abstract syntax tree (AST) if there is no error, otherwise it returns
-the error. The configuration of the parser can be set within the check.
-The AST that is produced is returned to the GUI, thus giving the \gls{student} a
-graphical representation of the code he submitted.
-For a detailed summary of the options, see the Maintainability section.
-In this \gls{check} the options are set as follows: tolerant:false, loc:true,
-range:true, raw:true, tokens:true.\footnote{\url{http://esprima.org/doc/}}
-The other options have the default value of false.
 
 \section{Future work}
 A possible extension of the \glspl{check} could be improvement of the
