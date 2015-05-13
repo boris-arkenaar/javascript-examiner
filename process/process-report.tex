@@ -13,9 +13,9 @@
 % + Frontend Polymer, AngularJS or from scratch/Twitter Bootstrap
 % - Unit testing Jasmine or Mocha/Chai
 
-This chapter will be a discussion about the choises we made
+This chapter will be a discussion about the choices we made
 during the process of developing the \gls{examiner}.
-The choises regarding modeling and development decissions will be discussed.
+The choices regarding modeling and development decisions will be discussed.
 The decision made will be pointed out,
 including arguments as to why we thought
 that to be the best decision for this product.
@@ -40,14 +40,54 @@ Another option would be to provide a RESTful interface ---
 like we have for the frontend ---
 which serves as the interface for the \glspl{check} to communicate with the database.
 We choose the approach of direct access to the database
-to not be to restrictive on the \glspl{check} on one hand,
+to not be too restrictive on the \glspl{check} on one hand,
 and to save time for other requirements on the other hand.
-And while making this choise it is not set in stone,
+And while making this choice it is not set in stone,
 it would be easy to implement an interface
 between the \glspl{check} and the database later on if deemed necessary.
 
-\section{Backend}
+\section{Frontend}
+At the very beginning we started out
+just writing some standalone HTML and \gls{js} for our frontend needs.
+But soon we saw the need for a more structured way at the frontend as well,
+especially since we wanted to develop a \gls{spa}.
+We looked at a few different possibilities.
+Namely: AngularJS or Polymer.
+To address the styling of our application we could use Twitter Bootstrap.
 
+AngularJS is a fairly new framework which makes creating templates a breeze.
+It can be combined with Twitter Bootstrap for a good looking app.
+The downside of AngularJS is that when your needs grow more specific
+and you need to create your own custom elements
+(called directives in AngularJS),
+AngularJS tends to get very complicated.
+
+Polymer is even newer than AngularJS
+and has been discussed at length in the Frontend chapter.
+While not used much and not documented very well yet,
+Polymer has a great way of creating custom HTML elements
+making use of web standards.
+Therefor it is future proof
+and becomes more stable automatically as browsers implement these standards.
+Besides that it comes with a set of custom elements
+complete with styling,
+which makes it not necessary to bring in another styling package
+like Twitter Bootstrap.
+
+Nobody of us had experience with Polymer
+and we thought this a good opportunity to get to know it.
+Polymer seems to be framework with a lot of potential.
+With documentation that could be better
+and not much to find about it on the Internet
+it is a bit tough to start with.
+But that might pay of very well in a few years
+when Polymer has gained some traction.
+It remains a guess and you always have to find a balance
+between safety and innovation,
+but in the still so young, and quickly shifting area of web development
+you have to think ahead a few steps all the time.
+
+\section{Backend}
 When determining what backend server and language we would use
 we quickly found out about
 Node.js\footnote{\url{https://nodejs.org/}}.
@@ -61,7 +101,7 @@ and it is no problem to create a lightweight webserver in Node.js as well.
 At the very start of the project we also briefly thought of using
 Haskell\footnote{\url{https://www.haskell.org/}}.
 Being a functional programming language
-it might lend itself well for complex analisis of \gls{js-code}.
+it might lend itself well for complex analysis of \gls{js-code}.
 However, none of us had (much) experience with Haskell.
 To be able to write code in the same language we were examining,
 and with all of the other advantages of using Node.js
@@ -87,61 +127,6 @@ This way there is no overhead, as the dependencies were added when actualy
 needed. Hence, our code base will be kept clean, small and organized.
 Furthermore it was easy to keep everything documented for the ease of future 
 teams.
-
-\section{Frontend}
-At the very beginning we started out
-just writing some standalone HTML and \gls{js} for our frontend needs.
-But soon we saw the need for a more structured way at the frontend as well,
-especially since we wanted to develop a single page app.
-We looked at a few different possibilities.
-Namely: AngularJS, Polymer or starting from scratch.
-To address the styling of our application we could use Twitter Bootstrap.
-
-AngularJS is a fairly new framework which makes creating templates a breeze.
-It can be combined with Twitter Bootstrap for a good looking app.
-The downside of AngularJS is that when your needs grow more specific
-and you need to create your own custom elements
-(called directives in AngularJS),
-AngularJS tends to get very complicated.
-
-Polymer is even newer than AngularJS
-and has been discussed at length in the Frontend chapter.
-While not used much and not documented very well yet,
-Polymer has a great way of creating custom HTML elements
-making use of web standards.
-Therefor it is future proof
-and becomes more stable automatically as browsers implement these standards.
-Besides that it comes with a set of custom elements
-complete with styling,
-which makes it not necessary to bring in another styling package
-like Twitter Bootstrap.
-
-Starting from scratch is also an option
-and seems a good choice because we also made that choice for the backend.
-It would mean not using any framework and write everything ourselves.
-We could make use of existing small modules with specific functionality
-like we do on the backend.
-Add Twitter Bootstrap and you get a great frontend.
-The only problem is that the frontend tends to get more complex
-in the setup of a single page application.
-A lot of logic is on the frontend side,
-specific code is needed to create the specificities of a singe page application
-and then you have to worry about cross browser compliance
-for all that code as well.
-These reasons made us choose a framework over this option.
-
-Nobody of us had experience with Polymer
-and we thought this a good opportunity to get to know it.
-Polymer seems to be framework with a lot of potential.
-With documentation that could be better
-and not much to find about it on the Internet
-it is a bit tough to start with.
-But that might pay of very well in a few years
-when Polymer has gained some traction.
-It remains a guess and you always have to find a balance
-between safety and innovation,
-but in the still so young, and quickly shifting area of web development
-you have to think ahead a few steps all the time.
 
 \section{Maintainability}
 To keep our code maintainable, it is good to write unit tests.

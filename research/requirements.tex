@@ -57,15 +57,8 @@ please take notice of the use-cases in appendix \ref{app:use-cases}
 
 \section{Requirements for future development}
 \subsection{Functional Requirements}
+\subsubsection{Interaction}
 \begin{description}
-  \item[Plagiarism detection] The JavaScript-examiner should be able to detect
-    plagiarism.
-  \item[Relative execution time calculation] The JavaScript-examiner should be 
-    able to calculate the relative execution time for given JavaScript code.
-  \item[Language constructs detection] The JavaScript-examiner should be able
-    to detect, and point out to the student, when an important language
-    construct is missing that is advised to be used in the exercise in
-    question.
   \item[Student test case submission] The students should be able to write and
     submit test cases for exercises, which the JavaScript-examiner can examine
     and add to the test suite of the particular exercise.
@@ -80,14 +73,19 @@ please take notice of the use-cases in appendix \ref{app:use-cases}
   \item[Statistics] The tutor should be able to retrieve statistics about the
     results of the various metrics and \glspl{check} performed in the past on the
     JavaScript code of (any or some of) the students.
-  \item[Security in executing submitted code] Sufficient measures should be
-    taken to guarantee the integrity of the system while executing submitted
-    code.
   \item[Format] The format of the returned feedback should be easily printable.
 \end{description}
 
 \subsubsection{Examination}
 \begin{description}
+  \item[Plagiarism detection] The JavaScript-examiner should be able to detect
+    plagiarism.
+  \item[Relative execution time calculation] The JavaScript-examiner should be 
+    able to calculate the relative execution time for given JavaScript code.
+  \item[Language constructs detection] The JavaScript-examiner should be able
+    to detect, and point out to the student, when an important language
+    construct is missing that is advised to be used in the exercise in
+    question.
   \item[Programming guidelines definition] The JavaScript-examiner should have
     a definition of a set of programming guidelines to be used in \glspl{check}.
   \item[Programming guidelines check] The JavaScript-examiner should be able to
@@ -96,6 +94,13 @@ please take notice of the use-cases in appendix \ref{app:use-cases}
   \item[Metric results comparison] The JavaScript-examiner should be able to
     compare the results from the maintainability metrics of the student's
     submitted JavaScript code with the results of the tutor's solution.
+  \item[Security in executing submitted code] Sufficient measures should be
+    taken to guarantee the integrity of the system while executing submitted
+    code.
+\end{description}
+
+\subsubsection{Progress}
+\begin{description}
   \item[Code saving] The JavaScript-examiner should save the JavaScript code
     from the students, for future examination.
   \item[Results logging] The JavaScript-examiner should log the results from
