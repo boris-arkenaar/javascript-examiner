@@ -23,14 +23,14 @@ Run `gulp` to start the server.
 
 ## Tests
 All unittests will run automatically with gulp. The test files can be
-recognized by the ``.test`` annotation (which make ``gulp`` run the tests) in the 
+recognized by the `.test` annotation (which make `gulp` run the tests) in the
 filename. There is one integration test
-the wouldn't run automatically (``server/server.manual-test.js``), 
-to test the RESTfull server. (because it actually inits the server, and 
-conflicts with the main initialization of ``gulp``).
+that wouldn't run automatically (`server/server.manual-test.js`),
+to test the RESTful server. (because it actually initializes the server, and
+conflicts with the main initialization of `gulp`).
 
 All tests can be initialized automatically as well with a testrunner like
-``mocha``.
+`mocha`.
 
 ## Configure
 
