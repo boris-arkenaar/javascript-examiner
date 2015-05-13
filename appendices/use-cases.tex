@@ -1,14 +1,14 @@
 \section{Use Cases}
 
 \subsection{Use Case Diagram}
-\includegraphics[scale=1.2]{appendices/diagrams-images/use-case-diagram}
+\includegraphics[scale=1]{appendices/diagrams-images/use-case-diagram}
 
 \subsection{Main Use Cases}
 
 \subsubsection{Create an Exercise}
 \begin{mdframed} [rightmargin=-100pt]
 \begin{description}
-  \item[Scope] Javascript-Examiner
+  \item[Scope] JavaScript-examiner
   \item[Level] user goal
   \item[Primary Actor] Tutor
   \item[Preconditions] -
@@ -32,7 +32,7 @@
 \subsubsection{Modify an Exercise}
 \begin{mdframed} [rightmargin=-100pt]
 \begin{description}
-  \item[Scope] Javascript-Examiner
+  \item[Scope] JavaScript-examiner
   \item[Level] user goal
   \item[Primary Actor] Tutor
   \item[Preconditions] There is at least 1 exercise available.
@@ -41,9 +41,9 @@
 	\begin{enumerate}
 	  \item Tutor selects exercise from overview. \underline{Include: get
         an overview of available exercises}
-	  \item System presents editable overview with exercise information.
-	  \item Tutor modifies exercise information.
-    \item Tutor submits modified exercise information.
+	  \item System presents editable overview with exercise specifics.
+	  \item Tutor modifies exercise.
+    \item Tutor submits modified exercise.
     \item System confirms the exercise is successfully modified.
 	\end{enumerate}
 \end{description}
@@ -52,7 +52,7 @@
 \subsubsection{Make an exercise}
 \begin{mdframed} [rightmargin=-100pt]
 \begin{description}
-  \item[Scope] Javascript-Examiner
+  \item[Scope] JavaScript-examiner
   \item[Level] user goal
   \item[Primary Actor] Student
   \item[Preconditions] There is at least 1 exercise available.
@@ -71,14 +71,13 @@
 \end{description}
 \end{mdframed}
 
-\subsubsection{Modify configuration}
 \newpage
 \subsection{Supporting Use Cases}
 
 \subsubsection{Get an overview of existing exercises}
 \begin{mdframed} [rightmargin=-100pt]
 \begin{description}
-  \item[Scope] Javascript-Examiner
+  \item[Scope] JavaScript-examiner
   \item[Level] Subfunction
   \item[Primary Actor] Student, Tutor
   \item[Preconditions] Usecase \underline{make an exercise}, 
@@ -91,7 +90,7 @@
 	  \item Student / Tutor requests overview of exercises
 	  \item System presents overview of exercises
 	\end{enumerate}
-  \item[Extensions] \mbox{}
+  \item[(Possible future) Extensions] \mbox{}
     \begin{enumerate}
 	  \renewcommand{\labelenumi}{\theenumi a.}
 	  \item Only a selection of the exercises is being requested:
@@ -107,7 +106,7 @@
 \subsubsection{Submit the solution of an exercise}
 \begin{mdframed} [rightmargin=-100pt]
 \begin{description}
-  \item[Scope] Javascript-Examiner
+  \item[Scope] JavaScript-examiner
   \item[Level] Subfunction
   \item[Primary Actor] Student
   \item[Preconditions] Usecase \underline{make an exercise} initiated.
@@ -123,7 +122,7 @@
   \item[Extensions] \mbox{}
 	\begin{enumerate}
       \renewcommand{\labelenumi}{\theenumi a.}
-	  \item The interaction with the system has been interupted:
+	  \item The interaction with the system has been interrupted:
 		\begin{enumerate}[(1)]
 		  \renewcommand{\labelenumii}{\theenumii .}
 		  \item Student selects corresponding exercise from overview. \\
