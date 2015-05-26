@@ -21,7 +21,7 @@ var userSchema = mongoose.Schema({
 /**
  * Generates a hashed version of a password, using salt.
  *
- * @param {string} The password to hash.
+ * @param {string} password The password to hash.
  * @return {string} The hashed password.
  */
 userSchema.methods.generateHash = function(password) {

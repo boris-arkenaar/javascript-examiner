@@ -138,7 +138,7 @@ function saveTestSuite(testSuite, solutionFileId) {
  * Runs the test suite.
  * Reports the test results to the callback.
  *
- * @param {string} The ID of the solution file.
+ * @param {string} fileId The ID of the solution file.
  * @param {function} callback
  */
 function runTestSuite(fileId, callback) {

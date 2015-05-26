@@ -25,7 +25,7 @@ module.exports = function(check, feedback, cb) {
  * Builds the name and path of the file
  * that contains the custom feedback messages for the given check.
  *
- * @param {string} check The name of the check.
+ * @param {string} name The name of the check.
  */
 function generateFileName(name) {
   var localName = './server/';
@@ -59,7 +59,7 @@ function checkFile(name) {
  * Replaces raw feedback messages with customized text messages
  * defined in a separate file for each check.
  *
- * @param {string} check The check the feedback came from.
+ * @param {string} module The check the feedback came from.
  * @param {Array.<Object>} feedback The feedback received
  *                                  from running the check.
  * @param {function} callback
